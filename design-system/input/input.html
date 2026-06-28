@@ -1,0 +1,41 @@
+@if (labelRef()) {
+	<label class="df-input__label typography-caption" [for]="inputId">
+		<ng-content select="[dfLabel]" />
+	</label>
+}
+
+<div class="df-input__wrapper" [class]="wrapperClass()">
+	<ng-content select="[dfPrefix]" />
+	<input
+		[id]="inputId"
+		[type]="type()"
+		[placeholder]="placeholder()"
+		[value]="value()"
+		[disabled]="isDisabled()"
+		[readOnly]="readonly()"
+		[attr.aria-invalid]="hasError() || null"
+		[attr.aria-describedby]="describedBy()"
+		(input)="onInput($event)"
+		(focus)="isFocused.set(true)"
+		(blur)="onBlur()" />
+	<ng-content select="[dfSuffix]" />
+	@if (clearable() && value() && !isDisabled() && !readonly()) {
+		<df-icon-button
+			class="df-input__clear"
+			icon="close"
+			variant="ghost"
+			size="sm"
+			ariaLabel="Clear"
+			(clicked)="clear()" />
+	}
+</div>
+
+@if (errorRef() || hintRef()) {
+	<span class="df-input__message" [class.df-input__message--error]="hasError()" [id]="messageId">
+		@if (errorRef()) {
+			<ng-content select="[dfError]" />
+		} @else {
+			<ng-content select="[dfHint]" />
+		}
+	</span>
+}

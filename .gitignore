@@ -1,0 +1,17 @@
+# ── Node / npm (Angular package) ──────────────────────────────────────────────
+node_modules/
+dist/
+*.tsbuildinfo
+.angular/
+npm-debug.log*
+
+# ── .NET (Razor Class Library) ────────────────────────────────────────────────
+bin/
+obj/
+*.user
+
+# ── Editor / OS ───────────────────────────────────────────────────────────────
+.vs/
+.idea/
+.DS_Store
+Thumbs.db

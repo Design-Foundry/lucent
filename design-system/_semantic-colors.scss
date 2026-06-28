@@ -1,0 +1,55 @@
+:root {
+	/* =========================================================
+	 * Text
+	 * ========================================================= */
+
+	--color--semantic--text-strong: var(--color--primitive--slate-10);
+	--color--semantic--text-default: var(--color--primitive--slate-30);
+	--color--semantic--text-muted: var(--color--primitive--slate-50);
+	--color--semantic--text-subtle: var(--color--primitive--slate-60);
+
+	--color--semantic--text-inverse: var(--color--primitive--slate-95);
+	--color--semantic--text-onaccent: var(--color--primitive--pine-95);
+
+	/* =========================================================
+	 * Accent
+	 * ========================================================= */
+
+	--color--semantic--accent-default:
+		var(--color--primitive--pine-70);
+
+	--color--semantic--accent-strong:
+		var(--color--primitive--pine-50);
+
+	--color--semantic--accent-subtle:
+		var(--color--primitive--pine-90);
+
+	/* =========================================================
+	 * Feedback
+	 * ========================================================= */
+
+	--color--semantic--success:
+		var(--color--primitive--success-70);
+
+	--color--semantic--success-subtle:
+		var(--color--primitive--success-90);
+
+	--color--semantic--warning:
+		var(--color--primitive--warning-70);
+
+	--color--semantic--warning-subtle:
+		var(--color--primitive--warning-90);
+
+	--color--semantic--error:
+		var(--color--primitive--error-70);
+
+	--color--semantic--error-subtle:
+		var(--color--primitive--error-90);
+
+	/* =========================================================
+	 * Overlay
+	 * ========================================================= */
+
+	--color--semantic--scrim:
+		oklch(from var(--color--primitive--neutral-20) l c h / 0.5);
+}

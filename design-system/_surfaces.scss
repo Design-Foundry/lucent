@@ -1,0 +1,78 @@
+:root {
+  /* =========================================================
+   * Surface — Color
+   * ========================================================= */
+
+  --color--semantic--surface-base:    var(--color--primitive--neutral-95);
+  --color--semantic--surface-default: var(--color--primitive--neutral-100);
+  --color--semantic--surface-raised:  var(--color--primitive--neutral-100);
+  --color--semantic--surface-overlay: var(--color--primitive--neutral-100);
+
+  --color--semantic--surface-glass: oklch(
+    from var(--color--primitive--neutral-100) l c h / 0.5
+  );
+
+  --color--semantic--surface-glass-strong: oklch(
+    from var(--color--primitive--neutral-100) l c h / 0.7
+  );
+
+  --color--semantic--surface-glass-subtle: oklch(
+    from var(--color--primitive--neutral-100) l c h / 0.1
+  );
+}
+
+// ─── Utility Classes ──────────────────────────────────────────────────────────
+
+.surface-base {
+  background-color: var(--color--semantic--surface-base);
+}
+
+.surface-default {
+  background-color: var(--color--semantic--surface-default);
+  box-shadow: var(--shadow-xs);
+}
+
+.surface-raised {
+  background-color: var(--color--semantic--surface-raised);
+  box-shadow: var(--shadow-sm);
+}
+
+.surface-overlay {
+  background-color: var(--color--semantic--surface-overlay);
+  box-shadow: var(--shadow-lg);
+}
+
+.surface-glass {
+  background-color: var(--color--semantic--surface-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.surface-glass-strong {
+  background-color: var(--color--semantic--surface-glass-strong);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.surface-glass-subtle {
+  background-color: var(--color--semantic--surface-glass-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.breath-soft {
+	background: radial-gradient(77.01% 159.26% at 72.95% 81.4%, rgba(194, 219, 244, 0.30) 0%, rgba(243, 245, 245, 0.55) 100%), radial-gradient(162.6% 145.43% at 22.75% 25.63%, rgba(209, 230, 230, 0.35) 0%, rgba(255, 255, 255, 0.55) 100%), #FFF;
+}
+
+.clickable-card {
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+
+  &:hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:active {
+    box-shadow: var(--shadow-xs);
+  }
+}

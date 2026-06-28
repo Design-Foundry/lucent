@@ -1,0 +1,11 @@
+@for (item of items(); track item.label; let last = $last) {
+	<span
+		class="df-breadcrumbs__item"
+		[class.is-last]="last"
+		(click)="!last && itemClick.emit(item)">
+		{{ item.label }}
+	</span>
+	@if (!last) {
+		<span class="df-breadcrumbs__sep" aria-hidden="true">/</span>
+	}
+}

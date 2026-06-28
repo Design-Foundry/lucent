@@ -1,0 +1,9 @@
+<input
+  [id]="inputId"
+  [class]="hostClass()"
+  [value]="value()"
+  [placeholder]="placeholder()"
+  [disabled]="isDisabled()"
+  (input)="onInput($event)"
+  (focus)="isFocused.set(true)"
+  (blur)="onBlur()" />

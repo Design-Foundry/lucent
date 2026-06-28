@@ -1,0 +1,140 @@
+:host {
+	display: inline-block;
+
+	// Density (default md). Buttons run a roomier inline padding than fields.
+	--_h: var(--control-height-md);
+	--_text: var(--control-text-md);
+	--_radius: var(--control-radius-md);
+	--_gap: var(--control-gap-md);
+	--_px: var(--dimension--primitive--spacing-6);  // 24
+}
+
+:host.df-button--xs {
+	--_h: var(--control-height-xs); --_text: var(--control-text-xs);
+	--_radius: var(--control-radius-xs); --_gap: var(--control-gap-xs);
+	--_px: var(--dimension--primitive--spacing-4);  // 16
+}
+:host.df-button--sm {
+	--_h: var(--control-height-sm); --_text: var(--control-text-sm);
+	--_radius: var(--control-radius-sm); --_gap: var(--control-gap-sm);
+	--_px: var(--dimension--primitive--spacing-5);  // 20
+}
+:host.df-button--lg {
+	--_h: var(--control-height-lg); --_text: var(--control-text-lg);
+	--_radius: var(--control-radius-lg); --_gap: var(--control-gap-lg);
+	--_px: var(--dimension--primitive--spacing-7);  // 28
+}
+
+.df-button__inner {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--_gap);
+	height: var(--_h);
+	padding: 0 var(--_px);
+	border-radius: var(--_radius);
+	border: none;
+	cursor: pointer;
+	font-family: var(--font--primitive--sans);
+	font-size: var(--_text);
+	font-weight: var(--dimension--primitive--fw-light);
+	line-height: var(--control-line);
+	white-space: nowrap;
+	transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+	--mdc-circular-progress-active-indicator-color: currentColor;
+
+	&:disabled {
+		cursor: not-allowed;
+		pointer-events: none;
+		opacity: 0.4;
+	}
+}
+
+// ─── Primary ──────────────────────────────────────────────────────────────────
+
+:host.df-button--primary .df-button__inner {
+	background: var(--color--semantic--accent-strong);
+	color: var(--color--semantic--text-inverse);
+
+	&:hover:not(:disabled) {
+		background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h);
+	}
+	&:active:not(:disabled) {
+		background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h);
+	}
+}
+
+// ─── Secondary ────────────────────────────────────────────────────────────────
+
+:host.df-button--secondary .df-button__inner {
+	background: var(--color--semantic--accent-subtle);
+	color: var(--color--semantic--text-strong);
+
+	&:hover:not(:disabled) {
+		background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.08) c h);
+	}
+	&:active:not(:disabled) {
+		background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.16) c h);
+	}
+}
+
+// ─── Ghost ────────────────────────────────────────────────────────────────────
+
+:host.df-button--ghost .df-button__inner {
+	background: var(--color--semantic--surface-default);
+	color: var(--color--semantic--text-strong);
+	border: var(--border-default);
+
+	&:hover:not(:disabled) {
+		background: oklch(from var(--color--semantic--accent-subtle) calc(l + 0.03) c h);
+	}
+	&:active:not(:disabled) {
+		background: var(--color--semantic--accent-subtle);
+	}
+}
+
+// ─── On glass ─────────────────────────────────────────────────────────────────
+
+:host.df-button--on-glass .df-button__inner {
+	background: var(--color--semantic--surface-glass);
+	color: var(--color--semantic--text-strong);
+
+	&:hover:not(:disabled) {
+		background: var(--color--semantic--surface-glass-strong);
+		box-shadow: var(--shadow-xs);
+	}
+	&:active:not(:disabled) {
+		background: var(--color--semantic--surface-glass-strong);
+		box-shadow: var(--shadow-sm);
+	}
+}
+
+// ─── Danger ───────────────────────────────────────────────────────────────────
+
+:host.df-button--danger .df-button__inner {
+	background: var(--color--semantic--error-subtle);
+	color: var(--color--semantic--error);
+
+	&:hover:not(:disabled) {
+		background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h);
+	}
+	&:active:not(:disabled) {
+		background: var(--color--semantic--error);
+		color: var(--color--semantic--text-inverse);
+	}
+}
+
+// ─── Text ─────────────────────────────────────────────────────────────────────
+
+:host.df-button--text .df-button__inner {
+	background: transparent;
+	color: var(--color--semantic--accent-default);
+	text-decoration: underline;
+
+	&:hover:not(:disabled) {
+		background: var(--color--semantic--surface-default);
+	}
+	&:active:not(:disabled) {
+		color: var(--color--semantic--accent-strong);
+	}
+}

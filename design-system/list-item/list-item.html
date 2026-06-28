@@ -1,0 +1,13 @@
+@if (icon() && !leadingRef()) {
+	<df-icon class="df-list-item__icon" [name]="icon()" size="sm" />
+}
+<ng-content select="[dfLeading]" />
+
+<span class="df-list-item__content">
+	<span class="df-list-item__primary"><ng-content>{{ label() }}</ng-content></span>
+	@if (supportingRef()) {
+		<span class="df-list-item__supporting"><ng-content select="[dfSupporting]" /></span>
+	}
+</span>
+
+<ng-content select="[dfTrailing]" />

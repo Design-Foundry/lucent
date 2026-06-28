@@ -1,0 +1,4 @@
+@if (icon()) {
+	<df-icon [name]="icon()" [size]="scale() === 'lg' ? 'lg' : 'md'" />
+}
+<span class="df-tab__label"><ng-content>{{ label() }}</ng-content></span>

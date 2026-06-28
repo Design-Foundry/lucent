@@ -1,0 +1,28 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	min-width: 200px;
+	padding: var(--dimension--primitive--spacing-1) 0;
+	border-radius: var(--radius-md);
+	background: var(--color--semantic--surface-default);
+	border: var(--border-strong);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(50px);
+	box-shadow: var(--shadow-md);
+	overflow: hidden;
+	animation: df-menu-in 120ms ease;
+}
+
+:host.df-menu--closing {
+	animation: df-menu-out 120ms ease forwards;
+}
+
+@keyframes df-menu-in {
+	from { opacity: 0; transform: translateY(-4px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes df-menu-out {
+	from { opacity: 1; transform: translateY(0); }
+	to   { opacity: 0; transform: translateY(-4px); }
+}

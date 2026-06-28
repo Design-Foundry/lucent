@@ -1,0 +1,47 @@
+:host {
+	display: flex;
+	align-items: center;
+	gap: var(--dimension--primitive--spacing-2);
+	height: var(--dimension--primitive--sizing-8);
+	padding: 0 var(--dimension--primitive--spacing-3);
+	cursor: pointer;
+	transition: background 0.1s ease;
+
+	&:hover:not(.is-active) {
+		background: var(--color--semantic--surface-subtle);
+	}
+
+	&.is-active {
+		background: var(--color--semantic--surface-base);
+	}
+
+	&.is-danger {
+		.df-menu-item__icon,
+		.df-menu-item__label {
+			color: var(--color--semantic--error);
+		}
+
+		&:hover:not(.is-active),
+		&.is-active {
+			background: var(--color--semantic--error-subtle);
+		}
+	}
+}
+
+.df-menu-item__icon {
+	color: var(--color--semantic--text-muted);
+	flex-shrink: 0;
+}
+
+.df-menu-item__label {
+	flex: 1 0 0;
+	min-width: 0;
+	font-family: var(--font--primitive--sans);
+	font-size: var(--typography--caption--font-size);
+	font-weight: var(--dimension--primitive--fw-light);
+	line-height: var(--dimension--primitive--lh-relaxed);
+	color: var(--color--semantic--text-default);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

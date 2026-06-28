@@ -1,0 +1,13 @@
+<button
+	class="df-button__inner"
+	[type]="type()"
+	[disabled]="disabled() || loading()"
+	(click)="clicked.emit($event)">
+	@if (loading()) {
+		<span class="df-spinner" style="width: 18px; height: 18px"></span>
+	} @else {
+		<ng-content select="[dfPrefix]" />
+		<span class="df-button__label"><ng-content /></span>
+		<ng-content select="[dfSuffix]" />
+	}
+</button>

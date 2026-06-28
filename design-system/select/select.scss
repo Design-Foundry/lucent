@@ -1,0 +1,108 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	gap: var(--dimension--primitive--spacing-0-5);
+	width: 100%;
+	position: relative;
+
+	// Density (default md).
+	--_h: var(--control-height-md);
+	--_text: var(--control-text-md);
+	--_radius: var(--control-radius-md);
+	--_px: var(--control-pad-x-md);
+}
+
+:host.df-select--xs { --_h: var(--control-height-xs); --_text: var(--control-text-xs); --_radius: var(--control-radius-xs); --_px: var(--control-pad-x-xs); }
+:host.df-select--sm { --_h: var(--control-height-sm); --_text: var(--control-text-sm); --_radius: var(--control-radius-sm); --_px: var(--control-pad-x-sm); }
+:host.df-select--lg { --_h: var(--control-height-lg); --_text: var(--control-text-lg); --_radius: var(--control-radius-lg); --_px: var(--control-pad-x-lg); }
+
+// ─── Label ────────────────────────────────────────────────────────────────────
+
+.df-select__label {
+	color: var(--color--semantic--text-strong);
+}
+
+// ─── Trigger ──────────────────────────────────────────────────────────────────
+
+.df-select__trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: var(--_h);
+	padding: 0 var(--_px);
+	border-radius: var(--_radius);
+	border: var(--border-subtle);
+	background: var(--color--semantic--surface-default);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(50px);
+	cursor: pointer;
+	width: 100%;
+	text-align: left;
+	transition: border-color 0.15s ease;
+
+	&--focus  { border: var(--border-strong); }
+	&--filled { border: var(--border-default); }
+	&--error  { border: 1px solid var(--color--semantic--error-subtle); }
+	&--disabled { opacity: 0.4; cursor: not-allowed; }
+
+	&:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+}
+
+.df-select__value {
+	font-family: var(--font--primitive--sans);
+	font-size: var(--_text);
+	font-weight: var(--dimension--primitive--fw-light);
+	line-height: var(--control-line);
+	color: var(--color--semantic--text-default);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1 0 0;
+	min-width: 0;
+
+	&.is-placeholder { color: var(--color--semantic--text-muted); }
+}
+
+.df-select__trigger--error .df-select__value {
+	color: var(--color--semantic--error);
+}
+
+.df-select__caret {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+	color: var(--color--semantic--text-muted);
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+
+	&.is-open { transform: rotate(180deg); }
+}
+
+// ─── Dropdown ─────────────────────────────────────────────────────────────────
+
+// Rendered inside a CDK overlay (positioned + width-matched by the overlay).
+.df-select__dropdown {
+	background: var(--color--semantic--surface-default);
+	border: var(--border-strong);
+	border-radius: var(--radius-sm);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(50px);
+	padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-0-5);
+	box-shadow: var(--shadow-md);
+	overflow: hidden;
+	max-height: 280px;
+	overflow-y: auto;
+}
+
+// ─── Messages ─────────────────────────────────────────────────────────────────
+
+.df-select__message {
+	font-family: var(--font--primitive--sans);
+	font-size: var(--typography--micro--font-size);
+	font-weight: var(--dimension--primitive--fw-light);
+	line-height: var(--dimension--primitive--lh-relaxed);
+	color: var(--color--semantic--text-muted);
+
+	&--error { color: var(--color--semantic--error); }
+}

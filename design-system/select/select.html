@@ -1,0 +1,69 @@
+@if (labelRef()) {
+  <span class="df-select__label typography-caption" [id]="labelId">
+    <ng-content select="[dfLabel]" />
+  </span>
+}
+
+<button
+  #trigger
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  type="button"
+  class="df-select__trigger"
+  [class]="triggerClass()"
+  [disabled]="isDisabled()"
+  role="combobox"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-controls]="listboxId"
+  [attr.aria-activedescendant]="activeDescendant()"
+  [attr.aria-labelledby]="labelRef() ? labelId : null"
+  [attr.aria-invalid]="hasError() || null"
+  [attr.aria-describedby]="describedBy()"
+  (click)="toggle()"
+  (keydown)="onTriggerKeydown($event)"
+  (blur)="isFocused.set(false)"
+>
+  <span class="df-select__value" [class.is-placeholder]="!selectedLabel()">
+    {{ selectedLabel() || placeholder() }}
+  </span>
+  <df-icon class="df-select__caret" [class.is-open]="isOpen()" name="arrow_drop_down" size="md" />
+</button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  [cdkConnectedOverlayWidth]="triggerWidth()"
+  (overlayOutsideClick)="close()"
+  (detach)="close()"
+>
+  <div
+    class="df-select__dropdown"
+    role="listbox"
+    [id]="listboxId"
+    [attr.aria-labelledby]="labelRef() ? labelId : null"
+  >
+    @for (opt of options(); track opt.value; let i = $index) {
+      <df-option
+        [id]="optionId(i)"
+        [label]="opt.label"
+        [value]="opt.value"
+        [selected]="opt.value === selectedValue()"
+        [active]="i === activeIndex()"
+        (optionSelect)="selectAt(i)"
+      />
+    }
+  </div>
+</ng-template>
+
+@if (errorRef() || hintRef()) {
+  <span class="df-select__message" [class.df-select__message--error]="hasError()" [id]="messageId">
+    @if (errorRef()) {
+      <ng-content select="[dfError]" />
+    } @else {
+      <ng-content select="[dfHint]" />
+    }
+  </span>
+}
