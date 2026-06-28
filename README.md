@@ -4,10 +4,16 @@ Design Foundry's design system — shared across the suite's apps.
 
 ## Distribution
 
-| Consumer | Package | Registry |
+Private during development. The package names are **reserved** on npm and NuGet to
+hold the namespace, but **nothing is published until v1.0.0**.
+
+| Consumer | Target package | Status |
 |---|---|---|
-| Angular (Hub) | `@design-foundry/lucent` | npm |
-| Razor / Blazor (Account) | `DesignFoundry.Lucent` | NuGet |
+| Angular (Hub) | `@design-foundry/lucent` (npm) | reserved, unpublished |
+| Razor / Blazor (Account) | `DesignFoundry.Lucent` (NuGet) | reserved, unpublished |
+
+Until 1.0.0, consumers reference Lucent locally (path / project reference or a
+local pack), not via a published package.
 
 The framework-neutral core (design **tokens**, the **CSS** layer keyed to semantic
 class names, and the **spec docs**) is shared. Each framework ships its own
@@ -25,4 +31,4 @@ spec set). Not yet restructured.
 
 - [ ] Restructure into `tokens/`, `css/`, `docs/`, `packages/angular`, `packages/razor`.
 - [ ] Build the Razor Class Library (`DesignFoundry.Lucent`) — Account is the first consumer.
-- [ ] Wire OIDC trusted publishing for npm + NuGet (no stored secrets).
+- [ ] Publishing (npm + NuGet) is deferred to **v1.0.0** — no publish pipeline until then.
