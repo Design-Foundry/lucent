@@ -20,15 +20,24 @@ class names, and the **spec docs**) is shared. Each framework ships its own
 component implementation against that contract and emits identical class names, so
 a single CSS layer styles both.
 
-## Status
+## Layout
 
-**Rescue snapshot.** `design-system/` is a verbatim harvest of the Angular kit out
-of `hub/` (taken before Hub's rewrite, including in-flight foundations work:
-`sizing.ts` / `tone.ts` / `_controls.scss` density + tone scales and the `docs/`
-spec set). Not yet restructured.
+```
+tokens/              shared design tokens (SCSS → CSS custom properties)
+css/                 shared component CSS, keyed to semantic class names (empty; filled per-component)
+docs/                framework-neutral spec — API, conventions, foundations, per-component behavior
+packages/
+  angular/           @design-foundry/lucent — Angular kit, parked reference (harvested from hub/)
+  razor/             DesignFoundry.Lucent — Razor RCL scaffold (Account's first consumer)
+```
+
+The shared core (`tokens/` + `css/` + `docs/`) is framework-neutral. Each package
+implements components against it and emits **identical class names**, so one CSS
+layer styles both.
 
 ### Next
 
-- [ ] Restructure into `tokens/`, `css/`, `docs/`, `packages/angular`, `packages/razor`.
-- [ ] Build the Razor Class Library (`DesignFoundry.Lucent`) — Account is the first consumer.
+- [x] Restructure into `tokens/`, `css/`, `docs/`, `packages/angular`, `packages/razor`.
+- [ ] Build out the Razor Class Library components (`DesignFoundry.Lucent`) — Account is the first consumer.
+- [ ] Extract per-component CSS from the Angular kit into `css/` as Razor counterparts are built.
 - [ ] Publishing (npm + NuGet) is deferred to **v1.0.0** — no publish pipeline until then.

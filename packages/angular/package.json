@@ -1,0 +1,13 @@
+{
+  "name": "@design-foundry/lucent",
+  "version": "0.0.0-dev",
+  "description": "Lucent design system — Angular component kit (parked reference).",
+  "private": true,
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Design-Foundry/lucent.git",
+    "directory": "packages/angular"
+  },
+  "sideEffects": false
+}

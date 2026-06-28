@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Packaging — name reserved on NuGet; do NOT publish until v1.0.0. -->
+  <PropertyGroup>
+    <PackageId>DesignFoundry.Lucent</PackageId>
+    <Version>0.0.0-dev</Version>
+    <Authors>Design Foundry</Authors>
+    <Description>Lucent design system — Razor (Blazor) component library.</Description>
+    <RepositoryUrl>https://github.com/Design-Foundry/lucent</RepositoryUrl>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>
