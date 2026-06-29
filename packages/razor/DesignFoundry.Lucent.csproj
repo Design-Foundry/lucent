@@ -24,4 +24,18 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <!-- Ship the shared styles/ base as static web assets. The canonical source is the
+       repo-root styles/ (single source); mirror it into wwwroot before static-web-asset
+       resolution so it reaches consumers as _content/DesignFoundry.Lucent/<path>.
+       wwwroot/ is a build artifact (gitignored), not a second source. -->
+  <ItemGroup>
+    <LucentStyleSource Include="$(MSBuildProjectDirectory)\..\..\styles\**\*.css" />
+  </ItemGroup>
+
+  <Target Name="SyncLucentStyles" BeforeTargets="ResolveProjectStaticWebAssets;BeforeBuild">
+    <Copy SourceFiles="@(LucentStyleSource)"
+          DestinationFiles="@(LucentStyleSource->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

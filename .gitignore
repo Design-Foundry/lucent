@@ -10,6 +10,9 @@ bin/
 obj/
 *.user
 
+# Mirrored at build from the canonical repo-root styles/ (single source) — not committed.
+packages/razor/wwwroot/
+
 # ── Editor / OS ───────────────────────────────────────────────────────────────
 .vs/
 .idea/
