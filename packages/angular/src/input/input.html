@@ -1,10 +1,10 @@
 @if (labelRef()) {
-	<label class="df-input__label typography-caption" [for]="inputId">
+	<label class="lucent-text-input__label typography-caption" [for]="inputId">
 		<ng-content select="[dfLabel]" />
 	</label>
 }
 
-<div class="df-input__wrapper" [class]="wrapperClass()">
+<div class="lucent-text-input__wrapper" [class]="wrapperClass()">
 	<ng-content select="[dfPrefix]" />
 	<input
 		[id]="inputId"
@@ -21,7 +21,7 @@
 	<ng-content select="[dfSuffix]" />
 	@if (clearable() && value() && !isDisabled() && !readonly()) {
 		<df-icon-button
-			class="df-input__clear"
+			class="lucent-text-input__clear"
 			icon="close"
 			variant="ghost"
 			size="sm"
@@ -31,7 +31,7 @@
 </div>
 
 @if (errorRef() || hintRef()) {
-	<span class="df-input__message" [class.df-input__message--error]="hasError()" [id]="messageId">
+	<span class="lucent-text-input__message" [class.lucent-text-input__message--error]="hasError()" [id]="messageId">
 		@if (errorRef()) {
 			<ng-content select="[dfError]" />
 		} @else {

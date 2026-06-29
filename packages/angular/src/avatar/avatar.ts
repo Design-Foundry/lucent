@@ -8,9 +8,9 @@ export type AvatarVariant = 'trailing' | 'leading' | 'none';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './avatar.html',
-	styleUrl: './avatar.scss',
+	// Styled by the shared base (styles/components/avatar.css) via the lucent- contract.
 	host: {
-		'[class]': '"df-avatar--" + scale() + " df-avatar--" + variant()'
+		'[class]': '"lucent-avatar lucent-avatar--" + scale() + " lucent-avatar--" + variant()'
 	}
 })
 export class DfAvatar {

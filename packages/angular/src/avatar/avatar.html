@@ -1,25 +1,25 @@
 @if (variant() === 'leading') {
-	<div class="df-avatar__labels">
-		<span class="df-avatar__name">{{ name() }}</span>
+	<div class="lucent-avatar__labels">
+		<span class="lucent-avatar__name">{{ name() }}</span>
 		@if (showTenant()) {
-			<span class="df-avatar__tenant">{{ tenant() }}</span>
+			<span class="lucent-avatar__tenant">{{ tenant() }}</span>
 		}
 	</div>
 }
 
-<div class="df-avatar__circle">
+<div class="lucent-avatar__circle">
 	@if (src()) {
 		<img [src]="src()" [alt]="name()" />
 	} @else {
-		<span class="df-avatar__initials">{{ initials() }}</span>
+		<span class="lucent-avatar__initials">{{ initials() }}</span>
 	}
 </div>
 
 @if (variant() === 'trailing') {
-	<div class="df-avatar__labels">
-		<span class="df-avatar__name">{{ name() }}</span>
+	<div class="lucent-avatar__labels">
+		<span class="lucent-avatar__name">{{ name() }}</span>
 		@if (showTenant()) {
-			<span class="df-avatar__tenant">{{ tenant() }}</span>
+			<span class="lucent-avatar__tenant">{{ tenant() }}</span>
 		}
 	</div>
 }
