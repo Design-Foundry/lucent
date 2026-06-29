@@ -1,0 +1,44 @@
+@*
+    LucentButton — emits the `.lucent-button` contract (styles/components/button.css).
+
+    Static-SSR friendly: it renders a real <button>, so inside a <form> with Type="submit"
+    it works with no interactivity/JS. The outer <span> is the density/variant host
+    (the Angular `:host`); the <button> carries `.lucent-button__inner`. Pass-through
+    attributes (name, @onclick, aria-*, …) land on the inner button.
+*@
+
+<span class="@HostClass">
+    <button class="lucent-button__inner"
+            type="@Type"
+            disabled="@Disabled"
+            @attributes="AdditionalAttributes">
+        @ChildContent
+    </button>
+</span>
+
+@code {
+    /// <summary>Button label / content.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Density size — controls at the same size align side-by-side.</summary>
+    [Parameter] public ControlSize Size { get; set; } = ControlSize.Md;
+
+    /// <summary>Visual variant.</summary>
+    [Parameter] public LucentButtonVariant Variant { get; set; } = LucentButtonVariant.Primary;
+
+    /// <summary>Native button type: <c>button</c> (default), <c>submit</c>, or <c>reset</c>.</summary>
+    [Parameter] public string Type { get; set; } = "button";
+
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the inner button.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        $"lucent-button lucent-button--{Variant.ToToken()} lucent-button--{Size.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

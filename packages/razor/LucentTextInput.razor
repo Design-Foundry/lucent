@@ -1,0 +1,91 @@
+@*
+    LucentTextInput — emits the `.lucent-text-input` contract (styles/components/text-input.css).
+
+    Static-SSR friendly: a plain <input> that posts with the surrounding <form>; focus and
+    filled states are pure CSS (:focus-within / :placeholder-shown), so no JS is required.
+    The error state is server-rendered from the Error parameter. Give the field a `name`
+    (and autocomplete, required, …) via pass-through attributes.
+*@
+
+<div class="@HostClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="lucent-text-input__label typography-caption" for="@Id">@Label</label>
+    }
+
+    <div class="@WrapperClass">
+        <input id="@Id"
+               type="@Type"
+               value="@Value"
+               placeholder="@(Placeholder ?? " ")"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               aria-invalid="@(HasError ? "true" : null)"
+               aria-describedby="@(HasMessage ? MessageId : null)"
+               @attributes="AdditionalAttributes" />
+    </div>
+
+    @if (HasMessage)
+    {
+        <span class="lucent-text-input__message@(HasError ? " lucent-text-input__message--error" : "")"
+              id="@MessageId">
+            @(HasError ? Error : Hint)
+        </span>
+    }
+</div>
+
+@code {
+    /// <summary>Field label. Omitted when null/empty.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Input type — <c>text</c> (default), <c>email</c>, <c>password</c>, …</summary>
+    [Parameter] public string Type { get; set; } = "text";
+
+    /// <summary>Value. Under static SSR this is the initial value; the browser posts what's typed.</summary>
+    [Parameter] public string? Value { get; set; }
+
+    /// <summary>Placeholder. A single space is rendered when null so the CSS filled-state works.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>Validation error. When set, the field shows the error state and this message.</summary>
+    [Parameter] public string? Error { get; set; }
+
+    /// <summary>Hint shown below the field when there is no error.</summary>
+    [Parameter] public string? Hint { get; set; }
+
+    /// <summary>Density size.</summary>
+    [Parameter] public ControlSize Size { get; set; } = ControlSize.Md;
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Element id; a unique one is generated when not supplied (links label ↔ input ↔ message).</summary>
+    [Parameter] public string Id { get; set; } = $"lui-{Guid.NewGuid():N}";
+
+    /// <summary>Pass-through attributes (name, autocomplete, required, aria-*, …); applied to the input.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool HasError => !string.IsNullOrEmpty(Error);
+    private bool HasMessage => HasError || !string.IsNullOrEmpty(Hint);
+    private string MessageId => $"{Id}-msg";
+
+    private string HostClass =>
+        $"lucent-text-input lucent-text-input--{Size.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+
+    private string WrapperClass
+    {
+        get
+        {
+            var c = "lucent-text-input__wrapper";
+            if (HasError) c += " lucent-text-input__wrapper--error";
+            if (Disabled) c += " lucent-text-input__wrapper--disabled";
+            if (ReadOnly) c += " lucent-text-input__wrapper--readonly";
+            return c;
+        }
+    }
+}

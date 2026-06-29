@@ -2,9 +2,10 @@ namespace DesignFoundry.Lucent.Foundations;
 
 /// <summary>
 /// Maps foundation enums to the lowercase class-name tokens that Lucent components
-/// emit (e.g. <c>df-button--md</c>, <c>df-button--danger</c>). Both the Angular and
-/// Razor kits MUST emit identical tokens so a single CSS layer styles both — this is
-/// the cross-framework contract (see docs/CONVENTIONS.md and css/README.md).
+/// emit (e.g. <c>lucent-button--md</c>, <c>lucent-button--danger</c>). Both the Angular
+/// and Razor kits MUST emit identical tokens so a single CSS layer styles both — this is
+/// the cross-framework contract (see styles/README.md). The Razor kit emits the
+/// <c>lucent-</c> names now; the parked Angular kit still emits <c>df-</c> until rebranded.
 /// </summary>
 public static class FoundationTokens
 {
@@ -23,5 +24,16 @@ public static class FoundationTokens
     {
         Tone.Danger => "danger",
         _ => "default",
+    };
+
+    /// <summary>Class-name token for a <see cref="LucentButtonVariant"/> — e.g. <c>on-glass</c>.</summary>
+    public static string ToToken(this LucentButtonVariant variant) => variant switch
+    {
+        LucentButtonVariant.Secondary => "secondary",
+        LucentButtonVariant.Ghost => "ghost",
+        LucentButtonVariant.OnGlass => "on-glass",
+        LucentButtonVariant.Danger => "danger",
+        LucentButtonVariant.Text => "text",
+        _ => "primary",
     };
 }
