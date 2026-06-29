@@ -26,12 +26,27 @@ against that contract and emits identical class names, so a single CSS layer sty
 styles/              shared framework-neutral base — plain CSS (tokens + component styles)
   lucent.css           single entry; @imports everything in cascade order
   tokens/              design tokens as CSS custom properties (primitive → semantic + control alias)
-  components/          component styles keyed to df- class names (filled per-component)
+  components/          component styles keyed to lucent- class names (filled per-component)
 docs/                framework-neutral spec — API, conventions, foundations, per-component behavior
 packages/
-  angular/           @design-foundry/lucent — Angular kit, parked reference (harvested from hub/)
+  angular/           @design-foundry/lucent — Angular library (ng-packagr → npm tarball)
   razor/             DesignFoundry.Lucent — Razor RCL (Account's first consumer)
+samples/
+  DesignFoundry.Lucent.Showcase   Blazor verification host (light/dark)
+  lucent-angular-showcase         Angular verification host (light/dark)
+angular.json         Angular workspace — library (packages/angular) + showcase (samples/…)
+package.json         workspace scripts: lib:build · lib:pack · showcase
 ```
+
+### Building
+
+| | Library build | Pack | Showcase |
+|---|---|---|---|
+| **Razor / NuGet** | `dotnet build packages/razor` | `dotnet pack` | `dotnet run --project samples/DesignFoundry.Lucent.Showcase` |
+| **Angular / npm** | `npm run lib:build` | `npm run lib:pack` | `npm run showcase` |
+
+The Angular showcase consumes the library by source (TS path alias = the dev analog of a
+`ProjectReference`); `?theme=light\|dark` drives `<html data-theme>` for screenshots.
 
 The shared base (`styles/` + `docs/`) is framework-neutral. Each package implements
 components against it and emits **identical class names**, so one CSS layer styles

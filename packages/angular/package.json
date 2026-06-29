@@ -1,7 +1,7 @@
 {
   "name": "@design-foundry/lucent",
   "version": "0.0.0-dev",
-  "description": "Lucent design system — Angular component kit (parked reference).",
+  "description": "Lucent design system — Angular component kit.",
   "private": true,
   "license": "UNLICENSED",
   "repository": {
@@ -9,5 +9,14 @@
     "url": "https://github.com/Design-Foundry/lucent.git",
     "directory": "packages/angular"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/cdk": "^21.0.0",
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
 }

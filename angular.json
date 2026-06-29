@@ -1,0 +1,81 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "packages",
+  "projects": {
+    "lucent": {
+      "projectType": "library",
+      "root": "packages/angular",
+      "sourceRoot": "packages/angular/src",
+      "prefix": "df",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/angular/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/angular/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "packages/angular/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
+    "lucent-angular-showcase": {
+      "projectType": "application",
+      "root": "samples/lucent-angular-showcase",
+      "sourceRoot": "samples/lucent-angular-showcase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "samples/lucent-angular-showcase/src/main.ts",
+            "index": "samples/lucent-angular-showcase/src/index.html",
+            "tsConfig": "samples/lucent-angular-showcase/tsconfig.app.json",
+            "polyfills": [],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "samples/lucent-angular-showcase/public"
+              }
+            ],
+            "styles": [
+              "node_modules/@angular/cdk/overlay-prebuilt.css",
+              "styles/lucent.css",
+              "samples/lucent-angular-showcase/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "lucent-angular-showcase:build:production"
+            },
+            "development": {
+              "buildTarget": "lucent-angular-showcase:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  }
+}

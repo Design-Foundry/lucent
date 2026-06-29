@@ -9,11 +9,26 @@ kits.
 > **Status:** `button` is done as the reference (below). The remaining ~29 components follow the
 > same mechanical recipe.
 
-> **Verification:** there is **no Angular build in this repo** (`packages/angular` is a parked
-> reference — no `node_modules`, no `angular.json`). Verify the retrofit by building/serving the
-> Angular **showcase in `hub/web`** (`npm run build` + the dev showcase route — see
-> [BUILDING-A-COMPONENT.md §10](./BUILDING-A-COMPONENT.md)) in both light and dark, exactly as the
-> Razor kit was verified in `samples/DesignFoundry.Lucent.Showcase`.
+> **Verification (in-repo).** `packages/angular` is now a **real, buildable Angular library**
+> (ng-packagr → `dist/lucent`, packs to npm) inside a workspace that also hosts the
+> **`samples/lucent-angular-showcase`** app — the Angular analog of
+> `samples/DesignFoundry.Lucent.Showcase`. Verify every retrofit here, in both themes, exactly as
+> the Razor kit was verified:
+>
+> ```bash
+> npm install              # once
+> npm run lib:build        # ng build lucent  → ng-packagr, must stay green
+> npm run showcase         # ng serve         → http://localhost:4200 (CI used :4280)
+> #   ?theme=light / ?theme=dark drive <html data-theme> for screenshots
+> npm run lib:pack         # optional — produce the npm tarball (dist/lucent/*.tgz)
+> ```
+>
+> The showcase consumes the library **by source** via a TS path alias
+> (`@design-foundry/lucent` → `packages/angular/src/index.ts` in the root `tsconfig.json`) — the
+> dev-loop analog of a .NET `ProjectReference`, so edits show up on save with no pack/install step.
+> A component still on `df-` classes renders via its own (parked) SCSS; once retrofitted it drops
+> the SCSS and picks up the shared `styles/lucent.css` — so the showcase shows each component
+> before *and* after, which is the verification.
 
 ## The recipe (per component)
 

@@ -1,0 +1,13 @@
+/* Library build config — extends the workspace base. ng-packagr compiles the
+   public entry (src/index.ts) into dist/lucent for `npm pack`. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/lib",
+    "declaration": true,
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
+  },
+  "exclude": ["**/*.spec.ts"]
+}
