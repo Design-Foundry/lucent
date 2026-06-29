@@ -6,8 +6,12 @@ keyed to the **`lucent-` class contract** that the Razor kit already emits. Retr
 means: emit the `lucent-` classes, and delete the per-component SCSS so one CSS layer styles both
 kits.
 
-> **Status:** `button` is done as the reference (below). The remaining ~29 components follow the
-> same mechanical recipe.
+> **Status: COMPLETE (2026-06-29).** All ~30 components retrofitted onto the `lucent-` contract;
+> every per-component `.scss` deleted (the kit now ships **zero SCSS**). Verified in the showcase in
+> light + dark, including the interactive overlays (select, menu, modal). The recipe below is kept
+> as the reference for future components. Two notes: `df-input` → **`lucent-text-input`** is the one
+> block-name change (it shares the Razor `LucentTextInput` contract); the `lucent-spinner` in
+> button/icon-button is an intentional gap — undefined in *both* kits (see API-AUDIT §5).
 
 > **Verification (in-repo).** `packages/angular` is now a **real, buildable Angular library**
 > (ng-packagr → `dist/lucent`, packs to npm) inside a workspace that also hosts the

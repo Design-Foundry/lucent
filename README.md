@@ -59,6 +59,7 @@ both. See [styles/README.md](./styles/README.md).
 - [x] Extract the first components (button, input) from the Angular kit into `styles/components/`.
 - [x] Build out the Razor Class Library components (`DesignFoundry.Lucent`) — full kit ported (30 components), each verified in the Blazor showcase (`samples/DesignFoundry.Lucent.Showcase`) in light + dark.
 - [x] Extract per-component CSS into `styles/components/` for every component (the shared contract both kits emit).
-- [ ] Retrofit the Angular kit onto the shared `styles/` contract (emit `lucent-` classes, drop the per-component `:host`/`df-` SCSS).
+- [x] Retrofit the Angular kit onto the shared `styles/` contract — all ~30 components emit `lucent-` classes; per-component SCSS deleted (kit ships zero SCSS). `packages/angular` is now a buildable library (ng-packagr → npm) verified in `samples/lucent-angular-showcase` (light + dark).
 - [ ] React package (`packages/react`) — build from scratch against the same CSS contract.
+- [ ] Web Components package — build from scratch against the same CSS contract (light DOM, so the global `styles/lucent.css` still applies).
 - [ ] Publishing (npm + NuGet) is deferred to **v1.0.0** — no publish pipeline until then.
