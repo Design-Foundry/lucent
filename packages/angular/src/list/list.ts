@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
-	styleUrl: './list.scss'
+	// Styled by the shared base (styles/components/list.css) via the lucent- contract.
+	host: { 'class': 'lucent-list' }
 })
 export class DfList {}
