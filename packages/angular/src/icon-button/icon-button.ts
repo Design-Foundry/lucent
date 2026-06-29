@@ -22,9 +22,9 @@ const SPINNER_DIAMETER: Record<IconButtonSize, number> = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './icon-button.html',
-	styleUrl: './icon-button.scss',
+	// Styled by the shared base (styles/components/icon-button.css) via the lucent- contract.
 	host: {
-		'[class]': '"df-icon-button--" + variant() + " df-icon-button--" + size()',
+		'[class]': '"lucent-icon-button lucent-icon-button--" + variant() + " lucent-icon-button--" + size()',
 		'[class.is-loading]': 'loading()'
 	}
 })

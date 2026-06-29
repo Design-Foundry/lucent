@@ -10,8 +10,8 @@ export type ChipType = 'tag' | 'default' | 'active' | 'action';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './chip.html',
-	styleUrl: './chip.scss',
-	host: { '[class]': '"df-chip--" + type() + " df-chip--" + size()' }
+	// Styled by the shared base (styles/components/chip.css) via the lucent- contract.
+	host: { '[class]': '"lucent-chip lucent-chip--" + type() + " lucent-chip--" + size()' }
 })
 export class DfChip {
 	readonly type = input<ChipType>('default');

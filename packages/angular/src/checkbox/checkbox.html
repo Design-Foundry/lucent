@@ -1,11 +1,11 @@
-<div class="df-checkbox__box">
+<div class="lucent-checkbox__box">
 	@if (checked() && !indeterminate()) {
-		<df-icon class="df-checkbox__icon" name="check" size="sm" />
+		<df-icon class="lucent-checkbox__icon lucent-checkbox__icon--check" name="check" size="sm" />
 	}
 	@if (indeterminate()) {
-		<df-icon class="df-checkbox__icon" name="remove" size="sm" />
+		<df-icon class="lucent-checkbox__icon lucent-checkbox__icon--dash" name="remove" size="sm" />
 	}
 </div>
 @if (label()) {
-	<span class="df-checkbox__label">{{ label() }}</span>
+	<span class="lucent-checkbox__label">{{ label() }}</span>
 }

@@ -8,14 +8,15 @@ export type ToggleSize = 'md' | 'sm';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './toggle.html',
-	styleUrl: './toggle.scss',
+	// Styled by the shared base (styles/components/toggle.css); the CSS supports this kit's
+	// `.is-checked`/`.is-disabled` host classes (the `__input:checked` rules are Razor-only).
 	host: {
 		'role': 'switch',
 		'[attr.tabindex]': 'isDisabled() ? -1 : 0',
 		'[attr.aria-checked]': 'checked()',
 		'[attr.aria-disabled]': 'isDisabled() || null',
 		'[attr.aria-label]': 'label() || null',
-		'[class]': '"df-toggle--" + size()',
+		'[class]': '"lucent-toggle lucent-toggle--" + size()',
 		'[class.is-checked]': 'checked()',
 		'[class.is-disabled]': 'isDisabled()',
 		'(click)': 'toggle()',
