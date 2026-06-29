@@ -9,18 +9,19 @@ export type TabScale = 'lg' | 'md' | 'sm' | 'xs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './tab.html',
-	styleUrl: './tab.scss',
+	// Styled by the shared base (styles/components/tab.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-tab',
 		'role': 'tab',
-		'[attr.aria-selected]':     'active()',
-		'[attr.tabindex]':          'active() ? 0 : -1',
-		'[class.df-tab--lg]':       'scale() === "lg"',
-		'[class.df-tab--md]':       'scale() === "md"',
-		'[class.df-tab--sm]':       'scale() === "sm"',
-		'[class.df-tab--xs]':       'scale() === "xs"',
-		'[class.df-tab--active]':   'active()',
-		'[class.df-tab--disabled]': 'disabled()',
-		'(click)':                  'onClick()',
+		'[attr.aria-selected]':         'active()',
+		'[attr.tabindex]':              'active() ? 0 : -1',
+		'[class.lucent-tab--lg]':       'scale() === "lg"',
+		'[class.lucent-tab--md]':       'scale() === "md"',
+		'[class.lucent-tab--sm]':       'scale() === "sm"',
+		'[class.lucent-tab--xs]':       'scale() === "xs"',
+		'[class.lucent-tab--active]':   'active()',
+		'[class.lucent-tab--disabled]': 'disabled()',
+		'(click)':                      'onClick()',
 	}
 })
 export class DfTab {

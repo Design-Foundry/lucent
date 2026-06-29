@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './menu.html',
-	styleUrl: './menu.scss'
+	// Styled by the shared base (styles/components/menu.css) via the lucent- contract.
+	host: { 'class': 'lucent-menu', 'role': 'menu' }
 })
 export class DfMenu {}

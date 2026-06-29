@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
-	styleUrl: './card.scss'
+	// Styled by the shared base (styles/components/card.css) via the lucent- contract.
+	host: { 'class': 'lucent-card' }
 })
 export class DfCard {}
