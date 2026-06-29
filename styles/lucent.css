@@ -23,6 +23,6 @@
 /* Theme overrides — must follow the base semantic layer. */
 @import "tokens/themes.css";
 
-/* Components — each keyed to the df- class-name contract. */
+/* Components — each keyed to the lucent- class-name contract. */
 @import "components/button.css";
-@import "components/input.css";
+@import "components/text-input.css";

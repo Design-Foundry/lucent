@@ -2,21 +2,21 @@
  * Text input — framework-neutral component styles.
  *
  * Structure both kits emit:
- *   .df-input  (.df-input--sm|md|lg)
- *     .df-input__label
- *     .df-input__wrapper  (--focus | --filled | --error | --disabled | --readonly)
- *       .df-input__leading-icon?   input   .df-input__clear?
- *     .df-input__message  (--error)
+ *   .lucent-text-input  (.lucent-text-input--sm|md|lg)
+ *     .lucent-text-input__label
+ *     .lucent-text-input__wrapper  (--focus | --filled | --error | --disabled | --readonly)
+ *       .lucent-text-input__leading-icon?   input   .lucent-text-input__clear?
+ *     .lucent-text-input__message  (--error)
  *
  * Ported from packages/angular/src/input/input.scss. Two deliberate changes:
- *   1. The bare `input {}` selector is scoped to `.df-input input` so it never
+ *   1. The bare `input {}` selector is scoped to `.lucent-text-input input` so it never
  *      styles inputs elsewhere on the page (Angular relied on view encapsulation).
  *   2. Added `:focus-within` and `:has(input:not(:placeholder-shown))` so the focus
  *      and filled states need NO JavaScript — static-SSR (Blazor) forms work as-is.
  *      The `--focus` / `--filled` modifier classes are kept for the JS-driven kit.
  * ============================================================================= */
 
-.df-input {
+.lucent-text-input {
   display: flex;
   flex-direction: column;
   gap: var(--dimension--primitive--spacing-0-5);
@@ -31,28 +31,28 @@
   --_px: var(--control-pad-x-md);
 }
 
-.df-input--xs {
+.lucent-text-input--xs {
   --_h: var(--control-height-xs); --_text: var(--control-text-xs);
   --_radius: var(--control-radius-xs); --_gap: var(--control-gap-xs); --_px: var(--control-pad-x-xs);
 }
-.df-input--sm {
+.lucent-text-input--sm {
   --_h: var(--control-height-sm); --_text: var(--control-text-sm);
   --_radius: var(--control-radius-sm); --_gap: var(--control-gap-sm); --_px: var(--control-pad-x-sm);
 }
-.df-input--lg {
+.lucent-text-input--lg {
   --_h: var(--control-height-lg); --_text: var(--control-text-lg);
   --_radius: var(--control-radius-lg); --_gap: var(--control-gap-lg); --_px: var(--control-pad-x-lg);
 }
 
 /* ─── Label ────────────────────────────────────────────────────────────────── */
 
-.df-input__label {
+.lucent-text-input__label {
   color: var(--color--semantic--text-strong);
 }
 
 /* ─── Wrapper ──────────────────────────────────────────────────────────────── */
 
-.df-input__wrapper {
+.lucent-text-input__wrapper {
   display: flex;
   align-items: center;
   gap: var(--_gap);
@@ -67,26 +67,26 @@
 }
 
 /* Filled — JS-driven class (Angular) + no-JS fallback (static SSR). */
-.df-input__wrapper--filled,
-.df-input__wrapper:has(input:not(:placeholder-shown)) { border: var(--border-default); }
+.lucent-text-input__wrapper--filled,
+.lucent-text-input__wrapper:has(input:not(:placeholder-shown)) { border: var(--border-default); }
 
 /* Readonly. */
-.df-input__wrapper--readonly { border: var(--border-subtle); }
+.lucent-text-input__wrapper--readonly { border: var(--border-subtle); }
 
 /* Focus — JS-driven class (Angular) + no-JS fallback (static SSR).
    Placed after filled so focus wins when both apply. */
-.df-input__wrapper--focus,
-.df-input__wrapper:focus-within { border: var(--border-strong); }
+.lucent-text-input__wrapper--focus,
+.lucent-text-input__wrapper:focus-within { border: var(--border-strong); }
 
 /* Error — highest priority of the border states. */
-.df-input__wrapper--error { border: 1px solid var(--color--semantic--error-subtle); }
+.lucent-text-input__wrapper--error { border: 1px solid var(--color--semantic--error-subtle); }
 
 /* Disabled. */
-.df-input__wrapper--disabled { opacity: 0.4; }
+.lucent-text-input__wrapper--disabled { opacity: 0.4; }
 
 /* ─── Native input ─────────────────────────────────────────────────────────── */
 
-.df-input input {
+.lucent-text-input input {
   flex: 1 0 0;
   min-width: 0;
   background: transparent;
@@ -99,38 +99,38 @@
   color: var(--color--semantic--text-default);
 }
 
-.df-input input::placeholder { color: var(--color--semantic--text-muted); }
-.df-input input:disabled { cursor: not-allowed; }
-.df-input input[readonly] { color: var(--color--semantic--text-subtle); }
+.lucent-text-input input::placeholder { color: var(--color--semantic--text-muted); }
+.lucent-text-input input:disabled { cursor: not-allowed; }
+.lucent-text-input input[readonly] { color: var(--color--semantic--text-subtle); }
 
 /* Override browser autofill highlight across the full padding box. */
-.df-input input:-webkit-autofill,
-.df-input input:-webkit-autofill:hover,
-.df-input input:-webkit-autofill:focus {
+.lucent-text-input input:-webkit-autofill,
+.lucent-text-input input:-webkit-autofill:hover,
+.lucent-text-input input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
   -webkit-text-fill-color: var(--color--semantic--text-default);
   transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Error variant text color inside wrapper. */
-.df-input__wrapper--error input {
+.lucent-text-input__wrapper--error input {
   color: var(--color--semantic--error);
 }
-.df-input__wrapper--error input::placeholder { color: var(--color--semantic--error); }
+.lucent-text-input__wrapper--error input::placeholder { color: var(--color--semantic--error); }
 
 /* Decorative leading glyph (non-interactive). */
-.df-input__leading-icon {
+.lucent-text-input__leading-icon {
   color: var(--color--semantic--text-muted);
 }
 
 /* Clear button: keep it snug so it doesn't inflate the field height. */
-.df-input__clear {
+.lucent-text-input__clear {
   margin-right: calc(-1 * var(--dimension--primitive--spacing-1));
 }
 
 /* ─── Messages ─────────────────────────────────────────────────────────────── */
 
-.df-input__message {
+.lucent-text-input__message {
   font-family: var(--font--primitive--sans);
   font-size: var(--typography--micro--font-size);
   font-weight: var(--dimension--primitive--fw-light);
@@ -138,4 +138,4 @@
   color: var(--color--semantic--text-muted);
 }
 
-.df-input__message--error { color: var(--color--semantic--error); }
+.lucent-text-input__message--error { color: var(--color--semantic--error); }

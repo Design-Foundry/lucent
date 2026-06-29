@@ -2,15 +2,15 @@
  * Button — framework-neutral component styles.
  *
  * Both kits emit the same class names, so this one file styles both:
- *   Angular: <df-button class="df-button df-button--primary df-button--md">
- *   Razor:   <span class="df-button df-button--primary df-button--md"> … </span>
- * The interactive element inside carries `.df-button__inner`.
+ *   Angular: <lucent-button class="lucent-button lucent-button--primary lucent-button--md">
+ *   Razor:   <span class="lucent-button lucent-button--primary lucent-button--md"> … </span>
+ * The interactive element inside carries `.lucent-button__inner`.
  *
  * Ported from packages/angular/src/button/button.scss — the Angular `:host`
- * became `.df-button`; nested `&` variants were expanded to full selectors.
+ * became `.lucent-button`; nested `&` variants were expanded to full selectors.
  * ============================================================================= */
 
-.df-button {
+.lucent-button {
   display: inline-block;
 
   /* Density (default md). Buttons run a roomier inline padding than fields. */
@@ -21,23 +21,23 @@
   --_px: var(--dimension--primitive--spacing-6); /* 24 */
 }
 
-.df-button--xs {
+.lucent-button--xs {
   --_h: var(--control-height-xs); --_text: var(--control-text-xs);
   --_radius: var(--control-radius-xs); --_gap: var(--control-gap-xs);
   --_px: var(--dimension--primitive--spacing-4); /* 16 */
 }
-.df-button--sm {
+.lucent-button--sm {
   --_h: var(--control-height-sm); --_text: var(--control-text-sm);
   --_radius: var(--control-radius-sm); --_gap: var(--control-gap-sm);
   --_px: var(--dimension--primitive--spacing-5); /* 20 */
 }
-.df-button--lg {
+.lucent-button--lg {
   --_h: var(--control-height-lg); --_text: var(--control-text-lg);
   --_radius: var(--control-radius-lg); --_gap: var(--control-gap-lg);
   --_px: var(--dimension--primitive--spacing-7); /* 28 */
 }
 
-.df-button__inner {
+.lucent-button__inner {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +55,7 @@
   transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
-.df-button__inner:disabled {
+.lucent-button__inner:disabled {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.4;
@@ -63,83 +63,83 @@
 
 /* ─── Primary ──────────────────────────────────────────────────────────────── */
 
-.df-button--primary .df-button__inner {
+.lucent-button--primary .lucent-button__inner {
   background: var(--color--semantic--accent-strong);
   color: var(--color--semantic--text-inverse);
 }
-.df-button--primary .df-button__inner:hover:not(:disabled) {
+.lucent-button--primary .lucent-button__inner:hover:not(:disabled) {
   background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h);
 }
-.df-button--primary .df-button__inner:active:not(:disabled) {
+.lucent-button--primary .lucent-button__inner:active:not(:disabled) {
   background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h);
 }
 
 /* ─── Secondary ────────────────────────────────────────────────────────────── */
 
-.df-button--secondary .df-button__inner {
+.lucent-button--secondary .lucent-button__inner {
   background: var(--color--semantic--accent-subtle);
   color: var(--color--semantic--text-strong);
 }
-.df-button--secondary .df-button__inner:hover:not(:disabled) {
+.lucent-button--secondary .lucent-button__inner:hover:not(:disabled) {
   background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.08) c h);
 }
-.df-button--secondary .df-button__inner:active:not(:disabled) {
+.lucent-button--secondary .lucent-button__inner:active:not(:disabled) {
   background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.16) c h);
 }
 
 /* ─── Ghost ────────────────────────────────────────────────────────────────── */
 
-.df-button--ghost .df-button__inner {
+.lucent-button--ghost .lucent-button__inner {
   background: var(--color--semantic--surface-default);
   color: var(--color--semantic--text-strong);
   border: var(--border-default);
 }
-.df-button--ghost .df-button__inner:hover:not(:disabled) {
+.lucent-button--ghost .lucent-button__inner:hover:not(:disabled) {
   background: oklch(from var(--color--semantic--accent-subtle) calc(l + 0.03) c h);
 }
-.df-button--ghost .df-button__inner:active:not(:disabled) {
+.lucent-button--ghost .lucent-button__inner:active:not(:disabled) {
   background: var(--color--semantic--accent-subtle);
 }
 
 /* ─── On glass ─────────────────────────────────────────────────────────────── */
 
-.df-button--on-glass .df-button__inner {
+.lucent-button--on-glass .lucent-button__inner {
   background: var(--color--semantic--surface-glass);
   color: var(--color--semantic--text-strong);
 }
-.df-button--on-glass .df-button__inner:hover:not(:disabled) {
+.lucent-button--on-glass .lucent-button__inner:hover:not(:disabled) {
   background: var(--color--semantic--surface-glass-strong);
   box-shadow: var(--shadow-xs);
 }
-.df-button--on-glass .df-button__inner:active:not(:disabled) {
+.lucent-button--on-glass .lucent-button__inner:active:not(:disabled) {
   background: var(--color--semantic--surface-glass-strong);
   box-shadow: var(--shadow-sm);
 }
 
 /* ─── Danger ───────────────────────────────────────────────────────────────── */
 
-.df-button--danger .df-button__inner {
+.lucent-button--danger .lucent-button__inner {
   background: var(--color--semantic--error-subtle);
   color: var(--color--semantic--error);
 }
-.df-button--danger .df-button__inner:hover:not(:disabled) {
+.lucent-button--danger .lucent-button__inner:hover:not(:disabled) {
   background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h);
 }
-.df-button--danger .df-button__inner:active:not(:disabled) {
+.lucent-button--danger .lucent-button__inner:active:not(:disabled) {
   background: var(--color--semantic--error);
   color: var(--color--semantic--text-inverse);
 }
 
 /* ─── Text ─────────────────────────────────────────────────────────────────── */
 
-.df-button--text .df-button__inner {
+.lucent-button--text .lucent-button__inner {
   background: transparent;
   color: var(--color--semantic--accent-default);
   text-decoration: underline;
 }
-.df-button--text .df-button__inner:hover:not(:disabled) {
+.lucent-button--text .lucent-button__inner:hover:not(:disabled) {
   background: var(--color--semantic--surface-default);
 }
-.df-button--text .df-button__inner:active:not(:disabled) {
+.lucent-button--text .lucent-button__inner:active:not(:disabled) {
   color: var(--color--semantic--accent-strong);
 }

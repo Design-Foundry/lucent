@@ -2,10 +2,15 @@
 
 The single shared source of truth for Lucent's look: **design tokens + component
 styles, authored as plain CSS** (no SCSS, no build step). Both kits — the Angular
-package and the Razor RCL — consume this directory and emit identical `df-` class
-names, so one stylesheet styles both. This is the "consume from one source"
+package and the Razor RCL — consume this directory and emit identical `lucent-`
+class names, so one stylesheet styles both. This is the "consume from one source"
 contract: packages hold framework-specific *implementations* only; appearance lives
 here.
+
+> **Class contract:** a component's CSS class is the kebab-case of its type name —
+> `LucentButton` → `.lucent-button`, `LucentTextInput` → `.lucent-text-input`. The
+> Razor kit emits these today; the parked Angular kit still emits the old `df-`
+> names and gets rebranded when it's un-parked.
 
 ## Why plain CSS (no SCSS)
 
@@ -30,8 +35,8 @@ styles/
     controls.css        ← control-density alias (--control-*) — the row-alignment contract
     themes.css          ← dark-theme overrides ([data-theme=dark] + prefers-color-scheme)
   components/
-    button.css          ← .df-button …
-    input.css           ← .df-input …
+    button.css          ← .lucent-button …
+    text-input.css      ← .lucent-text-input …
 ```
 
 ## Token tiers
@@ -51,4 +56,4 @@ alignment. There is **no component-token tier**; components bind straight to sem
 
 Component styles are extracted here on demand — as each component gets a Razor
 counterpart, its appearance moves out of the Angular `.scss` and into
-`components/`. Today that's **button** and **input**.
+`components/`. Today that's **button** and **text-input**.
