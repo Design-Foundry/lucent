@@ -36,8 +36,9 @@ let nextId = 0;
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfButton, DfIconButton],
-	templateUrl: './modal.html',
-	styleUrl: './modal.scss'
+	templateUrl: './modal.html'
+	// Styled by the shared base (styles/components/modal.css) via the lucent- contract.
+	// The panel + scrim render in a CDK overlay; the scrim class is set as backdropClass below.
 })
 export class DfModal implements OnDestroy {
 	private readonly overlay = inject(Overlay);
@@ -79,7 +80,7 @@ export class DfModal implements OnDestroy {
 		this.previousFocus = document.activeElement as HTMLElement | null;
 		this.overlayRef = this.overlay.create({
 			hasBackdrop: true,
-			backdropClass: 'df-modal__scrim',
+			backdropClass: 'lucent-modal__scrim',
 			scrollStrategy: this.overlay.scrollStrategies.block(),
 			positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
 		});
