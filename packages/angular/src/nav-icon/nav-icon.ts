@@ -7,8 +7,9 @@ import { DfIcon } from '../icon/icon';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './nav-icon.html',
-	styleUrl: './nav-icon.scss',
+	// Styled by the shared base (styles/components/nav-icon.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-nav-icon',
 		'[class.is-active]': 'active()',
 		'[class.is-disabled]': 'disabled()',
 		'[attr.aria-disabled]': 'disabled() || null',

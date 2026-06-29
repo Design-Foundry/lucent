@@ -11,7 +11,8 @@ export interface BreadcrumbItem {
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './breadcrumbs.html',
-	styleUrl: './breadcrumbs.scss'
+	// Styled by the shared base (styles/components/breadcrumbs.css) via the lucent- contract.
+	host: { 'class': 'lucent-breadcrumbs' }
 })
 export class DfBreadcrumbs {
 	readonly items = input<BreadcrumbItem[]>([]);
