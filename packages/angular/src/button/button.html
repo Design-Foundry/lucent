@@ -4,7 +4,7 @@
 	[disabled]="disabled() || loading()"
 	(click)="clicked.emit($event)">
 	@if (loading()) {
-		<span class="df-spinner" style="width: 18px; height: 18px"></span>
+		<span class="lucent-spinner" style="width: 18px; height: 18px"></span>
 	} @else {
 		<ng-content select="[dfPrefix]" />
 		<span class="lucent-button__label"><ng-content /></span>

@@ -5,7 +5,7 @@
 	[attr.aria-label]="ariaLabel() || null"
 	(click)="clicked.emit($event)">
 	@if (loading()) {
-		<span class="df-spinner" [style.width.px]="spinnerDiameter()" [style.height.px]="spinnerDiameter()"></span>
+		<span class="lucent-spinner" [style.width.px]="spinnerDiameter()" [style.height.px]="spinnerDiameter()"></span>
 	} @else {
 		<df-icon [name]="icon()" [size]="iconSize()" />
 	}
