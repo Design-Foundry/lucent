@@ -2,8 +2,8 @@
 
 Lucent's Blazor component library — **Account's first consumer target**. A Razor
 Class Library implementing the same contract as the Angular kit: it consumes the
-shared `tokens/` + `css/` and **emits identical class names** so one CSS layer styles
-both frameworks.
+shared `styles/` base (plain-CSS tokens + component styles) and **emits identical
+class names** so one CSS layer styles both frameworks.
 
 ## State
 
