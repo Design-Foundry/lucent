@@ -7,8 +7,8 @@ export type StatusTagVariant = 'success' | 'neutral' | 'warning' | 'error';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './status-tag.html',
-	styleUrl: './status-tag.scss',
-	host: { '[class]': '"df-status-tag--" + variant()' }
+	// Styled by the shared base (styles/components/status-tag.css) via the lucent- contract.
+	host: { '[class]': '"lucent-status-tag lucent-status-tag--" + variant()' }
 })
 export class DfStatusTag {
 	readonly variant = input<StatusTagVariant>('success');
