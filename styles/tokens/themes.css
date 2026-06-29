@@ -1,0 +1,114 @@
+/* =============================================================================
+ * Dark theme — re-points the SEMANTIC layer at different primitive steps.
+ * Primitives stay theme-agnostic; only semantic tokens change, so every component
+ * follows automatically.
+ *
+ * Applied to an explicit [data-theme="dark"] on <html>, and as the system default
+ * via prefers-color-scheme (unless the user explicitly chose [data-theme="light"]).
+ *
+ * NOTE: this was a single `@mixin dark` in SCSS. Plain CSS cannot share one
+ * declaration block across a normal selector and an @media rule, so the dark block
+ * is intentionally written twice. Keep the two copies in sync.
+ * ============================================================================= */
+
+/* Explicit user choice. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Text (invert the slate ramp: strong = lightest) */
+  --color--semantic--text-strong:   var(--color--primitive--slate-100);
+  --color--semantic--text-default:  var(--color--primitive--slate-90);
+  --color--semantic--text-muted:    var(--color--primitive--slate-70);
+  --color--semantic--text-subtle:   var(--color--primitive--slate-60);
+  --color--semantic--text-inverse:  var(--color--primitive--slate-20);
+  --color--semantic--text-onaccent: var(--color--primitive--pine-95);
+
+  /* Accent (keep brand mid; lighten emphasis, darken the tint) */
+  --color--semantic--accent-default: var(--color--primitive--pine-70);
+  --color--semantic--accent-strong:  var(--color--primitive--pine-80);
+  --color--semantic--accent-subtle:  var(--color--primitive--pine-30);
+
+  /* Feedback (keep saturated colors; darken the subtle backgrounds) */
+  --color--semantic--success:        var(--color--primitive--success-70);
+  --color--semantic--success-subtle: var(--color--primitive--success-30);
+  --color--semantic--warning:        var(--color--primitive--warning-70);
+  --color--semantic--warning-subtle: var(--color--primitive--warning-30);
+  --color--semantic--error:          var(--color--primitive--error-70);
+  --color--semantic--error-subtle:   var(--color--primitive--error-30);
+
+  /* Overlay */
+  --color--semantic--scrim: oklch(from var(--color--primitive--neutral-10) l c h / 0.6);
+
+  /* Surfaces (dark neutrals; raised/overlay step lighter than base) */
+  --color--semantic--surface-base:    var(--color--primitive--neutral-20);
+  --color--semantic--surface-default: var(--color--primitive--neutral-30);
+  --color--semantic--surface-raised:  var(--color--primitive--neutral-30);
+  --color--semantic--surface-overlay: var(--color--primitive--neutral-40);
+
+  --color--semantic--surface-glass:        oklch(from var(--color--primitive--neutral-30) l c h / 0.5);
+  --color--semantic--surface-glass-strong: oklch(from var(--color--primitive--neutral-40) l c h / 0.7);
+  --color--semantic--surface-glass-subtle: oklch(from var(--color--primitive--neutral-30) l c h / 0.12);
+
+  /* Borders (faint light hairlines on dark) */
+  --color--semantic--border-subtle:  oklch(from var(--color--primitive--neutral-100) l c h / 0.10);
+  --color--semantic--border-default: oklch(from var(--color--primitive--neutral-100) l c h / 0.18);
+  --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / 0.30);
+  --color--semantic--border-focus:   var(--color--primitive--pine-70);
+  --color--semantic--border-glass:   oklch(from var(--color--primitive--neutral-100) l c h / 0.15);
+
+  /* Shadows (deeper on dark) */
+  --shadow-xs: 0 1px 2px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.30);
+  --shadow-sm: 0 2px 4px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.36);
+  --shadow-md: 0 4px 8px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.44);
+  --shadow-lg: 0 8px 24px 0  oklch(from var(--color--primitive--neutral-10) l c h / 0.50);
+  --shadow-xl: 0 16px 48px 0 oklch(from var(--color--primitive--neutral-10) l c h / 0.56);
+}
+
+/* System default — applies when the user hasn't explicitly opted into light.
+ * (Same declarations as above; see NOTE.) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color--semantic--text-strong:   var(--color--primitive--slate-100);
+    --color--semantic--text-default:  var(--color--primitive--slate-90);
+    --color--semantic--text-muted:    var(--color--primitive--slate-70);
+    --color--semantic--text-subtle:   var(--color--primitive--slate-60);
+    --color--semantic--text-inverse:  var(--color--primitive--slate-20);
+    --color--semantic--text-onaccent: var(--color--primitive--pine-95);
+
+    --color--semantic--accent-default: var(--color--primitive--pine-70);
+    --color--semantic--accent-strong:  var(--color--primitive--pine-80);
+    --color--semantic--accent-subtle:  var(--color--primitive--pine-30);
+
+    --color--semantic--success:        var(--color--primitive--success-70);
+    --color--semantic--success-subtle: var(--color--primitive--success-30);
+    --color--semantic--warning:        var(--color--primitive--warning-70);
+    --color--semantic--warning-subtle: var(--color--primitive--warning-30);
+    --color--semantic--error:          var(--color--primitive--error-70);
+    --color--semantic--error-subtle:   var(--color--primitive--error-30);
+
+    --color--semantic--scrim: oklch(from var(--color--primitive--neutral-10) l c h / 0.6);
+
+    --color--semantic--surface-base:    var(--color--primitive--neutral-20);
+    --color--semantic--surface-default: var(--color--primitive--neutral-30);
+    --color--semantic--surface-raised:  var(--color--primitive--neutral-30);
+    --color--semantic--surface-overlay: var(--color--primitive--neutral-40);
+
+    --color--semantic--surface-glass:        oklch(from var(--color--primitive--neutral-30) l c h / 0.5);
+    --color--semantic--surface-glass-strong: oklch(from var(--color--primitive--neutral-40) l c h / 0.7);
+    --color--semantic--surface-glass-subtle: oklch(from var(--color--primitive--neutral-30) l c h / 0.12);
+
+    --color--semantic--border-subtle:  oklch(from var(--color--primitive--neutral-100) l c h / 0.10);
+    --color--semantic--border-default: oklch(from var(--color--primitive--neutral-100) l c h / 0.18);
+    --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / 0.30);
+    --color--semantic--border-focus:   var(--color--primitive--pine-70);
+    --color--semantic--border-glass:   oklch(from var(--color--primitive--neutral-100) l c h / 0.15);
+
+    --shadow-xs: 0 1px 2px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.30);
+    --shadow-sm: 0 2px 4px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.36);
+    --shadow-md: 0 4px 8px 0   oklch(from var(--color--primitive--neutral-10) l c h / 0.44);
+    --shadow-lg: 0 8px 24px 0  oklch(from var(--color--primitive--neutral-10) l c h / 0.50);
+    --shadow-xl: 0 16px 48px 0 oklch(from var(--color--primitive--neutral-10) l c h / 0.56);
+  }
+}

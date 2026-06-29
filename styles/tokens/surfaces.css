@@ -21,7 +21,7 @@
   );
 }
 
-// ─── Utility Classes ──────────────────────────────────────────────────────────
+/* ─── Utility Classes ────────────────────────────────────────────────────────── */
 
 .surface-base {
   background-color: var(--color--semantic--surface-base);

@@ -39,7 +39,7 @@
   --radius-full: var(--dimension--primitive--radius-full);
 }
 
-// ─── Utility Classes ──────────────────────────────────────────────────────────
+/* ─── Utility Classes ────────────────────────────────────────────────────────── */
 
 .border-subtle  { border: var(--border-subtle); }
 .border-default { border: var(--border-default); }

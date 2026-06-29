@@ -16,7 +16,7 @@
   --shadow-xl: 0 16px 48px 0 oklch(from var(--color--semantic--shadow-default) l c h / 0.20);
 }
 
-// ─── Utility Classes ──────────────────────────────────────────────────────────
+/* ─── Utility Classes ────────────────────────────────────────────────────────── */
 
 .shadow-xs { box-shadow: var(--shadow-xs); }
 .shadow-sm { box-shadow: var(--shadow-sm); }

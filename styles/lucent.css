@@ -1,0 +1,28 @@
+/* =============================================================================
+ * Lucent — single entry stylesheet for the framework-neutral base.
+ *
+ * Consumers link THIS one file (the Razor RCL ships it as a static web asset;
+ * the Angular kit imports it). It pulls in the whole base in cascade order.
+ *
+ * Custom-property resolution is order-independent, but theme overrides and the
+ * utility classes are not — so the import order is deliberate:
+ *   primitives → semantic roles (+ control alias) → theme → components.
+ * ============================================================================= */
+
+/* Tier 1 — primitive scales (raw values). */
+@import "tokens/primitives.css";
+
+/* Tier 2 — semantic roles + the control-density alias layer. */
+@import "tokens/semantic-colors.css";
+@import "tokens/surfaces.css";
+@import "tokens/borders.css";
+@import "tokens/shadows.css";
+@import "tokens/typography.css";
+@import "tokens/controls.css";
+
+/* Theme overrides — must follow the base semantic layer. */
+@import "tokens/themes.css";
+
+/* Components — each keyed to the df- class-name contract. */
+@import "components/button.css";
+@import "components/input.css";

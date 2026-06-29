@@ -126,9 +126,9 @@
 	--dimension--primitive--fs-heading-md: 20px;
 	--dimension--primitive--fs-body-md: 16px;
 	--dimension--primitive--fs-body-sm: 14px;
-	--dimension--primitive--fs-13: 13px;      // in-between dense step (macOS control size)
+	--dimension--primitive--fs-13: 13px;      /* in-between dense step (macOS control size) */
 	--dimension--primitive--fs-caption: 12px;
-	--dimension--primitive--fs-11: 11px;      // dense-UI workhorse (Figma/Material label-small)
+	--dimension--primitive--fs-11: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
 	--dimension--primitive--fs-micro: 10px;
 	--dimension--primitive--fw-light: 300;
 	--dimension--primitive--fw-regular: 400;
@@ -152,8 +152,8 @@
 	--dimension--primitive--lh-relaxed: 1.6;
 	--dimension--primitive--tracking-tight: -0.01em;
 	--dimension--primitive--tracking-normal: 0em;
-	--dimension--primitive--tracking-wide: 0.02em;   // small UI labels (11–12px)
-	--dimension--primitive--tracking-wider: 0.04em;  // uppercase / status labels
+	--dimension--primitive--tracking-wide: 0.02em;   /* small UI labels (11–12px) */
+	--dimension--primitive--tracking-wider: 0.04em;  /* uppercase / status labels */
 	--dimension--primitive--spacing-0: 0px;
 	--dimension--primitive--spacing-0-5: 2px;
 	--dimension--primitive--spacing-1: 4px;
