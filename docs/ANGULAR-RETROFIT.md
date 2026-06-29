@@ -1,0 +1,73 @@
+# Angular retrofit — onto the shared `styles/` contract
+
+The Angular kit was harvested from `hub/` with **per-component encapsulated SCSS** (`:host` +
+`df-` BEM classes). The shared base in [`styles/`](../styles/) now owns every component's CSS,
+keyed to the **`lucent-` class contract** that the Razor kit already emits. Retrofitting Angular
+means: emit the `lucent-` classes, and delete the per-component SCSS so one CSS layer styles both
+kits.
+
+> **Status:** `button` is done as the reference (below). The remaining ~29 components follow the
+> same mechanical recipe.
+
+> **Verification:** there is **no Angular build in this repo** (`packages/angular` is a parked
+> reference — no `node_modules`, no `angular.json`). Verify the retrofit by building/serving the
+> Angular **showcase in `hub/web`** (`npm run build` + the dev showcase route — see
+> [BUILDING-A-COMPONENT.md §10](./BUILDING-A-COMPONENT.md)) in both light and dark, exactly as the
+> Razor kit was verified in `samples/DesignFoundry.Lucent.Showcase`.
+
+## The recipe (per component)
+
+For `packages/angular/src/<name>/`:
+
+1. **Host classes → `lucent-`.** In the `@Component` `host` block, rename the `df-<name>--…`
+   classes to `lucent-<name>--…` **and add the base `lucent-<name>` class** (the old SCSS styled
+   the bare `:host`; the shared CSS targets the `.lucent-<name>` class, so the host element must
+   carry it now).
+2. **Template classes → `lucent-`.** In `<name>.html`, rename every `df-<name>__el` /
+   `df-<name>--mod` to its `lucent-` equivalent. The element/structure stays identical — only the
+   class strings change (the shared CSS was ported 1:1 from the SCSS).
+3. **Drop the SCSS.** Remove `styleUrl: './<name>.scss'` from the decorator and delete
+   `<name>.scss`. Styling now comes from the global `styles/lucent.css` the consuming app loads.
+   (Default `ViewEncapsulation.Emulated` is fine — it only scopes a component's *own* styles;
+   global classes still apply.)
+4. **No API change.** Inputs/outputs/selectors are untouched — only the emitted CSS classes move
+   from `df-` to `lucent-`. Consumers that targeted `df-` classes in their own CSS must update
+   (call this out in the changelog).
+
+A few components keep extra structure the Razor port omitted (e.g. button's `__label` span,
+the `is-loading`/`df-spinner` branch). Leave that markup; the shared CSS simply doesn't style the
+extras (the spinner was already undefined — a pre-existing gap, see API-AUDIT §5).
+
+## Worked example — `button`
+
+`button.ts` (decorator):
+
+```ts
+// before
+styleUrl: './button.scss',
+host: { '[class]': '"df-button--" + variant() + " df-button--" + size()', '[class.is-loading]': 'loading()' }
+
+// after — no styleUrl; base class added; df- → lucent-
+host: { '[class]': '"lucent-button lucent-button--" + variant() + " lucent-button--" + size()', '[class.is-loading]': 'loading()' }
+```
+
+`button.html`: `df-button__inner` → `lucent-button__inner`, `df-button__label` → `lucent-button__label`.
+
+`button.scss`: **deleted.**
+
+Result: `<df-button>` renders `<… class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner">…`, styled entirely by `styles/components/button.css` — the exact markup that file's header documents.
+
+## Order
+
+Follow the same dependency order the Razor port used (foundations/primitives first): `icon`,
+`tag`, `status-tag`, `tooltip` → `icon-button`, `toggle`, `chip`, `checkbox` → nav (`nav-icon`,
+`nav-rail`, `nav-divider`, `activity-bar`, `breadcrumbs`) → `avatar`, `inline-input`, `option`,
+`select`, `input` → `list-item`, `list` → `tab`, `tab-list`, `card`, `menu*`, `modal` →
+`snackbar`, `toast`. Each component's shared CSS already exists in `styles/components/`.
+
+## Class-name index
+
+Every `df-<x>` block in a template maps to `lucent-<x>` with the **same** element/modifier suffix.
+There are no renames beyond the `df-` → `lucent-` prefix (the contract rename was done in
+`styles/` already — commit `e5ba1a7`). When in doubt, open the matching
+`styles/components/<name>.css` — its header documents the exact class structure both kits emit.
