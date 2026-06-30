@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Lucent — Web Components showcase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="sc-header">
+      <h1 class="sc-header__title">Lucent <small>· Web Components showcase</small></h1>
+      <button class="sc-theme-toggle" type="button" id="sc-theme">Theme</button>
+    </header>
+
+    <main class="sc-main">
+      <!-- ── Tier 1 — Primitives ──────────────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 1</p>
+        <h2 class="sc-section__title">Primitives</h2>
+        <div class="sc-card">
+          <div class="sc-label">Icon — sizes</div>
+          <div class="sc-row">
+            <lucent-icon name="settings" size="sm"></lucent-icon>
+            <lucent-icon name="settings" size="md"></lucent-icon>
+            <lucent-icon name="settings" size="lg"></lucent-icon>
+            <lucent-icon name="rocket_launch" size="lg"></lucent-icon>
+          </div>
+
+          <div class="sc-label">Tag</div>
+          <div class="sc-row">
+            <lucent-tag>Default</lucent-tag>
+            <lucent-tag>v1.2.0</lucent-tag>
+          </div>
+
+          <div class="sc-label">Status tag</div>
+          <div class="sc-row">
+            <lucent-status-tag variant="success" label="Success"></lucent-status-tag>
+            <lucent-status-tag variant="neutral" label="Neutral"></lucent-status-tag>
+            <lucent-status-tag variant="warning" label="Warning"></lucent-status-tag>
+            <lucent-status-tag variant="error" label="Error"></lucent-status-tag>
+          </div>
+
+          <div class="sc-label">Tooltip (hover / focus the button)</div>
+          <div class="sc-row">
+            <lucent-tooltip content="Saves your changes">
+              <lucent-button variant="secondary">Hover me</lucent-button>
+            </lucent-tooltip>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 2 — Actions & controls ──────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 2</p>
+        <h2 class="sc-section__title">Actions &amp; controls</h2>
+        <div class="sc-card">
+          <div class="sc-label">Button — variants</div>
+          <div class="sc-row">
+            <lucent-button variant="primary">Primary</lucent-button>
+            <lucent-button variant="secondary">Secondary</lucent-button>
+            <lucent-button variant="ghost">Ghost</lucent-button>
+            <lucent-button variant="danger">Danger</lucent-button>
+            <lucent-button variant="text">Text</lucent-button>
+          </div>
+
+          <div class="sc-label">Button — sizes &amp; states</div>
+          <div class="sc-row">
+            <lucent-button size="xs">XS</lucent-button>
+            <lucent-button size="sm">SM</lucent-button>
+            <lucent-button size="md">MD</lucent-button>
+            <lucent-button size="lg">LG</lucent-button>
+            <lucent-button loading>Loading</lucent-button>
+            <lucent-button disabled>Disabled</lucent-button>
+          </div>
+
+          <div class="sc-label">Icon button</div>
+          <div class="sc-row">
+            <lucent-icon-button icon="favorite" variant="primary" label="Like"></lucent-icon-button>
+            <lucent-icon-button icon="edit" variant="secondary" label="Edit"></lucent-icon-button>
+            <lucent-icon-button icon="more_vert" variant="ghost" label="More"></lucent-icon-button>
+            <lucent-icon-button icon="delete" variant="danger" label="Delete"></lucent-icon-button>
+            <lucent-icon-button icon="sync" loading label="Loading"></lucent-icon-button>
+          </div>
+
+          <div class="sc-label">Toggle</div>
+          <div class="sc-row">
+            <lucent-toggle label="Off"></lucent-toggle>
+            <lucent-toggle label="On" checked></lucent-toggle>
+            <lucent-toggle label="Small" size="sm" checked></lucent-toggle>
+          </div>
+
+          <div class="sc-label">Checkbox</div>
+          <div class="sc-row">
+            <lucent-checkbox label="Unchecked"></lucent-checkbox>
+            <lucent-checkbox label="Checked" checked></lucent-checkbox>
+            <lucent-checkbox label="Indeterminate" indeterminate></lucent-checkbox>
+            <lucent-checkbox label="Small" size="sm" checked></lucent-checkbox>
+          </div>
+
+          <div class="sc-label">Chip</div>
+          <div class="sc-row">
+            <lucent-chip label="Default"></lucent-chip>
+            <lucent-chip label="Active" type="active"></lucent-chip>
+            <lucent-chip label="Tag" type="tag"></lucent-chip>
+            <lucent-chip label="Removable" type="action"></lucent-chip>
+            <lucent-chip label="Small" type="action" size="sm"></lucent-chip>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 3 — Navigation ──────────────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 3</p>
+        <h2 class="sc-section__title">Navigation</h2>
+        <div class="sc-card">
+          <div class="sc-label">Breadcrumbs</div>
+          <div class="sc-row"><lucent-breadcrumbs id="crumbs"></lucent-breadcrumbs></div>
+
+          <div class="sc-label">Nav rail (with activity bar)</div>
+          <div class="sc-row" style="align-items:stretch">
+            <lucent-nav-rail>
+              <lucent-nav-icon name="dashboard" active label="Dashboard"></lucent-nav-icon>
+              <lucent-nav-icon name="folder" label="Files"></lucent-nav-icon>
+              <lucent-nav-icon name="group" label="Team"></lucent-nav-icon>
+              <lucent-nav-divider></lucent-nav-divider>
+              <lucent-nav-icon name="settings" label="Settings"></lucent-nav-icon>
+            </lucent-nav-rail>
+            <lucent-activity-bar>
+              <lucent-nav-icon name="search" label="Search"></lucent-nav-icon>
+              <lucent-nav-icon name="notifications" active label="Alerts"></lucent-nav-icon>
+              <lucent-nav-icon name="help" label="Help"></lucent-nav-icon>
+            </lucent-activity-bar>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 4 — Inputs & data entry ─────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 4</p>
+        <h2 class="sc-section__title">Inputs &amp; data entry</h2>
+        <div class="sc-card">
+          <div class="sc-row" style="align-items:flex-start">
+            <div class="sc-col" style="min-width:260px">
+              <div class="sc-label">Input</div>
+              <lucent-text-input placeholder="you@example.com" label="Email" hint="We'll never share it."></lucent-text-input>
+              <lucent-text-input placeholder="Search…" clearable leading-icon="search"></lucent-text-input>
+              <lucent-text-input placeholder="Invalid" label="Username" error="Already taken."></lucent-text-input>
+            </div>
+            <div class="sc-col" style="min-width:260px">
+              <div class="sc-label">Select</div>
+              <lucent-select id="env" placeholder="Choose environment" label="Environment" hint="Pick a deployment target."></lucent-select>
+              <div class="sc-label" style="margin-top:12px">Inline input</div>
+              <lucent-inline-input placeholder="Untitled document" typography="heading"></lucent-inline-input>
+            </div>
+            <div class="sc-col">
+              <div class="sc-label">Avatar</div>
+              <div class="sc-row">
+                <lucent-avatar name="Diego Cancho" scale="sm"></lucent-avatar>
+                <lucent-avatar name="Ada Lovelace" scale="md"></lucent-avatar>
+                <lucent-avatar name="Grace Hopper" tenant="Acme" scale="lg"></lucent-avatar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 5 — Data display ────────────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 5</p>
+        <h2 class="sc-section__title">Data display</h2>
+        <div class="sc-card">
+          <div class="sc-label">List</div>
+          <div class="sc-panel" style="width:340px">
+            <lucent-list>
+              <lucent-list-item icon="inbox" label="Inbox" selected></lucent-list-item>
+              <lucent-list-item icon="send" label="Sent" supporting="24 messages"></lucent-list-item>
+              <lucent-list-item icon="drafts" label="Drafts"></lucent-list-item>
+              <lucent-list-item icon="delete" label="Trash" tone="danger"></lucent-list-item>
+              <lucent-list-item icon="block" label="Disabled" disabled></lucent-list-item>
+            </lucent-list>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 6 — Containers ──────────────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 6</p>
+        <h2 class="sc-section__title">Containers</h2>
+        <div class="sc-card">
+          <div class="sc-label">Card</div>
+          <div class="sc-row">
+            <lucent-card>
+              <div style="padding:16px;width:240px">
+                <strong>Card title</strong>
+                <p style="margin:8px 0 0;opacity:.7;font-size:14px">A simple surface container with the shared elevation + radius.</p>
+              </div>
+            </lucent-card>
+          </div>
+
+          <div class="sc-label">Tabs</div>
+          <div class="sc-row" style="display:block">
+            <lucent-tab-list active-tab="overview">
+              <lucent-tab value="overview" label="Overview" icon="dashboard"></lucent-tab>
+              <lucent-tab value="activity" label="Activity" icon="timeline"></lucent-tab>
+              <lucent-tab value="settings" label="Settings" icon="settings"></lucent-tab>
+              <lucent-tab value="locked" label="Locked" disabled></lucent-tab>
+            </lucent-tab-list>
+          </div>
+
+          <div class="sc-label">Menu</div>
+          <div class="sc-row" style="align-items:flex-start">
+            <lucent-menu-trigger position="bottom-start">
+              <button class="sc-theme-toggle" type="button">Open menu ▾</button>
+              <lucent-menu>
+                <lucent-menu-item icon="edit" label="Rename"></lucent-menu-item>
+                <lucent-menu-item icon="content_copy" label="Duplicate"></lucent-menu-item>
+                <lucent-menu-divider></lucent-menu-divider>
+                <lucent-menu-item icon="delete" label="Delete" variant="danger"></lucent-menu-item>
+              </lucent-menu>
+            </lucent-menu-trigger>
+
+            <div class="sc-panel">
+              <div class="sc-label">Inline (always-open) preview</div>
+              <lucent-menu>
+                <lucent-menu-item icon="edit" label="Rename"></lucent-menu-item>
+                <lucent-menu-item icon="content_copy" label="Duplicate" active></lucent-menu-item>
+                <lucent-menu-divider></lucent-menu-divider>
+                <lucent-menu-item icon="delete" label="Delete" variant="danger"></lucent-menu-item>
+              </lucent-menu>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Tier 7 — Overlays & feedback ─────────────────────────────────── -->
+      <section class="sc-section">
+        <p class="sc-section__head">Tier 7</p>
+        <h2 class="sc-section__title">Overlays &amp; feedback</h2>
+        <div class="sc-card">
+          <div class="sc-label">Modal</div>
+          <div class="sc-row">
+            <lucent-button variant="primary" id="open-modal">Open modal</lucent-button>
+            <lucent-modal id="modal" variant="destructive" title="Delete project?"
+              subtitle="This action cannot be undone." confirm-label="Delete" cancel-label="Keep"></lucent-modal>
+          </div>
+          <div class="sc-label">Toast</div>
+          <div class="sc-col">
+            <lucent-toast variant="success" title="Saved" message="Your changes are live."></lucent-toast>
+            <lucent-toast variant="warning" title="Heads up" message="Storage is almost full."></lucent-toast>
+            <lucent-toast variant="error" title="Failed" message="Could not reach the server."></lucent-toast>
+            <lucent-toast variant="informative" title="FYI" message="A new version is available."></lucent-toast>
+          </div>
+          <div class="sc-label" style="margin-top:16px">Snackbar</div>
+          <div class="sc-col">
+            <lucent-snackbar message="Message archived." action-label="Undo"></lucent-snackbar>
+            <lucent-snackbar message="Copied to clipboard." icon="content_copy"></lucent-snackbar>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/demo/main.ts"></script>
+  </body>
+</html>
