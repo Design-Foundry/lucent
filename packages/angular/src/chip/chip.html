@@ -1,5 +1,5 @@
 @if (type() === 'tag') {
-	<df-icon name="tag" size="sm" />
+	<lucent-icon name="tag" size="sm" />
 }
 <span class="lucent-chip__label">{{ label() }}</span>
 @if (type() === 'action') {
@@ -8,6 +8,6 @@
 		class="lucent-chip__close"
 		[attr.aria-label]="label() ? 'Remove ' + label() : 'Remove'"
 		(click)="closed.emit()">
-		<df-icon name="close" size="sm" />
+		<lucent-icon name="close" size="sm" />
 	</button>
 }

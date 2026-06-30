@@ -1,13 +1,13 @@
 @if (icon() && !leadingRef()) {
-	<df-icon class="lucent-list-item__icon" [name]="icon()" size="sm" />
+	<lucent-icon class="lucent-list-item__icon" [name]="icon()" size="sm" />
 }
-<ng-content select="[dfLeading]" />
+<ng-content select="[lucentLeading]" />
 
 <span class="lucent-list-item__content">
 	<span class="lucent-list-item__primary"><ng-content>{{ label() }}</ng-content></span>
 	@if (supportingRef()) {
-		<span class="lucent-list-item__supporting"><ng-content select="[dfSupporting]" /></span>
+		<span class="lucent-list-item__supporting"><ng-content select="[lucentSupporting]" /></span>
 	}
 </span>
 
-<ng-content select="[dfTrailing]" />
+<ng-content select="[lucentTrailing]" />

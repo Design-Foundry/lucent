@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
-import { DfIcon } from '../icon/icon';
+import { LucentIcon } from '../icon/icon';
 
 @Component({
-	selector: 'df-nav-icon',
+	selector: 'lucent-nav-icon',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './nav-icon.html',
 	// Styled by the shared base (styles/components/nav-icon.css) via the lucent- contract.
 	host: {
@@ -17,7 +17,7 @@ import { DfIcon } from '../icon/icon';
 		'[attr.title]': 'ariaLabel() || null'
 	}
 })
-export class DfNavIcon {
+export class LucentNavIcon {
 	readonly name = input('widgets');
 	readonly active = input(false, { transform: booleanAttribute });
 	readonly disabled = input(false, { transform: booleanAttribute });

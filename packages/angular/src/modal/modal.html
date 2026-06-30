@@ -7,7 +7,7 @@
 		<div class="lucent-modal__header">
 			@if (headerRef()) {
 				<div class="lucent-modal__heading">
-					<ng-content select="[dfModalHeader]" />
+					<ng-content select="[lucentModalHeader]" />
 				</div>
 			} @else {
 				<div class="lucent-modal__heading">
@@ -17,7 +17,7 @@
 					}
 				</div>
 			}
-			<df-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="close()" />
+			<lucent-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="close()" />
 		</div>
 
 		<div class="lucent-modal__body">
@@ -27,14 +27,14 @@
 		@if (hasFooter()) {
 			<div class="lucent-modal__footer">
 				@if (actionsRef()) {
-					<ng-content select="[dfModalActions]" />
+					<ng-content select="[lucentModalActions]" />
 				} @else {
-					<df-button variant="ghost" (clicked)="cancel()">{{ cancelLabel() }}</df-button>
-					<df-button
+					<lucent-button variant="ghost" (clicked)="cancel()">{{ cancelLabel() }}</lucent-button>
+					<lucent-button
 						[variant]="isDestructive() ? 'danger' : 'primary'"
 						(clicked)="confirm()">
 						{{ confirmLabel() }}
-					</df-button>
+					</lucent-button>
 				}
 			</div>
 		}

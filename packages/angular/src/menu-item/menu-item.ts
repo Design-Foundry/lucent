@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
-import { DfIcon } from '../icon/icon';
+import { LucentIcon } from '../icon/icon';
 
 export type MenuItemVariant = 'default' | 'danger';
 
 @Component({
-	selector: 'df-menu-item',
+	selector: 'lucent-menu-item',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './menu-item.html',
 	// Styled by the shared base (styles/components/menu-item.css) via the lucent- contract.
 	host: {
@@ -20,7 +20,7 @@ export type MenuItemVariant = 'default' | 'danger';
 		'(keydown.space)': '_onKeyActivate($event)',
 	}
 })
-export class DfMenuItem {
+export class LucentMenuItem {
 	readonly label = input('');
 	readonly icon = input('');
 	readonly active = input(false, { transform: booleanAttribute });

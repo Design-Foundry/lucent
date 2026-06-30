@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export type ToggleSize = 'md' | 'sm';
 
 @Component({
-	selector: 'df-toggle',
+	selector: 'lucent-toggle',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './toggle.html',
@@ -25,11 +25,11 @@ export type ToggleSize = 'md' | 'sm';
 	},
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DfToggle),
+		useExisting: forwardRef(() => LucentToggle),
 		multi: true
 	}]
 })
-export class DfToggle implements ControlValueAccessor {
+export class LucentToggle implements ControlValueAccessor {
 	readonly size = input<ToggleSize>('md');
 	readonly label = input('');
 

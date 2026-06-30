@@ -12,9 +12,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
-import { DfIcon } from '../icon/icon';
-import { DfOption } from '../option/option';
-import { DfError, DfHint, DfLabel } from '../slots/slots';
+import { LucentIcon } from '../icon/icon';
+import { LucentOption } from '../option/option';
+import { LucentError, LucentHint, LucentLabel } from '../slots/slots';
 import { ControlSize } from '../sizing';
 
 export interface SelectOption {
@@ -25,34 +25,34 @@ export interface SelectOption {
 let nextId = 0;
 
 @Component({
-	selector: 'df-select',
+	selector: 'lucent-select',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [OverlayModule, DfIcon, DfOption],
+	imports: [OverlayModule, LucentIcon, LucentOption],
 	templateUrl: './select.html',
 	// Styled by the shared base (styles/components/select.css) via the lucent- contract.
 	host: { '[class]': '"lucent-select lucent-select--" + size()' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DfSelect),
+		useExisting: forwardRef(() => LucentSelect),
 		multi: true
 	}]
 })
-export class DfSelect implements ControlValueAccessor {
+export class LucentSelect implements ControlValueAccessor {
 	readonly size = input<ControlSize>('md');
 	readonly placeholder = input('Select an option');
 	readonly options = input<SelectOption[]>([]);
 	readonly selectionChange = output<unknown>();
 
-	readonly listboxId = `df-select-${nextId++}`;
+	readonly listboxId = `lucent-select-${nextId++}`;
 	readonly labelId = `${this.listboxId}-label`;
 	readonly messageId = `${this.listboxId}-msg`;
 	optionId = (i: number) => `${this.listboxId}-opt-${i}`;
 
-	// label/hint/error are projected content (consistent with df-input).
-	readonly labelRef = contentChild(DfLabel);
-	readonly hintRef = contentChild(DfHint);
-	readonly errorRef = contentChild(DfError);
+	// label/hint/error are projected content (consistent with lucent-input).
+	readonly labelRef = contentChild(LucentLabel);
+	readonly hintRef = contentChild(LucentHint);
+	readonly errorRef = contentChild(LucentError);
 
 	private readonly trigger = viewChild.required<ElementRef<HTMLElement>>('trigger');
 

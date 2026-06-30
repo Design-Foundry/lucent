@@ -18,29 +18,29 @@
     <div class="sc-card">
       <div class="sc-label">Icon — sizes</div>
       <div class="sc-row">
-        <df-icon name="settings" size="sm" />
-        <df-icon name="settings" size="md" />
-        <df-icon name="settings" size="lg" />
-        <df-icon name="rocket_launch" size="lg" />
+        <lucent-icon name="settings" size="sm" />
+        <lucent-icon name="settings" size="md" />
+        <lucent-icon name="settings" size="lg" />
+        <lucent-icon name="rocket_launch" size="lg" />
       </div>
 
       <div class="sc-label">Tag</div>
       <div class="sc-row">
-        <df-tag>Default</df-tag>
-        <df-tag>v1.2.0</df-tag>
+        <lucent-tag>Default</lucent-tag>
+        <lucent-tag>v1.2.0</lucent-tag>
       </div>
 
       <div class="sc-label">Status tag</div>
       <div class="sc-row">
-        <df-status-tag variant="success" label="Success" />
-        <df-status-tag variant="neutral" label="Neutral" />
-        <df-status-tag variant="warning" label="Warning" />
-        <df-status-tag variant="error" label="Error" />
+        <lucent-status-tag variant="success" label="Success" />
+        <lucent-status-tag variant="neutral" label="Neutral" />
+        <lucent-status-tag variant="warning" label="Warning" />
+        <lucent-status-tag variant="error" label="Error" />
       </div>
 
       <div class="sc-label">Tooltip (hover / focus the button)</div>
       <div class="sc-row">
-        <df-button [dfTooltip]="'Saves your changes'" variant="secondary">Hover me</df-button>
+        <lucent-button [lucentTooltip]="'Saves your changes'" variant="secondary">Hover me</lucent-button>
       </div>
     </div>
   </section>
@@ -53,55 +53,55 @@
     <div class="sc-card">
       <div class="sc-label">Button — variants</div>
       <div class="sc-row">
-        <df-button variant="primary">Primary</df-button>
-        <df-button variant="secondary">Secondary</df-button>
-        <df-button variant="ghost">Ghost</df-button>
-        <df-button variant="danger">Danger</df-button>
-        <df-button variant="text">Text</df-button>
+        <lucent-button variant="primary">Primary</lucent-button>
+        <lucent-button variant="secondary">Secondary</lucent-button>
+        <lucent-button variant="ghost">Ghost</lucent-button>
+        <lucent-button variant="danger">Danger</lucent-button>
+        <lucent-button variant="text">Text</lucent-button>
       </div>
 
       <div class="sc-label">Button — sizes &amp; states</div>
       <div class="sc-row">
-        <df-button size="xs">XS</df-button>
-        <df-button size="sm">SM</df-button>
-        <df-button size="md">MD</df-button>
-        <df-button size="lg">LG</df-button>
-        <df-button [loading]="true">Loading</df-button>
-        <df-button [disabled]="true">Disabled</df-button>
-        <df-button variant="primary"><df-icon dfPrefix name="add" size="sm" />With icon</df-button>
+        <lucent-button size="xs">XS</lucent-button>
+        <lucent-button size="sm">SM</lucent-button>
+        <lucent-button size="md">MD</lucent-button>
+        <lucent-button size="lg">LG</lucent-button>
+        <lucent-button [loading]="true">Loading</lucent-button>
+        <lucent-button [disabled]="true">Disabled</lucent-button>
+        <lucent-button variant="primary"><lucent-icon lucentPrefix name="add" size="sm" />With icon</lucent-button>
       </div>
 
       <div class="sc-label">Icon button</div>
       <div class="sc-row">
-        <df-icon-button icon="favorite" variant="primary" ariaLabel="Like" />
-        <df-icon-button icon="edit" variant="secondary" ariaLabel="Edit" />
-        <df-icon-button icon="more_vert" variant="ghost" ariaLabel="More" />
-        <df-icon-button icon="delete" variant="danger" ariaLabel="Delete" />
-        <df-icon-button icon="sync" [loading]="true" ariaLabel="Loading" />
+        <lucent-icon-button icon="favorite" variant="primary" ariaLabel="Like" />
+        <lucent-icon-button icon="edit" variant="secondary" ariaLabel="Edit" />
+        <lucent-icon-button icon="more_vert" variant="ghost" ariaLabel="More" />
+        <lucent-icon-button icon="delete" variant="danger" ariaLabel="Delete" />
+        <lucent-icon-button icon="sync" [loading]="true" ariaLabel="Loading" />
       </div>
 
       <div class="sc-label">Toggle</div>
       <div class="sc-row">
-        <df-toggle label="Off" />
-        <df-toggle label="On" [ngModel]="true" />
-        <df-toggle label="Small" size="sm" [ngModel]="true" />
+        <lucent-toggle label="Off" />
+        <lucent-toggle label="On" [ngModel]="true" />
+        <lucent-toggle label="Small" size="sm" [ngModel]="true" />
       </div>
 
       <div class="sc-label">Checkbox</div>
       <div class="sc-row">
-        <df-checkbox label="Unchecked" />
-        <df-checkbox label="Checked" [ngModel]="true" />
-        <df-checkbox label="Indeterminate" [indeterminate]="true" />
-        <df-checkbox label="Small" size="sm" [ngModel]="true" />
+        <lucent-checkbox label="Unchecked" />
+        <lucent-checkbox label="Checked" [ngModel]="true" />
+        <lucent-checkbox label="Indeterminate" [indeterminate]="true" />
+        <lucent-checkbox label="Small" size="sm" [ngModel]="true" />
       </div>
 
       <div class="sc-label">Chip</div>
       <div class="sc-row">
-        <df-chip label="Default" />
-        <df-chip label="Active" type="active" />
-        <df-chip label="Tag" type="tag" />
-        <df-chip label="Removable" type="action" />
-        <df-chip label="Small" type="action" size="sm" />
+        <lucent-chip label="Default" />
+        <lucent-chip label="Active" type="active" />
+        <lucent-chip label="Tag" type="tag" />
+        <lucent-chip label="Removable" type="action" />
+        <lucent-chip label="Small" type="action" size="sm" />
       </div>
     </div>
   </section>
@@ -114,24 +114,24 @@
     <div class="sc-card">
       <div class="sc-label">Breadcrumbs</div>
       <div class="sc-row">
-        <df-breadcrumbs [items]="crumbs" />
+        <lucent-breadcrumbs [items]="crumbs" />
       </div>
 
       <div class="sc-label">Nav rail (with activity bar)</div>
       <div class="sc-row" style="align-items:stretch">
-        <df-nav-rail>
-          <df-nav-icon name="dashboard" [active]="true" ariaLabel="Dashboard" />
-          <df-nav-icon name="folder" ariaLabel="Files" />
-          <df-nav-icon name="group" ariaLabel="Team" />
-          <df-nav-divider />
-          <df-nav-icon name="settings" ariaLabel="Settings" />
-        </df-nav-rail>
+        <lucent-nav-rail>
+          <lucent-nav-icon name="dashboard" [active]="true" ariaLabel="Dashboard" />
+          <lucent-nav-icon name="folder" ariaLabel="Files" />
+          <lucent-nav-icon name="group" ariaLabel="Team" />
+          <lucent-nav-divider />
+          <lucent-nav-icon name="settings" ariaLabel="Settings" />
+        </lucent-nav-rail>
 
-        <df-activity-bar>
-          <df-nav-icon name="search" ariaLabel="Search" />
-          <df-nav-icon name="notifications" [active]="true" ariaLabel="Alerts" />
-          <df-nav-icon name="help" ariaLabel="Help" />
-        </df-activity-bar>
+        <lucent-activity-bar>
+          <lucent-nav-icon name="search" ariaLabel="Search" />
+          <lucent-nav-icon name="notifications" [active]="true" ariaLabel="Alerts" />
+          <lucent-nav-icon name="help" ariaLabel="Help" />
+        </lucent-activity-bar>
       </div>
     </div>
   </section>
@@ -145,36 +145,36 @@
       <div class="sc-row" style="align-items:flex-start">
         <div class="sc-col" style="min-width:260px">
           <div class="sc-label">Input</div>
-          <df-input placeholder="you@example.com">
-            <span dfLabel>Email</span>
-            <span dfHint>We'll never share it.</span>
-          </df-input>
-          <df-input placeholder="Search…" [clearable]="true">
-            <df-icon dfPrefix name="search" size="sm" />
-          </df-input>
-          <df-input placeholder="Invalid">
-            <span dfLabel>Username</span>
-            <span dfError>Already taken.</span>
-          </df-input>
+          <lucent-input placeholder="you@example.com">
+            <span lucentLabel>Email</span>
+            <span lucentHint>We'll never share it.</span>
+          </lucent-input>
+          <lucent-input placeholder="Search…" [clearable]="true">
+            <lucent-icon lucentPrefix name="search" size="sm" />
+          </lucent-input>
+          <lucent-input placeholder="Invalid">
+            <span lucentLabel>Username</span>
+            <span lucentError>Already taken.</span>
+          </lucent-input>
         </div>
 
         <div class="sc-col" style="min-width:260px">
           <div class="sc-label">Select</div>
-          <df-select placeholder="Choose environment" [options]="selectOptions">
-            <span dfLabel>Environment</span>
-            <span dfHint>Pick a deployment target.</span>
-          </df-select>
+          <lucent-select placeholder="Choose environment" [options]="selectOptions">
+            <span lucentLabel>Environment</span>
+            <span lucentHint>Pick a deployment target.</span>
+          </lucent-select>
 
           <div class="sc-label" style="margin-top:12px">Inline input</div>
-          <df-inline-input placeholder="Untitled document" typography="heading" />
+          <lucent-inline-input placeholder="Untitled document" typography="heading" />
         </div>
 
         <div class="sc-col">
           <div class="sc-label">Avatar</div>
           <div class="sc-row">
-            <df-avatar name="Diego Cancho" scale="sm" />
-            <df-avatar name="Ada Lovelace" scale="md" />
-            <df-avatar name="Grace Hopper" tenant="Acme" scale="lg" />
+            <lucent-avatar name="Diego Cancho" scale="sm" />
+            <lucent-avatar name="Ada Lovelace" scale="md" />
+            <lucent-avatar name="Grace Hopper" tenant="Acme" scale="lg" />
           </div>
         </div>
       </div>
@@ -189,15 +189,15 @@
     <div class="sc-card">
       <div class="sc-label">List</div>
       <div class="sc-panel" style="width:340px">
-        <df-list>
-          <df-list-item icon="inbox" label="Inbox" [selected]="true" />
-          <df-list-item icon="send" label="Sent">
-            <span dfSupporting>24 messages</span>
-          </df-list-item>
-          <df-list-item icon="drafts" label="Drafts" />
-          <df-list-item icon="delete" label="Trash" tone="danger" />
-          <df-list-item icon="block" label="Disabled" [disabled]="true" />
-        </df-list>
+        <lucent-list>
+          <lucent-list-item icon="inbox" label="Inbox" [selected]="true" />
+          <lucent-list-item icon="send" label="Sent">
+            <span lucentSupporting>24 messages</span>
+          </lucent-list-item>
+          <lucent-list-item icon="drafts" label="Drafts" />
+          <lucent-list-item icon="delete" label="Trash" tone="danger" />
+          <lucent-list-item icon="block" label="Disabled" [disabled]="true" />
+        </lucent-list>
       </div>
     </div>
   </section>
@@ -210,49 +210,49 @@
     <div class="sc-card">
       <div class="sc-label">Card</div>
       <div class="sc-row">
-        <df-card>
+        <lucent-card>
           <div style="padding:16px;width:240px">
             <strong>Card title</strong>
             <p style="margin:8px 0 0;opacity:.7;font-size:14px">
               A simple surface container with the shared elevation + radius.
             </p>
           </div>
-        </df-card>
+        </lucent-card>
       </div>
 
       <div class="sc-label">Tabs</div>
       <div class="sc-row" style="display:block">
-        <df-tab-list [activeTab]="activeTab()" (tabChange)="activeTab.set($event)">
-          <df-tab value="overview" label="Overview" icon="dashboard" />
-          <df-tab value="activity" label="Activity" icon="timeline" />
-          <df-tab value="settings" label="Settings" icon="settings" />
-          <df-tab value="locked" label="Locked" [disabled]="true" />
-        </df-tab-list>
+        <lucent-tab-list [activeTab]="activeTab()" (tabChange)="activeTab.set($event)">
+          <lucent-tab value="overview" label="Overview" icon="dashboard" />
+          <lucent-tab value="activity" label="Activity" icon="timeline" />
+          <lucent-tab value="settings" label="Settings" icon="settings" />
+          <lucent-tab value="locked" label="Locked" [disabled]="true" />
+        </lucent-tab-list>
         <p class="sc-note">Active tab: {{ activeTab() }}</p>
       </div>
 
       <div class="sc-label">Menu</div>
       <div class="sc-row" style="align-items:flex-start">
-        <button class="sc-theme-toggle" type="button" [dfMenuTrigger]="menuTpl">
+        <button class="sc-theme-toggle" type="button" [lucentMenuTrigger]="menuTpl">
           Open menu ▾
         </button>
         <ng-template #menuTpl>
-          <df-menu>
-            <df-menu-item icon="edit" label="Rename" />
-            <df-menu-item icon="content_copy" label="Duplicate" />
-            <df-menu-divider />
-            <df-menu-item icon="delete" label="Delete" variant="danger" />
-          </df-menu>
+          <lucent-menu>
+            <lucent-menu-item icon="edit" label="Rename" />
+            <lucent-menu-item icon="content_copy" label="Duplicate" />
+            <lucent-menu-divider />
+            <lucent-menu-item icon="delete" label="Delete" variant="danger" />
+          </lucent-menu>
         </ng-template>
 
         <div class="sc-panel">
           <div class="sc-label">Inline (always-open) preview</div>
-          <df-menu>
-            <df-menu-item icon="edit" label="Rename" />
-            <df-menu-item icon="content_copy" label="Duplicate" [active]="true" />
-            <df-menu-divider />
-            <df-menu-item icon="delete" label="Delete" variant="danger" />
-          </df-menu>
+          <lucent-menu>
+            <lucent-menu-item icon="edit" label="Rename" />
+            <lucent-menu-item icon="content_copy" label="Duplicate" [active]="true" />
+            <lucent-menu-divider />
+            <lucent-menu-item icon="delete" label="Delete" variant="danger" />
+          </lucent-menu>
         </div>
       </div>
     </div>
@@ -266,29 +266,29 @@
     <div class="sc-card">
       <div class="sc-label">Modal</div>
       <div class="sc-row">
-        <df-button variant="primary" (clicked)="modalOpen.set(true)">Open modal</df-button>
-        <df-modal
+        <lucent-button variant="primary" (clicked)="modalOpen.set(true)">Open modal</lucent-button>
+        <lucent-modal
           [(open)]="modalOpen"
           variant="destructive"
           title="Delete project?"
           subtitle="This action cannot be undone."
           confirmLabel="Delete"
           cancelLabel="Keep">
-        </df-modal>
+        </lucent-modal>
       </div>
 
       <div class="sc-label">Toast</div>
       <div class="sc-col">
-        <df-toast variant="success" title="Saved" message="Your changes are live." />
-        <df-toast variant="warning" title="Heads up" message="Storage is almost full." />
-        <df-toast variant="error" title="Failed" message="Could not reach the server." />
-        <df-toast variant="informative" title="FYI" message="A new version is available." />
+        <lucent-toast variant="success" title="Saved" message="Your changes are live." />
+        <lucent-toast variant="warning" title="Heads up" message="Storage is almost full." />
+        <lucent-toast variant="error" title="Failed" message="Could not reach the server." />
+        <lucent-toast variant="informative" title="FYI" message="A new version is available." />
       </div>
 
       <div class="sc-label" style="margin-top:16px">Snackbar</div>
       <div class="sc-col">
-        <df-snackbar message="Message archived." actionLabel="Undo" />
-        <df-snackbar message="Copied to clipboard." icon="content_copy" />
+        <lucent-snackbar message="Message archived." actionLabel="Undo" />
+        <lucent-snackbar message="Copied to clipboard." icon="content_copy" />
       </div>
     </div>
   </section>

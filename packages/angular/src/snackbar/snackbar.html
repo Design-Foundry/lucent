@@ -1,9 +1,9 @@
 <div class="lucent-snackbar__content">
 	@if (showIcon()) {
-		<df-icon [name]="icon()" size="md" class="lucent-snackbar__icon" />
+		<lucent-icon [name]="icon()" size="md" class="lucent-snackbar__icon" />
 	}
 	<span class="lucent-snackbar__message">{{ message() }}</span>
 </div>
 @if (actionLabel()) {
-	<df-button variant="ghost" (clicked)="action.emit()">{{ actionLabel() }}</df-button>
+	<lucent-button variant="ghost" (clicked)="action.emit()">{{ actionLabel() }}</lucent-button>
 }

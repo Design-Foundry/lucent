@@ -1,30 +1,30 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, contentChild, input, output } from '@angular/core';
-import { DfIcon } from '../icon/icon';
-import { DfLeading, DfSupporting } from '../slots/slots';
+import { LucentIcon } from '../icon/icon';
+import { LucentLeading, LucentSupporting } from '../slots/slots';
 import { Tone } from '../tone';
 
 /**
  * Reference row primitive (API-PROPOSAL §Rule 4). An interactive, content-rich
- * list row that the rest of the kit's row components (`df-option`, `df-menu-item`)
+ * list row that the rest of the kit's row components (`lucent-option`, `lucent-menu-item`)
  * specialize from. Demonstrates the kit conventions in one place:
  *
  * - **Rule 1 — content:** primary text projects via the default slot; `label` is a
  *   shorthand the projection overrides.
- * - **Rule 2 — adornments:** `dfLeading` / `dfTrailing` slots; `icon` is a leading
- *   shorthand the `dfLeading` slot overrides.
- * - **Rule 4 — two-line:** `dfSupporting` adds a secondary line.
+ * - **Rule 2 — adornments:** `lucentLeading` / `lucentTrailing` slots; `icon` is a leading
+ *   shorthand the `lucentLeading` slot overrides.
+ * - **Rule 4 — two-line:** `lucentSupporting` adds a secondary line.
  * - **Rule 5 — state:** `selected` (chosen, not keyboard-highlight), a standalone
  *   `disabled` input, and an `activated` output carrying the typed `value`.
  *
  * Selection is rendered visually on the base row; semantic selection ARIA
- * (`aria-selected`) is owned by listbox specializations such as `df-option`. For a
+ * (`aria-selected`) is owned by listbox specializations such as `lucent-option`. For a
  * single-select navigation list, set `aria-current` at the usage site.
  */
 @Component({
-	selector: 'df-list-item',
+	selector: 'lucent-list-item',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './list-item.html',
 	// Styled by the shared base (styles/components/list-item.css) via the lucent- contract.
 	host: {
@@ -41,14 +41,14 @@ import { Tone } from '../tone';
 		'(keydown.space)': 'onKeyActivate($event)',
 	}
 })
-export class DfListItem<T = unknown> {
+export class LucentListItem<T = unknown> {
 	/** Identity carried by `(activated)`; also the row's selection value. */
 	readonly value = input<T>();
 
 	/** Rule 1 shorthand — overridden by projected default content. */
 	readonly label = input('');
 
-	/** Rule 2 shorthand — a leading icon, overridden by projected `[dfLeading]`. */
+	/** Rule 2 shorthand — a leading icon, overridden by projected `[lucentLeading]`. */
 	readonly icon = input('');
 
 	/** Chosen state (the `aria-selected` sense, owned by specializations). */
@@ -66,8 +66,8 @@ export class DfListItem<T = unknown> {
 
 	// Projected-slot presence: the icon shorthand only renders when no leading
 	// slot is projected; the supporting line only renders when used.
-	protected readonly leadingRef = contentChild(DfLeading);
-	protected readonly supportingRef = contentChild(DfSupporting);
+	protected readonly leadingRef = contentChild(LucentLeading);
+	protected readonly supportingRef = contentChild(LucentSupporting);
 
 	protected activate(): void {
 		if (this.interactive() && !this.disabled()) this.activated.emit(this.value());

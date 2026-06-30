@@ -15,9 +15,9 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DfButton } from '../button/button';
-import { DfIconButton } from '../icon-button/icon-button';
-import { DfModalActions, DfModalHeader } from '../slots/slots';
+import { LucentButton } from '../button/button';
+import { LucentIconButton } from '../icon-button/icon-button';
+import { LucentModalActions, LucentModalHeader } from '../slots/slots';
 
 const FOCUSABLE =
 	'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
@@ -32,15 +32,15 @@ let nextId = 0;
  * backdrop dismissal, and role=dialog / aria-modal.
  */
 @Component({
-	selector: 'df-modal',
+	selector: 'lucent-modal',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfButton, DfIconButton],
+	imports: [LucentButton, LucentIconButton],
 	templateUrl: './modal.html'
 	// Styled by the shared base (styles/components/modal.css) via the lucent- contract.
 	// The panel + scrim render in a CDK overlay; the scrim class is set as backdropClass below.
 })
-export class DfModal implements OnDestroy {
+export class LucentModal implements OnDestroy {
 	private readonly overlay = inject(Overlay);
 	private readonly vcr = inject(ViewContainerRef);
 
@@ -55,12 +55,12 @@ export class DfModal implements OnDestroy {
 	readonly confirmed = output<void>();
 	readonly cancelled = output<void>();
 
-	readonly titleId = `df-modal-${nextId++}-title`;
+	readonly titleId = `lucent-modal-${nextId++}-title`;
 
 	// Projected-slot presence (header/actions override the title/subtitle inputs and
 	// the variant-driven default footer, respectively).
-	readonly headerRef = contentChild(DfModalHeader);
-	readonly actionsRef = contentChild(DfModalActions);
+	readonly headerRef = contentChild(LucentModalHeader);
+	readonly actionsRef = contentChild(LucentModalActions);
 
 	private readonly panel = viewChild.required<TemplateRef<unknown>>('panel');
 	private overlayRef?: OverlayRef;

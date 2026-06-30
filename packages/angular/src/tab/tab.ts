@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, ElementRef, booleanAttribute, inject, input, model, output } from '@angular/core';
-import { DfIcon } from '../icon/icon';
+import { LucentIcon } from '../icon/icon';
 
 export type TabScale = 'lg' | 'md' | 'sm' | 'xs';
 
 @Component({
-	selector: 'df-tab',
+	selector: 'lucent-tab',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './tab.html',
 	// Styled by the shared base (styles/components/tab.css) via the lucent- contract.
 	host: {
@@ -24,7 +24,7 @@ export type TabScale = 'lg' | 'md' | 'sm' | 'xs';
 		'(click)':                      'onClick()',
 	}
 })
-export class DfTab {
+export class LucentTab {
 	private readonly el = inject(ElementRef<HTMLElement>);
 
 	readonly label = input('');
@@ -32,7 +32,7 @@ export class DfTab {
 	readonly disabled = input(false, { transform: booleanAttribute });
 	readonly value = input('');
 
-	// Owned by df-tab-list (driven from its scale/activeTab) but also settable directly.
+	// Owned by lucent-tab-list (driven from its scale/activeTab) but also settable directly.
 	readonly scale = model<TabScale>('md');
 	readonly active = model(false);
 

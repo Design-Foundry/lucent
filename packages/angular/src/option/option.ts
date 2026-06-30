@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } from '@angular/core';
 
 @Component({
-	selector: 'df-option',
+	selector: 'lucent-option',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './option.html',
@@ -17,7 +17,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } f
 		'(click)': '!disabled() && optionSelect.emit(value())'
 	}
 })
-export class DfOption {
+export class LucentOption {
 	readonly label = input('');
 	readonly value = input<unknown>('');
 	readonly selected = input(false, { transform: booleanAttribute });

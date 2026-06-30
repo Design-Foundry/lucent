@@ -6,8 +6,8 @@
 	@if (loading()) {
 		<span class="lucent-spinner" style="width: 18px; height: 18px"></span>
 	} @else {
-		<ng-content select="[dfPrefix]" />
+		<ng-content select="[lucentPrefix]" />
 		<span class="lucent-button__label"><ng-content /></span>
-		<ng-content select="[dfSuffix]" />
+		<ng-content select="[lucentSuffix]" />
 	}
 </button>
