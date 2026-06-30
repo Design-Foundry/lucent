@@ -24,5 +24,33 @@
 @import "tokens/themes.css";
 
 /* Components — each keyed to the lucent- class-name contract. */
+@import "components/icon.css";
+@import "components/tag.css";
+@import "components/status-tag.css";
+@import "components/tooltip.css";
+@import "components/avatar.css";
+@import "components/inline-input.css";
+@import "components/option.css";
+@import "components/select.css";
+@import "components/list-item.css";
+@import "components/list.css";
+@import "components/tab.css";
+@import "components/tab-list.css";
+@import "components/card.css";
+@import "components/menu.css";
+@import "components/menu-item.css";
+@import "components/menu-divider.css";
+@import "components/modal.css";
+@import "components/snackbar.css";
+@import "components/toast.css";
 @import "components/button.css";
+@import "components/icon-button.css";
+@import "components/chip.css";
+@import "components/toggle.css";
+@import "components/checkbox.css";
+@import "components/nav-icon.css";
+@import "components/nav-divider.css";
+@import "components/nav-rail.css";
+@import "components/activity-bar.css";
+@import "components/breadcrumbs.css";
 @import "components/text-input.css";

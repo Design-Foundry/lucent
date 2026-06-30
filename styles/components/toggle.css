@@ -1,0 +1,99 @@
+/* =============================================================================
+ * Toggle (switch) — framework-neutral component styles.
+ *
+ * Structure both kits emit:
+ *   .lucent-toggle  (.lucent-toggle--md|sm)
+ *     .lucent-toggle__input?   ← native checkbox (Razor only; visually hidden)
+ *     .lucent-toggle__track
+ *       .lucent-toggle__thumb
+ *     .lucent-toggle__label?
+ *
+ * Checked state has a dual mechanism so one CSS layer serves both kits:
+ *   - Angular toggles `.is-checked` on the host via JS (ControlValueAccessor).
+ *   - Razor wraps a native checkbox and uses `:has(.lucent-toggle__input:checked)` — no JS,
+ *     posts in a form. The `__input` rules below are inert for the Angular structure.
+ *
+ * Ported from packages/angular/src/toggle/toggle.scss.
+ * ============================================================================= */
+
+.lucent-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dimension--primitive--spacing-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.lucent-toggle.is-disabled,
+.lucent-toggle:has(.lucent-toggle__input:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Visually-hidden native checkbox (Razor path). */
+.lucent-toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.lucent-toggle:has(.lucent-toggle__input:focus-visible) {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-full);
+}
+
+.lucent-toggle__track {
+  display: flex;
+  align-items: center;
+  padding: var(--dimension--primitive--spacing-0-5);
+  border-radius: var(--radius-full);
+  background: var(--color--semantic--surface-default);
+  box-shadow: var(--shadow-xs);
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.lucent-toggle__thumb {
+  border-radius: var(--radius-full);
+  background: var(--color--semantic--border-default);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  margin-left: 0;
+  transition: margin-left 0.2s ease, background 0.2s ease;
+}
+
+.lucent-toggle__label {
+  color: var(--color--semantic--text-strong);
+  font-family: var(--font--primitive--sans);
+  font-weight: var(--dimension--primitive--fw-light);
+  line-height: var(--dimension--primitive--lh-relaxed);
+}
+
+/* ─── Sizes ────────────────────────────────────────────────────────────────── */
+
+.lucent-toggle--md .lucent-toggle__track { width: 64px; }
+.lucent-toggle--md .lucent-toggle__thumb { width: 28px; height: 28px; }
+.lucent-toggle--md .lucent-toggle__label { font-size: var(--typography--body-md--font-size); }
+
+.lucent-toggle--sm .lucent-toggle__track { width: 40px; }
+.lucent-toggle--sm .lucent-toggle__thumb { width: 16px; height: 16px; }
+.lucent-toggle--sm .lucent-toggle__label { font-size: var(--typography--caption--font-size); }
+
+/* ─── Checked ──────────────────────────────────────────────────────────────── */
+/* thumb slides to the end (track − thumb − padding*2). */
+.lucent-toggle--md.is-checked .lucent-toggle__thumb,
+.lucent-toggle--md:has(.lucent-toggle__input:checked) .lucent-toggle__thumb { margin-left: calc(64px - 28px - 4px); }
+
+.lucent-toggle--sm.is-checked .lucent-toggle__thumb,
+.lucent-toggle--sm:has(.lucent-toggle__input:checked) .lucent-toggle__thumb { margin-left: calc(40px - 16px - 4px); }
+
+.lucent-toggle.is-checked .lucent-toggle__thumb,
+.lucent-toggle:has(.lucent-toggle__input:checked) .lucent-toggle__thumb { background: var(--color--semantic--accent-subtle); }

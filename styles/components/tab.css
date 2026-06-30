@@ -1,0 +1,56 @@
+/* =============================================================================
+ * Tab — framework-neutral component styles.
+ *
+ * Structure both kits emit:
+ *   .lucent-tab  (.lucent-tab--{lg|md|sm|xs} .lucent-tab--active / --disabled)
+ *     .lucent-icon?
+ *     .lucent-tab__label
+ *
+ * One tab inside a .lucent-tab-list. Active tab raises onto a glass pill. Ported from
+ * packages/angular/src/tab/tab.scss; `background: none; border: none` lets the Razor kit
+ * render it as a real <button> while keeping the class contract.
+ * ============================================================================= */
+
+.lucent-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 var(--dimension--primitive--spacing-3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+}
+
+.lucent-tab--lg { height: var(--dimension--primitive--sizing-12); }
+.lucent-tab--md { height: var(--dimension--primitive--sizing-8); }
+.lucent-tab--sm { height: var(--dimension--primitive--sizing-7); }
+.lucent-tab--xs { height: var(--dimension--primitive--sizing-5); }
+
+.lucent-tab--active {
+  background: var(--color--semantic--surface-glass-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.lucent-tab--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.lucent-tab__label {
+  font-family: var(--font--primitive--sans);
+  font-weight: var(--dimension--primitive--fw-light);
+  line-height: var(--dimension--primitive--lh-relaxed);
+  color: var(--color--semantic--text-default);
+  white-space: nowrap;
+}
+
+.lucent-tab--lg .lucent-tab__label { font-size: var(--typography--body-sm--font-size); }
+.lucent-tab--md .lucent-tab__label,
+.lucent-tab--sm .lucent-tab__label { font-size: var(--typography--caption--font-size); }
+.lucent-tab--xs .lucent-tab__label { font-size: var(--typography--micro--font-size); }

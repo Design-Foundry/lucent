@@ -1,0 +1,95 @@
+/* =============================================================================
+ * Icon button — framework-neutral component styles.
+ *
+ * Structure both kits emit:
+ *   .lucent-icon-button  (.lucent-icon-button--{variant} .lucent-icon-button--{sm|md|lg})
+ *     .lucent-icon-button__inner  (<button>)
+ *       .lucent-icon                ← the glyph
+ *
+ * Shares the button's six variants but is square (icon-only). Ported from
+ * packages/angular/src/icon-button/icon-button.scss (`:host` → `.lucent-icon-button`).
+ *
+ * NOTE: the Angular `loading` spinner is omitted — `.df-spinner` was never defined in the
+ * kit and the Razor button drops loading too; revisit when a real Spinner lands (roadmap §4).
+ * ============================================================================= */
+
+.lucent-icon-button {
+  display: inline-block;
+}
+
+.lucent-icon-button__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.lucent-icon-button__inner:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ─── Sizes ────────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--sm .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-6);  height: var(--dimension--primitive--sizing-6); }
+.lucent-icon-button--md .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-8);  height: var(--dimension--primitive--sizing-8); }
+.lucent-icon-button--lg .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-10); height: var(--dimension--primitive--sizing-10); }
+
+/* ─── Primary ──────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--primary .lucent-icon-button__inner {
+  background: var(--color--semantic--accent-strong);
+  color: var(--color--semantic--text-inverse);
+}
+.lucent-icon-button--primary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h); }
+.lucent-icon-button--primary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h); }
+
+/* ─── Secondary ────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--secondary .lucent-icon-button__inner {
+  background: var(--color--semantic--accent-subtle);
+  color: var(--color--semantic--text-strong);
+}
+.lucent-icon-button--secondary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.08) c h); }
+.lucent-icon-button--secondary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.16) c h); }
+
+/* ─── Ghost ────────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--ghost .lucent-icon-button__inner {
+  background: var(--color--semantic--surface-default);
+  color: var(--color--semantic--text-strong);
+  border: var(--border-default);
+}
+.lucent-icon-button--ghost .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-subtle) calc(l + 0.03) c h); }
+.lucent-icon-button--ghost .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--accent-subtle); }
+
+/* ─── On glass ─────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--on-glass .lucent-icon-button__inner {
+  background: var(--color--semantic--surface-glass);
+  color: var(--color--semantic--text-strong);
+}
+.lucent-icon-button--on-glass .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
+.lucent-icon-button--on-glass .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-sm); }
+
+/* ─── Danger ───────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--danger .lucent-icon-button__inner {
+  background: var(--color--semantic--error-subtle);
+  color: var(--color--semantic--error);
+}
+.lucent-icon-button--danger .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h); }
+.lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--error); color: var(--color--semantic--text-inverse); }
+
+/* ─── Text ─────────────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--text .lucent-icon-button__inner {
+  background: transparent;
+  color: var(--color--semantic--accent-default);
+}
+.lucent-icon-button--text .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-default); }
+.lucent-icon-button--text .lucent-icon-button__inner:active:not(:disabled) { color: var(--color--semantic--accent-strong); }

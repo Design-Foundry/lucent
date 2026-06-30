@@ -1,0 +1,14 @@
+/* =============================================================================
+ * Nav divider — framework-neutral component styles.
+ *
+ * A full-width hairline between groups in a nav rail.
+ * Ported verbatim from packages/angular/src/nav-divider/nav-divider.scss.
+ * ============================================================================= */
+
+.lucent-nav-divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--color--semantic--border-subtle);
+  flex-shrink: 0;
+}
