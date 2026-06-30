@@ -1,0 +1,21 @@
+@page "/"
+
+<PageTitle>Lucent showcase</PageTitle>
+
+<h1>Lucent showcase</h1>
+<p class="sc-page__lead">
+    Living visual reference for the Razor (Blazor) kit. Pick a component on the left;
+    toggle Light / Dark to check both themes. Each page renders every variant and state.
+</p>
+
+<ShowcaseSection Title="Ported components">
+    @foreach (var group in Catalog.ByCategory())
+    {
+        <Example Label="@group.Key" Column="true">
+            @foreach (var entry in group)
+            {
+                <a class="sc-nav__link" href="@($"{entry.Route}?theme=light")">@entry.Name</a>
+            }
+        </Example>
+    }
+</ShowcaseSection>

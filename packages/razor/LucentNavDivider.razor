@@ -1,0 +1,12 @@
+@*
+    LucentNavDivider — emits the `.lucent-nav-divider` contract (styles/components/nav-divider.css).
+    A full-width hairline between groups in a nav rail.
+*@
+
+<div class="lucent-nav-divider" role="separator" @attributes="AdditionalAttributes"></div>
+
+@code {
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+}

@@ -1,0 +1,23 @@
+@*
+    LucentTag — emits the `.lucent-tag` contract (styles/components/tag.css).
+
+    An inline mono-text chip (e.g. a version, a key). Content projects in; pass-through
+    attributes land on the host span.
+*@
+
+<span class="@HostClass" @attributes="AdditionalAttributes">@ChildContent</span>
+
+@code {
+    /// <summary>Tag content.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host span.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        "lucent-tag" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

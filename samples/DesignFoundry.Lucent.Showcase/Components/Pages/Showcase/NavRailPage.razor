@@ -1,0 +1,19 @@
+@page "/c/nav-rail"
+
+<PageTitle>Nav rail — Lucent</PageTitle>
+
+<h1>Nav rail</h1>
+<p class="sc-page__lead"><code>LucentNavRail</code> + <code>LucentNavIcon</code> + <code>LucentNavDivider</code> — the vertical app rail.</p>
+
+<ShowcaseSection Title="Rail" Note="Active item highlighted; a divider separates groups; last item disabled.">
+    <Example>
+        <LucentNavRail>
+            <LucentNavIcon Name="home" Active="true" AriaLabel="Home" />
+            <LucentNavIcon Name="folder" AriaLabel="Files" />
+            <LucentNavIcon Name="palette" AriaLabel="Design" />
+            <LucentNavDivider />
+            <LucentNavIcon Name="settings" AriaLabel="Settings" />
+            <LucentNavIcon Name="block" Disabled="true" AriaLabel="Unavailable" />
+        </LucentNavRail>
+    </Example>
+</ShowcaseSection>

@@ -1,0 +1,35 @@
+@page "/c/list"
+
+<PageTitle>List — Lucent</PageTitle>
+
+<h1>List &amp; list item</h1>
+<p class="sc-page__lead"><code>LucentList</code> + <code>LucentListItem</code> — the reference row primitive in a glass container.</p>
+
+<ShowcaseSection Title="Rows" Note="Icon shorthand, selected, two-line (avatar + supporting + trailing action), danger, disabled.">
+    <Example Column="true">
+        <div style="width: 380px;">
+            <LucentList>
+                <LucentListItem Icon="folder" Label="Components" />
+                <LucentListItem Icon="palette" Label="Foundations" Selected="true" />
+                <LucentListItem Label="Jane Designer">
+                    <Leading><LucentAvatar Name="Jane Designer" Scale="AvatarScale.Sm" Variant="AvatarVariant.None" /></Leading>
+                    <Supporting>jane@acme.co</Supporting>
+                    <Trailing><LucentIconButton Icon="more_vert" Variant="LucentButtonVariant.Text" Size="IconButtonSize.Sm" AriaLabel="Actions" /></Trailing>
+                </LucentListItem>
+                <LucentListItem Icon="delete" Label="Delete project" Tone="Tone.Danger" />
+                <LucentListItem Icon="block" Label="Unavailable" Disabled="true" />
+            </LucentList>
+        </div>
+    </Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="Static (non-interactive)">
+    <Example Column="true">
+        <div style="width: 380px;">
+            <LucentList>
+                <LucentListItem Label="Read-only row" Interactive="false" Icon="info" />
+                <LucentListItem Label="Another row" Interactive="false" Icon="info" />
+            </LucentList>
+        </div>
+    </Example>
+</ShowcaseSection>

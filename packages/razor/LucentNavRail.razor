@@ -1,0 +1,21 @@
+@*
+    LucentNavRail — emits the `.lucent-nav-rail` contract (styles/components/nav-rail.css).
+    Vertical glass container; stack LucentNavIcon / LucentNavDivider inside.
+*@
+
+<nav class="@HostClass" @attributes="AdditionalAttributes">@ChildContent</nav>
+
+@code {
+    /// <summary>Rail content (nav icons, dividers).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        "lucent-nav-rail" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

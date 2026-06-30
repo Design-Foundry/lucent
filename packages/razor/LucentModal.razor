@@ -1,0 +1,108 @@
+@*
+    LucentModal — emits the `.lucent-modal` contract (styles/components/modal.css).
+
+    A declarative dialog. Toggle with @bind-Open; renders a centered scrim + panel. Header is
+    HeaderContent (or Title/Subtitle); footer is ActionsContent (or variant-driven cancel/confirm).
+    Dismiss via the close button, a scrim click, or Escape. Requires an interactive render mode.
+
+    NOTE: focus-trap + return-focus + scroll-block (the Angular CDK behaviours) are not yet
+    implemented here — they need JS interop; tracked for a follow-up.
+*@
+
+@if (Open)
+{
+    <div class="lucent-modal__scrim" tabindex="-1" @onclick="Close" @onkeydown="OnKeyDown">
+        <div class="lucent-modal"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="@(string.IsNullOrEmpty(Title) ? null : TitleId)"
+             @onclick:stopPropagation="true">
+            <div class="lucent-modal__header">
+                @if (HeaderContent is not null)
+                {
+                    <div class="lucent-modal__heading">@HeaderContent</div>
+                }
+                else
+                {
+                    <div class="lucent-modal__heading">
+                        <span class="lucent-modal__title" id="@TitleId">@Title</span>
+                        @if (!string.IsNullOrEmpty(Subtitle))
+                        {
+                            <p class="lucent-modal__subtitle">@Subtitle</p>
+                        }
+                    </div>
+                }
+                <LucentIconButton Icon="close" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Close" @onclick="Close" />
+            </div>
+
+            <div class="lucent-modal__body">@ChildContent</div>
+
+            @if (HasFooter)
+            {
+                <div class="lucent-modal__footer">
+                    @if (ActionsContent is not null)
+                    {
+                        @ActionsContent
+                    }
+                    else
+                    {
+                        <LucentButton Variant="LucentButtonVariant.Ghost" @onclick="Cancel">@CancelLabel</LucentButton>
+                        <LucentButton Variant="@(IsDestructive ? LucentButtonVariant.Danger : LucentButtonVariant.Primary)" @onclick="Confirm">@ConfirmLabel</LucentButton>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    /// <summary>Whether the dialog is shown (two-way bindable with @bind-Open).</summary>
+    [Parameter] public bool Open { get; set; }
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>Header title (used when no HeaderContent is given).</summary>
+    [Parameter] public string? Title { get; set; }
+
+    /// <summary>Header subtitle (used when no HeaderContent is given).</summary>
+    [Parameter] public string? Subtitle { get; set; }
+
+    /// <summary>Intent — drives the default footer.</summary>
+    [Parameter] public ModalVariant Variant { get; set; } = ModalVariant.Informative;
+
+    [Parameter] public string ConfirmLabel { get; set; } = "Confirm";
+    [Parameter] public string CancelLabel { get; set; } = "Cancel";
+
+    /// <summary>Body content (default slot).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Custom header — overrides Title/Subtitle.</summary>
+    [Parameter] public RenderFragment? HeaderContent { get; set; }
+
+    /// <summary>Custom footer — overrides the variant-driven buttons.</summary>
+    [Parameter] public RenderFragment? ActionsContent { get; set; }
+
+    /// <summary>Raised when dismissed (close button / scrim / Escape).</summary>
+    [Parameter] public EventCallback OnClosed { get; set; }
+    [Parameter] public EventCallback OnConfirmed { get; set; }
+    [Parameter] public EventCallback OnCancelled { get; set; }
+
+    private readonly string TitleId = $"lm-{Guid.NewGuid():N}-title";
+
+    private bool HasFooter => ActionsContent is not null || Variant != ModalVariant.Informative;
+    private bool IsDestructive => Variant == ModalVariant.Destructive;
+
+    private async Task SetOpen(bool value)
+    {
+        Open = value;
+        await OpenChanged.InvokeAsync(value);
+    }
+
+    private async Task Close() { await OnClosed.InvokeAsync(); await SetOpen(false); }
+    private async Task Cancel() { await OnCancelled.InvokeAsync(); await SetOpen(false); }
+    private async Task Confirm() { await OnConfirmed.InvokeAsync(); await SetOpen(false); }
+
+    private async Task OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") await Close();
+    }
+}

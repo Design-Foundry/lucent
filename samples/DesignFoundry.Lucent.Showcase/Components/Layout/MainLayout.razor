@@ -1,0 +1,46 @@
+@inherits LayoutComponentBase
+@inject NavigationManager Nav
+
+<div class="sc-shell">
+    <aside class="sc-sidebar">
+        <a class="sc-brand" href="@WithTheme("/")">Lucent</a>
+
+        <div class="sc-theme">
+            <a class="sc-theme__opt @(IsDark ? "" : "is-on")" href="@WithThemeValue("light")">Light</a>
+            <a class="sc-theme__opt @(IsDark ? "is-on" : "")" href="@WithThemeValue("dark")">Dark</a>
+        </div>
+
+        <nav class="sc-nav">
+            @foreach (var group in Catalog.ByCategory())
+            {
+                <div class="sc-nav__group">
+                    <span class="sc-nav__cat">@group.Key</span>
+                    @foreach (var entry in group)
+                    {
+                        <a class="sc-nav__link" href="@WithTheme(entry.Route)">@entry.Name</a>
+                    }
+                </div>
+            }
+        </nav>
+    </aside>
+
+    <main class="sc-main">
+        @Body
+    </main>
+</div>
+
+@code {
+    private bool IsDark => new Uri(Nav.Uri).Query.Contains("theme=dark");
+
+    // Keep the current theme when navigating between pages.
+    private string WithTheme(string path) => $"{path}?theme={(IsDark ? "dark" : "light")}";
+
+    // Switch theme but stay on the current page.
+    private string WithThemeValue(string theme)
+    {
+        var path = Nav.ToBaseRelativePath(Nav.Uri);
+        var q = path.IndexOf('?');
+        if (q >= 0) path = path[..q];
+        return $"/{path}?theme={theme}";
+    }
+}

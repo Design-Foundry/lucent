@@ -1,0 +1,47 @@
+@*
+    LucentSnackbar — emits the `.lucent-snackbar` contract (styles/components/snackbar.css).
+
+    A pill-shaped transient message with an optional leading icon and trailing action.
+    (Queueing/auto-dismiss is a host/service concern, not part of this presentational component.)
+*@
+
+<div class="@HostClass" @attributes="AdditionalAttributes">
+    <div class="lucent-snackbar__content">
+        @if (ShowIcon)
+        {
+            <LucentIcon Class="lucent-snackbar__icon" Name="@Icon" Size="IconSize.Md" />
+        }
+        <span class="lucent-snackbar__message">@Message</span>
+    </div>
+    @if (!string.IsNullOrEmpty(ActionLabel))
+    {
+        <LucentButton Variant="LucentButtonVariant.Ghost" @onclick="OnAction">@ActionLabel</LucentButton>
+    }
+</div>
+
+@code {
+    /// <summary>The message text.</summary>
+    [Parameter] public string? Message { get; set; }
+
+    /// <summary>Leading icon name.</summary>
+    [Parameter] public string Icon { get; set; } = "widgets";
+
+    /// <summary>Whether to show the leading icon.</summary>
+    [Parameter] public bool ShowIcon { get; set; } = true;
+
+    /// <summary>Optional trailing action label. When set, an action button is shown.</summary>
+    [Parameter] public string? ActionLabel { get; set; }
+
+    /// <summary>Raised when the action is clicked.</summary>
+    [Parameter] public EventCallback OnAction { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        "lucent-snackbar" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

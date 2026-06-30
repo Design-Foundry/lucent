@@ -1,0 +1,36 @@
+@*
+    LucentInlineInput — emits the `.lucent-inline-input` contract (styles/components/inline-input.css).
+
+    A borderless field that underlines on hover/focus — for editing a title in place. Font comes
+    from the Typography class the consumer supplies. Pure CSS state, so it works under static SSR;
+    pass-through attributes (name, value, @bind, …) land on the input.
+*@
+
+<span class="lucent-inline-input">
+    <input class="@FieldClass"
+           value="@Value"
+           placeholder="@Placeholder"
+           disabled="@Disabled"
+           @attributes="AdditionalAttributes" />
+</span>
+
+@code {
+    /// <summary>Initial value.</summary>
+    [Parameter] public string? Value { get; set; }
+
+    /// <summary>Placeholder text.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+
+    /// <summary>Typography utility class controlling the field's font (e.g. <c>typography-heading</c>).</summary>
+    [Parameter] public string? Typography { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the input.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string FieldClass =>
+        "lucent-inline-input__field"
+        + (string.IsNullOrWhiteSpace(Typography) ? "" : $" {Typography}");
+}

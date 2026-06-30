@@ -1,0 +1,12 @@
+@*
+    LucentMenuDivider — emits the `.lucent-menu-divider` contract (styles/components/menu-divider.css).
+    A hairline between groups of menu items.
+*@
+
+<div class="lucent-menu-divider" role="separator" @attributes="AdditionalAttributes"></div>
+
+@code {
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+}

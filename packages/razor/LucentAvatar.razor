@@ -1,0 +1,79 @@
+@*
+    LucentAvatar — emits the `.lucent-avatar` contract (styles/components/avatar.css).
+
+    Shows a circular image (Src) or initials derived from Name. Optionally a name + tenant
+    label, placed before (Leading) or after (Trailing) the circle; None shows the circle only.
+    The tenant line appears only at md/lg scale.
+*@
+
+<div class="@HostClass" @attributes="AdditionalAttributes">
+    @if (Variant == AvatarVariant.Leading)
+    {
+        @Labels
+    }
+
+    <div class="lucent-avatar__circle">
+        @if (!string.IsNullOrEmpty(Src))
+        {
+            <img src="@Src" alt="@Name" />
+        }
+        else
+        {
+            <span class="lucent-avatar__initials">@Initials</span>
+        }
+    </div>
+
+    @if (Variant == AvatarVariant.Trailing)
+    {
+        @Labels
+    }
+</div>
+
+@code {
+    /// <summary>Image URL. When empty, initials from <see cref="Name"/> are shown.</summary>
+    [Parameter] public string? Src { get; set; }
+
+    /// <summary>Display name (also the source of the initials and the image alt text).</summary>
+    [Parameter] public string? Name { get; set; }
+
+    /// <summary>Secondary line (e.g. workspace). Shown only at md/lg scale.</summary>
+    [Parameter] public string? Tenant { get; set; }
+
+    /// <summary>Size scale.</summary>
+    [Parameter] public AvatarScale Scale { get; set; } = AvatarScale.Md;
+
+    /// <summary>Label placement.</summary>
+    [Parameter] public AvatarVariant Variant { get; set; } = AvatarVariant.Trailing;
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool ShowTenant =>
+        !string.IsNullOrEmpty(Tenant) && (Scale is AvatarScale.Md or AvatarScale.Lg);
+
+    private string Initials
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(Name)) return "";
+            var parts = Name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            return string.Concat(parts.Take(2).Select(w => w[0])).ToUpperInvariant();
+        }
+    }
+
+    private RenderFragment Labels => @<div class="lucent-avatar__labels">
+        <span class="lucent-avatar__name">@Name</span>
+        @if (ShowTenant)
+        {
+            <span class="lucent-avatar__tenant">@Tenant</span>
+        }
+    </div>;
+
+    private string HostClass =>
+        $"lucent-avatar lucent-avatar--{Scale.ToToken()} lucent-avatar--{Variant.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

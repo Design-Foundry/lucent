@@ -1,0 +1,16 @@
+@* One labeled demo: a caption over the live control(s). *@
+<div class="sc-example">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <span class="sc-example__label">@Label</span>
+    }
+    <div class="sc-example__stage @(Column ? "sc-example__stage--col" : "")">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public bool Column { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}
