@@ -1,0 +1,38 @@
+@page "/c/foundations"
+
+<PageTitle>Foundations — Lucent</PageTitle>
+
+<h1>Foundations</h1>
+<p class="sc-page__lead">Tokens the components are built from. These should shift wholesale between Light and Dark.</p>
+
+<ShowcaseSection Title="Surfaces">
+    <Example Label="base"><div class="sc-swatch" style="background: var(--color--semantic--surface-base)"></div></Example>
+    <Example Label="default"><div class="sc-swatch" style="background: var(--color--semantic--surface-default)"></div></Example>
+    <Example Label="raised"><div class="sc-swatch" style="background: var(--color--semantic--surface-raised)"></div></Example>
+    <Example Label="overlay"><div class="sc-swatch" style="background: var(--color--semantic--surface-overlay)"></div></Example>
+    <Example Label="glass"><div class="sc-swatch" style="background: var(--color--semantic--surface-glass)"></div></Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="Accent & feedback">
+    <Example Label="accent"><div class="sc-swatch" style="background: var(--color--semantic--accent-default)"></div></Example>
+    <Example Label="success"><div class="sc-swatch" style="background: var(--color--semantic--success)"></div></Example>
+    <Example Label="warning"><div class="sc-swatch" style="background: var(--color--semantic--warning)"></div></Example>
+    <Example Label="error"><div class="sc-swatch" style="background: var(--color--semantic--error)"></div></Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="Text">
+    <Example Column="true">
+        <span style="color: var(--color--semantic--text-strong)">text-strong — headings</span>
+        <span style="color: var(--color--semantic--text-default)">text-default — body</span>
+        <span style="color: var(--color--semantic--text-muted)">text-muted — secondary</span>
+        <span style="color: var(--color--semantic--text-subtle)">text-subtle — hints</span>
+    </Example>
+</ShowcaseSection>
+
+<style>
+    .sc-swatch {
+        width: 72px; height: 72px;
+        border-radius: var(--radius-md, 8px);
+        border: var(--border-subtle);
+    }
+</style>

@@ -1,0 +1,93 @@
+@*
+    LucentListItem — emits the `.lucent-list-item` contract (styles/components/list-item.css).
+
+    The reference row primitive. Primary content is ChildContent (Label is the shorthand
+    fallback). Leading/Trailing/Supporting are render-fragment slots; the Icon shorthand renders
+    only when no Leading slot is given. Interactive rows get role=button + keyboard activation
+    and raise OnActivated with Value. Tone="Danger" styles a destructive row.
+*@
+
+<div class="@HostClass"
+     role="@(Interactive ? "button" : null)"
+     tabindex="@(Interactive && !Disabled ? "0" : null)"
+     aria-disabled="@(Disabled ? "true" : null)"
+     @onclick="Activate"
+     @onkeydown="OnKeyDown"
+     @attributes="AdditionalAttributes">
+    @if (!string.IsNullOrEmpty(Icon) && Leading is null)
+    {
+        <LucentIcon Class="lucent-list-item__icon" Name="@Icon" Size="IconSize.Sm" />
+    }
+    @Leading
+
+    <span class="lucent-list-item__content">
+        <span class="lucent-list-item__primary">
+            @if (ChildContent is not null) { @ChildContent }
+            else { @Label }
+        </span>
+        @if (Supporting is not null)
+        {
+            <span class="lucent-list-item__supporting">@Supporting</span>
+        }
+    </span>
+
+    @Trailing
+</div>
+
+@code {
+    /// <summary>Identity carried by <see cref="OnActivated"/>; also the row's selection value.</summary>
+    [Parameter] public object? Value { get; set; }
+
+    /// <summary>Primary text shorthand — overridden by <see cref="ChildContent"/>.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Leading icon shorthand — overridden by the <see cref="Leading"/> slot.</summary>
+    [Parameter] public string? Icon { get; set; }
+
+    /// <summary>Primary content (projected). Falls back to <see cref="Label"/>.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Leading adornment slot (icon, avatar, …).</summary>
+    [Parameter] public RenderFragment? Leading { get; set; }
+
+    /// <summary>Trailing adornment slot (meta, actions, …).</summary>
+    [Parameter] public RenderFragment? Trailing { get; set; }
+
+    /// <summary>Secondary (second-line) content.</summary>
+    [Parameter] public RenderFragment? Supporting { get; set; }
+
+    /// <summary>Chosen state.</summary>
+    [Parameter] public bool Selected { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Adds role=button + keyboard activation. Set false for a static row.</summary>
+    [Parameter] public bool Interactive { get; set; } = true;
+
+    /// <summary>Action intent — Danger marks a destructive row in red.</summary>
+    [Parameter] public Tone Tone { get; set; } = Tone.Default;
+
+    /// <summary>Raised with <see cref="Value"/> when an interactive row is activated.</summary>
+    [Parameter] public EventCallback<object?> OnActivated { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private Task Activate() =>
+        Interactive && !Disabled ? OnActivated.InvokeAsync(Value) : Task.CompletedTask;
+
+    private Task OnKeyDown(KeyboardEventArgs e) =>
+        e.Key is "Enter" or " " ? Activate() : Task.CompletedTask;
+
+    private string HostClass =>
+        "lucent-list-item"
+        + (Selected ? " is-selected" : "")
+        + (Disabled ? " is-disabled" : "")
+        + (Interactive ? " is-interactive" : "")
+        + (Tone == Tone.Danger ? " is-danger" : "")
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

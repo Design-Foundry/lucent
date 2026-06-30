@@ -1,0 +1,20 @@
+@page "/c/feedback"
+
+<PageTitle>Snackbar &amp; toast — Lucent</PageTitle>
+
+<h1>Snackbar &amp; toast</h1>
+<p class="sc-page__lead"><code>LucentSnackbar</code> and <code>LucentToast</code> — the presentational feedback surfaces (queueing is a host concern).</p>
+
+<ShowcaseSection Title="Snackbar">
+    <Example Column="true"><LucentSnackbar Message="Changes saved." Icon="check_circle" /></Example>
+    <Example Column="true"><LucentSnackbar Message="Project archived." Icon="archive" ActionLabel="Undo" /></Example>
+    <Example Column="true"><LucentSnackbar Message="No icon here." ShowIcon="false" /></Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="Toast variants">
+    <Example Column="true"><div style="width: 320px;"><LucentToast Title="Heads up" Message="Something informative happened." Variant="ToastVariant.Informative" /></div></Example>
+    <Example Column="true"><div style="width: 320px;"><LucentToast Title="Saved" Message="Your changes were published." Variant="ToastVariant.Success" /></div></Example>
+    <Example Column="true"><div style="width: 320px;"><LucentToast Title="Careful" Message="This token is deprecated." Variant="ToastVariant.Warning" /></div></Example>
+    <Example Column="true"><div style="width: 320px;"><LucentToast Title="Failed" Message="Could not reach the server." Variant="ToastVariant.Error" /></div></Example>
+    <Example Column="true"><div style="width: 320px;"><LucentToast Title="Title only, not closable" Variant="ToastVariant.Success" Closable="false" /></div></Example>
+</ShowcaseSection>

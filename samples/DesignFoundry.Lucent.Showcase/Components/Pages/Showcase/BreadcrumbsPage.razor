@@ -1,0 +1,22 @@
+@page "/c/breadcrumbs"
+
+<PageTitle>Breadcrumbs — Lucent</PageTitle>
+
+<h1>Breadcrumbs</h1>
+<p class="sc-page__lead"><code>LucentBreadcrumbs</code> — a glass trail; the last crumb is the current page.</p>
+
+<ShowcaseSection Title="Trail">
+    <Example>
+        <LucentBreadcrumbs Items="_items" />
+    </Example>
+</ShowcaseSection>
+
+@code {
+    private readonly List<BreadcrumbItem> _items =
+    [
+        new("Home", "/"),
+        new("Projects", "/projects"),
+        new("Lucent", "/projects/lucent"),
+        new("Button"),
+    ];
+}

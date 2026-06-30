@@ -1,0 +1,165 @@
+@*
+    LucentSelect — emits the `.lucent-select` contract (styles/components/select.css).
+
+    An interactive combobox: click (or keyboard) opens a listbox of LucentOption rows. Two-way
+    bind the chosen value with @bind-Value. Requires an interactive render mode (the suite's
+    console runs Blazor Server interactivity). Label/Hint/Error are plain parameters.
+*@
+
+<div class="@HostClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <span class="lucent-select__label typography-caption" id="@LabelId">@Label</span>
+    }
+
+    <div class="lucent-select__field">
+        <button type="button"
+                class="lucent-select__trigger @TriggerStateClass"
+                disabled="@Disabled"
+                role="combobox"
+                aria-haspopup="listbox"
+                aria-expanded="@(_open ? "true" : "false")"
+                aria-controls="@ListboxId"
+                aria-labelledby="@(string.IsNullOrEmpty(Label) ? null : LabelId)"
+                aria-invalid="@(HasError ? "true" : null)"
+                @onclick="Toggle"
+                @onkeydown="OnKeydown">
+            <span class="lucent-select__value@(HasSelection ? "" : " is-placeholder")">@DisplayText</span>
+            <LucentIcon Class="@($"lucent-select__caret{(_open ? " is-open" : "")}")" Name="arrow_drop_down" Size="IconSize.Md" />
+        </button>
+
+        @if (_open)
+        {
+            <div class="lucent-select__dropdown" role="listbox" id="@ListboxId"
+                 aria-labelledby="@(string.IsNullOrEmpty(Label) ? null : LabelId)">
+                @for (var i = 0; i < Options.Count; i++)
+                {
+                    var idx = i;
+                    var opt = Options[i];
+                    <LucentOption Label="@opt.Label"
+                                  Value="opt.Value"
+                                  Selected="Equals(opt.Value, Value)"
+                                  Active="idx == _activeIndex"
+                                  OnOptionSelect="@(_ => SelectAt(idx))" />
+                }
+            </div>
+        }
+    </div>
+
+    @if (HasError || !string.IsNullOrEmpty(Hint))
+    {
+        <span class="lucent-select__message@(HasError ? " lucent-select__message--error" : "")" id="@MessageId">
+            @(HasError ? Error : Hint)
+        </span>
+    }
+</div>
+
+@code {
+    /// <summary>Density size.</summary>
+    [Parameter] public ControlSize Size { get; set; } = ControlSize.Md;
+
+    /// <summary>Placeholder shown when nothing is selected.</summary>
+    [Parameter] public string Placeholder { get; set; } = "Select an option";
+
+    /// <summary>The choices.</summary>
+    [Parameter] public IReadOnlyList<SelectOption> Options { get; set; } = [];
+
+    /// <summary>Selected value (two-way bindable with @bind-Value).</summary>
+    [Parameter] public object? Value { get; set; }
+    [Parameter] public EventCallback<object?> ValueChanged { get; set; }
+
+    /// <summary>Field label.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Hint shown below the field when there is no error.</summary>
+    [Parameter] public string? Hint { get; set; }
+
+    /// <summary>Validation error; shows the error state and this message.</summary>
+    [Parameter] public string? Error { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    private bool _open;
+    private int _activeIndex = -1;
+
+    private readonly string _id = $"ls-{Guid.NewGuid():N}";
+    private string ListboxId => $"{_id}-lb";
+    private string LabelId => $"{_id}-label";
+    private string MessageId => $"{_id}-msg";
+
+    private bool HasError => !string.IsNullOrEmpty(Error);
+    private bool HasSelection => Options.Any(o => Equals(o.Value, Value));
+    private string DisplayText =>
+        Options.FirstOrDefault(o => Equals(o.Value, Value))?.Label ?? Placeholder;
+
+    private string TriggerStateClass =>
+        Disabled ? "lucent-select__trigger--disabled"
+        : HasError ? "lucent-select__trigger--error"
+        : _open ? "lucent-select__trigger--focus"
+        : HasSelection ? "lucent-select__trigger--filled"
+        : "";
+
+    private string HostClass =>
+        $"lucent-select lucent-select--{Size.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+
+    private int IndexOfValue()
+    {
+        for (var i = 0; i < Options.Count; i++)
+            if (Equals(Options[i].Value, Value)) return i;
+        return -1;
+    }
+
+    private void Toggle()
+    {
+        if (Disabled) return;
+        _open = !_open;
+        if (_open) _activeIndex = Math.Max(0, IndexOfValue());
+    }
+
+    private async Task SelectAt(int i)
+    {
+        if (i < 0 || i >= Options.Count) return;
+        Value = Options[i].Value;
+        await ValueChanged.InvokeAsync(Value);
+        _open = false;
+    }
+
+    private async Task OnKeydown(KeyboardEventArgs e)
+    {
+        if (Disabled) return;
+
+        if (!_open)
+        {
+            if (e.Key is "ArrowDown" or "ArrowUp" or "Enter" or " ")
+            {
+                _open = true;
+                _activeIndex = Math.Max(0, IndexOfValue());
+            }
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case "ArrowDown": Move(1); break;
+            case "ArrowUp": Move(-1); break;
+            case "Home": _activeIndex = 0; break;
+            case "End": _activeIndex = Options.Count - 1; break;
+            case "Enter":
+            case " ": await SelectAt(_activeIndex); break;
+            case "Escape":
+            case "Tab": _open = false; break;
+        }
+    }
+
+    private void Move(int delta)
+    {
+        var n = Options.Count;
+        if (n == 0) return;
+        var start = _activeIndex < 0 ? 0 : _activeIndex;
+        _activeIndex = (start + delta + n) % n;
+    }
+}

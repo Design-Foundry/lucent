@@ -1,0 +1,42 @@
+@*
+    LucentNavIcon — emits the `.lucent-nav-icon` contract (styles/components/nav-icon.css).
+
+    An icon-only nav item for the rail. Rendered as a real <button> (keyboard-focusable);
+    always give it an AriaLabel. Pass-through attributes (@onclick, href via component swap, …)
+    land on the button.
+*@
+
+<button class="@HostClass"
+        type="button"
+        disabled="@Disabled"
+        aria-current="@(Active ? "page" : null)"
+        aria-label="@(string.IsNullOrEmpty(AriaLabel) ? null : AriaLabel)"
+        title="@(string.IsNullOrEmpty(AriaLabel) ? null : AriaLabel)"
+        @attributes="AdditionalAttributes">
+    <LucentIcon Name="@Name" Size="IconSize.Lg" />
+</button>
+
+@code {
+    /// <summary>Material Icons ligature name.</summary>
+    [Parameter] public string Name { get; set; } = "widgets";
+
+    /// <summary>Whether this is the current/active item.</summary>
+    [Parameter] public bool Active { get; set; }
+
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Accessible name — required, since the item is icon-only.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the button.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        "lucent-nav-icon"
+        + (Active ? " is-active" : "")
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

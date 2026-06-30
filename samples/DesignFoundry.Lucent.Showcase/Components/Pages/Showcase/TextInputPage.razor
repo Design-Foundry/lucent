@@ -1,0 +1,25 @@
+@page "/c/text-input"
+
+<PageTitle>Text input — Lucent</PageTitle>
+
+<h1>Text input</h1>
+<p class="sc-page__lead"><code>LucentTextInput</code> — label, hint, sizes, and states.</p>
+
+<ShowcaseSection Title="Basic">
+    <Example Column="true"><LucentTextInput Label="Email" Type="email" Placeholder="you@example.com" /></Example>
+    <Example Column="true"><LucentTextInput Label="Password" Type="password" Hint="At least 8 characters." /></Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="Sizes">
+    <Example Column="true"><LucentTextInput Label="xs" Size="ControlSize.Xs" Placeholder="Extra small" /></Example>
+    <Example Column="true"><LucentTextInput Label="sm" Size="ControlSize.Sm" Placeholder="Small" /></Example>
+    <Example Column="true"><LucentTextInput Label="md" Size="ControlSize.Md" Placeholder="Medium" /></Example>
+    <Example Column="true"><LucentTextInput Label="lg" Size="ControlSize.Lg" Placeholder="Large" /></Example>
+</ShowcaseSection>
+
+<ShowcaseSection Title="States">
+    <Example Column="true"><LucentTextInput Label="Filled" Value="Jane Designer" /></Example>
+    <Example Column="true"><LucentTextInput Label="Error" Value="nope" Error="That email is already taken." /></Example>
+    <Example Column="true"><LucentTextInput Label="Disabled" Placeholder="Disabled" Disabled="true" /></Example>
+    <Example Column="true"><LucentTextInput Label="Read-only" Value="read only" ReadOnly="true" /></Example>
+</ShowcaseSection>
