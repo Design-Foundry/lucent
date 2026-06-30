@@ -1,0 +1,11 @@
+/* Showcase application build config — extends the workspace base (which carries the
+   @design-foundry/lucent → source path alias, so the app consumes the library by source). */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app",
+    "types": []
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"]
+}

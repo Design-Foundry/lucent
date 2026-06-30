@@ -1,31 +1,31 @@
 <ng-template #panel>
 	<div
-		class="df-modal"
+		class="lucent-modal"
 		role="dialog"
 		aria-modal="true"
 		[attr.aria-labelledby]="title() ? titleId : null">
-		<div class="df-modal__header">
+		<div class="lucent-modal__header">
 			@if (headerRef()) {
-				<div class="df-modal__heading">
+				<div class="lucent-modal__heading">
 					<ng-content select="[dfModalHeader]" />
 				</div>
 			} @else {
-				<div class="df-modal__heading">
-					<span class="df-modal__title" [id]="titleId">{{ title() }}</span>
+				<div class="lucent-modal__heading">
+					<span class="lucent-modal__title" [id]="titleId">{{ title() }}</span>
 					@if (subtitle()) {
-						<p class="df-modal__subtitle">{{ subtitle() }}</p>
+						<p class="lucent-modal__subtitle">{{ subtitle() }}</p>
 					}
 				</div>
 			}
 			<df-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="close()" />
 		</div>
 
-		<div class="df-modal__body">
+		<div class="lucent-modal__body">
 			<ng-content />
 		</div>
 
 		@if (hasFooter()) {
-			<div class="df-modal__footer">
+			<div class="lucent-modal__footer">
 				@if (actionsRef()) {
 					<ng-content select="[dfModalActions]" />
 				} @else {

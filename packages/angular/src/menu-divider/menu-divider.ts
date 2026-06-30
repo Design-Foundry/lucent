@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
-	styleUrl: './menu-divider.scss'
+	// Styled by the shared base (styles/components/menu-divider.css) via the lucent- contract.
+	host: { 'class': 'lucent-menu-divider', 'role': 'separator' }
 })
 export class DfMenuDivider {}

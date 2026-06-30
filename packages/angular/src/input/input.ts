@@ -22,8 +22,9 @@ let nextId = 0;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIconButton],
 	templateUrl: './input.html',
-	styleUrl: './input.scss',
-	host: { '[class]': '"df-input--" + size()' },
+	// Styled by the shared base (styles/components/text-input.css) via the lucent- contract.
+	// NB: the block renames df-input → lucent-text-input (matches the Razor LucentTextInput kit).
+	host: { '[class]': '"lucent-text-input lucent-text-input--" + size()' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: forwardRef(() => DfInput),
@@ -55,11 +56,11 @@ export class DfInput implements ControlValueAccessor {
 	readonly describedBy = computed(() => (this.errorRef() || this.hintRef()) ? this.messageId : null);
 
 	readonly wrapperClass = computed(() => {
-		if (this.isDisabled()) return 'df-input__wrapper--disabled';
-		if (this.readonly()) return 'df-input__wrapper--readonly';
-		if (this.hasError()) return 'df-input__wrapper--error';
-		if (this.isFocused()) return 'df-input__wrapper--focus';
-		if (this.value()) return 'df-input__wrapper--filled';
+		if (this.isDisabled()) return 'lucent-text-input__wrapper--disabled';
+		if (this.readonly()) return 'lucent-text-input__wrapper--readonly';
+		if (this.hasError()) return 'lucent-text-input__wrapper--error';
+		if (this.isFocused()) return 'lucent-text-input__wrapper--focus';
+		if (this.value()) return 'lucent-text-input__wrapper--filled';
 		return '';
 	});
 

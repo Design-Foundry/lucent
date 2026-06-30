@@ -26,12 +26,27 @@ against that contract and emits identical class names, so a single CSS layer sty
 styles/              shared framework-neutral base — plain CSS (tokens + component styles)
   lucent.css           single entry; @imports everything in cascade order
   tokens/              design tokens as CSS custom properties (primitive → semantic + control alias)
-  components/          component styles keyed to df- class names (filled per-component)
+  components/          component styles keyed to lucent- class names (filled per-component)
 docs/                framework-neutral spec — API, conventions, foundations, per-component behavior
 packages/
-  angular/           @design-foundry/lucent — Angular kit, parked reference (harvested from hub/)
+  angular/           @design-foundry/lucent — Angular library (ng-packagr → npm tarball)
   razor/             DesignFoundry.Lucent — Razor RCL (Account's first consumer)
+samples/
+  DesignFoundry.Lucent.Showcase   Blazor verification host (light/dark)
+  lucent-angular-showcase         Angular verification host (light/dark)
+angular.json         Angular workspace — library (packages/angular) + showcase (samples/…)
+package.json         workspace scripts: lib:build · lib:pack · showcase
 ```
+
+### Building
+
+| | Library build | Pack | Showcase |
+|---|---|---|---|
+| **Razor / NuGet** | `dotnet build packages/razor` | `dotnet pack` | `dotnet run --project samples/DesignFoundry.Lucent.Showcase` |
+| **Angular / npm** | `npm run lib:build` | `npm run lib:pack` | `npm run showcase` |
+
+The Angular showcase consumes the library by source (TS path alias = the dev analog of a
+`ProjectReference`); `?theme=light\|dark` drives `<html data-theme>` for screenshots.
 
 The shared base (`styles/` + `docs/`) is framework-neutral. Each package implements
 components against it and emits **identical class names**, so one CSS layer styles
@@ -42,6 +57,9 @@ both. See [styles/README.md](./styles/README.md).
 - [x] Restructure into `styles/` (tokens + components), `docs/`, `packages/angular`, `packages/razor`.
 - [x] Drop SCSS — the base is plain CSS, shipped as-is (no build toolchain).
 - [x] Extract the first components (button, input) from the Angular kit into `styles/components/`.
-- [ ] Build out the Razor Class Library components (`DesignFoundry.Lucent`) — Account is the first consumer.
-- [ ] Extract further per-component CSS into `styles/components/` as Razor counterparts are built.
+- [x] Build out the Razor Class Library components (`DesignFoundry.Lucent`) — full kit ported (30 components), each verified in the Blazor showcase (`samples/DesignFoundry.Lucent.Showcase`) in light + dark.
+- [x] Extract per-component CSS into `styles/components/` for every component (the shared contract both kits emit).
+- [x] Retrofit the Angular kit onto the shared `styles/` contract — all ~30 components emit `lucent-` classes; per-component SCSS deleted (kit ships zero SCSS). `packages/angular` is now a buildable library (ng-packagr → npm) verified in `samples/lucent-angular-showcase` (light + dark).
+- [ ] React package (`packages/react`) — build from scratch against the same CSS contract.
+- [ ] Web Components package — build from scratch against the same CSS contract (light DOM, so the global `styles/lucent.css` still applies).
 - [ ] Publishing (npm + NuGet) is deferred to **v1.0.0** — no publish pipeline until then.

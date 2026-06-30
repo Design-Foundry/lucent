@@ -1,0 +1,28 @@
+/* Workspace base TS config. The showcase consumes the library by source via the
+   path alias below — the dev-loop analog of a .NET ProjectReference (no pack/install
+   round-trip). ng-packagr ignores this alias and bundles the real entry. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@design-foundry/lucent": ["packages/angular/src/index.ts"]
+    },
+    "strict": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

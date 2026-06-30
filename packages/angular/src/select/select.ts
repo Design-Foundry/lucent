@@ -30,8 +30,8 @@ let nextId = 0;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [OverlayModule, DfIcon, DfOption],
 	templateUrl: './select.html',
-	styleUrl: './select.scss',
-	host: { '[class]': '"df-select--" + size()' },
+	// Styled by the shared base (styles/components/select.css) via the lucent- contract.
+	host: { '[class]': '"lucent-select lucent-select--" + size()' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: forwardRef(() => DfSelect),
@@ -80,11 +80,11 @@ export class DfSelect implements ControlValueAccessor {
 		this.isOpen() && this.activeIndex() >= 0 ? this.optionId(this.activeIndex()) : null);
 
 	readonly triggerClass = computed(() => {
-		if (this.isDisabled()) return 'df-select__trigger--disabled';
-		if (this.hasError()) return 'df-select__trigger--error';
-		if (this.isOpen() || this.isFocused()) return 'df-select__trigger--focus';
+		if (this.isDisabled()) return 'lucent-select__trigger--disabled';
+		if (this.hasError()) return 'lucent-select__trigger--error';
+		if (this.isOpen() || this.isFocused()) return 'lucent-select__trigger--focus';
 		const v = this.selectedValue();
-		if (v !== null && v !== undefined && v !== '') return 'df-select__trigger--filled';
+		if (v !== null && v !== undefined && v !== '') return 'lucent-select__trigger--filled';
 		return '';
 	});
 

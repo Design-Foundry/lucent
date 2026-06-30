@@ -9,14 +9,15 @@ export type ToastVariant = 'informative' | 'success' | 'warning' | 'error';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIconButton],
 	templateUrl: './toast.html',
-	styleUrl: './toast.scss',
+	// Styled by the shared base (styles/components/toast.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-toast',
 		'role': 'status',
 		'aria-live': 'polite',
-		'[class.df-toast--informative]': 'variant() === "informative"',
-		'[class.df-toast--success]':     'variant() === "success"',
-		'[class.df-toast--warning]':     'variant() === "warning"',
-		'[class.df-toast--error]':       'variant() === "error"',
+		'[class.lucent-toast--informative]': 'variant() === "informative"',
+		'[class.lucent-toast--success]':     'variant() === "success"',
+		'[class.lucent-toast--warning]':     'variant() === "warning"',
+		'[class.lucent-toast--error]':       'variant() === "error"',
 	}
 })
 export class DfToast {

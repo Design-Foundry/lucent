@@ -1,0 +1,33 @@
+{
+  "name": "lucent-workspace",
+  "version": "0.0.0",
+  "description": "Lucent design system — Angular workspace (library + showcase). Not published; the library at packages/angular is.",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "lib:build": "ng build lucent",
+    "lib:watch": "ng build lucent --watch --configuration development",
+    "lib:pack": "npm run lib:build && cd dist/lucent && npm pack",
+    "showcase": "ng serve",
+    "showcase:build": "ng build lucent-angular-showcase",
+    "build": "npm run lib:build && npm run showcase:build"
+  },
+  "dependencies": {
+    "@angular/cdk": "^21.2.0",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.0",
+    "@angular/cli": "^21.2.0",
+    "@angular/compiler-cli": "^21.2.0",
+    "ng-packagr": "^21.2.0",
+    "typescript": "~5.9.0"
+  }
+}

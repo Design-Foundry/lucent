@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './nav-rail.html',
-	styleUrl: './nav-rail.scss'
+	// Styled by the shared base (styles/components/nav-rail.css) via the lucent- contract.
+	host: { 'class': 'lucent-nav-rail' }
 })
 export class DfNavRail {}

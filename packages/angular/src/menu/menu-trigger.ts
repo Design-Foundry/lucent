@@ -82,7 +82,7 @@ export class DfMenuTrigger implements OnDestroy {
 
 		this._overlayRef.overlayElement
 			.querySelector('df-menu')
-			?.classList.add('df-menu--closing');
+			?.classList.add('lucent-menu--closing');
 
 		this._closeTimer = setTimeout(() => this._teardown(), ANIM_MS);
 	}

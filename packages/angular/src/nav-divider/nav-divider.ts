@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '',
-	styleUrl: './nav-divider.scss'
+	// Styled by the shared base (styles/components/nav-divider.css) via the lucent- contract.
+	host: { 'class': 'lucent-nav-divider' }
 })
 export class DfNavDivider {}

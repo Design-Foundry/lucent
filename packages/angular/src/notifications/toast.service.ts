@@ -93,7 +93,7 @@ export class ToastService {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfToast],
 	template: `
-		<div class="df-toast-stack" aria-live="polite" aria-atomic="false">
+		<div class="lucent-toast-stack" aria-live="polite" aria-atomic="false">
 			@for (t of toasts.toasts(); track t.id) {
 				<df-toast
 					[title]="t.title"
@@ -104,7 +104,7 @@ export class ToastService {
 		</div>
 	`,
 	styles: `
-		.df-toast-stack {
+		.lucent-toast-stack {
 			display: flex;
 			flex-direction: column;
 			gap: var(--dimension--primitive--spacing-2);

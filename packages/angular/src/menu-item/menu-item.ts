@@ -9,8 +9,9 @@ export type MenuItemVariant = 'default' | 'danger';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './menu-item.html',
-	styleUrl: './menu-item.scss',
+	// Styled by the shared base (styles/components/menu-item.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-menu-item',
 		'[class.is-active]': 'active()',
 		'[class.is-danger]': 'variant() === "danger"',
 		'role': 'menuitem',

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -7,8 +7,10 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './icon.html',
-	styleUrl: './icon.scss',
+	// Styles come from the shared base (styles/components/icon.css) via the lucent- class
+	// contract; size is the --lucent-icon--{size} class (no inline font-size).
 	host: {
+		'[class]': '"lucent-icon lucent-icon--" + size()',
 		// Decorative by default (hidden from AT); when ariaLabel is set the icon is
 		// meaningful, so expose it as a labelled image instead.
 		'[attr.aria-hidden]': 'ariaLabel() ? null : "true"',
@@ -21,6 +23,4 @@ export class DfIcon {
 	readonly size = input<IconSize>('md');
 	/** Set when the icon conveys meaning on its own. Leave empty for decorative icons. */
 	readonly ariaLabel = input('');
-
-	readonly px = computed(() => `var(--dimension--primitive--icon-${this.size()})`);
 }

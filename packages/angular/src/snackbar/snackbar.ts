@@ -8,7 +8,8 @@ import { DfButton } from '../button/button';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon, DfButton],
 	templateUrl: './snackbar.html',
-	styleUrl: './snackbar.scss'
+	// Styled by the shared base (styles/components/snackbar.css) via the lucent- contract.
+	host: { 'class': 'lucent-snackbar' }
 })
 export class DfSnackbar {
 	readonly message = input('');

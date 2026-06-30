@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './tag.html',
-	styleUrl: './tag.scss'
+	// Styled by the shared base (styles/components/tag.css) via the lucent- class contract.
+	host: { 'class': 'lucent-tag' }
 })
 export class DfTag {}

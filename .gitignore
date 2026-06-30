@@ -1,9 +1,13 @@
 # ── Node / npm (Angular package) ──────────────────────────────────────────────
 node_modules/
 dist/
+out-tsc/
 *.tsbuildinfo
 .angular/
 npm-debug.log*
+
+# Playwright MCP scratch (showcase verification screenshots)
+.playwright-mcp/
 
 # ── .NET (Razor Class Library) ────────────────────────────────────────────────
 bin/

@@ -48,7 +48,7 @@ export class DialogService {
 		const restoreFocus = document.activeElement as HTMLElement | null;
 		const overlayRef = this.overlay.create({
 			hasBackdrop: true,
-			backdropClass: 'df-modal__scrim',
+			backdropClass: 'lucent-modal__scrim',
 			scrollStrategy: this.overlay.scrollStrategies.block(),
 			positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
 		});
@@ -97,17 +97,17 @@ let nextId = 0;
 	selector: 'df-confirm-dialog',
 	standalone: true,
 	imports: [DfButton, DfIconButton],
-	styleUrl: '../modal/modal.scss',
+	// Styled by the shared base (styles/components/modal.css) via the lucent- contract.
 	template: `
-		<div class="df-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="data.title ? titleId : null">
-			<div class="df-modal__header">
-				<span class="df-modal__title" [id]="titleId">{{ data.title }}</span>
+		<div class="lucent-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="data.title ? titleId : null">
+			<div class="lucent-modal__header">
+				<span class="lucent-modal__title" [id]="titleId">{{ data.title }}</span>
 				<df-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="ref.close(false)" />
 			</div>
-			<div class="df-modal__body">
+			<div class="lucent-modal__body">
 				<p>{{ data.message }}</p>
 			</div>
-			<div class="df-modal__footer">
+			<div class="lucent-modal__footer">
 				<df-button variant="ghost" (clicked)="ref.close(false)">{{ data.cancelLabel ?? 'Cancel' }}</df-button>
 				<df-button
 					[variant]="data.variant === 'destructive' ? 'danger' : 'primary'"

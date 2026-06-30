@@ -18,8 +18,8 @@ const POSITIONS: Record<TooltipPosition, ConnectedPosition> = {
 	selector: 'df-tooltip-bubble',
 	standalone: true,
 	template: '{{ text }}',
-	styleUrl: './tooltip.scss',
-	host: { 'class': 'df-tooltip', 'role': 'tooltip', '[id]': 'id' },
+	// Bubble styled by the shared base (styles/components/tooltip.css) via the lucent- contract.
+	host: { 'class': 'lucent-tooltip', 'role': 'tooltip', '[id]': 'id' },
 })
 export class DfTooltipBubble {
 	text = '';

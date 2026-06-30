@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './activity-bar.html',
-	styleUrl: './activity-bar.scss'
+	// Styled by the shared base (styles/components/activity-bar.css) via the lucent- contract.
+	host: { 'class': 'lucent-activity-bar' }
 })
 export class DfActivityBar {}

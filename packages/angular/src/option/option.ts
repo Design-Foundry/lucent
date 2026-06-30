@@ -5,8 +5,9 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } f
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './option.html',
-	styleUrl: './option.scss',
+	// Styled by the shared base (styles/components/option.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-option',
 		'role': 'option',
 		'[attr.aria-selected]': 'selected()',
 		'[attr.aria-disabled]': 'disabled() || null',

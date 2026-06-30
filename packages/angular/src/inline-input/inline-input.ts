@@ -8,7 +8,9 @@ let nextId = 0;
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './inline-input.html',
-	styleUrl: './inline-input.scss',
+	// Styled by the shared base (styles/components/inline-input.css) via the lucent- contract.
+	// The host is the .lucent-inline-input wrapper; the <input> carries __field + typography.
+	host: { 'class': 'lucent-inline-input' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		useExisting: forwardRef(() => DfInlineInput),
@@ -25,10 +27,11 @@ export class DfInlineInput implements ControlValueAccessor {
 	readonly isFocused = signal(false);
 	readonly isDisabled = signal(false);
 
-	readonly hostClass = computed(() => [
+	// Field class: the __field contract element + the consumer's typography utility.
+	// Focus/disabled are pure CSS (:focus/:disabled) in the shared base, so no state classes.
+	readonly fieldClass = computed(() => [
+		'lucent-inline-input__field',
 		this.typography(),
-		this.isFocused() ? 'is-focused' : '',
-		this.isDisabled() ? 'is-disabled' : '',
 	].filter(Boolean).join(' '));
 
 	private onChange  = (_: string) => {};

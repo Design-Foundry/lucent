@@ -6,8 +6,8 @@ import { DfTab, TabScale } from '../tab/tab';
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
-	styleUrl: './tab-list.scss',
-	host: { 'role': 'tablist' }
+	// Styled by the shared base (styles/components/tab-list.css) via the lucent- contract.
+	host: { 'class': 'lucent-tab-list', 'role': 'tablist' }
 })
 export class DfTabList {
 	readonly scale     = input<TabScale>('md');

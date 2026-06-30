@@ -1,9 +1,9 @@
-<div class="df-toast__header">
-	<span class="df-toast__title">{{ title() }}</span>
+<div class="lucent-toast__header">
+	<span class="lucent-toast__title">{{ title() }}</span>
 	@if (closable()) {
-		<df-icon-button class="df-toast__close" icon="close" variant="ghost" size="sm" ariaLabel="Dismiss" (clicked)="closed.emit()" />
+		<df-icon-button class="lucent-toast__close" icon="close" variant="ghost" size="sm" ariaLabel="Dismiss" (clicked)="closed.emit()" />
 	}
 </div>
 @if (message()) {
-	<p class="df-toast__message">{{ message() }}</p>
+	<p class="lucent-toast__message">{{ message() }}</p>
 }

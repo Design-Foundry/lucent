@@ -9,10 +9,11 @@ import { ControlSize } from '../sizing';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './checkbox.html',
-	styleUrl: './checkbox.scss',
+	// Styled by the shared base (styles/components/checkbox.css); the CSS supports this kit's
+	// `.is-checked`/`.is-indeterminate`/`.is-disabled` host classes (`__input` rules are Razor-only).
 	host: {
 		'role': 'checkbox',
-		'[class]': '"df-checkbox--" + size()',
+		'[class]': '"lucent-checkbox lucent-checkbox--" + size()',
 		'[attr.tabindex]': 'isDisabled() ? -1 : 0',
 		'[attr.aria-checked]': 'indeterminate() ? "mixed" : checked()',
 		'[attr.aria-disabled]': 'isDisabled() || null',

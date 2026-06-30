@@ -26,8 +26,9 @@ import { Tone } from '../tone';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [DfIcon],
 	templateUrl: './list-item.html',
-	styleUrl: './list-item.scss',
+	// Styled by the shared base (styles/components/list-item.css) via the lucent- contract.
 	host: {
+		'class': 'lucent-list-item',
 		'[class.is-selected]': 'selected()',
 		'[class.is-disabled]': 'disabled()',
 		'[class.is-interactive]': 'interactive()',
