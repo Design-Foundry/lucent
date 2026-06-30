@@ -8,11 +8,11 @@ import { Directive } from '@angular/core';
  * `contentChild(LucentPrefix)`. Consumers apply them to projected elements:
  *
  * ```html
- * <lucent-input>
+ * <lucent-text-input>
  *   <span lucentLabel>Email</span>
  *   <lucent-icon lucentPrefix name="mail" />
  *   <span lucentHint>We never share it</span>
- * </lucent-input>
+ * </lucent-text-input>
  * ```
  */
 @Directive({ selector: '[lucentLabel]', standalone: true })

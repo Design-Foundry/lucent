@@ -48,7 +48,7 @@ export type { BreadcrumbItem } from './breadcrumbs/breadcrumbs';
 export { LucentAvatar } from './avatar/avatar';
 export type { AvatarScale, AvatarVariant } from './avatar/avatar';
 
-export { LucentInput } from './input/input';
+export { LucentTextInput } from './text-input/text-input';
 
 export { LucentInlineInput } from './inline-input/inline-input';
 

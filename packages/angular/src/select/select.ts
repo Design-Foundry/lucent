@@ -49,7 +49,7 @@ export class LucentSelect implements ControlValueAccessor {
 	readonly messageId = `${this.listboxId}-msg`;
 	optionId = (i: number) => `${this.listboxId}-opt-${i}`;
 
-	// label/hint/error are projected content (consistent with lucent-input).
+	// label/hint/error are projected content (consistent with lucent-text-input).
 	readonly labelRef = contentChild(LucentLabel);
 	readonly hintRef = contentChild(LucentHint);
 	readonly errorRef = contentChild(LucentError);
