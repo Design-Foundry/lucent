@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DfIcon } from '../icon/icon';
+import { LucentIcon } from '../icon/icon';
 import { ControlSize } from '../sizing';
 
 @Component({
-	selector: 'df-checkbox',
+	selector: 'lucent-checkbox',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './checkbox.html',
 	// Styled by the shared base (styles/components/checkbox.css); the CSS supports this kit's
 	// `.is-checked`/`.is-indeterminate`/`.is-disabled` host classes (`__input` rules are Razor-only).
@@ -29,11 +29,11 @@ import { ControlSize } from '../sizing';
 	},
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DfCheckbox),
+		useExisting: forwardRef(() => LucentCheckbox),
 		multi: true
 	}]
 })
-export class DfCheckbox implements ControlValueAccessor {
+export class LucentCheckbox implements ControlValueAccessor {
 	readonly size = input<ControlSize>('md');
 	readonly label = input('');
 	readonly indeterminate = input(false, { transform: booleanAttribute });

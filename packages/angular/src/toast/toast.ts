@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } from '@angular/core';
-import { DfIconButton } from '../icon-button/icon-button';
+import { LucentIconButton } from '../icon-button/icon-button';
 
 export type ToastVariant = 'informative' | 'success' | 'warning' | 'error';
 
 @Component({
-	selector: 'df-toast',
+	selector: 'lucent-toast',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIconButton],
+	imports: [LucentIconButton],
 	templateUrl: './toast.html',
 	// Styled by the shared base (styles/components/toast.css) via the lucent- contract.
 	host: {
@@ -20,7 +20,7 @@ export type ToastVariant = 'informative' | 'success' | 'warning' | 'error';
 		'[class.lucent-toast--error]':       'variant() === "error"',
 	}
 })
-export class DfToast {
+export class LucentToast {
 	readonly title = input('');
 	readonly message = input('');
 	readonly variant = input<ToastVariant>('informative');

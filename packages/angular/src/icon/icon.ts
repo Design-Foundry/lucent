@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
-	selector: 'df-icon',
+	selector: 'lucent-icon',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './icon.html',
@@ -18,7 +18,7 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 		'[attr.aria-label]': 'ariaLabel() || null',
 	}
 })
-export class DfIcon {
+export class LucentIcon {
 	readonly name = input('widgets');
 	readonly size = input<IconSize>('md');
 	/** Set when the icon conveys meaning on its own. Leave empty for decorative icons. */

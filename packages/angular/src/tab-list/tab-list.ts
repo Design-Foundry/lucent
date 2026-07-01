@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, contentChildren, effect, HostListener, input, output } from '@angular/core';
-import { DfTab, TabScale } from '../tab/tab';
+import { LucentTab, TabScale } from '../tab/tab';
 
 @Component({
-	selector: 'df-tab-list',
+	selector: 'lucent-tab-list',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
 	// Styled by the shared base (styles/components/tab-list.css) via the lucent- contract.
 	host: { 'class': 'lucent-tab-list', 'role': 'tablist' }
 })
-export class DfTabList {
+export class LucentTabList {
 	readonly scale     = input<TabScale>('md');
 	readonly activeTab = input<string>('');
 	readonly tabChange = output<string>();
 
-	private readonly tabs = contentChildren(DfTab);
+	private readonly tabs = contentChildren(LucentTab);
 
 	constructor() {
 		// Drive each projected tab's scale + selected state from the list.

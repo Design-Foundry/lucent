@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DfSnackbar } from '../snackbar/snackbar';
+import { LucentSnackbar } from '../snackbar/snackbar';
 
 export interface SnackbarOptions {
 	message: string;
@@ -31,7 +31,7 @@ export class SnackbarService {
 	private readonly overlay = inject(Overlay);
 	private readonly injector = inject(Injector);
 	private overlayRef?: OverlayRef;
-	private outletRef?: ComponentRef<DfSnackbarOutlet>;
+	private outletRef?: ComponentRef<LucentSnackbarOutlet>;
 	private timer?: ReturnType<typeof setTimeout>;
 	private seq = 0;
 
@@ -69,7 +69,7 @@ export class SnackbarService {
 		this.overlayRef = this.overlay.create({
 			positionStrategy: this.overlay.position().global().bottom('16px').centerHorizontally(),
 		});
-		this.outletRef = this.overlayRef.attach(new ComponentPortal(DfSnackbarOutlet, null, this.injector));
+		this.outletRef = this.overlayRef.attach(new ComponentPortal(LucentSnackbarOutlet, null, this.injector));
 	}
 
 	// Dynamically-attached overlay views don't pick up signal CD under zoneless.
@@ -80,13 +80,13 @@ export class SnackbarService {
 
 /** Renders the current snackbar from the service. Attached once into the overlay. */
 @Component({
-	selector: 'df-snackbar-outlet',
+	selector: 'lucent-snackbar-outlet',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfSnackbar],
+	imports: [LucentSnackbar],
 	template: `
 		@if (snackbar.current(); as s) {
-			<df-snackbar
+			<lucent-snackbar
 				[message]="s.message"
 				[icon]="s.icon ?? 'widgets'"
 				[showIcon]="s.showIcon ?? true"
@@ -95,6 +95,6 @@ export class SnackbarService {
 		}
 	`,
 })
-export class DfSnackbarOutlet {
+export class LucentSnackbarOutlet {
 	readonly snackbar = inject(SnackbarService);
 }

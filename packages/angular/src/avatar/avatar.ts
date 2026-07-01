@@ -4,7 +4,7 @@ export type AvatarScale = 'xs' | 'sm' | 'md' | 'lg';
 export type AvatarVariant = 'trailing' | 'leading' | 'none';
 
 @Component({
-	selector: 'df-avatar',
+	selector: 'lucent-avatar',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './avatar.html',
@@ -13,7 +13,7 @@ export type AvatarVariant = 'trailing' | 'leading' | 'none';
 		'[class]': '"lucent-avatar lucent-avatar--" + scale() + " lucent-avatar--" + variant()'
 	}
 })
-export class DfAvatar {
+export class LucentAvatar {
 	readonly src = input('');
 	readonly name = input('');
 	readonly tenant = input('');

@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { DfIcon } from '../icon/icon';
+import { LucentIcon } from '../icon/icon';
 import { ControlSize } from '../sizing';
 
 export type ChipType = 'tag' | 'default' | 'active' | 'action';
 
 @Component({
-	selector: 'df-chip',
+	selector: 'lucent-chip',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIcon],
+	imports: [LucentIcon],
 	templateUrl: './chip.html',
 	// Styled by the shared base (styles/components/chip.css) via the lucent- contract.
 	host: { '[class]': '"lucent-chip lucent-chip--" + type() + " lucent-chip--" + size()' }
 })
-export class DfChip {
+export class LucentChip {
 	readonly type = input<ChipType>('default');
 	readonly size = input<ControlSize>('md');
 	readonly label = input('');

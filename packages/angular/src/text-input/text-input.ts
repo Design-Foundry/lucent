@@ -10,28 +10,28 @@ import {
 	signal,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DfIconButton } from '../icon-button/icon-button';
-import { DfError, DfHint, DfLabel } from '../slots/slots';
+import { LucentIconButton } from '../icon-button/icon-button';
+import { LucentError, LucentHint, LucentLabel } from '../slots/slots';
 import { ControlSize } from '../sizing';
 
 let nextId = 0;
 
 @Component({
-	selector: 'df-input',
+	selector: 'lucent-text-input',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfIconButton],
-	templateUrl: './input.html',
+	imports: [LucentIconButton],
+	templateUrl: './text-input.html',
 	// Styled by the shared base (styles/components/text-input.css) via the lucent- contract.
-	// NB: the block renames df-input → lucent-text-input (matches the Razor LucentTextInput kit).
+	// NB: the block renames lucent-text-input → lucent-text-input (matches the Razor LucentTextInput kit).
 	host: { '[class]': '"lucent-text-input lucent-text-input--" + size()' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DfInput),
+		useExisting: forwardRef(() => LucentTextInput),
 		multi: true
 	}]
 })
-export class DfInput implements ControlValueAccessor {
+export class LucentTextInput implements ControlValueAccessor {
 	readonly size = input<ControlSize>('md');
 	readonly placeholder = input('');
 	readonly type = input('text');
@@ -40,13 +40,13 @@ export class DfInput implements ControlValueAccessor {
 	readonly clearable = input(false, { transform: booleanAttribute });
 	readonly cleared = output<void>();
 
-	readonly inputId = `df-input-${nextId++}`;
+	readonly inputId = `lucent-text-input-${nextId++}`;
 	readonly messageId = `${this.inputId}-msg`;
 
 	// Projected-slot presence (label/hint/error are content, not config).
-	readonly labelRef = contentChild(DfLabel);
-	readonly hintRef = contentChild(DfHint);
-	readonly errorRef = contentChild(DfError);
+	readonly labelRef = contentChild(LucentLabel);
+	readonly hintRef = contentChild(LucentHint);
+	readonly errorRef = contentChild(LucentError);
 
 	readonly value = signal('');
 	readonly isFocused = signal(false);

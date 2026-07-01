@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 let nextId = 0;
 
 @Component({
-	selector: 'df-inline-input',
+	selector: 'lucent-inline-input',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './inline-input.html',
@@ -13,15 +13,15 @@ let nextId = 0;
 	host: { 'class': 'lucent-inline-input' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DfInlineInput),
+		useExisting: forwardRef(() => LucentInlineInput),
 		multi: true,
 	}],
 })
-export class DfInlineInput implements ControlValueAccessor {
+export class LucentInlineInput implements ControlValueAccessor {
 	readonly typography = input('');
 	readonly placeholder = input('');
 
-	readonly inputId = `df-inline-input-${nextId++}`;
+	readonly inputId = `lucent-inline-input-${nextId++}`;
 
 	readonly value     = signal('');
 	readonly isFocused = signal(false);

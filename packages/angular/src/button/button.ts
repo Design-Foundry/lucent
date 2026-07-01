@@ -4,7 +4,7 @@ import { ControlSize } from '../sizing';
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-glass' | 'danger' | 'text';
 
 @Component({
-	selector: 'df-button',
+	selector: 'lucent-button',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './button.html',
@@ -15,7 +15,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-glass' | 'da
 		'[class.is-loading]': 'loading()'
 	}
 })
-export class DfButton {
+export class LucentButton {
 	readonly variant = input<ButtonVariant>('primary');
 	readonly size = input<ControlSize>('md');
 	readonly loading = input(false, { transform: booleanAttribute });

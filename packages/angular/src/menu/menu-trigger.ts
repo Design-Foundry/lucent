@@ -21,7 +21,7 @@ const POSITIONS: Record<MenuPosition, ConnectedPosition> = {
 };
 
 @Directive({
-	selector: '[dfMenuTrigger]',
+	selector: '[lucentMenuTrigger]',
 	standalone: true,
 	host: {
 		'(click)':         '_onClick($event)',
@@ -30,9 +30,9 @@ const POSITIONS: Record<MenuPosition, ConnectedPosition> = {
 		'style':           'cursor: pointer',
 	},
 })
-export class DfMenuTrigger implements OnDestroy {
-	readonly template = input.required<TemplateRef<void>>({ alias: 'dfMenuTrigger' });
-	readonly dfMenuPosition = input<MenuPosition>('bottom-end');
+export class LucentMenuTrigger implements OnDestroy {
+	readonly template = input.required<TemplateRef<void>>({ alias: 'lucentMenuTrigger' });
+	readonly lucentMenuPosition = input<MenuPosition>('bottom-end');
 
 	private readonly _overlay = inject(Overlay);
 	private readonly _el      = inject(ElementRef);
@@ -61,7 +61,7 @@ export class DfMenuTrigger implements OnDestroy {
 		this._overlayRef = this._overlay.create({
 			positionStrategy: this._overlay.position()
 				.flexibleConnectedTo(this._el)
-				.withPositions([POSITIONS[this.dfMenuPosition()]]),
+				.withPositions([POSITIONS[this.lucentMenuPosition()]]),
 			scrollStrategy: this._overlay.scrollStrategies.reposition(),
 		});
 
@@ -81,7 +81,7 @@ export class DfMenuTrigger implements OnDestroy {
 		this._isOpen = false;
 
 		this._overlayRef.overlayElement
-			.querySelector('df-menu')
+			.querySelector('lucent-menu')
 			?.classList.add('lucent-menu--closing');
 
 		this._closeTimer = setTimeout(() => this._teardown(), ANIM_MS);

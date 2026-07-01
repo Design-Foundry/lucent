@@ -15,23 +15,23 @@ const POSITIONS: Record<TooltipPosition, ConnectedPosition> = {
 
 /** The floating bubble. Rendered into a CDK overlay by the directive — not used directly. */
 @Component({
-	selector: 'df-tooltip-bubble',
+	selector: 'lucent-tooltip-bubble',
 	standalone: true,
 	template: '{{ text }}',
 	// Bubble styled by the shared base (styles/components/tooltip.css) via the lucent- contract.
 	host: { 'class': 'lucent-tooltip', 'role': 'tooltip', '[id]': 'id' },
 })
-export class DfTooltipBubble {
+export class LucentTooltipBubble {
 	text = '';
 	id = '';
 }
 
 /**
- * Accessible tooltip. Apply to any focusable trigger: <code>[dfTooltip]="'Help'"</code>.
+ * Accessible tooltip. Apply to any focusable trigger: <code>[lucentTooltip]="'Help'"</code>.
  * Shows on hover and keyboard focus, sets <code>aria-describedby</code>, dismisses on Escape.
  */
 @Directive({
-	selector: '[dfTooltip]',
+	selector: '[lucentTooltip]',
 	standalone: true,
 	host: {
 		'(mouseenter)': 'show()',
@@ -42,13 +42,13 @@ export class DfTooltipBubble {
 		'[attr.aria-describedby]': 'describedBy',
 	},
 })
-export class DfTooltip implements OnDestroy {
-	@Input('dfTooltip') content = '';
-	@Input() dfTooltipPosition: TooltipPosition = 'top';
+export class LucentTooltip implements OnDestroy {
+	@Input('lucentTooltip') content = '';
+	@Input() lucentTooltipPosition: TooltipPosition = 'top';
 
 	private readonly overlay = inject(Overlay);
 	private readonly el = inject(ElementRef);
-	private readonly id = `df-tooltip-${nextId++}`;
+	private readonly id = `lucent-tooltip-${nextId++}`;
 
 	private ref?: OverlayRef;
 	describedBy: string | null = null;
@@ -59,11 +59,11 @@ export class DfTooltip implements OnDestroy {
 		this.ref = this.overlay.create({
 			positionStrategy: this.overlay.position()
 				.flexibleConnectedTo(this.el)
-				.withPositions([POSITIONS[this.dfTooltipPosition]]),
+				.withPositions([POSITIONS[this.lucentTooltipPosition]]),
 			scrollStrategy: this.overlay.scrollStrategies.reposition(),
 		});
 
-		const bubble = this.ref.attach(new ComponentPortal(DfTooltipBubble));
+		const bubble = this.ref.attach(new ComponentPortal(LucentTooltipBubble));
 		bubble.instance.text = this.content;
 		bubble.instance.id = this.id;
 		this.describedBy = this.id;

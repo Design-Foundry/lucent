@@ -1,6 +1,6 @@
 @if (labelRef()) {
   <span class="lucent-select__label typography-caption" [id]="labelId">
-    <ng-content select="[dfLabel]" />
+    <ng-content select="[lucentLabel]" />
   </span>
 }
 
@@ -27,7 +27,7 @@
   <span class="lucent-select__value" [class.is-placeholder]="!selectedLabel()">
     {{ selectedLabel() || placeholder() }}
   </span>
-  <df-icon class="lucent-select__caret" [class.is-open]="isOpen()" name="arrow_drop_down" size="md" />
+  <lucent-icon class="lucent-select__caret" [class.is-open]="isOpen()" name="arrow_drop_down" size="md" />
 </button>
 
 <ng-template
@@ -46,7 +46,7 @@
     [attr.aria-labelledby]="labelRef() ? labelId : null"
   >
     @for (opt of options(); track opt.value; let i = $index) {
-      <df-option
+      <lucent-option
         [id]="optionId(i)"
         [label]="opt.label"
         [value]="opt.value"
@@ -61,9 +61,9 @@
 @if (errorRef() || hintRef()) {
   <span class="lucent-select__message" [class.lucent-select__message--error]="hasError()" [id]="messageId">
     @if (errorRef()) {
-      <ng-content select="[dfError]" />
+      <ng-content select="[lucentError]" />
     } @else {
-      <ng-content select="[dfHint]" />
+      <ng-content select="[lucentHint]" />
     }
   </span>
 }

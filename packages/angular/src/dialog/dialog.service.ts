@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { DfButton } from '../button/button';
-import { DfIconButton } from '../icon-button/icon-button';
+import { LucentButton } from '../button/button';
+import { LucentIconButton } from '../icon-button/icon-button';
 
 const FOCUSABLE =
 	'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
@@ -75,7 +75,7 @@ export class DialogService {
 
 	/** Convenience confirmation dialog. Resolves true if confirmed, false otherwise. */
 	confirm(options: ConfirmOptions): Promise<boolean> {
-		const ref = this.open<boolean, ConfirmOptions>(DfConfirmDialog, { data: options });
+		const ref = this.open<boolean, ConfirmOptions>(LucentConfirmDialog, { data: options });
 		return ref.closed.then(result => result === true);
 	}
 
@@ -94,32 +94,32 @@ let nextId = 0;
 
 /** Default content for DialogService.confirm(). */
 @Component({
-	selector: 'df-confirm-dialog',
+	selector: 'lucent-confirm-dialog',
 	standalone: true,
-	imports: [DfButton, DfIconButton],
+	imports: [LucentButton, LucentIconButton],
 	// Styled by the shared base (styles/components/modal.css) via the lucent- contract.
 	template: `
 		<div class="lucent-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="data.title ? titleId : null">
 			<div class="lucent-modal__header">
 				<span class="lucent-modal__title" [id]="titleId">{{ data.title }}</span>
-				<df-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="ref.close(false)" />
+				<lucent-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="ref.close(false)" />
 			</div>
 			<div class="lucent-modal__body">
 				<p>{{ data.message }}</p>
 			</div>
 			<div class="lucent-modal__footer">
-				<df-button variant="ghost" (clicked)="ref.close(false)">{{ data.cancelLabel ?? 'Cancel' }}</df-button>
-				<df-button
+				<lucent-button variant="ghost" (clicked)="ref.close(false)">{{ data.cancelLabel ?? 'Cancel' }}</lucent-button>
+				<lucent-button
 					[variant]="data.variant === 'destructive' ? 'danger' : 'primary'"
 					(clicked)="ref.close(true)">
 					{{ data.confirmLabel ?? 'Confirm' }}
-				</df-button>
+				</lucent-button>
 			</div>
 		</div>
 	`,
 })
-export class DfConfirmDialog {
+export class LucentConfirmDialog {
 	readonly ref = inject<DialogRef<boolean>>(DialogRef);
 	readonly data = inject<ConfirmOptions>(DIALOG_DATA);
-	readonly titleId = `df-confirm-${nextId++}`;
+	readonly titleId = `lucent-confirm-${nextId++}`;
 }

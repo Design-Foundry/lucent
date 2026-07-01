@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DfToast, ToastVariant } from '../toast/toast';
+import { LucentToast, ToastVariant } from '../toast/toast';
 
 export interface ToastOptions {
 	title?: string;
@@ -32,7 +32,7 @@ export class ToastService {
 	private readonly overlay = inject(Overlay);
 	private readonly injector = inject(Injector);
 	private overlayRef?: OverlayRef;
-	private outletRef?: ComponentRef<DfToastOutlet>;
+	private outletRef?: ComponentRef<LucentToastOutlet>;
 	private seq = 0;
 
 	readonly toasts = signal<ActiveToast[]>([]);
@@ -76,7 +76,7 @@ export class ToastService {
 		this.overlayRef = this.overlay.create({
 			positionStrategy: this.overlay.position().global().top('16px').right('16px'),
 		});
-		this.outletRef = this.overlayRef.attach(new ComponentPortal(DfToastOutlet, null, this.injector));
+		this.outletRef = this.overlayRef.attach(new ComponentPortal(LucentToastOutlet, null, this.injector));
 	}
 
 	// A dynamically-attached overlay view doesn't pick up signal-driven CD under
@@ -88,14 +88,14 @@ export class ToastService {
 
 /** Renders the toast stack from the service's signal. Attached once into the overlay. */
 @Component({
-	selector: 'df-toast-outlet',
+	selector: 'lucent-toast-outlet',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [DfToast],
+	imports: [LucentToast],
 	template: `
 		<div class="lucent-toast-stack" aria-live="polite" aria-atomic="false">
 			@for (t of toasts.toasts(); track t.id) {
-				<df-toast
+				<lucent-toast
 					[title]="t.title"
 					[message]="t.message"
 					[variant]="t.variant"
@@ -113,6 +113,6 @@ export class ToastService {
 		}
 	`,
 })
-export class DfToastOutlet {
+export class LucentToastOutlet {
 	readonly toasts = inject(ToastService);
 }
