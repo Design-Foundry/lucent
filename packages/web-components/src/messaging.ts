@@ -257,6 +257,47 @@ export class LucentComposer extends LucentElement {
   }
 }
 
+// ─── lucent-chat-trigger (FAB) ─────────────────────────────────────────────────
+@customElement('lucent-chat-trigger')
+export class LucentChatTrigger extends LucentElement {
+  @property() icon = 'forum';
+  @property({ type: Number }) unread = 0;
+  @property() label = 'Open chat';
+
+  private get unreadLabel(): string { return this.unread > 99 ? '99+' : String(this.unread); }
+
+  protected hostClasses(): string {
+    return 'lucent-chat-trigger';
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('keydown', this._onKey);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'button');
+    this.tabIndex = 0;
+    this.setAttribute('aria-label', this.unread > 0 ? `${this.label}, ${this.unread} unread` : this.label);
+  }
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+  };
+
+  protected render(): TemplateResult {
+    return html`<lucent-icon name=${this.icon} size="md"></lucent-icon>${this.unread > 0
+      ? html`<lucent-badge class="lucent-chat-trigger__badge" kind="count" variant="error" label=${this.unreadLabel}></lucent-badge>`
+      : nothing}`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
@@ -265,5 +306,6 @@ declare global {
     'lucent-code-block': LucentCodeBlock;
     'lucent-prompt-suggestion': LucentPromptSuggestion;
     'lucent-composer': LucentComposer;
+    'lucent-chat-trigger': LucentChatTrigger;
   }
 }
