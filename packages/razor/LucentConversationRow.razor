@@ -1,0 +1,71 @@
+@*
+    LucentConversationRow — emits the `.lucent-conversation-row` contract
+    (styles/components/conversation-row.css).
+
+    A row in a conversation/inbox list — a leading Avatar, the title + last-message preview, a
+    time, and an unread badge. Rest / hover / active (the open thread). A real <button>.
+*@
+
+<button type="button"
+        class="@HostClass"
+        aria-current="@(Active ? "true" : null)"
+        aria-label="@FullLabel"
+        @onclick="OnClick"
+        @attributes="AdditionalAttributes">
+    @if (Avatar is not null)
+    {
+        <span class="lucent-conversation-row__leading">@Avatar</span>
+    }
+    <span class="lucent-conversation-row__main">
+        <span class="lucent-conversation-row__title">@Title</span>
+        <span class="lucent-conversation-row__preview">@Preview</span>
+    </span>
+    <span class="lucent-conversation-row__meta">
+        @if (!string.IsNullOrEmpty(Time))
+        {
+            <span class="lucent-conversation-row__time">@Time</span>
+        }
+        @if (Unread > 0)
+        {
+            <LucentBadge Class="lucent-conversation-row__badge" Kind="BadgeKind.Count" Variant="BadgeVariant.Accent" Label="@UnreadLabel" />
+        }
+    </span>
+</button>
+
+@code {
+    /// <summary>Conversation title / name.</summary>
+    [Parameter] public string? Title { get; set; }
+
+    /// <summary>Last-message preview.</summary>
+    [Parameter] public string? Preview { get; set; }
+
+    /// <summary>Timestamp string.</summary>
+    [Parameter] public string? Time { get; set; }
+
+    /// <summary>Unread count — shows a badge when &gt; 0.</summary>
+    [Parameter] public int Unread { get; set; }
+
+    /// <summary>Whether this is the currently-open thread.</summary>
+    [Parameter] public bool Active { get; set; }
+
+    /// <summary>Leading avatar/icon.</summary>
+    [Parameter] public RenderFragment? Avatar { get; set; }
+
+    /// <summary>Raised when the row is chosen.</summary>
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the button.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string UnreadLabel => Unread > 99 ? "99+" : Unread.ToString();
+    private string? FullLabel => Unread > 0 ? $"{Title}, {Unread} unread" : Title;
+
+    private string HostClass =>
+        "lucent-conversation-row"
+        + (Active ? " is-active" : "")
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}
