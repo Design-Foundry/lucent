@@ -81,6 +81,11 @@ export { LucentMenuItem } from './menu-item/menu-item';
 export type { MenuItemVariant } from './menu-item/menu-item';
 export { LucentMenuDivider } from './menu-divider/menu-divider';
 
+// ─── Tier 7 — Feedback ────────────────────────────────────────────────────────
+
+export { LucentSpinner } from './spinner/spinner';
+export type { SpinnerSize } from './spinner/spinner';
+
 // ─── Tier 7 — Overlays & feedback ────────────────────────────────────────────
 
 export { LucentToast } from './toast/toast';

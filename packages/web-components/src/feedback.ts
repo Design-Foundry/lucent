@@ -4,7 +4,29 @@ import { LucentElement } from './base';
 import { cx } from './cx';
 import './primitives';
 import './controls';
-import type { ModalVariant, ToastVariant } from './foundations';
+import type { ModalVariant, SpinnerSize, ToastVariant } from './foundations';
+
+// ─── lucent-spinner ───────────────────────────────────────────────────────────
+@customElement('lucent-spinner')
+export class LucentSpinner extends LucentElement {
+  @property() size: SpinnerSize = 'md';
+  /** Accessible name announced to assistive tech. Defaults to "Loading". */
+  @property() label = 'Loading';
+
+  protected hostClasses(): string {
+    return `lucent-spinner lucent-spinner--${this.size}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'status');
+    this.setAttribute('aria-label', this.label || 'Loading');
+  }
+
+  protected render(): TemplateResult {
+    return html``;
+  }
+}
 
 // ─── lucent-snackbar ────────────────────────────────────────────────────────────
 @customElement('lucent-snackbar')
@@ -123,6 +145,7 @@ export class LucentModal extends LucentElement {
 
 declare global {
   interface HTMLElementTagNameMap {
+    'lucent-spinner': LucentSpinner;
     'lucent-snackbar': LucentSnackbar;
     'lucent-toast': LucentToast;
     'lucent-modal': LucentModal;

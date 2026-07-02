@@ -14,6 +14,7 @@ export type IconButtonSize = 'sm' | 'md' | 'lg';
 export type StatusTagVariant = 'success' | 'neutral' | 'warning' | 'error';
 export type BadgeVariant = 'accent' | 'error' | 'success' | 'neutral';
 export type BadgeKind = 'count' | 'label' | 'dot';
+export type SpinnerSize = 'sm' | 'md' | 'lg';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type ToggleSize = 'md' | 'sm';
 export type ChipType = 'tag' | 'default' | 'active' | 'action';

@@ -6,7 +6,26 @@ import {
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { Button, IconButton } from './controls';
-import type { ModalVariant, ToastVariant } from './foundations';
+import type { ModalVariant, SpinnerSize, ToastVariant } from './foundations';
+
+// ─── Spinner ──────────────────────────────────────────────────────────────────
+export interface SpinnerProps {
+  size?: SpinnerSize;
+  /** Accessible name announced to assistive tech. Defaults to "Loading". */
+  label?: string;
+  className?: string;
+}
+
+/** A rotating ring for indeterminate waits. Standalone form is accent-coloured. */
+export function Spinner({ size = 'md', label = 'Loading', className }: SpinnerProps) {
+  return (
+    <span
+      className={cx('lucent-spinner', `lucent-spinner--${size}`, className)}
+      role="status"
+      aria-label={label}
+    />
+  );
+}
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
 let modalSeq = 0;
