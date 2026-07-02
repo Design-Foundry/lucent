@@ -89,6 +89,8 @@ export type { SpinnerSize } from './spinner/spinner';
 export { LucentSkeleton } from './skeleton/skeleton';
 export type { SkeletonShape } from './skeleton/skeleton';
 
+export { LucentProgress } from './progress/progress';
+
 // ─── Tier 7 — Overlays & feedback ────────────────────────────────────────────
 
 export { LucentToast } from './toast/toast';
