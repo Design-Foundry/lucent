@@ -86,6 +86,9 @@ export { LucentMenuDivider } from './menu-divider/menu-divider';
 export { LucentSpinner } from './spinner/spinner';
 export type { SpinnerSize } from './spinner/spinner';
 
+export { LucentSkeleton } from './skeleton/skeleton';
+export type { SkeletonShape } from './skeleton/skeleton';
+
 // ─── Tier 7 — Overlays & feedback ────────────────────────────────────────────
 
 export { LucentToast } from './toast/toast';

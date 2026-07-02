@@ -4,7 +4,7 @@ import { LucentElement } from './base';
 import { cx } from './cx';
 import './primitives';
 import './controls';
-import type { ModalVariant, SpinnerSize, ToastVariant } from './foundations';
+import type { ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
 
 // ─── lucent-spinner ───────────────────────────────────────────────────────────
 @customElement('lucent-spinner')
@@ -21,6 +21,25 @@ export class LucentSpinner extends LucentElement {
     super.willUpdate(changed);
     this.setAttribute('role', 'status');
     this.setAttribute('aria-label', this.label || 'Loading');
+  }
+
+  protected render(): TemplateResult {
+    return html``;
+  }
+}
+
+// ─── lucent-skeleton ──────────────────────────────────────────────────────────
+@customElement('lucent-skeleton')
+export class LucentSkeleton extends LucentElement {
+  @property() shape: SkeletonShape = 'line';
+
+  protected hostClasses(): string {
+    return `lucent-skeleton lucent-skeleton--${this.shape}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('aria-hidden', 'true');
   }
 
   protected render(): TemplateResult {
@@ -146,6 +165,7 @@ export class LucentModal extends LucentElement {
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-spinner': LucentSpinner;
+    'lucent-skeleton': LucentSkeleton;
     'lucent-snackbar': LucentSnackbar;
     'lucent-toast': LucentToast;
     'lucent-modal': LucentModal;

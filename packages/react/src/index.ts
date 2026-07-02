@@ -1,7 +1,7 @@
 // ─── Foundations ──────────────────────────────────────────────────────────────
 export type {
   ControlSize, Tone, IconSize, ButtonVariant, IconButtonSize, StatusTagVariant,
-  BadgeVariant, BadgeKind, SpinnerSize,
+  BadgeVariant, BadgeKind, SpinnerSize, SkeletonShape,
   TooltipPosition, ToggleSize, ChipType, AvatarScale, AvatarVariant, TabScale,
   MenuItemVariant, MenuPosition, ModalVariant, ToastVariant, BreadcrumbItem, SelectOption,
 } from './foundations';
@@ -32,5 +32,5 @@ export { Card, TabList, Tab, Menu, MenuItem, MenuDivider, MenuTrigger } from './
 export type { TabListProps, TabProps, MenuItemProps, MenuTriggerProps } from './containers';
 
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
-export { Modal, Snackbar, Toast, Spinner } from './feedback';
-export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps } from './feedback';
+export { Modal, Snackbar, Toast, Spinner, Skeleton } from './feedback';
+export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps } from './feedback';

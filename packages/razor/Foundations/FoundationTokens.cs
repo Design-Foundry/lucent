@@ -171,4 +171,12 @@ public static class FoundationTokens
         SpinnerSize.Lg => "lg",
         _ => "md",
     };
+
+    /// <summary>Class-name token for a <see cref="SkeletonShape"/> — e.g. <c>circle</c>.</summary>
+    public static string ToToken(this SkeletonShape shape) => shape switch
+    {
+        SkeletonShape.Circle => "circle",
+        SkeletonShape.Block => "block",
+        _ => "line",
+    };
 }

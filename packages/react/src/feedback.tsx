@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react';
+import { type CSSProperties, type ReactNode, useMemo } from 'react';
 import {
   FloatingFocusManager, FloatingOverlay, FloatingPortal,
   useDismiss, useFloating, useInteractions, useRole,
@@ -6,7 +6,7 @@ import {
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { Button, IconButton } from './controls';
-import type { ModalVariant, SpinnerSize, ToastVariant } from './foundations';
+import type { ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
 
 // ─── Spinner ──────────────────────────────────────────────────────────────────
 export interface SpinnerProps {
@@ -23,6 +23,24 @@ export function Spinner({ size = 'md', label = 'Loading', className }: SpinnerPr
       className={cx('lucent-spinner', `lucent-spinner--${size}`, className)}
       role="status"
       aria-label={label}
+    />
+  );
+}
+
+// ─── Skeleton ─────────────────────────────────────────────────────────────────
+export interface SkeletonProps {
+  shape?: SkeletonShape;
+  className?: string;
+  style?: CSSProperties;
+}
+
+/** A shimmering placeholder that holds layout while real content loads. Decorative. */
+export function Skeleton({ shape = 'line', className, style }: SkeletonProps) {
+  return (
+    <span
+      className={cx('lucent-skeleton', `lucent-skeleton--${shape}`, className)}
+      style={style}
+      aria-hidden
     />
   );
 }
