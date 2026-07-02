@@ -2,7 +2,9 @@ import { type ReactNode, useState } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { IconButton } from './controls';
-import type { MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
+import type { ControlSize, MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
+
+const COMPOSER_BTN_SIZE: Record<ControlSize, 'sm' | 'md' | 'lg'> = { xs: 'sm', sm: 'sm', md: 'md', lg: 'lg' };
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -146,5 +148,50 @@ export function PromptSuggestion({ variant = 'card', label = '', description, ic
         {description && variant === 'card' && <span className="lucent-prompt-suggestion__desc">{description}</span>}
       </span>
     </button>
+  );
+}
+
+// ─── Composer ───────────────────────────────────────────────────────────────────
+export interface ComposerProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  onSend?: (value: string) => void;
+  onStop?: () => void;
+  placeholder?: string;
+  size?: ControlSize;
+  disabled?: boolean;
+  /** Submitting — send shows a spinner. */
+  sending?: boolean;
+  /** The agent is streaming — send morphs to Stop. */
+  streaming?: boolean;
+  className?: string;
+}
+
+/** The message input for chat & messaging. Send morphs: send → loading → stop while streaming. */
+export function Composer({
+  value = '', onChange, onSend, onStop, placeholder = 'Message…', size = 'md',
+  disabled = false, sending = false, streaming = false, className,
+}: ComposerProps) {
+  const canSend = !disabled && !sending && !streaming && value.trim().length > 0;
+  const doSend = () => { if (canSend) onSend?.(value.trim()); };
+  return (
+    <div className={cx('lucent-composer', `lucent-composer--${size}`, disabled && 'lucent-composer--disabled', className)}>
+      <textarea
+        className="lucent-composer__field"
+        rows={1}
+        placeholder={placeholder}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange?.(e.target.value)}
+        onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); } }}
+      />
+      <div className="lucent-composer__actions">
+        {streaming ? (
+          <IconButton icon="stop" variant="primary" size={COMPOSER_BTN_SIZE[size]} ariaLabel="Stop generating" onClick={() => onStop?.()} />
+        ) : (
+          <IconButton icon="arrow_upward" variant="primary" size={COMPOSER_BTN_SIZE[size]} loading={sending} disabled={!canSend} ariaLabel="Send" onClick={doSend} />
+        )}
+      </div>
+    </div>
   );
 }

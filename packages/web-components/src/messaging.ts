@@ -4,7 +4,9 @@ import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
 import './controls'; // ensures <lucent-icon-button> is registered for nested use
-import type { MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
+import type { ControlSize, MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
+
+const COMPOSER_BTN_SIZE: Record<ControlSize, 'sm' | 'md' | 'lg'> = { xs: 'sm', sm: 'sm', md: 'md', lg: 'lg' };
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -204,6 +206,57 @@ export class LucentPromptSuggestion extends LucentElement {
   }
 }
 
+// ─── lucent-composer ───────────────────────────────────────────────────────────
+@customElement('lucent-composer')
+export class LucentComposer extends LucentElement {
+  @property() value = '';
+  @property() placeholder = 'Message…';
+  @property() size: ControlSize = 'md';
+  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean }) sending = false;
+  @property({ type: Boolean }) streaming = false;
+
+  private get canSend(): boolean {
+    return !this.disabled && !this.sending && !this.streaming && this.value.trim().length > 0;
+  }
+
+  protected hostClasses(): string {
+    return cx('lucent-composer', `lucent-composer--${this.size}`, this.disabled && 'lucent-composer--disabled');
+  }
+
+  private _onInput = (e: Event): void => {
+    this.value = (e.target as HTMLTextAreaElement).value;
+    this.dispatchEvent(new CustomEvent('input', { detail: { value: this.value }, bubbles: true }));
+  };
+
+  private _onKeyDown = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); this._send(); }
+  };
+
+  private _send = (): void => {
+    if (!this.canSend) return;
+    const text = this.value.trim();
+    this.value = '';
+    this.dispatchEvent(new CustomEvent('send', { detail: { value: text }, bubbles: true }));
+  };
+
+  private _stop = (): void => {
+    this.dispatchEvent(new CustomEvent('stop', { bubbles: true }));
+  };
+
+  protected render(): TemplateResult {
+    const btn = COMPOSER_BTN_SIZE[this.size];
+    return html`
+      <textarea class="lucent-composer__field" rows="1" placeholder=${this.placeholder} .value=${this.value}
+        ?disabled=${this.disabled} @input=${this._onInput} @keydown=${this._onKeyDown}></textarea>
+      <div class="lucent-composer__actions">
+        ${this.streaming
+          ? html`<lucent-icon-button icon="stop" variant="primary" size=${btn} label="Stop generating" @click=${this._stop}></lucent-icon-button>`
+          : html`<lucent-icon-button icon="arrow_upward" variant="primary" size=${btn} ?loading=${this.sending} ?disabled=${!this.canSend} label="Send" @click=${this._send}></lucent-icon-button>`}
+      </div>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
@@ -211,5 +264,6 @@ declare global {
     'lucent-typing-indicator': LucentTypingIndicator;
     'lucent-code-block': LucentCodeBlock;
     'lucent-prompt-suggestion': LucentPromptSuggestion;
+    'lucent-composer': LucentComposer;
   }
 }
