@@ -30,6 +30,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-chip` | ✅ [chip.md](./chip.md) | ❌ `type` conflates 3 axes; no projection |
 | `df-checkbox` | ✅ [checkbox.md](./checkbox.md) | ❌ no standalone `[disabled]` |
 | `lucent-radio` | ✅ [radio.md](./radio.md) | ✅ group CVA; ⚠️ arrow-roving TODO (JS kits) |
+| `lucent-segmented-control` | ✅ [segmented-control.md](./segmented-control.md) | ✅ on-convention |
 
 ## Navigation
 | Component | Doc | Conventions |

@@ -37,3 +37,9 @@ export interface SelectOption {
   label: string;
   value: unknown;
 }
+
+export interface SegmentedOption {
+  label: string;
+  value: unknown;
+  disabled?: boolean;
+}

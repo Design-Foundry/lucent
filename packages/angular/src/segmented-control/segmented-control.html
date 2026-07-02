@@ -1,0 +1,11 @@
+@for (opt of options(); track opt.value) {
+	<button
+		type="button"
+		class="lucent-segmented-control__segment"
+		[class.is-selected]="opt.value === value()"
+		[attr.aria-pressed]="opt.value === value()"
+		[disabled]="!!opt.disabled"
+		(click)="select(opt)">
+		{{ opt.label }}
+	</button>
+}

@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
-import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, ToggleSize } from './foundations';
+import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, SegmentedOption, ToggleSize } from './foundations';
 
 const ICON_BTN_GLYPH: Record<IconButtonSize, IconSize> = { sm: 'sm', md: 'md', lg: 'lg' };
 
@@ -307,6 +307,44 @@ export class LucentRadio extends LucentElement {
   }
 }
 
+// ─── lucent-segmented-control ────────────────────────────────────────────────────
+@customElement('lucent-segmented-control')
+export class LucentSegmentedControl extends LucentElement {
+  @property({ attribute: false }) options: SegmentedOption[] = [];
+  @property() value: unknown = undefined;
+  @property() size: ControlSize = 'md';
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return cx('lucent-segmented-control', `lucent-segmented-control--${this.size}`);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'group');
+    if (this.label) this.setAttribute('aria-label', this.label);
+    else this.removeAttribute('aria-label');
+  }
+
+  private _select(opt: SegmentedOption): void {
+    if (opt.disabled) return;
+    this.value = opt.value;
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: opt.value }, bubbles: true }));
+  }
+
+  protected render(): TemplateResult {
+    return html`${this.options.map((opt) => {
+      const selected = opt.value === this.value;
+      return html`<button
+        type="button"
+        class=${cx('lucent-segmented-control__segment', selected && 'is-selected')}
+        aria-pressed=${selected ? 'true' : 'false'}
+        ?disabled=${!!opt.disabled}
+        @click=${() => this._select(opt)}>${opt.label}</button>`;
+    })}`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-button': LucentButton;
@@ -316,5 +354,6 @@ declare global {
     'lucent-checkbox': LucentCheckbox;
     'lucent-radio-group': LucentRadioGroup;
     'lucent-radio': LucentRadio;
+    'lucent-segmented-control': LucentSegmentedControl;
   }
 }

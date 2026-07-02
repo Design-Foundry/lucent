@@ -38,6 +38,9 @@ export { LucentCheckbox } from './checkbox/checkbox';
 export { LucentRadio } from './radio/radio';
 export { LucentRadioGroup } from './radio/radio-group';
 
+export { LucentSegmentedControl } from './segmented-control/segmented-control';
+export type { SegmentedOption } from './segmented-control/segmented-control';
+
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
 export { LucentNavIcon } from './nav-icon/nav-icon';
 

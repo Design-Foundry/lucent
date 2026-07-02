@@ -11,7 +11,7 @@ export { LucentElement, LucentSurface } from './base';
 export { LucentIcon, LucentTag, LucentStatusTag, LucentBadge } from './primitives';
 
 // ─── Tier 2 — Actions & controls ──────────────────────────────────────────────
-export { LucentButton, LucentIconButton, LucentToggle, LucentChip, LucentCheckbox, LucentRadioGroup, LucentRadio } from './controls';
+export { LucentButton, LucentIconButton, LucentToggle, LucentChip, LucentCheckbox, LucentRadioGroup, LucentRadio, LucentSegmentedControl } from './controls';
 
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
 export { LucentNavIcon, LucentNavRail, LucentNavDivider, LucentActivityBar, LucentBreadcrumbs } from './navigation';
