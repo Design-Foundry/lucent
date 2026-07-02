@@ -91,6 +91,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-reference-tag` | ✅ [reference-tag.md](./reference-tag.md) | ✅ on-convention |
 | `lucent-message-bubble` | ✅ [message-bubble.md](./message-bubble.md) | ✅ on-convention |
 | `lucent-typing-indicator` | ✅ [typing-indicator.md](./typing-indicator.md) | ✅ on-convention |
+| `lucent-code-block` | ✅ [code-block.md](./code-block.md) | ✅ on-convention |
 
 ## Services
 | Service | Doc | Conventions |
