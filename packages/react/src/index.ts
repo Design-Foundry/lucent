@@ -32,5 +32,5 @@ export { Card, TabList, Tab, Menu, MenuItem, MenuDivider, MenuTrigger } from './
 export type { TabListProps, TabProps, MenuItemProps, MenuTriggerProps } from './containers';
 
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
-export { Modal, Snackbar, Toast, Spinner, Skeleton } from './feedback';
-export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps } from './feedback';
+export { Modal, Snackbar, Toast, Spinner, Skeleton, Progress } from './feedback';
+export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps, ProgressProps } from './feedback';

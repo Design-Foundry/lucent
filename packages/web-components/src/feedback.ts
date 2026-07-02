@@ -47,6 +47,41 @@ export class LucentSkeleton extends LucentElement {
   }
 }
 
+// ─── lucent-progress ──────────────────────────────────────────────────────────
+@customElement('lucent-progress')
+export class LucentProgress extends LucentElement {
+  @property({ type: Number }) value = 0;
+  @property({ type: Number }) max = 100;
+  @property({ type: Boolean }) indeterminate = false;
+  /** Accessible name for the bar (e.g. "Uploading"). */
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return cx('lucent-progress', this.indeterminate && 'lucent-progress--indeterminate');
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'progressbar');
+    if (this.indeterminate) {
+      this.removeAttribute('aria-valuemin');
+      this.removeAttribute('aria-valuemax');
+      this.removeAttribute('aria-valuenow');
+    } else {
+      this.setAttribute('aria-valuemin', '0');
+      this.setAttribute('aria-valuemax', String(this.max));
+      this.setAttribute('aria-valuenow', String(this.value));
+    }
+    if (this.label) this.setAttribute('aria-label', this.label);
+    else this.removeAttribute('aria-label');
+  }
+
+  protected render(): TemplateResult {
+    const pct = Math.max(0, Math.min(100, (this.value / (this.max || 100)) * 100));
+    return html`<span class="lucent-progress__bar" style=${this.indeterminate ? '' : `width:${pct}%`}></span>`;
+  }
+}
+
 // ─── lucent-snackbar ────────────────────────────────────────────────────────────
 @customElement('lucent-snackbar')
 export class LucentSnackbar extends LucentElement {
@@ -166,6 +201,7 @@ declare global {
   interface HTMLElementTagNameMap {
     'lucent-spinner': LucentSpinner;
     'lucent-skeleton': LucentSkeleton;
+    'lucent-progress': LucentProgress;
     'lucent-snackbar': LucentSnackbar;
     'lucent-toast': LucentToast;
     'lucent-modal': LucentModal;

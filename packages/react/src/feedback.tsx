@@ -45,6 +45,33 @@ export function Skeleton({ shape = 'line', className, style }: SkeletonProps) {
   );
 }
 
+// ─── Progress ─────────────────────────────────────────────────────────────────
+export interface ProgressProps {
+  value?: number;
+  max?: number;
+  indeterminate?: boolean;
+  /** Accessible name for the bar (e.g. "Uploading"). */
+  label?: string;
+  className?: string;
+}
+
+/** A linear progress bar — determinate (value/max) or a sliding indeterminate sliver. */
+export function Progress({ value = 0, max = 100, indeterminate = false, label, className }: ProgressProps) {
+  const pct = Math.max(0, Math.min(100, (value / (max || 100)) * 100));
+  return (
+    <span
+      className={cx('lucent-progress', indeterminate && 'lucent-progress--indeterminate', className)}
+      role="progressbar"
+      aria-valuemin={indeterminate ? undefined : 0}
+      aria-valuemax={indeterminate ? undefined : max}
+      aria-valuenow={indeterminate ? undefined : value}
+      aria-label={label}
+    >
+      <span className="lucent-progress__bar" style={indeterminate ? undefined : { width: `${pct}%` }} />
+    </span>
+  );
+}
+
 // ─── Modal ────────────────────────────────────────────────────────────────────
 let modalSeq = 0;
 
