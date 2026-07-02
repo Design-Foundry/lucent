@@ -103,6 +103,9 @@ export type { SkeletonShape } from './skeleton/skeleton';
 
 export { LucentProgress } from './progress/progress';
 
+export { LucentInlineNotice } from './inline-notice/inline-notice';
+export type { InlineNoticeVariant } from './inline-notice/inline-notice';
+
 // ─── Tier 7 — Overlays & feedback ────────────────────────────────────────────
 
 export { LucentToast } from './toast/toast';

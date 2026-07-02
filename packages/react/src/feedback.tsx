@@ -6,7 +6,11 @@ import {
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { Button, IconButton } from './controls';
-import type { ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
+import type { InlineNoticeVariant, ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
+
+const INLINE_NOTICE_ICON: Record<InlineNoticeVariant, string> = {
+  info: 'info', success: 'check_circle', warning: 'warning', error: 'error',
+};
 
 // ─── Spinner ──────────────────────────────────────────────────────────────────
 export interface SpinnerProps {
@@ -69,6 +73,42 @@ export function Progress({ value = 0, max = 100, indeterminate = false, label, c
     >
       <span className="lucent-progress__bar" style={indeterminate ? undefined : { width: `${pct}%` }} />
     </span>
+  );
+}
+
+// ─── Inline notice ──────────────────────────────────────────────────────────────
+export interface InlineNoticeProps {
+  variant?: InlineNoticeVariant;
+  title?: ReactNode;
+  /** Override the default per-variant glyph. */
+  icon?: string;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** An in-flow severity banner tied to a region (form section, chat stream). */
+export function InlineNotice({ variant = 'info', title, icon, dismissible = false, onDismiss, children, className }: InlineNoticeProps) {
+  const role = variant === 'error' || variant === 'warning' ? 'alert' : 'status';
+  return (
+    <div role={role} className={cx('lucent-inline-notice', `lucent-inline-notice--${variant}`, className)}>
+      <Icon className="lucent-inline-notice__icon" name={icon || INLINE_NOTICE_ICON[variant]} size="sm" />
+      <div className="lucent-inline-notice__content">
+        {title && <span className="lucent-inline-notice__title">{title}</span>}
+        {children}
+      </div>
+      {dismissible && (
+        <IconButton
+          className="lucent-inline-notice__dismiss"
+          icon="close"
+          variant="ghost"
+          size="sm"
+          ariaLabel="Dismiss"
+          onClick={onDismiss}
+        />
+      )}
+    </div>
   );
 }
 
