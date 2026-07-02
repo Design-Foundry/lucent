@@ -2,7 +2,7 @@ import { type ReactNode, useState } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { IconButton } from './controls';
-import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
+import type { MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -117,5 +117,34 @@ export function CodeBlock({ language = '', code = '', className }: CodeBlockProp
       </div>
       <pre className="lucent-code-block__body"><code>{code}</code></pre>
     </div>
+  );
+}
+
+// ─── Prompt suggestion ──────────────────────────────────────────────────────────
+export interface PromptSuggestionProps {
+  variant?: PromptSuggestionVariant;
+  label?: string;
+  /** Second line (card variant only). */
+  description?: string;
+  icon?: string;
+  onSelect?: (label: string) => void;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** A clickable starter for an empty chat. Emits its prompt on click. */
+export function PromptSuggestion({ variant = 'card', label = '', description, icon, onSelect, children, className }: PromptSuggestionProps) {
+  return (
+    <button
+      type="button"
+      className={cx('lucent-prompt-suggestion', `lucent-prompt-suggestion--${variant}`, className)}
+      onClick={() => onSelect?.(label)}
+    >
+      {icon && <Icon className="lucent-prompt-suggestion__icon" name={icon} size="sm" />}
+      <span className="lucent-prompt-suggestion__content">
+        <span className="lucent-prompt-suggestion__title">{children ?? label}</span>
+        {description && variant === 'card' && <span className="lucent-prompt-suggestion__desc">{description}</span>}
+      </span>
+    </button>
   );
 }

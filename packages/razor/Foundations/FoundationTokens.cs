@@ -238,4 +238,11 @@ public static class FoundationTokens
         TypingVariant.Generating => "generating",
         _ => "typing",
     };
+
+    /// <summary>Class-name token for a <see cref="PromptSuggestionVariant"/> — e.g. <c>chip</c>.</summary>
+    public static string ToToken(this PromptSuggestionVariant variant) => variant switch
+    {
+        PromptSuggestionVariant.Chip => "chip",
+        _ => "card",
+    };
 }
