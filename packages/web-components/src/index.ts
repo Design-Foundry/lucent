@@ -26,5 +26,5 @@ export { LucentList, LucentListItem } from './data-display';
 export { LucentCard, LucentTab, LucentTabList, LucentMenu, LucentMenuItem, LucentMenuDivider } from './containers';
 
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
-export { LucentSnackbar, LucentToast, LucentModal } from './feedback';
+export { LucentSpinner, LucentSnackbar, LucentToast, LucentModal } from './feedback';
 export { LucentTooltip, LucentSelect, LucentMenuTrigger } from './overlays';

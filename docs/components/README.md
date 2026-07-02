@@ -65,6 +65,11 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-menu-item` | ✅ [menu-item.md](./menu-item.md) | ❌ dead `surface-subtle` hover; no projection |
 | `df-menu-divider` | ✅ [menu-divider.md](./menu-divider.md) | ⚠️ duplicates `nav-divider` |
 
+## Feedback
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-spinner` | ✅ [spinner.md](./spinner.md) | ✅ on-convention (closes the spinner gap) |
+
 ## Overlays & feedback
 | Component | Doc | Conventions |
 |---|---|---|

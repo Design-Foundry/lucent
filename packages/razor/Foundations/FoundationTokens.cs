@@ -163,4 +163,12 @@ public static class FoundationTokens
         BadgeKind.Dot => "dot",
         _ => "label",
     };
+
+    /// <summary>Class-name token for a <see cref="SpinnerSize"/> — e.g. <c>md</c>.</summary>
+    public static string ToToken(this SpinnerSize size) => size switch
+    {
+        SpinnerSize.Sm => "sm",
+        SpinnerSize.Lg => "lg",
+        _ => "md",
+    };
 }

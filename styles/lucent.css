@@ -28,6 +28,7 @@
 @import "components/tag.css";
 @import "components/status-tag.css";
 @import "components/badge.css";
+@import "components/spinner.css";
 @import "components/tooltip.css";
 @import "components/avatar.css";
 @import "components/inline-input.css";
