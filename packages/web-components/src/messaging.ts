@@ -396,6 +396,42 @@ export class LucentConversationRow extends LucentSurface {
   }
 }
 
+// ─── lucent-jump-to-latest ─────────────────────────────────────────────────────
+@customElement('lucent-jump-to-latest')
+export class LucentJumpToLatest extends LucentElement {
+  @property({ type: Number }) count = 0;
+  @property() label = 'Jump to latest';
+
+  protected hostClasses(): string {
+    return 'lucent-jump-to-latest';
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('keydown', this._onKey);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'button');
+    this.tabIndex = 0;
+    this.setAttribute('aria-label', this.count > 0 ? `${this.label}, ${this.count} new` : this.label);
+  }
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+  };
+
+  protected render(): TemplateResult {
+    return html`${this.count > 0 ? html`<span class="lucent-jump-to-latest__count">${this.count} new</span>` : nothing}<lucent-icon name="arrow_downward" size="sm"></lucent-icon>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
@@ -406,5 +442,6 @@ declare global {
     'lucent-composer': LucentComposer;
     'lucent-chat-trigger': LucentChatTrigger;
     'lucent-conversation-row': LucentConversationRow;
+    'lucent-jump-to-latest': LucentJumpToLatest;
   }
 }

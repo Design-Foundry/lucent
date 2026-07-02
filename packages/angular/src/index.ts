@@ -138,6 +138,8 @@ export { LucentChatTrigger } from './chat-trigger/chat-trigger';
 
 export { LucentConversationRow } from './conversation-row/conversation-row';
 
+export { LucentJumpToLatest } from './jump-to-latest/jump-to-latest';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

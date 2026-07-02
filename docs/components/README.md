@@ -96,6 +96,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-composer` | ✅ [composer.md](./composer.md) | ✅ composes textarea + icon-button |
 | `lucent-chat-trigger` | ✅ [chat-trigger.md](./chat-trigger.md) | ✅ composes icon + badge |
 | `lucent-conversation-row` | ✅ [conversation-row.md](./conversation-row.md) | ✅ composes avatar + badge |
+| `lucent-jump-to-latest` | ✅ [jump-to-latest.md](./jump-to-latest.md) | ✅ on-convention |
 
 ## Services
 | Service | Doc | Conventions |

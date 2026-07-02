@@ -254,3 +254,22 @@ export function ConversationRow({ title = '', preview = '', time = '', unread = 
     </button>
   );
 }
+
+// ─── Jump to latest ─────────────────────────────────────────────────────────────
+export interface JumpToLatestProps {
+  count?: number;
+  label?: string;
+  onClick?: () => void;
+  className?: string;
+}
+
+/** A floating pill that jumps the message list to the newest message. */
+export function JumpToLatest({ count = 0, label = 'Jump to latest', onClick, className }: JumpToLatestProps) {
+  const fullLabel = count > 0 ? `${label}, ${count} new` : label;
+  return (
+    <button type="button" className={cx('lucent-jump-to-latest', className)} aria-label={fullLabel} onClick={onClick}>
+      {count > 0 && <span className="lucent-jump-to-latest__count">{count} new</span>}
+      <Icon name="arrow_downward" size="sm" />
+    </button>
+  );
+}

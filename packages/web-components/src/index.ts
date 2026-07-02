@@ -30,4 +30,4 @@ export { LucentSpinner, LucentSkeleton, LucentProgress, LucentInlineNotice, Luce
 export { LucentTooltip, LucentSelect, LucentMenuTrigger } from './overlays';
 
 // ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
-export { LucentReferenceTag, LucentMessageBubble, LucentTypingIndicator, LucentCodeBlock, LucentPromptSuggestion, LucentComposer, LucentChatTrigger, LucentConversationRow } from './messaging';
+export { LucentReferenceTag, LucentMessageBubble, LucentTypingIndicator, LucentCodeBlock, LucentPromptSuggestion, LucentComposer, LucentChatTrigger, LucentConversationRow, LucentJumpToLatest } from './messaging';
