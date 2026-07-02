@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react';
+import { type CSSProperties, type ReactNode, useMemo } from 'react';
 import {
   FloatingFocusManager, FloatingOverlay, FloatingPortal,
   useDismiss, useFloating, useInteractions, useRole,
@@ -6,7 +6,111 @@ import {
 import { cx } from './cx';
 import { Icon } from './primitives';
 import { Button, IconButton } from './controls';
-import type { ModalVariant, ToastVariant } from './foundations';
+import type { InlineNoticeVariant, ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
+
+const INLINE_NOTICE_ICON: Record<InlineNoticeVariant, string> = {
+  info: 'info', success: 'check_circle', warning: 'warning', error: 'error',
+};
+
+// ─── Spinner ──────────────────────────────────────────────────────────────────
+export interface SpinnerProps {
+  size?: SpinnerSize;
+  /** Accessible name announced to assistive tech. Defaults to "Loading". */
+  label?: string;
+  className?: string;
+}
+
+/** A rotating ring for indeterminate waits. Standalone form is accent-coloured. */
+export function Spinner({ size = 'md', label = 'Loading', className }: SpinnerProps) {
+  return (
+    <span
+      className={cx('lucent-spinner', `lucent-spinner--${size}`, className)}
+      role="status"
+      aria-label={label}
+    />
+  );
+}
+
+// ─── Skeleton ─────────────────────────────────────────────────────────────────
+export interface SkeletonProps {
+  shape?: SkeletonShape;
+  className?: string;
+  style?: CSSProperties;
+}
+
+/** A shimmering placeholder that holds layout while real content loads. Decorative. */
+export function Skeleton({ shape = 'line', className, style }: SkeletonProps) {
+  return (
+    <span
+      className={cx('lucent-skeleton', `lucent-skeleton--${shape}`, className)}
+      style={style}
+      aria-hidden
+    />
+  );
+}
+
+// ─── Progress ─────────────────────────────────────────────────────────────────
+export interface ProgressProps {
+  value?: number;
+  max?: number;
+  indeterminate?: boolean;
+  /** Accessible name for the bar (e.g. "Uploading"). */
+  label?: string;
+  className?: string;
+}
+
+/** A linear progress bar — determinate (value/max) or a sliding indeterminate sliver. */
+export function Progress({ value = 0, max = 100, indeterminate = false, label, className }: ProgressProps) {
+  const pct = Math.max(0, Math.min(100, (value / (max || 100)) * 100));
+  return (
+    <span
+      className={cx('lucent-progress', indeterminate && 'lucent-progress--indeterminate', className)}
+      role="progressbar"
+      aria-valuemin={indeterminate ? undefined : 0}
+      aria-valuemax={indeterminate ? undefined : max}
+      aria-valuenow={indeterminate ? undefined : value}
+      aria-label={label}
+    >
+      <span className="lucent-progress__bar" style={indeterminate ? undefined : { width: `${pct}%` }} />
+    </span>
+  );
+}
+
+// ─── Inline notice ──────────────────────────────────────────────────────────────
+export interface InlineNoticeProps {
+  variant?: InlineNoticeVariant;
+  title?: ReactNode;
+  /** Override the default per-variant glyph. */
+  icon?: string;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** An in-flow severity banner tied to a region (form section, chat stream). */
+export function InlineNotice({ variant = 'info', title, icon, dismissible = false, onDismiss, children, className }: InlineNoticeProps) {
+  const role = variant === 'error' || variant === 'warning' ? 'alert' : 'status';
+  return (
+    <div role={role} className={cx('lucent-inline-notice', `lucent-inline-notice--${variant}`, className)}>
+      <Icon className="lucent-inline-notice__icon" name={icon || INLINE_NOTICE_ICON[variant]} size="sm" />
+      <div className="lucent-inline-notice__content">
+        {title && <span className="lucent-inline-notice__title">{title}</span>}
+        {children}
+      </div>
+      {dismissible && (
+        <IconButton
+          className="lucent-inline-notice__dismiss"
+          icon="close"
+          variant="ghost"
+          size="sm"
+          ariaLabel="Dismiss"
+          onClick={onDismiss}
+        />
+      )}
+    </div>
+  );
+}
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
 let modalSeq = 0;

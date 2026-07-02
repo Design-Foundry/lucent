@@ -1,10 +1,171 @@
 import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { LucentElement } from './base';
+import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives';
 import './controls';
-import type { ModalVariant, ToastVariant } from './foundations';
+import type { InlineNoticeVariant, ModalVariant, SkeletonShape, SpinnerSize, ToastVariant } from './foundations';
+
+const INLINE_NOTICE_ICON: Record<InlineNoticeVariant, string> = {
+  info: 'info', success: 'check_circle', warning: 'warning', error: 'error',
+};
+
+// ─── lucent-spinner ───────────────────────────────────────────────────────────
+@customElement('lucent-spinner')
+export class LucentSpinner extends LucentElement {
+  @property() size: SpinnerSize = 'md';
+  /** Accessible name announced to assistive tech. Defaults to "Loading". */
+  @property() label = 'Loading';
+
+  protected hostClasses(): string {
+    return `lucent-spinner lucent-spinner--${this.size}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'status');
+    this.setAttribute('aria-label', this.label || 'Loading');
+  }
+
+  protected render(): TemplateResult {
+    return html``;
+  }
+}
+
+// ─── lucent-skeleton ──────────────────────────────────────────────────────────
+@customElement('lucent-skeleton')
+export class LucentSkeleton extends LucentElement {
+  @property() shape: SkeletonShape = 'line';
+
+  protected hostClasses(): string {
+    return `lucent-skeleton lucent-skeleton--${this.shape}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('aria-hidden', 'true');
+  }
+
+  protected render(): TemplateResult {
+    return html``;
+  }
+}
+
+// ─── lucent-progress ──────────────────────────────────────────────────────────
+@customElement('lucent-progress')
+export class LucentProgress extends LucentElement {
+  @property({ type: Number }) value = 0;
+  @property({ type: Number }) max = 100;
+  @property({ type: Boolean }) indeterminate = false;
+  /** Accessible name for the bar (e.g. "Uploading"). */
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return cx('lucent-progress', this.indeterminate && 'lucent-progress--indeterminate');
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'progressbar');
+    if (this.indeterminate) {
+      this.removeAttribute('aria-valuemin');
+      this.removeAttribute('aria-valuemax');
+      this.removeAttribute('aria-valuenow');
+    } else {
+      this.setAttribute('aria-valuemin', '0');
+      this.setAttribute('aria-valuemax', String(this.max));
+      this.setAttribute('aria-valuenow', String(this.value));
+    }
+    if (this.label) this.setAttribute('aria-label', this.label);
+    else this.removeAttribute('aria-label');
+  }
+
+  protected render(): TemplateResult {
+    const pct = Math.max(0, Math.min(100, (this.value / (this.max || 100)) * 100));
+    return html`<span class="lucent-progress__bar" style=${this.indeterminate ? '' : `width:${pct}%`}></span>`;
+  }
+}
+
+// ─── lucent-inline-notice ─────────────────────────────────────────────────────
+/**
+ * In-flow severity banner. Extends LucentSurface so the authored message (rich light-DOM
+ * children) is preserved; the icon, optional title, and dismiss button are built imperatively.
+ */
+@customElement('lucent-inline-notice')
+export class LucentInlineNotice extends LucentSurface {
+  @property() variant: InlineNoticeVariant = 'info';
+  /** Optional bold title line above the message. */
+  @property() heading = '';
+  /** Override the default per-variant glyph. */
+  @property() icon = '';
+  @property({ type: Boolean }) dismissible = false;
+
+  private _built = false;
+  private _iconEl?: HTMLElement;
+  private _titleEl?: HTMLElement;
+
+  protected hostClasses(): string {
+    return cx('lucent-inline-notice', `lucent-inline-notice--${this.variant}`);
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (!this._built) this._build();
+    this._sync();
+  }
+
+  private _build(): void {
+    const message = document.createDocumentFragment();
+    while (this.firstChild) message.appendChild(this.firstChild);
+
+    const content = document.createElement('div');
+    content.className = 'lucent-inline-notice__content';
+    const title = document.createElement('span');
+    title.className = 'lucent-inline-notice__title';
+    content.appendChild(title);
+    content.appendChild(message);
+
+    const icon = document.createElement('lucent-icon');
+    icon.className = 'lucent-inline-notice__icon';
+    icon.setAttribute('size', 'sm');
+
+    this.appendChild(icon);
+    this.appendChild(content);
+
+    if (this.dismissible) {
+      const btn = document.createElement('lucent-icon-button');
+      btn.className = 'lucent-inline-notice__dismiss';
+      btn.setAttribute('icon', 'close');
+      btn.setAttribute('variant', 'ghost');
+      btn.setAttribute('size', 'sm');
+      btn.setAttribute('label', 'Dismiss');
+      btn.addEventListener('click', () => this.dispatchEvent(new CustomEvent('dismiss', { bubbles: true })));
+      this.appendChild(btn);
+    }
+
+    this._iconEl = icon;
+    this._titleEl = title;
+    this._built = true;
+  }
+
+  private _sync(): void {
+    if (this._iconEl) this._iconEl.setAttribute('name', this.icon || INLINE_NOTICE_ICON[this.variant]);
+    if (this._titleEl) {
+      this._titleEl.textContent = this.heading;
+      this._titleEl.hidden = !this.heading;
+    }
+    this.setAttribute('role', this.variant === 'error' || this.variant === 'warning' ? 'alert' : 'status');
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    this._sync();
+  }
+
+  protected render(): TemplateResult {
+    return html``; // real DOM built imperatively into the host (light DOM)
+  }
+}
 
 // ─── lucent-snackbar ────────────────────────────────────────────────────────────
 @customElement('lucent-snackbar')
@@ -123,6 +284,10 @@ export class LucentModal extends LucentElement {
 
 declare global {
   interface HTMLElementTagNameMap {
+    'lucent-spinner': LucentSpinner;
+    'lucent-skeleton': LucentSkeleton;
+    'lucent-progress': LucentProgress;
+    'lucent-inline-notice': LucentInlineNotice;
     'lucent-snackbar': LucentSnackbar;
     'lucent-toast': LucentToast;
     'lucent-modal': LucentModal;

@@ -1,0 +1,9 @@
+@if (showIcon()) {
+	<lucent-icon class="lucent-prompt-suggestion__icon" [name]="icon()" size="sm" />
+}
+<span class="lucent-prompt-suggestion__content">
+	<span class="lucent-prompt-suggestion__title"><ng-content>{{ label() }}</ng-content></span>
+	@if (description() && variant() === 'card') {
+		<span class="lucent-prompt-suggestion__desc">{{ description() }}</span>
+	}
+</span>

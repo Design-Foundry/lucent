@@ -1,0 +1,40 @@
+@*
+    LucentCodeBlock — emits the `.lucent-code-block` contract (styles/components/code-block.css).
+
+    A fenced code block with a language label and a copy button. Copy is a static-SSR-friendly
+    inline handler (reads the sibling <code> text) — no JS interop needed. Monospace, scrollable,
+    preserves whitespace.
+*@
+
+<div class="@HostClass" @attributes="AdditionalAttributes">
+    <div class="lucent-code-block__header">
+        <span class="lucent-code-block__lang">@Language</span>
+        <span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm lucent-code-block__copy">
+            <button type="button"
+                    class="lucent-icon-button__inner"
+                    aria-label="Copy code"
+                    onclick="navigator.clipboard.writeText(this.closest('.lucent-code-block').querySelector('code').innerText)">
+                <LucentIcon Name="content_copy" Size="IconSize.Sm" />
+            </button>
+        </span>
+    </div>
+    <pre class="lucent-code-block__body"><code>@Code</code></pre>
+</div>
+
+@code {
+    /// <summary>Language label shown in the header.</summary>
+    [Parameter] public string? Language { get; set; }
+
+    /// <summary>The code text.</summary>
+    [Parameter] public string? Code { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host element.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        "lucent-code-block" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

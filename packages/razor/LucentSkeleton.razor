@@ -1,0 +1,24 @@
+@*
+    LucentSkeleton — emits the `.lucent-skeleton` contract (styles/components/skeleton.css).
+
+    A shimmering placeholder that holds layout while real content loads. Decorative
+    (aria-hidden) — the container announces the loading state (aria-busy), not each shard.
+*@
+
+<span class="@HostClass" aria-hidden="true" @attributes="AdditionalAttributes"></span>
+
+@code {
+    /// <summary>Placeholder shape — text line, avatar circle, or media/card block.</summary>
+    [Parameter] public SkeletonShape Shape { get; set; } = SkeletonShape.Line;
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes (e.g. an inline <c>style</c> width/height) on the host span.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        $"lucent-skeleton lucent-skeleton--{Shape.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

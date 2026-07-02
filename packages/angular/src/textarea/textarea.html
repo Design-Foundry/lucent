@@ -1,0 +1,30 @@
+@if (labelRef()) {
+	<label class="lucent-textarea__label typography-caption" [for]="inputId">
+		<ng-content select="[lucentLabel]" />
+	</label>
+}
+
+<div class="lucent-textarea__wrapper" [class]="wrapperClass()">
+	<textarea
+		[id]="inputId"
+		[rows]="rows()"
+		[placeholder]="placeholder()"
+		[value]="value()"
+		[disabled]="isDisabled()"
+		[readOnly]="readonly()"
+		[attr.aria-invalid]="hasError() || null"
+		[attr.aria-describedby]="describedBy()"
+		(input)="onInput($event)"
+		(focus)="isFocused.set(true)"
+		(blur)="onBlur()"></textarea>
+</div>
+
+@if (errorRef() || hintRef()) {
+	<span class="lucent-textarea__message" [class.lucent-textarea__message--error]="hasError()" [id]="messageId">
+		@if (errorRef()) {
+			<ng-content select="[lucentError]" />
+		} @else {
+			<ng-content select="[lucentHint]" />
+		}
+	</span>
+}

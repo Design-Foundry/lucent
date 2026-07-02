@@ -18,6 +18,8 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-icon` | ✅ [icon.md](./icon.md) | ✅ on-convention |
 | `df-tag` | ✅ [tag.md](./tag.md) | ⚠️ no `label` shorthand |
 | `df-status-tag` | ✅ [status-tag.md](./status-tag.md) | ❌ no projection; colour-only a11y |
+| `lucent-badge` | ✅ [badge.md](./badge.md) | ✅ on-convention |
+| `lucent-divider` | ✅ [divider.md](./divider.md) | ✅ unifies nav/menu divider (additive) |
 | `[dfTooltip]` | ✅ [tooltip.md](./tooltip.md) | ❌ only component on legacy `@Input` |
 
 ## Interactive
@@ -28,6 +30,8 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-toggle` | ✅ [toggle.md](./toggle.md) | ❌ no standalone `[disabled]` |
 | `df-chip` | ✅ [chip.md](./chip.md) | ❌ `type` conflates 3 axes; no projection |
 | `df-checkbox` | ✅ [checkbox.md](./checkbox.md) | ❌ no standalone `[disabled]` |
+| `lucent-radio` | ✅ [radio.md](./radio.md) | ✅ group CVA; ⚠️ arrow-roving TODO (JS kits) |
+| `lucent-segmented-control` | ✅ [segmented-control.md](./segmented-control.md) | ✅ on-convention |
 
 ## Navigation
 | Component | Doc | Conventions |
@@ -44,6 +48,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-avatar` | ✅ [avatar.md](./avatar.md) | ⚠️ initials have no accessible name |
 | `df-input` | ✅ [input.md](./input.md) | ✅ CVA reference; ⚠️ legacy adornment slots |
 | `df-inline-input` | ✅ [inline-input.md](./inline-input.md) | ⚠️ no labelling; forms-only disabled |
+| `lucent-textarea` | ✅ [textarea.md](./textarea.md) | ✅ mirrors text-input (CVA, states) |
 | `df-option` | ✅ [option.md](./option.md) | ❌ not composable with `df-select`; `value: unknown` |
 | `df-select` | ✅ [select.md](./select.md) | ❌ `SelectOption` weaker than `df-option`; untyped |
 
@@ -52,6 +57,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 |---|---|---|
 | `df-list-item` | ✅ [list-item.md](./list-item.md) | ✅ **reference row primitive** |
 | `df-list` | ✅ [list.md](./list.md) | ⚠️ no roving keyboard / selection model |
+| `lucent-table` | ✅ [table.md](./table.md) | ✅ styled native table |
 
 ## Containers
 | Component | Doc | Conventions |
@@ -63,6 +69,15 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-menu-trigger` | ✅ [menu-trigger.md](./menu-trigger.md) | ⚠️ no `aria-haspopup`/`expanded` |
 | `df-menu-item` | ✅ [menu-item.md](./menu-item.md) | ❌ dead `surface-subtle` hover; no projection |
 | `df-menu-divider` | ✅ [menu-divider.md](./menu-divider.md) | ⚠️ duplicates `nav-divider` |
+| `lucent-accordion` | ✅ [accordion.md](./accordion.md) | ✅ on-convention |
+
+## Feedback
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-spinner` | ✅ [spinner.md](./spinner.md) | ✅ on-convention (closes the spinner gap) |
+| `lucent-skeleton` | ✅ [skeleton.md](./skeleton.md) | ✅ on-convention |
+| `lucent-progress` | ✅ [progress.md](./progress.md) | ✅ on-convention |
+| `lucent-inline-notice` | ✅ [inline-notice.md](./inline-notice.md) | ✅ on-convention |
 
 ## Overlays & feedback
 | Component | Doc | Conventions |
@@ -70,6 +85,19 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-toast` | ✅ [toast.md](./toast.md) | ⚠️ text-only; `closed` vs `dismissed` |
 | `df-snackbar` | ✅ [snackbar.md](./snackbar.md) | ❌ `action` naming; no live region |
 | `df-modal` | ✅ [modal.md](./modal.md) | ✅ composite content-model exemplar |
+
+## Messaging & conversation
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-reference-tag` | ✅ [reference-tag.md](./reference-tag.md) | ✅ on-convention |
+| `lucent-message-bubble` | ✅ [message-bubble.md](./message-bubble.md) | ✅ on-convention |
+| `lucent-typing-indicator` | ✅ [typing-indicator.md](./typing-indicator.md) | ✅ on-convention |
+| `lucent-code-block` | ✅ [code-block.md](./code-block.md) | ✅ on-convention |
+| `lucent-prompt-suggestion` | ✅ [prompt-suggestion.md](./prompt-suggestion.md) | ✅ on-convention |
+| `lucent-composer` | ✅ [composer.md](./composer.md) | ✅ composes textarea + icon-button |
+| `lucent-chat-trigger` | ✅ [chat-trigger.md](./chat-trigger.md) | ✅ composes icon + badge |
+| `lucent-conversation-row` | ✅ [conversation-row.md](./conversation-row.md) | ✅ composes avatar + badge |
+| `lucent-jump-to-latest` | ✅ [jump-to-latest.md](./jump-to-latest.md) | ✅ on-convention |
 
 ## Services
 | Service | Doc | Conventions |

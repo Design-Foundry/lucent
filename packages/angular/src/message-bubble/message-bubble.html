@@ -1,0 +1,7 @@
+@if (author() || timestamp()) {
+	<div class="lucent-message-bubble__meta">
+		@if (author()) { <span class="lucent-message-bubble__author">{{ author() }}</span> }
+		@if (timestamp()) { <span class="lucent-message-bubble__time">{{ timestamp() }}</span> }
+	</div>
+}
+<div class="lucent-message-bubble__body"><ng-content /></div>

@@ -4,7 +4,7 @@ import {
   useDismiss, useFloating, useFocus, useHover, useInteractions, useRole,
 } from '@floating-ui/react';
 import { cx } from './cx';
-import type { IconSize, StatusTagVariant, TooltipPosition } from './foundations';
+import type { BadgeKind, BadgeVariant, DividerVariant, IconSize, StatusTagVariant, TooltipPosition } from './foundations';
 
 // ─── Icon ─────────────────────────────────────────────────────────────────────
 export interface IconProps {
@@ -47,6 +47,46 @@ export function StatusTag({ variant = 'success', label = '', className }: Status
     <span className={cx('lucent-status-tag', `lucent-status-tag--${variant}`, className)}>
       <span>{label}</span>
     </span>
+  );
+}
+
+// ─── Badge ──────────────────────────────────────────────────────────────────────
+export interface BadgeProps {
+  variant?: BadgeVariant;
+  kind?: BadgeKind;
+  /** Shorthand for the count/label text; `children` overrides it. Ignored for `dot`. */
+  label?: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** A small status indicator — unread count, short label ("AI"), or a bare presence dot. */
+export function Badge({ variant = 'neutral', kind = 'label', label = '', children, className }: BadgeProps) {
+  return (
+    <span
+      className={cx('lucent-badge', `lucent-badge--${kind}`, `lucent-badge--${variant}`, className)}
+      aria-hidden={kind === 'dot' ? true : undefined}
+    >
+      {kind === 'dot' ? null : (children ?? label)}
+    </span>
+  );
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+export interface DividerProps {
+  variant?: DividerVariant;
+  /** Label for the `labeled` variant; `children` overrides it. */
+  label?: ReactNode;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** The unified separator — a plain hairline rule, or a rule with centered label text. */
+export function Divider({ variant = 'plain', label, children, className }: DividerProps) {
+  return (
+    <div className={cx('lucent-divider', `lucent-divider--${variant}`, className)} role="separator">
+      {variant === 'labeled' && (children ?? label)}
+    </div>
   );
 }
 

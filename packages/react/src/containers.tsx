@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import { createContext, type ReactNode, useContext, useMemo, useState } from 'react';
 import {
   autoUpdate, flip, FloatingFocusManager, FloatingPortal, offset, shift,
   useClick, useDismiss, useFloating, useInteractions, useRole,
@@ -88,6 +88,7 @@ export function MenuItem({ label = '', icon = '', active = false, variant = 'def
   );
 }
 
+/** @deprecated Use `<Divider variant="plain" />` (the unified Divider) instead. */
 export function MenuDivider({ className }: { className?: string }) {
   return <div className={cx('lucent-menu-divider', className)} role="separator" />;
 }
@@ -129,5 +130,51 @@ export function MenuTrigger({ trigger, position = 'bottom-end', children }: Menu
         </FloatingPortal>
       )}
     </>
+  );
+}
+
+// ─── Accordion ────────────────────────────────────────────────────────────────
+let accordionSeq = 0;
+
+export interface AccordionProps {
+  title?: ReactNode;
+  /** Controlled expanded state. Omit for uncontrolled (see `defaultExpanded`). */
+  expanded?: boolean;
+  defaultExpanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
+  disabled?: boolean;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** A single disclosure — a header that toggles a content region. Stack several to build an accordion. */
+export function Accordion({ title, expanded, defaultExpanded = false, onExpandedChange, disabled = false, children, className }: AccordionProps) {
+  const [internal, setInternal] = useState(defaultExpanded);
+  const controlled = expanded !== undefined;
+  const open = controlled ? expanded : internal;
+  const ids = useMemo(() => { const n = accordionSeq++; return { h: `lucent-accordion-h-${n}`, c: `lucent-accordion-c-${n}` }; }, []);
+  const toggle = () => {
+    if (disabled) return;
+    if (!controlled) setInternal(!open);
+    onExpandedChange?.(!open);
+  };
+  return (
+    <div className={cx('lucent-accordion', open && 'is-expanded', disabled && 'is-disabled', className)}>
+      <button
+        type="button"
+        className="lucent-accordion__header"
+        id={ids.h}
+        aria-expanded={open}
+        aria-controls={ids.c}
+        disabled={disabled}
+        onClick={toggle}
+      >
+        <span className="lucent-accordion__title">{title}</span>
+        <Icon className="lucent-accordion__chevron" name="expand_more" size="sm" />
+      </button>
+      <div className="lucent-accordion__content" id={ids.c} role="region" aria-labelledby={ids.h} hidden={!open}>
+        {children}
+      </div>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
-import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, ToggleSize } from './foundations';
+import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, SegmentedOption, ToggleSize } from './foundations';
 
 const ICON_BTN_GLYPH: Record<IconButtonSize, IconSize> = { sm: 'sm', md: 'md', lg: 'lg' };
 
@@ -201,6 +201,150 @@ export class LucentCheckbox extends LucentElement {
   }
 }
 
+// ─── lucent-radio-group ──────────────────────────────────────────────────────────
+@customElement('lucent-radio-group')
+export class LucentRadioGroup extends LucentSurface {
+  /** Currently selected radio value (string — web-component attributes are strings). */
+  @property() value = '';
+  @property() size: ControlSize = 'md';
+  @property() label = '';
+  @property({ type: Boolean }) disabled = false;
+
+  protected hostClasses(): string {
+    return 'lucent-radio-group';
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'radiogroup');
+    this.addEventListener('lucent-radio-select', this._onSelect as EventListener);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('lucent-radio-select', this._onSelect as EventListener);
+  }
+
+  private _onSelect = (e: Event): void => {
+    const detail = (e as CustomEvent<{ value: string }>).detail;
+    this.value = detail.value;
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value }, bubbles: true }));
+  };
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    if (this.label) this.setAttribute('aria-label', this.label);
+    else this.removeAttribute('aria-label');
+    this.querySelectorAll<LucentRadio>('lucent-radio').forEach((r) => {
+      r.checked = r.value === this.value;
+      r.groupSize = this.size;
+      r.groupDisabled = this.disabled;
+      r.groupHasSelection = this.value !== '' && this.value != null;
+    });
+  }
+}
+
+// ─── lucent-radio ────────────────────────────────────────────────────────────────
+@customElement('lucent-radio')
+export class LucentRadio extends LucentElement {
+  @property() value = '';
+  @property() label = '';
+  /** Per-radio density override; otherwise inherits the group's size. */
+  @property() size?: ControlSize;
+  @property({ type: Boolean }) disabled = false;
+
+  /* Injected by the parent group (not reflected attributes). */
+  @property({ type: Boolean, attribute: false }) checked = false;
+  @property({ attribute: false }) groupSize?: ControlSize;
+  @property({ type: Boolean, attribute: false }) groupDisabled = false;
+  @property({ type: Boolean, attribute: false }) groupHasSelection = false;
+
+  private get effSize(): ControlSize { return this.size ?? this.groupSize ?? 'md'; }
+  private get isDisabled(): boolean { return this.disabled || this.groupDisabled; }
+
+  protected hostClasses(): string {
+    return cx('lucent-radio', `lucent-radio--${this.effSize}`, this.checked && 'is-checked', this.isDisabled && 'is-disabled');
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('click', this._select);
+    this.addEventListener('keydown', this._onKey);
+    const group = this.closest('lucent-radio-group') as LucentRadioGroup | null;
+    if (group) {
+      this.checked = group.value === this.value;
+      this.groupSize = group.size;
+      this.groupDisabled = group.disabled;
+      this.groupHasSelection = group.value !== '' && group.value != null;
+    }
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this._select);
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  private _select = (): void => {
+    if (this.isDisabled) return;
+    this.dispatchEvent(new CustomEvent('lucent-radio-select', { detail: { value: this.value }, bubbles: true }));
+  };
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this._select(); }
+  };
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'radio');
+    this.setAttribute('aria-checked', String(this.checked));
+    if (this.label) this.setAttribute('aria-label', this.label);
+    this.tabIndex = this.isDisabled ? -1 : (this.checked || !this.groupHasSelection ? 0 : -1);
+  }
+
+  protected render(): TemplateResult {
+    return html`<span class="lucent-radio__circle"></span>${this.label ? html`<span class="lucent-radio__label">${this.label}</span>` : nothing}`;
+  }
+}
+
+// ─── lucent-segmented-control ────────────────────────────────────────────────────
+@customElement('lucent-segmented-control')
+export class LucentSegmentedControl extends LucentElement {
+  @property({ attribute: false }) options: SegmentedOption[] = [];
+  @property() value: unknown = undefined;
+  @property() size: ControlSize = 'md';
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return cx('lucent-segmented-control', `lucent-segmented-control--${this.size}`);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'group');
+    if (this.label) this.setAttribute('aria-label', this.label);
+    else this.removeAttribute('aria-label');
+  }
+
+  private _select(opt: SegmentedOption): void {
+    if (opt.disabled) return;
+    this.value = opt.value;
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: opt.value }, bubbles: true }));
+  }
+
+  protected render(): TemplateResult {
+    return html`${this.options.map((opt) => {
+      const selected = opt.value === this.value;
+      return html`<button
+        type="button"
+        class=${cx('lucent-segmented-control__segment', selected && 'is-selected')}
+        aria-pressed=${selected ? 'true' : 'false'}
+        ?disabled=${!!opt.disabled}
+        @click=${() => this._select(opt)}>${opt.label}</button>`;
+    })}`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-button': LucentButton;
@@ -208,5 +352,8 @@ declare global {
     'lucent-toggle': LucentToggle;
     'lucent-chip': LucentChip;
     'lucent-checkbox': LucentCheckbox;
+    'lucent-radio-group': LucentRadioGroup;
+    'lucent-radio': LucentRadio;
+    'lucent-segmented-control': LucentSegmentedControl;
   }
 }

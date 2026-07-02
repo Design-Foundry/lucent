@@ -1,0 +1,15 @@
+<span class="lucent-conversation-row__leading"><ng-content select="[lucentLeading]" /></span>
+
+<span class="lucent-conversation-row__main">
+	<span class="lucent-conversation-row__title">{{ title() }}</span>
+	<span class="lucent-conversation-row__preview">{{ preview() }}</span>
+</span>
+
+<span class="lucent-conversation-row__meta">
+	@if (time()) {
+		<span class="lucent-conversation-row__time">{{ time() }}</span>
+	}
+	@if (unread() > 0) {
+		<lucent-badge class="lucent-conversation-row__badge" kind="count" variant="accent" [label]="unreadLabel()" />
+	}
+</span>

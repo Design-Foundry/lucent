@@ -1,0 +1,28 @@
+<textarea
+	class="lucent-composer__field"
+	rows="1"
+	[placeholder]="placeholder()"
+	[value]="value()"
+	[disabled]="disabled()"
+	(input)="onInput($event)"
+	(keydown.enter)="onEnter($event)"></textarea>
+
+<div class="lucent-composer__actions">
+	@if (streaming()) {
+		<lucent-icon-button
+			icon="stop"
+			variant="primary"
+			[size]="btnSize()"
+			ariaLabel="Stop generating"
+			(clicked)="stop.emit()" />
+	} @else {
+		<lucent-icon-button
+			icon="arrow_upward"
+			variant="primary"
+			[size]="btnSize()"
+			[loading]="sending()"
+			[disabled]="!canSend()"
+			ariaLabel="Send"
+			(clicked)="doSend()" />
+	}
+</div>

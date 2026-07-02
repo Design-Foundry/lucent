@@ -1,0 +1,64 @@
+@*
+    LucentInlineNotice — emits the `.lucent-inline-notice` contract
+    (styles/components/inline-notice.css).
+
+    An in-flow severity banner tied to a region (a form section, a chat stream) — unlike a
+    toast/snackbar which floats and auto-dismisses. Icon + optional Title + projected message,
+    with an optional dismiss button.
+*@
+
+<div class="@HostClass" role="@Role" @attributes="AdditionalAttributes">
+    <LucentIcon Name="@IconName" Size="IconSize.Sm" Class="lucent-inline-notice__icon" />
+    <div class="lucent-inline-notice__content">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <span class="lucent-inline-notice__title">@Title</span>
+        }
+        @ChildContent
+    </div>
+    @if (Dismissible)
+    {
+        <LucentIconButton Icon="close"
+                          Variant="LucentButtonVariant.Ghost"
+                          Size="IconButtonSize.Sm"
+                          AriaLabel="Dismiss"
+                          Class="lucent-inline-notice__dismiss"
+                          @onclick="OnDismiss" />
+    }
+</div>
+
+@code {
+    /// <summary>Severity.</summary>
+    [Parameter] public InlineNoticeVariant Variant { get; set; } = InlineNoticeVariant.Info;
+
+    /// <summary>Optional bold title line above the message.</summary>
+    [Parameter] public string? Title { get; set; }
+
+    /// <summary>Override the default per-variant glyph.</summary>
+    [Parameter] public string? Icon { get; set; }
+
+    /// <summary>Show a dismiss button.</summary>
+    [Parameter] public bool Dismissible { get; set; }
+
+    /// <summary>Raised when the dismiss button is clicked.</summary>
+    [Parameter] public EventCallback Dismissed { get; set; }
+
+    /// <summary>The message content.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host element.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string IconName => string.IsNullOrEmpty(Icon) ? Variant.DefaultIcon() : Icon;
+    private string Role => Variant is InlineNoticeVariant.Error or InlineNoticeVariant.Warning ? "alert" : "status";
+
+    private async Task OnDismiss() => await Dismissed.InvokeAsync();
+
+    private string HostClass =>
+        $"lucent-inline-notice lucent-inline-notice--{Variant.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

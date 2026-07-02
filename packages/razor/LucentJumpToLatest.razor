@@ -1,0 +1,38 @@
+@*
+    LucentJumpToLatest — emits the `.lucent-jump-to-latest` contract
+    (styles/components/jump-to-latest.css).
+
+    A floating pill that appears when the message list is scrolled up — click to jump to the
+    newest message. Shows a count of unseen messages when there are any. A real <button>.
+*@
+
+<button type="button" class="@HostClass" aria-label="@FullLabel" @onclick="OnClick" @attributes="AdditionalAttributes">
+    @if (Count > 0)
+    {
+        <span class="lucent-jump-to-latest__count">@Count new</span>
+    }
+    <LucentIcon Name="arrow_downward" Size="IconSize.Sm" />
+</button>
+
+@code {
+    /// <summary>Count of unseen messages — shows "N new" when &gt; 0.</summary>
+    [Parameter] public int Count { get; set; }
+
+    /// <summary>Accessible name (the count is appended automatically).</summary>
+    [Parameter] public string Label { get; set; } = "Jump to latest";
+
+    /// <summary>Click handler.</summary>
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the button.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string FullLabel => Count > 0 ? $"{Label}, {Count} new" : Label;
+
+    private string HostClass =>
+        "lucent-jump-to-latest" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

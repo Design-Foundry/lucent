@@ -146,4 +146,110 @@ public static class FoundationTokens
         LucentButtonVariant.Text => "text",
         _ => "primary",
     };
+
+    /// <summary>Class-name token for a <see cref="BadgeVariant"/> — e.g. <c>accent</c>.</summary>
+    public static string ToToken(this BadgeVariant variant) => variant switch
+    {
+        BadgeVariant.Accent => "accent",
+        BadgeVariant.Error => "error",
+        BadgeVariant.Success => "success",
+        _ => "neutral",
+    };
+
+    /// <summary>Class-name token for a <see cref="BadgeKind"/> — e.g. <c>count</c>.</summary>
+    public static string ToToken(this BadgeKind kind) => kind switch
+    {
+        BadgeKind.Count => "count",
+        BadgeKind.Dot => "dot",
+        _ => "label",
+    };
+
+    /// <summary>Class-name token for a <see cref="DividerVariant"/> — e.g. <c>labeled</c>.</summary>
+    public static string ToToken(this DividerVariant variant) => variant switch
+    {
+        DividerVariant.Labeled => "labeled",
+        _ => "plain",
+    };
+
+    /// <summary>Class-name token for a <see cref="SpinnerSize"/> — e.g. <c>md</c>.</summary>
+    public static string ToToken(this SpinnerSize size) => size switch
+    {
+        SpinnerSize.Sm => "sm",
+        SpinnerSize.Lg => "lg",
+        _ => "md",
+    };
+
+    /// <summary>Class-name token for a <see cref="SkeletonShape"/> — e.g. <c>circle</c>.</summary>
+    public static string ToToken(this SkeletonShape shape) => shape switch
+    {
+        SkeletonShape.Circle => "circle",
+        SkeletonShape.Block => "block",
+        _ => "line",
+    };
+
+    /// <summary>Class-name token for an <see cref="InlineNoticeVariant"/> — e.g. <c>warning</c>.</summary>
+    public static string ToToken(this InlineNoticeVariant variant) => variant switch
+    {
+        InlineNoticeVariant.Success => "success",
+        InlineNoticeVariant.Warning => "warning",
+        InlineNoticeVariant.Error => "error",
+        _ => "info",
+    };
+
+    /// <summary>Default glyph for an <see cref="InlineNoticeVariant"/>.</summary>
+    public static string DefaultIcon(this InlineNoticeVariant variant) => variant switch
+    {
+        InlineNoticeVariant.Success => "check_circle",
+        InlineNoticeVariant.Warning => "warning",
+        InlineNoticeVariant.Error => "error",
+        _ => "info",
+    };
+
+    /// <summary>Class-name token for a <see cref="ReferenceKind"/> — e.g. <c>mention</c>.</summary>
+    public static string ToToken(this ReferenceKind kind) => kind switch
+    {
+        ReferenceKind.Component => "component",
+        ReferenceKind.Token => "token",
+        ReferenceKind.Resource => "resource",
+        _ => "mention",
+    };
+
+    /// <summary>Default glyph for a <see cref="ReferenceKind"/>.</summary>
+    public static string DefaultIcon(this ReferenceKind kind) => kind switch
+    {
+        ReferenceKind.Component => "widgets",
+        ReferenceKind.Token => "palette",
+        ReferenceKind.Resource => "link",
+        _ => "alternate_email",
+    };
+
+    /// <summary>Class-name token for a <see cref="MessageRole"/> — e.g. <c>assistant</c>.</summary>
+    public static string ToToken(this MessageRole role) => role switch
+    {
+        MessageRole.User => "user",
+        MessageRole.System => "system",
+        MessageRole.Other => "other",
+        _ => "assistant",
+    };
+
+    /// <summary>Class-name token for a <see cref="MessageGroup"/> — e.g. <c>continuation</c>.</summary>
+    public static string ToToken(this MessageGroup group) => group switch
+    {
+        MessageGroup.Continuation => "continuation",
+        _ => "standalone",
+    };
+
+    /// <summary>Class-name token for a <see cref="TypingVariant"/> — e.g. <c>generating</c>.</summary>
+    public static string ToToken(this TypingVariant variant) => variant switch
+    {
+        TypingVariant.Generating => "generating",
+        _ => "typing",
+    };
+
+    /// <summary>Class-name token for a <see cref="PromptSuggestionVariant"/> — e.g. <c>chip</c>.</summary>
+    public static string ToToken(this PromptSuggestionVariant variant) => variant switch
+    {
+        PromptSuggestionVariant.Chip => "chip",
+        _ => "card",
+    };
 }

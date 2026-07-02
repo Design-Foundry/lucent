@@ -12,6 +12,17 @@ export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-glass' | 'danger' | 'text';
 export type IconButtonSize = 'sm' | 'md' | 'lg';
 export type StatusTagVariant = 'success' | 'neutral' | 'warning' | 'error';
+export type BadgeVariant = 'accent' | 'error' | 'success' | 'neutral';
+export type BadgeKind = 'count' | 'label' | 'dot';
+export type DividerVariant = 'plain' | 'labeled';
+export type SpinnerSize = 'sm' | 'md' | 'lg';
+export type SkeletonShape = 'line' | 'circle' | 'block';
+export type InlineNoticeVariant = 'info' | 'success' | 'warning' | 'error';
+export type ReferenceKind = 'mention' | 'component' | 'token' | 'resource';
+export type MessageRole = 'user' | 'assistant' | 'system' | 'other';
+export type MessageGroup = 'standalone' | 'continuation';
+export type TypingVariant = 'typing' | 'generating';
+export type PromptSuggestionVariant = 'card' | 'chip';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type ToggleSize = 'md' | 'sm';
 export type ChipType = 'tag' | 'default' | 'active' | 'action';
@@ -32,4 +43,10 @@ export interface BreadcrumbItem {
 export interface SelectOption {
   label: string;
   value: unknown;
+}
+
+export interface SegmentedOption {
+  label: string;
+  value: unknown;
+  disabled?: boolean;
 }

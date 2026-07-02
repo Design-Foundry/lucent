@@ -1,7 +1,7 @@
 import { html, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { LucentElement, LucentSurface } from './base';
-import type { IconSize, StatusTagVariant } from './foundations';
+import type { BadgeKind, BadgeVariant, DividerVariant, IconSize, StatusTagVariant } from './foundations';
 
 // ─── lucent-icon ──────────────────────────────────────────────────────────────
 @customElement('lucent-icon')
@@ -58,10 +58,58 @@ export class LucentStatusTag extends LucentElement {
   }
 }
 
+// ─── lucent-badge ─────────────────────────────────────────────────────────────
+@customElement('lucent-badge')
+export class LucentBadge extends LucentElement {
+  /** Colour axis. */
+  @property() variant: BadgeVariant = 'neutral';
+  /** Shape/content — numeric count, short label, or a bare dot. */
+  @property() kind: BadgeKind = 'label';
+  /** Count/label text; ignored for the `dot` kind. */
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return `lucent-badge lucent-badge--${this.kind} lucent-badge--${this.variant}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    if (this.kind === 'dot') this.setAttribute('aria-hidden', 'true');
+    else this.removeAttribute('aria-hidden');
+  }
+
+  protected render(): TemplateResult {
+    return this.kind === 'dot' ? html`` : html`${this.label}`;
+  }
+}
+
+// ─── lucent-divider ─────────────────────────────────────────────────────────────
+@customElement('lucent-divider')
+export class LucentDivider extends LucentElement {
+  @property() variant: DividerVariant = 'plain';
+  /** Label for the `labeled` variant. */
+  @property() label = '';
+
+  protected hostClasses(): string {
+    return `lucent-divider lucent-divider--${this.variant}`;
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'separator');
+  }
+
+  protected render(): TemplateResult {
+    return this.variant === 'labeled' ? html`${this.label}` : html``;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-icon': LucentIcon;
     'lucent-tag': LucentTag;
     'lucent-status-tag': LucentStatusTag;
+    'lucent-badge': LucentBadge;
+    'lucent-divider': LucentDivider;
   }
 }

@@ -1,7 +1,7 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode, createContext, useContext } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
-import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, ToggleSize } from './foundations';
+import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, SegmentedOption, ToggleSize } from './foundations';
 
 // ─── Button ─────────────────────────────────────────────────────────────────────
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'prefix'> {
@@ -141,5 +141,108 @@ export function Checkbox({ checked = false, onChange, size = 'md', label = '', i
       </span>
       {label && <span className="lucent-checkbox__label">{label}</span>}
     </span>
+  );
+}
+
+// ─── Radio group ──────────────────────────────────────────────────────────────
+interface RadioContextValue {
+  value: unknown;
+  onChange: (value: unknown) => void;
+  size: ControlSize;
+  disabled: boolean;
+  hasSelection: boolean;
+}
+const RadioContext = createContext<RadioContextValue | null>(null);
+
+export interface RadioGroupProps {
+  value?: unknown;
+  onChange?: (value: unknown) => void;
+  size?: ControlSize;
+  disabled?: boolean;
+  label?: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** Container that owns the selected value and shared density for its `<Radio>` children. */
+export function RadioGroup({ value, onChange, size = 'md', disabled = false, label, children, className }: RadioGroupProps) {
+  return (
+    <div role="radiogroup" aria-label={label || undefined} className={cx('lucent-radio-group', className)}>
+      <RadioContext.Provider
+        value={{ value, onChange: (v) => onChange?.(v), size, disabled, hasSelection: value != null }}
+      >
+        {children}
+      </RadioContext.Provider>
+    </div>
+  );
+}
+
+export interface RadioProps {
+  value: unknown;
+  label?: string;
+  /** Per-radio density override; otherwise inherits the group's `size`. */
+  size?: ControlSize;
+  disabled?: boolean;
+  className?: string;
+}
+
+/** A single radio button. Must be rendered inside a `<RadioGroup>`. */
+export function Radio({ value, label = '', size, disabled = false, className }: RadioProps) {
+  const ctx = useContext(RadioContext);
+  const checked = ctx ? ctx.value === value : false;
+  const isDisabled = disabled || (ctx?.disabled ?? false);
+  const effSize = size ?? ctx?.size ?? 'md';
+  const select = () => { if (!isDisabled) ctx?.onChange(value); };
+  return (
+    <span
+      role="radio"
+      aria-checked={checked}
+      aria-disabled={isDisabled || undefined}
+      aria-label={label || undefined}
+      tabIndex={isDisabled ? -1 : (checked || !ctx?.hasSelection ? 0 : -1)}
+      className={cx('lucent-radio', `lucent-radio--${effSize}`, checked && 'is-checked', isDisabled && 'is-disabled', className)}
+      onClick={select}
+      onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); select(); } }}
+    >
+      <span className="lucent-radio__circle" />
+      {label && <span className="lucent-radio__label">{label}</span>}
+    </span>
+  );
+}
+
+// ─── Segmented control ────────────────────────────────────────────────────────
+export interface SegmentedControlProps {
+  options: SegmentedOption[];
+  value?: unknown;
+  onChange?: (value: unknown) => void;
+  size?: ControlSize;
+  label?: string;
+  className?: string;
+}
+
+/** A compact inline single-select for a view/mode among a few peers (Day/Week/Month). */
+export function SegmentedControl({ options, value, onChange, size = 'md', label, className }: SegmentedControlProps) {
+  return (
+    <div
+      role="group"
+      aria-label={label || undefined}
+      className={cx('lucent-segmented-control', `lucent-segmented-control--${size}`, className)}
+    >
+      {options.map((opt, i) => {
+        const selected = opt.value === value;
+        return (
+          <button
+            key={i}
+            type="button"
+            className={cx('lucent-segmented-control__segment', selected && 'is-selected')}
+            aria-pressed={selected}
+            disabled={opt.disabled}
+            onClick={() => { if (!opt.disabled) onChange?.(opt.value); }}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
