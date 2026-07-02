@@ -85,6 +85,11 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-snackbar` | ✅ [snackbar.md](./snackbar.md) | ❌ `action` naming; no live region |
 | `df-modal` | ✅ [modal.md](./modal.md) | ✅ composite content-model exemplar |
 
+## Messaging & conversation
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-reference-tag` | ✅ [reference-tag.md](./reference-tag.md) | ✅ on-convention |
+
 ## Services
 | Service | Doc | Conventions |
 |---|---|---|

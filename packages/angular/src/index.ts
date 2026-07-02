@@ -116,6 +116,11 @@ export { LucentSnackbar } from './snackbar/snackbar';
 export { LucentModal } from './modal/modal';
 export type { ModalVariant } from './modal/modal';
 
+// ─── Tier 8 — Messaging & conversation ───────────────────────────────────────
+
+export { LucentReferenceTag } from './reference-tag/reference-tag';
+export type { ReferenceKind } from './reference-tag/reference-tag';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
