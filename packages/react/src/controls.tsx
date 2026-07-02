@@ -1,7 +1,7 @@
 import { type ButtonHTMLAttributes, type ReactNode, createContext, useContext } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
-import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, ToggleSize } from './foundations';
+import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, SegmentedOption, ToggleSize } from './foundations';
 
 // ─── Button ─────────────────────────────────────────────────────────────────────
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'prefix'> {
@@ -207,5 +207,42 @@ export function Radio({ value, label = '', size, disabled = false, className }: 
       <span className="lucent-radio__circle" />
       {label && <span className="lucent-radio__label">{label}</span>}
     </span>
+  );
+}
+
+// ─── Segmented control ────────────────────────────────────────────────────────
+export interface SegmentedControlProps {
+  options: SegmentedOption[];
+  value?: unknown;
+  onChange?: (value: unknown) => void;
+  size?: ControlSize;
+  label?: string;
+  className?: string;
+}
+
+/** A compact inline single-select for a view/mode among a few peers (Day/Week/Month). */
+export function SegmentedControl({ options, value, onChange, size = 'md', label, className }: SegmentedControlProps) {
+  return (
+    <div
+      role="group"
+      aria-label={label || undefined}
+      className={cx('lucent-segmented-control', `lucent-segmented-control--${size}`, className)}
+    >
+      {options.map((opt, i) => {
+        const selected = opt.value === value;
+        return (
+          <button
+            key={i}
+            type="button"
+            className={cx('lucent-segmented-control__segment', selected && 'is-selected')}
+            aria-pressed={selected}
+            disabled={opt.disabled}
+            onClick={() => { if (!opt.disabled) onChange?.(opt.value); }}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
   );
 }
