@@ -1,0 +1,62 @@
+@*
+    LucentRadioGroup — emits the `.lucent-radio-group` contract (styles/components/radio.css).
+
+    Owns the selected value + shared density for its <LucentRadio> children (which read it via
+    a cascading value). Supports @bind-Value. Children are real <input type="radio"> sharing a
+    group name, so selection + form posting work under static SSR with no JS.
+*@
+@typeparam TValue
+
+<div class="@HostClass" role="radiogroup" aria-label="@Label" @attributes="AdditionalAttributes">
+    <CascadingValue Value="this" IsFixed="false">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code {
+    /// <summary>Selected value. Two-way bindable via <c>@bind-Value</c>.</summary>
+    [Parameter] public TValue? Value { get; set; }
+
+    /// <summary>Raised when the selection changes.</summary>
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+
+    /// <summary>Density applied to every child radio (each may override its own <c>Size</c>).</summary>
+    [Parameter] public ControlSize Size { get; set; } = ControlSize.Md;
+
+    /// <summary>Disables the whole group.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Accessible name for the group.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Shared <c>name</c> for the native radios. Auto-generated if omitted.</summary>
+    [Parameter] public string? Name { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host element.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private readonly string _autoName = $"lucent-radio-{Guid.NewGuid():N}";
+
+    internal string EffectiveName => string.IsNullOrEmpty(Name) ? _autoName : Name;
+    internal ControlSize GroupSize => Size;
+    internal bool GroupDisabled => Disabled;
+
+    internal bool IsSelected(TValue? value) => EqualityComparer<TValue?>.Default.Equals(Value, value);
+
+    internal async Task SelectAsync(TValue? value)
+    {
+        if (Disabled) return;
+        Value = value;
+        await ValueChanged.InvokeAsync(value);
+        StateHasChanged();
+    }
+
+    private string HostClass =>
+        "lucent-radio-group" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

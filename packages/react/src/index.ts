@@ -12,8 +12,8 @@ export { Icon, Tag, StatusTag, Badge, Tooltip } from './primitives';
 export type { IconProps, StatusTagProps, BadgeProps, TooltipProps } from './primitives';
 
 // ─── Tier 2 — Actions & controls ──────────────────────────────────────────────
-export { Button, IconButton, Toggle, Chip, Checkbox } from './controls';
-export type { ButtonProps, IconButtonProps, ToggleProps, ChipProps, CheckboxProps } from './controls';
+export { Button, IconButton, Toggle, Chip, Checkbox, RadioGroup, Radio } from './controls';
+export type { ButtonProps, IconButtonProps, ToggleProps, ChipProps, CheckboxProps, RadioGroupProps, RadioProps } from './controls';
 
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
 export { NavIcon, NavRail, NavDivider, ActivityBar, Breadcrumbs } from './navigation';

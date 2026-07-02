@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode, createContext, useContext } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
 import type { ButtonVariant, ChipType, ControlSize, IconButtonSize, IconSize, ToggleSize } from './foundations';
@@ -140,6 +140,72 @@ export function Checkbox({ checked = false, onChange, size = 'md', label = '', i
         {indeterminate && <Icon className="lucent-checkbox__icon lucent-checkbox__icon--dash" name="remove" size="sm" />}
       </span>
       {label && <span className="lucent-checkbox__label">{label}</span>}
+    </span>
+  );
+}
+
+// ─── Radio group ──────────────────────────────────────────────────────────────
+interface RadioContextValue {
+  value: unknown;
+  onChange: (value: unknown) => void;
+  size: ControlSize;
+  disabled: boolean;
+  hasSelection: boolean;
+}
+const RadioContext = createContext<RadioContextValue | null>(null);
+
+export interface RadioGroupProps {
+  value?: unknown;
+  onChange?: (value: unknown) => void;
+  size?: ControlSize;
+  disabled?: boolean;
+  label?: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** Container that owns the selected value and shared density for its `<Radio>` children. */
+export function RadioGroup({ value, onChange, size = 'md', disabled = false, label, children, className }: RadioGroupProps) {
+  return (
+    <div role="radiogroup" aria-label={label || undefined} className={cx('lucent-radio-group', className)}>
+      <RadioContext.Provider
+        value={{ value, onChange: (v) => onChange?.(v), size, disabled, hasSelection: value != null }}
+      >
+        {children}
+      </RadioContext.Provider>
+    </div>
+  );
+}
+
+export interface RadioProps {
+  value: unknown;
+  label?: string;
+  /** Per-radio density override; otherwise inherits the group's `size`. */
+  size?: ControlSize;
+  disabled?: boolean;
+  className?: string;
+}
+
+/** A single radio button. Must be rendered inside a `<RadioGroup>`. */
+export function Radio({ value, label = '', size, disabled = false, className }: RadioProps) {
+  const ctx = useContext(RadioContext);
+  const checked = ctx ? ctx.value === value : false;
+  const isDisabled = disabled || (ctx?.disabled ?? false);
+  const effSize = size ?? ctx?.size ?? 'md';
+  const select = () => { if (!isDisabled) ctx?.onChange(value); };
+  return (
+    <span
+      role="radio"
+      aria-checked={checked}
+      aria-disabled={isDisabled || undefined}
+      aria-label={label || undefined}
+      tabIndex={isDisabled ? -1 : (checked || !ctx?.hasSelection ? 0 : -1)}
+      className={cx('lucent-radio', `lucent-radio--${effSize}`, checked && 'is-checked', isDisabled && 'is-disabled', className)}
+      onClick={select}
+      onKeyDown={(e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); select(); } }}
+    >
+      <span className="lucent-radio__circle" />
+      {label && <span className="lucent-radio__label">{label}</span>}
     </span>
   );
 }

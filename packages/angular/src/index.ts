@@ -35,6 +35,9 @@ export type { ChipType } from './chip/chip';
 
 export { LucentCheckbox } from './checkbox/checkbox';
 
+export { LucentRadio } from './radio/radio';
+export { LucentRadioGroup } from './radio/radio-group';
+
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
 export { LucentNavIcon } from './nav-icon/nav-icon';
 
