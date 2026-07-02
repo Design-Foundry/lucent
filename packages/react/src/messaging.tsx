@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
-import type { ReferenceKind } from './foundations';
+import type { MessageGroup, MessageRole, ReferenceKind } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -29,5 +29,30 @@ export function ReferenceTag({ kind = 'mention', label = '', icon, swatch, child
         : <Icon className="lucent-reference-tag__icon" name={icon || REF_ICON[kind]} size="xs" />}
       <span className="lucent-reference-tag__label">{children ?? label}</span>
     </span>
+  );
+}
+
+// ─── Message bubble ─────────────────────────────────────────────────────────────
+export interface MessageBubbleProps {
+  role?: MessageRole;
+  group?: MessageGroup;
+  author?: string;
+  timestamp?: string;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** A chat/message bubble for AI chat and human messaging. Body holds rich content. */
+export function MessageBubble({ role = 'assistant', group = 'standalone', author, timestamp, children, className }: MessageBubbleProps) {
+  return (
+    <div className={cx('lucent-message-bubble', `lucent-message-bubble--${role}`, `lucent-message-bubble--${group}`, className)}>
+      {(author || timestamp) && (
+        <div className="lucent-message-bubble__meta">
+          {author && <span className="lucent-message-bubble__author">{author}</span>}
+          {timestamp && <span className="lucent-message-bubble__time">{timestamp}</span>}
+        </div>
+      )}
+      <div className="lucent-message-bubble__body">{children}</div>
+    </div>
   );
 }
