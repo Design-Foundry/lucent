@@ -20,8 +20,8 @@ export { NavIcon, NavRail, NavDivider, ActivityBar, Breadcrumbs } from './naviga
 export type { NavIconProps, BreadcrumbsProps } from './navigation';
 
 // ─── Tier 4 — Inputs & data entry ───────────────────────────────────────────────
-export { Avatar, InlineInput, TextInput, Option, Select } from './inputs';
-export type { AvatarProps, InlineInputProps, TextInputProps, OptionProps, SelectProps } from './inputs';
+export { Avatar, InlineInput, TextInput, Textarea, Option, Select } from './inputs';
+export type { AvatarProps, InlineInputProps, TextInputProps, TextareaProps, OptionProps, SelectProps } from './inputs';
 
 // ─── Tier 5 — Data display ──────────────────────────────────────────────────────
 export { List, ListItem } from './data-display';
