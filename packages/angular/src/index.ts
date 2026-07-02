@@ -136,6 +136,8 @@ export { LucentComposer } from './composer/composer';
 
 export { LucentChatTrigger } from './chat-trigger/chat-trigger';
 
+export { LucentConversationRow } from './conversation-row/conversation-row';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

@@ -216,3 +216,41 @@ export function ChatTrigger({ icon = 'forum', unread = 0, ariaLabel = 'Open chat
     </button>
   );
 }
+
+// ─── Conversation row ───────────────────────────────────────────────────────────
+export interface ConversationRowProps {
+  title?: string;
+  preview?: string;
+  time?: string;
+  unread?: number;
+  active?: boolean;
+  /** Leading avatar/icon. */
+  avatar?: ReactNode;
+  onSelect?: () => void;
+  className?: string;
+}
+
+/** A row in a conversation/inbox list — avatar + title + preview + time + unread. */
+export function ConversationRow({ title = '', preview = '', time = '', unread = 0, active = false, avatar, onSelect, className }: ConversationRowProps) {
+  const unreadLabel = unread > 99 ? '99+' : String(unread);
+  const fullLabel = unread > 0 ? `${title}, ${unread} unread` : title;
+  return (
+    <button
+      type="button"
+      className={cx('lucent-conversation-row', active && 'is-active', className)}
+      aria-current={active ? 'true' : undefined}
+      aria-label={fullLabel}
+      onClick={onSelect}
+    >
+      {avatar && <span className="lucent-conversation-row__leading">{avatar}</span>}
+      <span className="lucent-conversation-row__main">
+        <span className="lucent-conversation-row__title">{title}</span>
+        <span className="lucent-conversation-row__preview">{preview}</span>
+      </span>
+      <span className="lucent-conversation-row__meta">
+        {time && <span className="lucent-conversation-row__time">{time}</span>}
+        {unread > 0 && <Badge className="lucent-conversation-row__badge" kind="count" variant="accent" label={unreadLabel} />}
+      </span>
+    </button>
+  );
+}

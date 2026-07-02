@@ -37,5 +37,5 @@ export { Modal, Snackbar, Toast, Spinner, Skeleton, Progress, InlineNotice } fro
 export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps, ProgressProps, InlineNoticeProps } from './feedback';
 
 // ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
-export { ReferenceTag, MessageBubble, TypingIndicator, CodeBlock, PromptSuggestion, Composer, ChatTrigger } from './messaging';
-export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeBlockProps, PromptSuggestionProps, ComposerProps, ChatTriggerProps } from './messaging';
+export { ReferenceTag, MessageBubble, TypingIndicator, CodeBlock, PromptSuggestion, Composer, ChatTrigger, ConversationRow } from './messaging';
+export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeBlockProps, PromptSuggestionProps, ComposerProps, ChatTriggerProps, ConversationRowProps } from './messaging';

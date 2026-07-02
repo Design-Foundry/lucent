@@ -298,6 +298,104 @@ export class LucentChatTrigger extends LucentElement {
   }
 }
 
+// ─── lucent-conversation-row ───────────────────────────────────────────────────
+/**
+ * A conversation/inbox list row. Extends LucentSurface so the authored leading avatar
+ * (light-DOM children) survives; the main text + meta (time, unread badge) are built
+ * imperatively from props. role=button host with keyboard.
+ */
+@customElement('lucent-conversation-row')
+export class LucentConversationRow extends LucentSurface {
+  @property() title = '';
+  @property() preview = '';
+  @property() time = '';
+  @property({ type: Number }) unread = 0;
+  @property({ type: Boolean }) active = false;
+
+  private _built = false;
+  private _titleEl?: HTMLElement;
+  private _previewEl?: HTMLElement;
+  private _timeEl?: HTMLElement;
+  private _badge?: HTMLElement;
+
+  private get unreadLabel(): string { return this.unread > 99 ? '99+' : String(this.unread); }
+
+  protected hostClasses(): string {
+    return cx('lucent-conversation-row', this.active && 'is-active');
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (!this._built) this._build();
+    this.addEventListener('keydown', this._onKey);
+    this._sync();
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  private _build(): void {
+    // Move authored leading (avatar) into a leading wrapper.
+    const leading = document.createElement('span');
+    leading.className = 'lucent-conversation-row__leading';
+    while (this.firstChild) leading.appendChild(this.firstChild);
+
+    const main = document.createElement('span');
+    main.className = 'lucent-conversation-row__main';
+    const title = document.createElement('span');
+    title.className = 'lucent-conversation-row__title';
+    const preview = document.createElement('span');
+    preview.className = 'lucent-conversation-row__preview';
+    main.append(title, preview);
+
+    const meta = document.createElement('span');
+    meta.className = 'lucent-conversation-row__meta';
+    const time = document.createElement('span');
+    time.className = 'lucent-conversation-row__time';
+    const badge = document.createElement('lucent-badge');
+    badge.className = 'lucent-conversation-row__badge';
+    badge.setAttribute('kind', 'count');
+    badge.setAttribute('variant', 'accent');
+    meta.append(time, badge);
+
+    this.append(leading, main, meta);
+    this._titleEl = title;
+    this._previewEl = preview;
+    this._timeEl = time;
+    this._badge = badge;
+    this._built = true;
+  }
+
+  private _sync(): void {
+    if (this._titleEl) this._titleEl.textContent = this.title;
+    if (this._previewEl) this._previewEl.textContent = this.preview;
+    if (this._timeEl) { this._timeEl.textContent = this.time; this._timeEl.hidden = !this.time; }
+    if (this._badge) {
+      this._badge.setAttribute('label', this.unreadLabel);
+      this._badge.hidden = this.unread <= 0;
+    }
+    this.setAttribute('role', 'button');
+    this.tabIndex = 0;
+    if (this.active) this.setAttribute('aria-current', 'true'); else this.removeAttribute('aria-current');
+    this.setAttribute('aria-label', this.unread > 0 ? `${this.title}, ${this.unread} unread` : this.title);
+  }
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+  };
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    this._sync();
+  }
+
+  protected render(): TemplateResult {
+    return html``; // structure built imperatively; leading avatar preserved as light DOM
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
@@ -307,5 +405,6 @@ declare global {
     'lucent-prompt-suggestion': LucentPromptSuggestion;
     'lucent-composer': LucentComposer;
     'lucent-chat-trigger': LucentChatTrigger;
+    'lucent-conversation-row': LucentConversationRow;
   }
 }
