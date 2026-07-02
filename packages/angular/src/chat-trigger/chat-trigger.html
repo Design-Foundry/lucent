@@ -1,0 +1,4 @@
+<lucent-icon [name]="icon()" size="md" />
+@if (unread() > 0) {
+	<lucent-badge class="lucent-chat-trigger__badge" kind="count" variant="error" [label]="unreadLabel()" />
+}

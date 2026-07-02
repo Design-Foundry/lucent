@@ -1,0 +1,42 @@
+@*
+    LucentChatTrigger — emits the `.lucent-chat-trigger` contract (styles/components/chat-trigger.css).
+
+    The floating action button that opens the chat — an accent circle with a lifted shadow and an
+    optional unread badge. A real <button>. (A sidebar entry-point reuses LucentNavIcon; only this
+    FAB is bespoke.)
+*@
+
+<button type="button" class="@HostClass" aria-label="@FullLabel" @onclick="OnClick" @attributes="AdditionalAttributes">
+    <LucentIcon Name="@Icon" Size="IconSize.Md" />
+    @if (Unread > 0)
+    {
+        <LucentBadge Class="lucent-chat-trigger__badge" Kind="BadgeKind.Count" Variant="BadgeVariant.Error" Label="@UnreadLabel" />
+    }
+</button>
+
+@code {
+    /// <summary>Glyph shown in the FAB.</summary>
+    [Parameter] public string Icon { get; set; } = "forum";
+
+    /// <summary>Unread count — shows a badge when &gt; 0.</summary>
+    [Parameter] public int Unread { get; set; }
+
+    /// <summary>Accessible name (the unread count is appended automatically).</summary>
+    [Parameter] public string AriaLabel { get; set; } = "Open chat";
+
+    /// <summary>Click handler.</summary>
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the button.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string UnreadLabel => Unread > 99 ? "99+" : Unread.ToString();
+    private string FullLabel => Unread > 0 ? $"{AriaLabel}, {Unread} unread" : AriaLabel;
+
+    private string HostClass =>
+        "lucent-chat-trigger" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from 'react';
 import { cx } from './cx';
-import { Icon } from './primitives';
+import { Badge, Icon } from './primitives';
 import { IconButton } from './controls';
 import type { ControlSize, MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
 
@@ -193,5 +193,26 @@ export function Composer({
         )}
       </div>
     </div>
+  );
+}
+
+// ─── Chat trigger (FAB) ─────────────────────────────────────────────────────────
+export interface ChatTriggerProps {
+  icon?: string;
+  unread?: number;
+  ariaLabel?: string;
+  onClick?: () => void;
+  className?: string;
+}
+
+/** The floating action button that opens the chat — accent circle + optional unread badge. */
+export function ChatTrigger({ icon = 'forum', unread = 0, ariaLabel = 'Open chat', onClick, className }: ChatTriggerProps) {
+  const unreadLabel = unread > 99 ? '99+' : String(unread);
+  const fullLabel = unread > 0 ? `${ariaLabel}, ${unread} unread` : ariaLabel;
+  return (
+    <button type="button" className={cx('lucent-chat-trigger', className)} aria-label={fullLabel} onClick={onClick}>
+      <Icon name={icon} size="md" />
+      {unread > 0 && <Badge className="lucent-chat-trigger__badge" kind="count" variant="error" label={unreadLabel} />}
+    </button>
   );
 }

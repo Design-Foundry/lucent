@@ -134,6 +134,8 @@ export type { PromptSuggestionVariant } from './prompt-suggestion/prompt-suggest
 
 export { LucentComposer } from './composer/composer';
 
+export { LucentChatTrigger } from './chat-trigger/chat-trigger';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
