@@ -29,6 +29,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-toggle` | ✅ [toggle.md](./toggle.md) | ❌ no standalone `[disabled]` |
 | `df-chip` | ✅ [chip.md](./chip.md) | ❌ `type` conflates 3 axes; no projection |
 | `df-checkbox` | ✅ [checkbox.md](./checkbox.md) | ❌ no standalone `[disabled]` |
+| `lucent-radio` | ✅ [radio.md](./radio.md) | ✅ group CVA; ⚠️ arrow-roving TODO (JS kits) |
 
 ## Navigation
 | Component | Doc | Conventions |
