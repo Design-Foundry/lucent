@@ -1,8 +1,12 @@
-import { html, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { html, nothing, type TemplateResult } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 import { LucentElement } from './base';
 import { cx } from './cx';
+import type { ControlSize } from './foundations';
 import './controls'; // ensures <lucent-icon-button> is registered for the header nav
+
+const fmtDate = (d: Date): string => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -88,8 +92,82 @@ export class LucentCalendar extends LucentElement {
   }
 }
 
+// ─── lucent-date-picker ─────────────────────────────────────────────────────
+/** A field that opens the Calendar in a floating popover (single date). */
+@customElement('lucent-date-picker')
+export class LucentDatePicker extends LucentElement {
+  @property({ attribute: false }) value?: Date;
+  @property() label = '';
+  @property() placeholder = 'Select date';
+  @property() size: ControlSize = 'md';
+  @property({ attribute: false }) min?: Date;
+  @property({ attribute: false }) max?: Date;
+
+  @state() private open = false;
+  private _popover?: HTMLElement;
+  private cleanup?: () => void;
+
+  protected hostClasses(): string { return cx('lucent-date-picker', `lucent-date-picker--${this.size}`); }
+
+  disconnectedCallback(): void { super.disconnectedCallback(); this._close(); }
+
+  private _toggle(): void { this.open ? this._close() : this._open(); }
+
+  private _open(): void {
+    const trigger = this.querySelector<HTMLElement>('.lucent-date-picker__trigger');
+    if (!trigger) return;
+    this.open = true;
+    const pop = document.createElement('div');
+    pop.className = 'lucent-date-picker__popover';
+    const cal = document.createElement('lucent-calendar') as LucentCalendar;
+    cal.value = this.value;
+    cal.month = this.value ?? new Date();
+    if (this.min) cal.min = this.min;
+    if (this.max) cal.max = this.max;
+    cal.addEventListener('change', (e: Event) => this._choose((e as CustomEvent<{ value: Date }>).detail.value));
+    pop.appendChild(cal);
+    document.body.appendChild(pop);
+    this._popover = pop;
+    this.cleanup = autoUpdate(trigger, pop, () => {
+      computePosition(trigger, pop, { placement: 'bottom-start', middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })] })
+        .then(({ x, y }) => Object.assign(pop.style, { position: 'absolute', left: `${x}px`, top: `${y}px` }));
+    });
+    setTimeout(() => document.addEventListener('click', this._onOutside), 0);
+  }
+
+  private _close = (): void => {
+    this.open = false;
+    this.cleanup?.(); this.cleanup = undefined;
+    this._popover?.remove(); this._popover = undefined;
+    document.removeEventListener('click', this._onOutside);
+  };
+
+  private _onOutside = (e: Event): void => {
+    const t = e.target as Node;
+    if (!this.contains(t) && !this._popover?.contains(t)) this._close();
+  };
+
+  private _choose(date: Date): void {
+    this.value = date;
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: date }, bubbles: true }));
+    this._close();
+  }
+
+  protected render(): TemplateResult {
+    return html`
+      ${this.label ? html`<span class="lucent-date-picker__label">${this.label}</span>` : nothing}
+      <button type="button" class=${cx('lucent-date-picker__trigger', this.open && 'lucent-date-picker__trigger--focus')}
+        aria-haspopup="dialog" aria-expanded=${this.open} @click=${() => this._toggle()}>
+        <lucent-icon class="lucent-date-picker__icon" name="calendar_today" size="sm"></lucent-icon>
+        <span class=${cx('lucent-date-picker__value', !this.value && 'is-placeholder')}>${this.value ? fmtDate(this.value) : this.placeholder}</span>
+        <lucent-icon class="lucent-date-picker__caret" name="arrow_drop_down" size="sm"></lucent-icon>
+      </button>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-calendar': LucentCalendar;
+    'lucent-date-picker': LucentDatePicker;
   }
 }

@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { autoUpdate, flip, FloatingPortal, offset, shift, useClick, useDismiss, useFloating, useInteractions, useRole } from '@floating-ui/react';
 import { cx } from './cx';
+import { Icon } from './primitives';
 import { IconButton } from './controls';
+import type { ControlSize } from './foundations';
+
+const fmtDate = (d: Date): string => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -83,6 +88,54 @@ export function Calendar({
           >{date.getDate()}</button>
         ))}
       </div>
+    </div>
+  );
+}
+
+export interface DatePickerProps {
+  value?: Date;
+  onChange?: (date: Date) => void;
+  label?: string;
+  placeholder?: string;
+  size?: ControlSize;
+  min?: Date;
+  max?: Date;
+  className?: string;
+}
+
+/** A field that opens the Calendar in a floating popover (single date). */
+export function DatePicker({ value, onChange, label, placeholder = 'Select date', size = 'md', min, max, className }: DatePickerProps) {
+  const [open, setOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    open, onOpenChange: setOpen, placement: 'bottom-start',
+    middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })],
+    whileElementsMounted: autoUpdate,
+  });
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    useClick(context), useDismiss(context), useRole(context, { role: 'dialog' }),
+  ]);
+  const choose = (date: Date) => { onChange?.(date); setOpen(false); };
+
+  return (
+    <div className={cx('lucent-date-picker', `lucent-date-picker--${size}`, className)}>
+      {label && <span className="lucent-date-picker__label">{label}</span>}
+      <button
+        ref={refs.setReference} {...getReferenceProps()}
+        type="button"
+        className={cx('lucent-date-picker__trigger', open && 'lucent-date-picker__trigger--focus')}
+        aria-haspopup="dialog" aria-expanded={open}
+      >
+        <Icon className="lucent-date-picker__icon" name="calendar_today" size="sm" />
+        <span className={cx('lucent-date-picker__value', !value && 'is-placeholder')}>{value ? fmtDate(value) : placeholder}</span>
+        <Icon className="lucent-date-picker__caret" name="arrow_drop_down" size="sm" />
+      </button>
+      {open && (
+        <FloatingPortal>
+          <div ref={refs.setFloating} className="lucent-date-picker__popover" style={floatingStyles} {...getFloatingProps()}>
+            <Calendar value={value} defaultMonth={value ?? new Date()} min={min} max={max} onChange={choose} />
+          </div>
+        </FloatingPortal>
+      )}
     </div>
   );
 }

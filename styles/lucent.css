@@ -79,3 +79,4 @@
 
 /* Temporal — date & time. */
 @import "components/calendar.css";
+@import "components/date-picker.css";
