@@ -25,8 +25,8 @@ export { Avatar, InlineInput, TextInput, Textarea, Option, Select } from './inpu
 export type { AvatarProps, InlineInputProps, TextInputProps, TextareaProps, OptionProps, SelectProps } from './inputs';
 
 // ─── Tier 5 — Data display ──────────────────────────────────────────────────────
-export { List, ListItem } from './data-display';
-export type { ListItemProps } from './data-display';
+export { List, ListItem, Table } from './data-display';
+export type { ListItemProps, TableProps } from './data-display';
 
 // ─── Tier 6 — Containers ──────────────────────────────────────────────────────
 export { Card, TabList, Tab, Menu, MenuItem, MenuDivider, MenuTrigger, Accordion } from './containers';
