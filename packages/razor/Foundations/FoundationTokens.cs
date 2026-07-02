@@ -231,4 +231,11 @@ public static class FoundationTokens
         MessageGroup.Continuation => "continuation",
         _ => "standalone",
     };
+
+    /// <summary>Class-name token for a <see cref="TypingVariant"/> — e.g. <c>generating</c>.</summary>
+    public static string ToToken(this TypingVariant variant) => variant switch
+    {
+        TypingVariant.Generating => "generating",
+        _ => "typing",
+    };
 }

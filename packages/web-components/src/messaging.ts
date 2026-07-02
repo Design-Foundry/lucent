@@ -1,9 +1,9 @@
-import { html, type PropertyValues, type TemplateResult } from 'lit';
+import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
-import type { MessageGroup, MessageRole, ReferenceKind } from './foundations';
+import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -99,9 +99,37 @@ export class LucentMessageBubble extends LucentSurface {
   }
 }
 
+// ─── lucent-typing-indicator ───────────────────────────────────────────────────
+@customElement('lucent-typing-indicator')
+export class LucentTypingIndicator extends LucentElement {
+  @property() variant: TypingVariant = 'typing';
+  /** Optional label (defaults to "Generating…" for the generating variant). */
+  @property() label = '';
+
+  private get labelText(): string {
+    return this.label || (this.variant === 'generating' ? 'Generating…' : '');
+  }
+
+  protected hostClasses(): string {
+    return cx('lucent-typing-indicator', `lucent-typing-indicator--${this.variant}`);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'status');
+    this.setAttribute('aria-live', 'polite');
+    this.setAttribute('aria-label', this.label || (this.variant === 'generating' ? 'Generating' : 'Typing'));
+  }
+
+  protected render(): TemplateResult {
+    return html`<span class="lucent-typing-indicator__dots" aria-hidden="true"><span class="lucent-typing-indicator__dot"></span><span class="lucent-typing-indicator__dot"></span><span class="lucent-typing-indicator__dot"></span></span>${this.labelText ? html`<span class="lucent-typing-indicator__label">${this.labelText}</span>` : nothing}`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
     'lucent-message-bubble': LucentMessageBubble;
+    'lucent-typing-indicator': LucentTypingIndicator;
   }
 }

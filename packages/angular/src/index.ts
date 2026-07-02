@@ -124,6 +124,9 @@ export type { ReferenceKind } from './reference-tag/reference-tag';
 export { LucentMessageBubble } from './message-bubble/message-bubble';
 export type { MessageRole, MessageGroup } from './message-bubble/message-bubble';
 
+export { LucentTypingIndicator } from './typing-indicator/typing-indicator';
+export type { TypingVariant } from './typing-indicator/typing-indicator';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
