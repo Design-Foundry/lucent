@@ -4,7 +4,7 @@ import {
   useDismiss, useFloating, useFocus, useHover, useInteractions, useRole,
 } from '@floating-ui/react';
 import { cx } from './cx';
-import type { BadgeKind, BadgeVariant, IconSize, StatusTagVariant, TooltipPosition } from './foundations';
+import type { BadgeKind, BadgeVariant, DividerVariant, IconSize, StatusTagVariant, TooltipPosition } from './foundations';
 
 // ─── Icon ─────────────────────────────────────────────────────────────────────
 export interface IconProps {
@@ -69,6 +69,24 @@ export function Badge({ variant = 'neutral', kind = 'label', label = '', childre
     >
       {kind === 'dot' ? null : (children ?? label)}
     </span>
+  );
+}
+
+// ─── Divider ──────────────────────────────────────────────────────────────────
+export interface DividerProps {
+  variant?: DividerVariant;
+  /** Label for the `labeled` variant; `children` overrides it. */
+  label?: ReactNode;
+  children?: ReactNode;
+  className?: string;
+}
+
+/** The unified separator — a plain hairline rule, or a rule with centered label text. */
+export function Divider({ variant = 'plain', label, children, className }: DividerProps) {
+  return (
+    <div className={cx('lucent-divider', `lucent-divider--${variant}`, className)} role="separator">
+      {variant === 'labeled' && (children ?? label)}
+    </div>
   );
 }
 

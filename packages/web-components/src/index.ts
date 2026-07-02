@@ -8,7 +8,7 @@ export { cx } from './cx';
 export { LucentElement, LucentSurface } from './base';
 
 // ─── Tier 1 — Primitives ──────────────────────────────────────────────────────
-export { LucentIcon, LucentTag, LucentStatusTag, LucentBadge } from './primitives';
+export { LucentIcon, LucentTag, LucentStatusTag, LucentBadge, LucentDivider } from './primitives';
 
 // ─── Tier 2 — Actions & controls ──────────────────────────────────────────────
 export { LucentButton, LucentIconButton, LucentToggle, LucentChip, LucentCheckbox, LucentRadioGroup, LucentRadio, LucentSegmentedControl } from './controls';

@@ -28,6 +28,7 @@
 @import "components/tag.css";
 @import "components/status-tag.css";
 @import "components/badge.css";
+@import "components/divider.css";
 @import "components/spinner.css";
 @import "components/skeleton.css";
 @import "components/progress.css";

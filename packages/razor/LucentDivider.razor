@@ -1,0 +1,34 @@
+@*
+    LucentDivider — emits the `.lucent-divider` contract (styles/components/divider.css).
+
+    The unified separator. Plain is a hairline rule (the canonical replacement for the old
+    LucentNavDivider / LucentMenuDivider — those remain for now, this is additive). Labeled is a
+    rule with centered text ("Today", section labels).
+*@
+
+<div class="@HostClass" role="separator" @attributes="AdditionalAttributes">@if (Variant == DividerVariant.Labeled)
+    {
+        @if (ChildContent is not null) { @ChildContent } else { @Label }
+    }</div>
+
+@code {
+    /// <summary>Plain rule, or a rule with centered label text.</summary>
+    [Parameter] public DividerVariant Variant { get; set; } = DividerVariant.Plain;
+
+    /// <summary>Label for the Labeled variant; projected <see cref="ChildContent"/> overrides it.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Rich label content for the Labeled variant.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host element.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string HostClass =>
+        $"lucent-divider lucent-divider--{Variant.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}
