@@ -1,0 +1,20 @@
+<button
+	type="button"
+	class="lucent-accordion__header"
+	[id]="headerId"
+	[attr.aria-expanded]="expanded()"
+	[attr.aria-controls]="contentId"
+	[disabled]="disabled()"
+	(click)="toggle()">
+	<span class="lucent-accordion__title">{{ title() }}</span>
+	<lucent-icon class="lucent-accordion__chevron" name="expand_more" size="sm" />
+</button>
+
+<div
+	class="lucent-accordion__content"
+	[id]="contentId"
+	role="region"
+	[attr.aria-labelledby]="headerId"
+	[hidden]="!expanded()">
+	<ng-content />
+</div>

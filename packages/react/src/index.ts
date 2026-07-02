@@ -29,8 +29,8 @@ export { List, ListItem } from './data-display';
 export type { ListItemProps } from './data-display';
 
 // ─── Tier 6 — Containers ──────────────────────────────────────────────────────
-export { Card, TabList, Tab, Menu, MenuItem, MenuDivider, MenuTrigger } from './containers';
-export type { TabListProps, TabProps, MenuItemProps, MenuTriggerProps } from './containers';
+export { Card, TabList, Tab, Menu, MenuItem, MenuDivider, MenuTrigger, Accordion } from './containers';
+export type { TabListProps, TabProps, MenuItemProps, MenuTriggerProps, AccordionProps } from './containers';
 
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
 export { Modal, Snackbar, Toast, Spinner, Skeleton, Progress } from './feedback';

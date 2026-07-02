@@ -23,7 +23,7 @@ export { LucentAvatar, LucentInlineInput, LucentTextInput, LucentTextarea, Lucen
 export { LucentList, LucentListItem } from './data-display';
 
 // ─── Tier 6 — Containers ──────────────────────────────────────────────────────
-export { LucentCard, LucentTab, LucentTabList, LucentMenu, LucentMenuItem, LucentMenuDivider } from './containers';
+export { LucentCard, LucentTab, LucentTabList, LucentMenu, LucentMenuItem, LucentMenuDivider, LucentAccordion } from './containers';
 
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
 export { LucentSpinner, LucentSkeleton, LucentProgress, LucentSnackbar, LucentToast, LucentModal } from './feedback';
