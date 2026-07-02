@@ -39,3 +39,7 @@ export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps
 // ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
 export { ReferenceTag, MessageBubble, TypingIndicator, CodeBlock, PromptSuggestion, Composer, ChatTrigger, ConversationRow, JumpToLatest } from './messaging';
 export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeBlockProps, PromptSuggestionProps, ComposerProps, ChatTriggerProps, ConversationRowProps, JumpToLatestProps } from './messaging';
+
+// ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
+export { Calendar } from './temporal';
+export type { CalendarProps } from './temporal';
