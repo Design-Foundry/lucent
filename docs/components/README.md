@@ -99,6 +99,11 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-conversation-row` | ✅ [conversation-row.md](./conversation-row.md) | ✅ composes avatar + badge |
 | `lucent-jump-to-latest` | ✅ [jump-to-latest.md](./jump-to-latest.md) | ✅ on-convention |
 
+## Temporal
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-calendar` | ✅ [calendar.md](./calendar.md) | ✅ on-convention (date-picker atom) |
+
 ## Services
 | Service | Doc | Conventions |
 |---|---|---|

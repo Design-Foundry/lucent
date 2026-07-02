@@ -143,6 +143,11 @@ export { LucentConversationRow } from './conversation-row/conversation-row';
 
 export { LucentJumpToLatest } from './jump-to-latest/jump-to-latest';
 
+// ─── Tier 9 — Temporal (date & time) ─────────────────────────────────────────
+
+export { LucentCalendar } from './calendar/calendar';
+export type { CalendarMode } from './calendar/calendar';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
