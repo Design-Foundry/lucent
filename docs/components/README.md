@@ -76,6 +76,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-spinner` | ✅ [spinner.md](./spinner.md) | ✅ on-convention (closes the spinner gap) |
 | `lucent-skeleton` | ✅ [skeleton.md](./skeleton.md) | ✅ on-convention |
 | `lucent-progress` | ✅ [progress.md](./progress.md) | ✅ on-convention |
+| `lucent-inline-notice` | ✅ [inline-notice.md](./inline-notice.md) | ✅ on-convention |
 
 ## Overlays & feedback
 | Component | Doc | Conventions |

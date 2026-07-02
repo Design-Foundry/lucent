@@ -179,4 +179,22 @@ public static class FoundationTokens
         SkeletonShape.Block => "block",
         _ => "line",
     };
+
+    /// <summary>Class-name token for an <see cref="InlineNoticeVariant"/> — e.g. <c>warning</c>.</summary>
+    public static string ToToken(this InlineNoticeVariant variant) => variant switch
+    {
+        InlineNoticeVariant.Success => "success",
+        InlineNoticeVariant.Warning => "warning",
+        InlineNoticeVariant.Error => "error",
+        _ => "info",
+    };
+
+    /// <summary>Default glyph for an <see cref="InlineNoticeVariant"/>.</summary>
+    public static string DefaultIcon(this InlineNoticeVariant variant) => variant switch
+    {
+        InlineNoticeVariant.Success => "check_circle",
+        InlineNoticeVariant.Warning => "warning",
+        InlineNoticeVariant.Error => "error",
+        _ => "info",
+    };
 }

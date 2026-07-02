@@ -1,0 +1,18 @@
+<lucent-icon class="lucent-inline-notice__icon" [name]="iconName()" size="sm" />
+
+<div class="lucent-inline-notice__content">
+	@if (title()) {
+		<span class="lucent-inline-notice__title">{{ title() }}</span>
+	}
+	<ng-content />
+</div>
+
+@if (dismissible()) {
+	<lucent-icon-button
+		class="lucent-inline-notice__dismiss"
+		icon="close"
+		variant="ghost"
+		size="sm"
+		ariaLabel="Dismiss"
+		(clicked)="dismissed.emit()" />
+}
