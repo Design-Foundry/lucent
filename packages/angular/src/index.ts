@@ -89,6 +89,8 @@ export { LucentMenuItem } from './menu-item/menu-item';
 export type { MenuItemVariant } from './menu-item/menu-item';
 export { LucentMenuDivider } from './menu-divider/menu-divider';
 
+export { LucentAccordion } from './accordion/accordion';
+
 // ─── Tier 7 — Feedback ────────────────────────────────────────────────────────
 
 export { LucentSpinner } from './spinner/spinner';

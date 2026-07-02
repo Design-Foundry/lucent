@@ -44,6 +44,7 @@
 @import "components/menu.css";
 @import "components/menu-item.css";
 @import "components/menu-divider.css";
+@import "components/accordion.css";
 @import "components/modal.css";
 @import "components/snackbar.css";
 @import "components/toast.css";

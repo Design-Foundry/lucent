@@ -126,6 +126,88 @@ export class LucentMenuDivider extends LucentElement {
   protected render() { return nothing; }
 }
 
+// ─── lucent-accordion ────────────────────────────────────────────────────────────
+let accordionSeq = 0;
+
+/**
+ * A single disclosure. Extends LucentSurface so the authored light-DOM children survive
+ * (Lit renders into a detached sink); the header is built imperatively and the children are
+ * moved into a content region we toggle. Rich, live content is preserved (no re-parse).
+ */
+@customElement('lucent-accordion')
+export class LucentAccordion extends LucentSurface {
+  @property() heading = '';
+  @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean }) disabled = false;
+
+  private _built = false;
+  private _header?: HTMLButtonElement;
+  private _content?: HTMLDivElement;
+  private readonly _id = accordionSeq++;
+
+  protected hostClasses(): string {
+    return cx('lucent-accordion', this.open && 'is-expanded', this.disabled && 'is-disabled');
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (!this._built) this._build();
+    this._sync();
+  }
+
+  private _build(): void {
+    const headerId = `lucent-accordion-h-${this._id}`;
+    const contentId = `lucent-accordion-c-${this._id}`;
+
+    const content = document.createElement('div');
+    content.className = 'lucent-accordion__content';
+    content.id = contentId;
+    content.setAttribute('role', 'region');
+    content.setAttribute('aria-labelledby', headerId);
+    while (this.firstChild) content.appendChild(this.firstChild);
+
+    const header = document.createElement('button');
+    header.type = 'button';
+    header.className = 'lucent-accordion__header';
+    header.id = headerId;
+    header.setAttribute('aria-controls', contentId);
+    header.innerHTML =
+      '<span class="lucent-accordion__title"></span>' +
+      '<lucent-icon class="lucent-accordion__chevron" name="expand_more" size="sm"></lucent-icon>';
+    header.addEventListener('click', () => this._toggle());
+
+    this.appendChild(header);
+    this.appendChild(content);
+    this._header = header;
+    this._content = content;
+    this._built = true;
+  }
+
+  private _toggle(): void {
+    if (this.disabled) return;
+    this.open = !this.open;
+    this.dispatchEvent(new CustomEvent('toggle', { detail: { open: this.open }, bubbles: true }));
+  }
+
+  private _sync(): void {
+    if (!this._header || !this._content) return;
+    const title = this._header.querySelector('.lucent-accordion__title');
+    if (title) title.textContent = this.heading;
+    this._header.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+    this._header.disabled = this.disabled;
+    this._content.hidden = !this.open;
+  }
+
+  protected updated(changed: PropertyValues): void {
+    super.updated(changed);
+    this._sync();
+  }
+
+  protected render(): TemplateResult {
+    return html``; // real DOM is built imperatively into the host (light DOM)
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-card': LucentCard;
@@ -134,5 +216,6 @@ declare global {
     'lucent-menu': LucentMenu;
     'lucent-menu-item': LucentMenuItem;
     'lucent-menu-divider': LucentMenuDivider;
+    'lucent-accordion': LucentAccordion;
   }
 }
