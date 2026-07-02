@@ -56,6 +56,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 |---|---|---|
 | `df-list-item` | ✅ [list-item.md](./list-item.md) | ✅ **reference row primitive** |
 | `df-list` | ✅ [list.md](./list.md) | ⚠️ no roving keyboard / selection model |
+| `lucent-table` | ✅ [table.md](./table.md) | ✅ styled native table |
 
 ## Containers
 | Component | Doc | Conventions |

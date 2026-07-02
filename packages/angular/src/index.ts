@@ -74,6 +74,8 @@ export { LucentListItem } from './list-item/list-item';
 
 export { LucentList } from './list/list';
 
+export { LucentTable } from './table/table';
+
 // ─── Tier 6 — Containers ─────────────────────────────────────────────────────
 
 export { LucentTab } from './tab/tab';

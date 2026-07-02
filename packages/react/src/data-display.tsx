@@ -1,4 +1,4 @@
-import { type KeyboardEvent, type ReactNode } from 'react';
+import { type KeyboardEvent, type ReactNode, type TableHTMLAttributes } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
 import type { Tone } from './foundations';
@@ -6,6 +6,16 @@ import type { Tone } from './foundations';
 // ─── List ─────────────────────────────────────────────────────────────────────
 export function List({ children, className }: { children?: ReactNode; className?: string }) {
   return <div className={cx('lucent-list', className)}>{children}</div>;
+}
+
+// ─── Table ──────────────────────────────────────────────────────────────────────
+export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
+  children?: ReactNode;
+}
+
+/** Styles a native `<table>` with the Lucent contract. Author normal thead/tbody/tr/th/td. */
+export function Table({ children, className, ...rest }: TableProps) {
+  return <table className={cx('lucent-table', className)} {...rest}>{children}</table>;
 }
 
 // ─── List item ──────────────────────────────────────────────────────────────────
