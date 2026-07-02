@@ -37,6 +37,7 @@ export class LucentNavRail extends LucentSurface {
 }
 
 // ─── lucent-nav-divider ─────────────────────────────────────────────────────────
+/** @deprecated Use `<lucent-divider>` (the unified Divider, `variant="plain"`) instead. */
 @customElement('lucent-nav-divider')
 export class LucentNavDivider extends LucentElement {
   protected hostClasses(): string { return 'lucent-nav-divider'; }

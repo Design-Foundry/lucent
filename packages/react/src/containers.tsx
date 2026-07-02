@@ -88,6 +88,7 @@ export function MenuItem({ label = '', icon = '', active = false, variant = 'def
   );
 }
 
+/** @deprecated Use `<Divider variant="plain" />` (the unified Divider) instead. */
 export function MenuDivider({ className }: { className?: string }) {
   return <div className={cx('lucent-menu-divider', className)} role="separator" />;
 }

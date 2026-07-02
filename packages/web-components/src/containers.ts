@@ -119,6 +119,7 @@ export class LucentMenuItem extends LucentElement {
 }
 
 // ─── lucent-menu-divider ─────────────────────────────────────────────────────────
+/** @deprecated Use `<lucent-divider>` (the unified Divider, `variant="plain"`) instead. */
 @customElement('lucent-menu-divider')
 export class LucentMenuDivider extends LucentElement {
   protected hostClasses(): string { return 'lucent-menu-divider'; }

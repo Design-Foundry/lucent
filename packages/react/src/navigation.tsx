@@ -35,6 +35,7 @@ export function NavRail({ children, className }: { children?: ReactNode; classNa
 }
 
 // ─── Nav divider ──────────────────────────────────────────────────────────────
+/** @deprecated Use `<Divider variant="plain" />` (the unified Divider) instead. */
 export function NavDivider({ className }: { className?: string }) {
   return <div className={cx('lucent-nav-divider', className)} role="separator" />;
 }
