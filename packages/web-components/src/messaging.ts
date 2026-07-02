@@ -1,8 +1,9 @@
 import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
+import './controls'; // ensures <lucent-icon-button> is registered for nested use
 import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
@@ -126,10 +127,44 @@ export class LucentTypingIndicator extends LucentElement {
   }
 }
 
+// ─── lucent-code-block ─────────────────────────────────────────────────────────
+@customElement('lucent-code-block')
+export class LucentCodeBlock extends LucentElement {
+  @property() language = '';
+  @property() code = '';
+  @state() private copied = false;
+
+  protected hostClasses(): string {
+    return 'lucent-code-block';
+  }
+
+  private _copy = (): void => {
+    void navigator.clipboard?.writeText(this.code);
+    this.copied = true;
+    setTimeout(() => { this.copied = false; }, 1500);
+  };
+
+  protected render(): TemplateResult {
+    return html`
+      <div class="lucent-code-block__header">
+        <span class="lucent-code-block__lang">${this.language}</span>
+        <lucent-icon-button
+          class="lucent-code-block__copy"
+          icon=${this.copied ? 'check' : 'content_copy'}
+          variant="ghost"
+          size="sm"
+          label=${this.copied ? 'Copied' : 'Copy code'}
+          @click=${this._copy}></lucent-icon-button>
+      </div>
+      <pre class="lucent-code-block__body"><code>${this.code}</code></pre>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
     'lucent-message-bubble': LucentMessageBubble;
     'lucent-typing-indicator': LucentTypingIndicator;
+    'lucent-code-block': LucentCodeBlock;
   }
 }

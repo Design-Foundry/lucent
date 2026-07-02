@@ -1,6 +1,7 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useState } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
+import { IconButton } from './controls';
 import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
@@ -82,6 +83,39 @@ export function TypingIndicator({ variant = 'typing', label = '', className }: T
         <span className="lucent-typing-indicator__dot" />
       </span>
       {labelText && <span className="lucent-typing-indicator__label">{labelText}</span>}
+    </div>
+  );
+}
+
+// ─── Code block ─────────────────────────────────────────────────────────────────
+export interface CodeBlockProps {
+  language?: string;
+  code?: string;
+  className?: string;
+}
+
+/** A fenced code block with a language label and a copy button. */
+export function CodeBlock({ language = '', code = '', className }: CodeBlockProps) {
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    void navigator.clipboard?.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+  return (
+    <div className={cx('lucent-code-block', className)}>
+      <div className="lucent-code-block__header">
+        <span className="lucent-code-block__lang">{language}</span>
+        <IconButton
+          className="lucent-code-block__copy"
+          icon={copied ? 'check' : 'content_copy'}
+          variant="ghost"
+          size="sm"
+          ariaLabel={copied ? 'Copied' : 'Copy code'}
+          onClick={copy}
+        />
+      </div>
+      <pre className="lucent-code-block__body"><code>{code}</code></pre>
     </div>
   );
 }

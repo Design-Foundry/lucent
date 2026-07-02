@@ -1,0 +1,11 @@
+<div class="lucent-code-block__header">
+	<span class="lucent-code-block__lang">{{ language() }}</span>
+	<lucent-icon-button
+		class="lucent-code-block__copy"
+		[icon]="copied() ? 'check' : 'content_copy'"
+		variant="ghost"
+		size="sm"
+		[ariaLabel]="copied() ? 'Copied' : 'Copy code'"
+		(clicked)="copy()" />
+</div>
+<pre class="lucent-code-block__body"><code>{{ code() }}</code></pre>
