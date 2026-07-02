@@ -14,6 +14,7 @@ export type IconButtonSize = 'sm' | 'md' | 'lg';
 export type StatusTagVariant = 'success' | 'neutral' | 'warning' | 'error';
 export type BadgeVariant = 'accent' | 'error' | 'success' | 'neutral';
 export type BadgeKind = 'count' | 'label' | 'dot';
+export type DividerVariant = 'plain' | 'labeled';
 export type SpinnerSize = 'sm' | 'md' | 'lg';
 export type SkeletonShape = 'line' | 'circle' | 'block';
 export type InlineNoticeVariant = 'info' | 'success' | 'warning' | 'error';

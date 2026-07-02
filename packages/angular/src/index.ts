@@ -17,6 +17,9 @@ export type { StatusTagVariant } from './status-tag/status-tag';
 export { LucentBadge } from './badge/badge';
 export type { BadgeVariant, BadgeKind } from './badge/badge';
 
+export { LucentDivider } from './divider/divider';
+export type { DividerVariant } from './divider/divider';
+
 export { LucentTooltip } from './tooltip/tooltip';
 export type { TooltipPosition } from './tooltip/tooltip';
 

@@ -164,6 +164,13 @@ public static class FoundationTokens
         _ => "label",
     };
 
+    /// <summary>Class-name token for a <see cref="DividerVariant"/> — e.g. <c>labeled</c>.</summary>
+    public static string ToToken(this DividerVariant variant) => variant switch
+    {
+        DividerVariant.Labeled => "labeled",
+        _ => "plain",
+    };
+
     /// <summary>Class-name token for a <see cref="SpinnerSize"/> — e.g. <c>md</c>.</summary>
     public static string ToToken(this SpinnerSize size) => size switch
     {

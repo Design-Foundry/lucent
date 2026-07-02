@@ -1,7 +1,7 @@
 // ─── Foundations ──────────────────────────────────────────────────────────────
 export type {
   ControlSize, Tone, IconSize, ButtonVariant, IconButtonSize, StatusTagVariant,
-  BadgeVariant, BadgeKind, SpinnerSize, SkeletonShape,
+  BadgeVariant, BadgeKind, DividerVariant, SpinnerSize, SkeletonShape,
   TooltipPosition, ToggleSize, ChipType, AvatarScale, AvatarVariant, TabScale,
   MenuItemVariant, MenuPosition, ModalVariant, ToastVariant, BreadcrumbItem, SelectOption,
   SegmentedOption, InlineNoticeVariant, ReferenceKind,
@@ -9,8 +9,8 @@ export type {
 export { cx } from './cx';
 
 // ─── Tier 1 — Primitives ──────────────────────────────────────────────────────
-export { Icon, Tag, StatusTag, Badge, Tooltip } from './primitives';
-export type { IconProps, StatusTagProps, BadgeProps, TooltipProps } from './primitives';
+export { Icon, Tag, StatusTag, Badge, Divider, Tooltip } from './primitives';
+export type { IconProps, StatusTagProps, BadgeProps, DividerProps, TooltipProps } from './primitives';
 
 // ─── Tier 2 — Actions & controls ──────────────────────────────────────────────
 export { Button, IconButton, Toggle, Chip, Checkbox, RadioGroup, Radio, SegmentedControl } from './controls';
