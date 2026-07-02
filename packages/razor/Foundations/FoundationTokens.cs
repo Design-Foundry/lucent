@@ -146,4 +146,21 @@ public static class FoundationTokens
         LucentButtonVariant.Text => "text",
         _ => "primary",
     };
+
+    /// <summary>Class-name token for a <see cref="BadgeVariant"/> — e.g. <c>accent</c>.</summary>
+    public static string ToToken(this BadgeVariant variant) => variant switch
+    {
+        BadgeVariant.Accent => "accent",
+        BadgeVariant.Error => "error",
+        BadgeVariant.Success => "success",
+        _ => "neutral",
+    };
+
+    /// <summary>Class-name token for a <see cref="BadgeKind"/> — e.g. <c>count</c>.</summary>
+    public static string ToToken(this BadgeKind kind) => kind switch
+    {
+        BadgeKind.Count => "count",
+        BadgeKind.Dot => "dot",
+        _ => "label",
+    };
 }
