@@ -197,4 +197,22 @@ public static class FoundationTokens
         InlineNoticeVariant.Error => "error",
         _ => "info",
     };
+
+    /// <summary>Class-name token for a <see cref="ReferenceKind"/> — e.g. <c>mention</c>.</summary>
+    public static string ToToken(this ReferenceKind kind) => kind switch
+    {
+        ReferenceKind.Component => "component",
+        ReferenceKind.Token => "token",
+        ReferenceKind.Resource => "resource",
+        _ => "mention",
+    };
+
+    /// <summary>Default glyph for a <see cref="ReferenceKind"/>.</summary>
+    public static string DefaultIcon(this ReferenceKind kind) => kind switch
+    {
+        ReferenceKind.Component => "widgets",
+        ReferenceKind.Token => "palette",
+        ReferenceKind.Resource => "link",
+        _ => "alternate_email",
+    };
 }

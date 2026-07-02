@@ -1,0 +1,6 @@
+@if (showSwatch()) {
+	<span class="lucent-reference-tag__swatch" [style.background]="swatch()"></span>
+} @else {
+	<lucent-icon class="lucent-reference-tag__icon" [name]="iconName()" size="xs" />
+}
+<span class="lucent-reference-tag__label"><ng-content>{{ label() }}</ng-content></span>

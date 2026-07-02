@@ -1,0 +1,47 @@
+@*
+    LucentReferenceTag — emits the `.lucent-reference-tag` contract
+    (styles/components/reference-tag.css).
+
+    A small inline chip that references an entity inside prose — an @mention, a component, a
+    design token (colour swatch + mono name), or a resource (PR/doc). Flows inline with text.
+*@
+
+<span class="@HostClass" @attributes="AdditionalAttributes">@if (ShowSwatch)
+    {
+        <span class="lucent-reference-tag__swatch" style="background:@Swatch"></span>
+    }
+    else
+    {
+        <LucentIcon Name="@IconName" Size="IconSize.Xs" Class="lucent-reference-tag__icon" />
+    }<span class="lucent-reference-tag__label">@if (ChildContent is not null) { @ChildContent } else { @Label }</span></span>
+
+@code {
+    /// <summary>The kind of entity being referenced.</summary>
+    [Parameter] public ReferenceKind Kind { get; set; } = ReferenceKind.Mention;
+
+    /// <summary>Label text; projected <see cref="ChildContent"/> overrides it.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Rich label content; overrides <see cref="Label"/>.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Override the default per-kind glyph.</summary>
+    [Parameter] public string? Icon { get; set; }
+
+    /// <summary>For <c>Token</c>: a CSS colour shown as a swatch.</summary>
+    [Parameter] public string? Swatch { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host span.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool ShowSwatch => Kind == ReferenceKind.Token && !string.IsNullOrEmpty(Swatch);
+    private string IconName => string.IsNullOrEmpty(Icon) ? Kind.DefaultIcon() : Icon;
+
+    private string HostClass =>
+        $"lucent-reference-tag lucent-reference-tag--{Kind.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

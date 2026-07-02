@@ -17,6 +17,7 @@ export type BadgeKind = 'count' | 'label' | 'dot';
 export type SpinnerSize = 'sm' | 'md' | 'lg';
 export type SkeletonShape = 'line' | 'circle' | 'block';
 export type InlineNoticeVariant = 'info' | 'success' | 'warning' | 'error';
+export type ReferenceKind = 'mention' | 'component' | 'token' | 'resource';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type ToggleSize = 'md' | 'sm';
 export type ChipType = 'tag' | 'default' | 'active' | 'action';

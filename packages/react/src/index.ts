@@ -4,7 +4,7 @@ export type {
   BadgeVariant, BadgeKind, SpinnerSize, SkeletonShape,
   TooltipPosition, ToggleSize, ChipType, AvatarScale, AvatarVariant, TabScale,
   MenuItemVariant, MenuPosition, ModalVariant, ToastVariant, BreadcrumbItem, SelectOption,
-  SegmentedOption,
+  SegmentedOption, InlineNoticeVariant, ReferenceKind,
 } from './foundations';
 export { cx } from './cx';
 
@@ -35,3 +35,7 @@ export type { TabListProps, TabProps, MenuItemProps, MenuTriggerProps, Accordion
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
 export { Modal, Snackbar, Toast, Spinner, Skeleton, Progress, InlineNotice } from './feedback';
 export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps, ProgressProps, InlineNoticeProps } from './feedback';
+
+// ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
+export { ReferenceTag } from './messaging';
+export type { ReferenceTagProps } from './messaging';

@@ -28,3 +28,6 @@ export { LucentCard, LucentTab, LucentTabList, LucentMenu, LucentMenuItem, Lucen
 // ─── Tier 7 — Overlays & feedback ─────────────────────────────────────────────
 export { LucentSpinner, LucentSkeleton, LucentProgress, LucentInlineNotice, LucentSnackbar, LucentToast, LucentModal } from './feedback';
 export { LucentTooltip, LucentSelect, LucentMenuTrigger } from './overlays';
+
+// ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
+export { LucentReferenceTag } from './messaging';
