@@ -140,6 +140,68 @@ export function TextInput({
   );
 }
 
+// ─── Textarea ─────────────────────────────────────────────────────────────────
+let textareaSeq = 0;
+
+export interface TextareaProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  size?: ControlSize;
+  placeholder?: string;
+  rows?: number;
+  readOnly?: boolean;
+  disabled?: boolean;
+  label?: ReactNode;
+  hint?: ReactNode;
+  error?: ReactNode;
+  className?: string;
+}
+
+/** Multi-line text field. Mirrors TextInput's states; resizes vertically. */
+export function Textarea({
+  value = '', onChange, size = 'md', placeholder, rows = 3, readOnly = false, disabled = false,
+  label, hint, error, className,
+}: TextareaProps) {
+  const [focused, setFocused] = useState(false);
+  const id = useMemo(() => `lucent-textarea-${textareaSeq++}`, []);
+  const messageId = `${id}-msg`;
+  const hasError = !!error;
+
+  const wrapperModifier =
+    disabled ? 'lucent-textarea__wrapper--disabled'
+    : readOnly ? 'lucent-textarea__wrapper--readonly'
+    : hasError ? 'lucent-textarea__wrapper--error'
+    : focused ? 'lucent-textarea__wrapper--focus'
+    : value ? 'lucent-textarea__wrapper--filled'
+    : '';
+
+  return (
+    <div className={cx('lucent-textarea', `lucent-textarea--${size}`, className)}>
+      {label && <label className="lucent-textarea__label typography-caption" htmlFor={id}>{label}</label>}
+      <div className={cx('lucent-textarea__wrapper', wrapperModifier)}>
+        <textarea
+          id={id}
+          rows={rows}
+          placeholder={placeholder}
+          value={value}
+          disabled={disabled}
+          readOnly={readOnly}
+          aria-invalid={hasError || undefined}
+          aria-describedby={error || hint ? messageId : undefined}
+          onChange={(e) => onChange?.(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+      </div>
+      {(error || hint) && (
+        <span className={cx('lucent-textarea__message', hasError && 'lucent-textarea__message--error')} id={messageId}>
+          {error || hint}
+        </span>
+      )}
+    </div>
+  );
+}
+
 // ─── Option (listbox row used by Select) ────────────────────────────────────────
 export interface OptionProps {
   label: string;

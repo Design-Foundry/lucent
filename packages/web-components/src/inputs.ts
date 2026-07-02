@@ -135,6 +135,61 @@ export class LucentTextInput extends LucentElement {
   }
 }
 
+// ─── lucent-textarea ──────────────────────────────────────────────────────────
+let textareaSeq = 0;
+
+@customElement('lucent-textarea')
+export class LucentTextarea extends LucentElement {
+  @property() value = '';
+  @property() size: ControlSize = 'md';
+  @property() placeholder = '';
+  @property() label = '';
+  @property() hint = '';
+  @property() error = '';
+  @property({ type: Number }) rows = 3;
+  @property({ type: Boolean }) readonly = false;
+  @property({ type: Boolean }) disabled = false;
+
+  @state() private focused = false;
+  private readonly fieldId = `lucent-textarea-${textareaSeq++}`;
+
+  protected hostClasses(): string {
+    return cx('lucent-textarea', `lucent-textarea--${this.size}`);
+  }
+
+  private get hasError(): boolean { return !!this.error; }
+
+  private get wrapperModifier(): string {
+    if (this.disabled) return 'lucent-textarea__wrapper--disabled';
+    if (this.readonly) return 'lucent-textarea__wrapper--readonly';
+    if (this.hasError) return 'lucent-textarea__wrapper--error';
+    if (this.focused) return 'lucent-textarea__wrapper--focus';
+    if (this.value) return 'lucent-textarea__wrapper--filled';
+    return '';
+  }
+
+  private _onInput(e: Event): void {
+    this.value = (e.target as HTMLTextAreaElement).value;
+    this.dispatchEvent(new CustomEvent('input', { detail: { value: this.value }, bubbles: true }));
+  }
+
+  protected render(): TemplateResult {
+    const msgId = `${this.fieldId}-msg`;
+    return html`
+      ${this.label ? html`<label class="lucent-textarea__label typography-caption" for=${this.fieldId}>${this.label}</label>` : nothing}
+      <div class=${cx('lucent-textarea__wrapper', this.wrapperModifier)}>
+        <textarea id=${this.fieldId} rows=${this.rows} placeholder=${this.placeholder} .value=${this.value}
+          ?disabled=${this.disabled} ?readonly=${this.readonly}
+          aria-invalid=${this.hasError ? 'true' : nothing}
+          aria-describedby=${this.error || this.hint ? msgId : nothing}
+          @input=${this._onInput} @focus=${() => (this.focused = true)} @blur=${() => (this.focused = false)}></textarea>
+      </div>
+      ${this.error || this.hint
+        ? html`<span class=${cx('lucent-textarea__message', this.hasError && 'lucent-textarea__message--error')} id=${msgId}>${this.error || this.hint}</span>`
+        : nothing}`;
+  }
+}
+
 // ─── lucent-option ──────────────────────────────────────────────────────────────
 @customElement('lucent-option')
 export class LucentOption extends LucentElement {
@@ -157,6 +212,7 @@ declare global {
     'lucent-avatar': LucentAvatar;
     'lucent-inline-input': LucentInlineInput;
     'lucent-text-input': LucentTextInput;
+    'lucent-textarea': LucentTextarea;
     'lucent-option': LucentOption;
   }
 }

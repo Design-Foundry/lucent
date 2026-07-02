@@ -17,7 +17,7 @@ export { LucentButton, LucentIconButton, LucentToggle, LucentChip, LucentCheckbo
 export { LucentNavIcon, LucentNavRail, LucentNavDivider, LucentActivityBar, LucentBreadcrumbs } from './navigation';
 
 // ─── Tier 4 — Inputs & data entry ───────────────────────────────────────────────
-export { LucentAvatar, LucentInlineInput, LucentTextInput, LucentOption } from './inputs';
+export { LucentAvatar, LucentInlineInput, LucentTextInput, LucentTextarea, LucentOption } from './inputs';
 
 // ─── Tier 5 — Data display ──────────────────────────────────────────────────────
 export { LucentList, LucentListItem } from './data-display';

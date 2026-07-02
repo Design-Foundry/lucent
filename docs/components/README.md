@@ -46,6 +46,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-avatar` | ✅ [avatar.md](./avatar.md) | ⚠️ initials have no accessible name |
 | `df-input` | ✅ [input.md](./input.md) | ✅ CVA reference; ⚠️ legacy adornment slots |
 | `df-inline-input` | ✅ [inline-input.md](./inline-input.md) | ⚠️ no labelling; forms-only disabled |
+| `lucent-textarea` | ✅ [textarea.md](./textarea.md) | ✅ mirrors text-input (CVA, states) |
 | `df-option` | ✅ [option.md](./option.md) | ❌ not composable with `df-select`; `value: unknown` |
 | `df-select` | ✅ [select.md](./select.md) | ❌ `SelectOption` weaker than `df-option`; untyped |
 

@@ -1,0 +1,90 @@
+@*
+    LucentTextarea — emits the `.lucent-textarea` contract (styles/components/textarea.css).
+
+    Static-SSR friendly: a plain <textarea> that posts with the surrounding <form>; focus and
+    filled states are pure CSS (:focus-within / :placeholder-shown), so no JS is required. The
+    error state is server-rendered from the Error parameter. Give it a `name` (and required,
+    maxlength, …) via pass-through attributes.
+*@
+
+<div class="@HostClass">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="lucent-textarea__label typography-caption" for="@Id">@Label</label>
+    }
+
+    <div class="@WrapperClass">
+        <textarea id="@Id"
+                  rows="@Rows"
+                  placeholder="@(Placeholder ?? " ")"
+                  disabled="@Disabled"
+                  readonly="@ReadOnly"
+                  aria-invalid="@(HasError ? "true" : null)"
+                  aria-describedby="@(HasMessage ? MessageId : null)"
+                  @attributes="AdditionalAttributes">@Value</textarea>
+    </div>
+
+    @if (HasMessage)
+    {
+        <span class="lucent-textarea__message@(HasError ? " lucent-textarea__message--error" : "")"
+              id="@MessageId">
+            @(HasError ? Error : Hint)
+        </span>
+    }
+</div>
+
+@code {
+    /// <summary>Field label. Omitted when null/empty.</summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>Value. Under static SSR this is the initial value; the browser posts what's typed.</summary>
+    [Parameter] public string? Value { get; set; }
+
+    /// <summary>Placeholder. A single space is rendered when null so the CSS filled-state works.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+
+    /// <summary>Visible rows (min height also enforced by CSS).</summary>
+    [Parameter] public int Rows { get; set; } = 3;
+
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>Validation error. When set, the field shows the error state and this message.</summary>
+    [Parameter] public string? Error { get; set; }
+
+    /// <summary>Hint shown below the field when there is no error.</summary>
+    [Parameter] public string? Hint { get; set; }
+
+    /// <summary>Density size.</summary>
+    [Parameter] public ControlSize Size { get; set; } = ControlSize.Md;
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Element id; a unique one is generated when not supplied (links label ↔ textarea ↔ message).</summary>
+    [Parameter] public string Id { get; set; } = $"lta-{Guid.NewGuid():N}";
+
+    /// <summary>Pass-through attributes (name, required, maxlength, aria-*, …); applied to the textarea.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool HasError => !string.IsNullOrEmpty(Error);
+    private bool HasMessage => HasError || !string.IsNullOrEmpty(Hint);
+    private string MessageId => $"{Id}-msg";
+
+    private string HostClass =>
+        $"lucent-textarea lucent-textarea--{Size.ToToken()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+
+    private string WrapperClass
+    {
+        get
+        {
+            var c = "lucent-textarea__wrapper";
+            if (HasError) c += " lucent-textarea__wrapper--error";
+            if (Disabled) c += " lucent-textarea__wrapper--disabled";
+            if (ReadOnly) c += " lucent-textarea__wrapper--readonly";
+            return c;
+        }
+    }
+}

@@ -56,6 +56,8 @@ export type { AvatarScale, AvatarVariant } from './avatar/avatar';
 
 export { LucentTextInput } from './text-input/text-input';
 
+export { LucentTextarea } from './textarea/textarea';
+
 export { LucentInlineInput } from './inline-input/inline-input';
 
 export { LucentOption } from './option/option';
