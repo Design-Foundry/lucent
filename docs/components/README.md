@@ -18,6 +18,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-icon` | ✅ [icon.md](./icon.md) | ✅ on-convention |
 | `df-tag` | ✅ [tag.md](./tag.md) | ⚠️ no `label` shorthand |
 | `df-status-tag` | ✅ [status-tag.md](./status-tag.md) | ❌ no projection; colour-only a11y |
+| `lucent-badge` | ✅ [badge.md](./badge.md) | ✅ on-convention |
 | `[dfTooltip]` | ✅ [tooltip.md](./tooltip.md) | ❌ only component on legacy `@Input` |
 
 ## Interactive
