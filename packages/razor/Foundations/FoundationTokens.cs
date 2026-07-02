@@ -215,4 +215,20 @@ public static class FoundationTokens
         ReferenceKind.Resource => "link",
         _ => "alternate_email",
     };
+
+    /// <summary>Class-name token for a <see cref="MessageRole"/> — e.g. <c>assistant</c>.</summary>
+    public static string ToToken(this MessageRole role) => role switch
+    {
+        MessageRole.User => "user",
+        MessageRole.System => "system",
+        MessageRole.Other => "other",
+        _ => "assistant",
+    };
+
+    /// <summary>Class-name token for a <see cref="MessageGroup"/> — e.g. <c>continuation</c>.</summary>
+    public static string ToToken(this MessageGroup group) => group switch
+    {
+        MessageGroup.Continuation => "continuation",
+        _ => "standalone",
+    };
 }

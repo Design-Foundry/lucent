@@ -121,6 +121,9 @@ export type { ModalVariant } from './modal/modal';
 export { LucentReferenceTag } from './reference-tag/reference-tag';
 export type { ReferenceKind } from './reference-tag/reference-tag';
 
+export { LucentMessageBubble } from './message-bubble/message-bubble';
+export type { MessageRole, MessageGroup } from './message-bubble/message-bubble';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

@@ -89,6 +89,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | Component | Doc | Conventions |
 |---|---|---|
 | `lucent-reference-tag` | ✅ [reference-tag.md](./reference-tag.md) | ✅ on-convention |
+| `lucent-message-bubble` | ✅ [message-bubble.md](./message-bubble.md) | ✅ on-convention |
 
 ## Services
 | Service | Doc | Conventions |
