@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { cx } from './cx';
 import { Icon } from './primitives';
-import type { MessageGroup, MessageRole, ReferenceKind } from './foundations';
+import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -53,6 +53,35 @@ export function MessageBubble({ role = 'assistant', group = 'standalone', author
         </div>
       )}
       <div className="lucent-message-bubble__body">{children}</div>
+    </div>
+  );
+}
+
+// ─── Typing indicator ───────────────────────────────────────────────────────────
+export interface TypingIndicatorProps {
+  variant?: TypingVariant;
+  /** Optional label (defaults to "Generating…" for the generating variant). */
+  label?: string;
+  className?: string;
+}
+
+/** Live dots shown where the next message will appear — typing (person) or generating (agent). */
+export function TypingIndicator({ variant = 'typing', label = '', className }: TypingIndicatorProps) {
+  const labelText = label || (variant === 'generating' ? 'Generating…' : '');
+  const ariaLabel = label || (variant === 'generating' ? 'Generating' : 'Typing');
+  return (
+    <div
+      className={cx('lucent-typing-indicator', `lucent-typing-indicator--${variant}`, className)}
+      role="status"
+      aria-live="polite"
+      aria-label={ariaLabel}
+    >
+      <span className="lucent-typing-indicator__dots" aria-hidden>
+        <span className="lucent-typing-indicator__dot" />
+        <span className="lucent-typing-indicator__dot" />
+        <span className="lucent-typing-indicator__dot" />
+      </span>
+      {labelText && <span className="lucent-typing-indicator__label">{labelText}</span>}
     </div>
   );
 }

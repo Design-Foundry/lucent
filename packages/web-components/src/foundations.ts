@@ -20,6 +20,7 @@ export type InlineNoticeVariant = 'info' | 'success' | 'warning' | 'error';
 export type ReferenceKind = 'mention' | 'component' | 'token' | 'resource';
 export type MessageRole = 'user' | 'assistant' | 'system' | 'other';
 export type MessageGroup = 'standalone' | 'continuation';
+export type TypingVariant = 'typing' | 'generating';
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type ToggleSize = 'md' | 'sm';
 export type ChipType = 'tag' | 'default' | 'active' | 'action';
