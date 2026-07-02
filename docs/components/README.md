@@ -93,6 +93,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-typing-indicator` | ✅ [typing-indicator.md](./typing-indicator.md) | ✅ on-convention |
 | `lucent-code-block` | ✅ [code-block.md](./code-block.md) | ✅ on-convention |
 | `lucent-prompt-suggestion` | ✅ [prompt-suggestion.md](./prompt-suggestion.md) | ✅ on-convention |
+| `lucent-composer` | ✅ [composer.md](./composer.md) | ✅ composes textarea + icon-button |
 
 ## Services
 | Service | Doc | Conventions |

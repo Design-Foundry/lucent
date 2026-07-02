@@ -132,6 +132,8 @@ export { LucentCodeBlock } from './code-block/code-block';
 export { LucentPromptSuggestion } from './prompt-suggestion/prompt-suggestion';
 export type { PromptSuggestionVariant } from './prompt-suggestion/prompt-suggestion';
 
+export { LucentComposer } from './composer/composer';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
