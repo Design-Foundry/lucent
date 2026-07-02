@@ -129,6 +129,9 @@ export type { TypingVariant } from './typing-indicator/typing-indicator';
 
 export { LucentCodeBlock } from './code-block/code-block';
 
+export { LucentPromptSuggestion } from './prompt-suggestion/prompt-suggestion';
+export type { PromptSuggestionVariant } from './prompt-suggestion/prompt-suggestion';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

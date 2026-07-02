@@ -4,7 +4,7 @@ import { LucentElement, LucentSurface } from './base';
 import { cx } from './cx';
 import './primitives'; // ensures <lucent-icon> is registered for nested use
 import './controls'; // ensures <lucent-icon-button> is registered for nested use
-import type { MessageGroup, MessageRole, ReferenceKind, TypingVariant } from './foundations';
+import type { MessageGroup, MessageRole, PromptSuggestionVariant, ReferenceKind, TypingVariant } from './foundations';
 
 const REF_ICON: Record<ReferenceKind, string> = {
   mention: 'alternate_email', component: 'widgets', resource: 'link', token: 'palette',
@@ -160,11 +160,56 @@ export class LucentCodeBlock extends LucentElement {
   }
 }
 
+// ─── lucent-prompt-suggestion ──────────────────────────────────────────────────
+@customElement('lucent-prompt-suggestion')
+export class LucentPromptSuggestion extends LucentElement {
+  @property() variant: PromptSuggestionVariant = 'card';
+  @property() label = '';
+  /** Second line (card variant only). */
+  @property() description = '';
+  @property() icon = '';
+
+  protected hostClasses(): string {
+    return cx('lucent-prompt-suggestion', `lucent-prompt-suggestion--${this.variant}`);
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('click', this._activate);
+    this.addEventListener('keydown', this._onKey);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this._activate);
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    this.setAttribute('role', 'button');
+    this.tabIndex = 0;
+  }
+
+  private _activate = (): void => {
+    this.dispatchEvent(new CustomEvent('select', { detail: { label: this.label }, bubbles: true }));
+  };
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._activate(); }
+  };
+
+  protected render(): TemplateResult {
+    return html`${this.icon ? html`<lucent-icon class="lucent-prompt-suggestion__icon" name=${this.icon} size="sm"></lucent-icon>` : nothing}<span class="lucent-prompt-suggestion__content"><span class="lucent-prompt-suggestion__title">${this.label}</span>${this.description && this.variant === 'card' ? html`<span class="lucent-prompt-suggestion__desc">${this.description}</span>` : nothing}</span>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-reference-tag': LucentReferenceTag;
     'lucent-message-bubble': LucentMessageBubble;
     'lucent-typing-indicator': LucentTypingIndicator;
     'lucent-code-block': LucentCodeBlock;
+    'lucent-prompt-suggestion': LucentPromptSuggestion;
   }
 }
