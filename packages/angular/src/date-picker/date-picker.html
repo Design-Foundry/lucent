@@ -1,0 +1,38 @@
+@if (label()) {
+  <span class="lucent-date-picker__label">{{ label() }}</span>
+}
+
+<button
+  #trigger
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  type="button"
+  class="lucent-date-picker__trigger"
+  [class.lucent-date-picker__trigger--focus]="isOpen()"
+  aria-haspopup="dialog"
+  [attr.aria-expanded]="isOpen()"
+  (click)="toggle()"
+>
+  <lucent-icon class="lucent-date-picker__icon" name="calendar_today" size="sm" />
+  <span class="lucent-date-picker__value" [class.is-placeholder]="!value()">{{ display() }}</span>
+  <lucent-icon class="lucent-date-picker__caret" name="arrow_drop_down" size="sm" />
+</button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  (overlayOutsideClick)="close()"
+  (detach)="close()"
+>
+  <div class="lucent-date-picker__popover">
+    <lucent-calendar
+      [month]="month()"
+      [value]="value()"
+      [min]="min()"
+      [max]="max()"
+      (changed)="choose($event)"
+    />
+  </div>
+</ng-template>

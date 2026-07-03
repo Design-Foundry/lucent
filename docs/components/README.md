@@ -103,6 +103,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | Component | Doc | Conventions |
 |---|---|---|
 | `lucent-calendar` | ✅ [calendar.md](./calendar.md) | ✅ on-convention (date-picker atom) |
+| `lucent-date-picker` | ✅ [date-picker.md](./date-picker.md) | ✅ field + floating Calendar popover |
 
 ## Services
 | Service | Doc | Conventions |

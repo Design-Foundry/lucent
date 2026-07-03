@@ -64,9 +64,20 @@
   color: var(--color--semantic--text-muted);
 }
 
-/* Floated popover — the Calendar supplies its own surface/border/radius; add elevation. */
+/* Floated popover — the Calendar supplies its own surface/border/radius; add elevation.
+ * WC/React float this to <body> (positioned by Floating UI); Angular CDK renders it into an
+ * overlay pane; Blazor renders it inline as a child of __field and anchors it via the rule below. */
 .lucent-date-picker__popover {
   z-index: 50;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+}
+
+/* Inline-anchored popover (Blazor): the field is the positioning context. Scoped to a direct
+ * child so the body-floated (WC/React) and CDK-overlay (Angular) cases are unaffected. */
+.lucent-date-picker__field { position: relative; }
+.lucent-date-picker__field > .lucent-date-picker__popover {
+  position: absolute;
+  top: calc(100% + var(--dimension--primitive--spacing-1));
+  left: 0;
 }

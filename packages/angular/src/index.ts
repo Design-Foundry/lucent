@@ -148,6 +148,8 @@ export { LucentJumpToLatest } from './jump-to-latest/jump-to-latest';
 export { LucentCalendar } from './calendar/calendar';
 export type { CalendarMode } from './calendar/calendar';
 
+export { LucentDatePicker } from './date-picker/date-picker';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';
