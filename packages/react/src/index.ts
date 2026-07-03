@@ -43,3 +43,7 @@ export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeB
 // ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
 export { Calendar, DatePicker, DateRangePicker, TimePicker } from './temporal';
 export type { CalendarProps, DatePickerProps, DateRangePickerProps, DateRange, TimePickerProps, Time } from './temporal';
+
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+export { EventChip, MonthCell, EventBlock, AgendaRow } from './scheduler';
+export type { EventCategory, SchedulerEvent, EventChipProps, MonthCellProps, EventBlockProps, AgendaRowProps } from './scheduler';

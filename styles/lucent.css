@@ -14,6 +14,7 @@
 
 /* Tier 2 — semantic roles + the control-density alias layer. */
 @import "tokens/semantic-colors.css";
+@import "tokens/event-categories.css";
 @import "tokens/surfaces.css";
 @import "tokens/borders.css";
 @import "tokens/shadows.css";
@@ -81,3 +82,6 @@
 @import "components/calendar.css";
 @import "components/date-picker.css";
 @import "components/time-picker.css";
+
+/* Scheduler — event parts (Month / Week / Agenda views compose these). */
+@import "components/scheduler.css";

@@ -156,6 +156,11 @@ export type { DateRange } from './date-range-picker/date-range-picker';
 export { LucentTimePicker } from './time-picker/time-picker';
 export type { Time } from './time-picker/time-picker';
 
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+
+export { LucentEventChip, LucentMonthCell, LucentEventBlock, LucentAgendaRow } from './scheduler/scheduler';
+export type { EventCategory, SchedulerEvent } from './scheduler/scheduler';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

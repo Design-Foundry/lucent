@@ -35,3 +35,7 @@ export { LucentReferenceTag, LucentMessageBubble, LucentTypingIndicator, LucentC
 // ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
 export { LucentCalendar, LucentDatePicker, LucentDateRangePicker, LucentTimePicker } from './temporal';
 export type { Time } from './temporal';
+
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+export { LucentEventChip, LucentMonthCell, LucentEventBlock, LucentAgendaRow } from './scheduler';
+export type { EventCategory, SchedulerEvent } from './scheduler';

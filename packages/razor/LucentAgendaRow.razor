@@ -1,0 +1,37 @@
+@*
+    LucentAgendaRow — emits the `.lucent-agenda-row` contract (styles/components/scheduler.css).
+    A single row in the agenda (list) view: fixed time column + category bar + title/subtitle.
+*@
+
+<div class="@HostClass">
+    <span class="lucent-agenda-row__time">@Time</span>
+    <span class="lucent-agenda-row__bar"></span>
+    <div class="lucent-agenda-row__content">
+        <span class="lucent-agenda-row__title">@Title</span>
+        @if (!string.IsNullOrEmpty(Subtitle))
+        {
+            <span class="lucent-agenda-row__subtitle">@Subtitle</span>
+        }
+    </div>
+</div>
+
+@code {
+    /// <summary>Event kind — sets the category bar color.</summary>
+    [Parameter] public EventCategory Category { get; set; } = EventCategory.Work;
+
+    /// <summary>Time label shown in the fixed leading column.</summary>
+    [Parameter] public string Time { get; set; } = "";
+
+    /// <summary>Event title.</summary>
+    [Parameter] public string Title { get; set; } = "";
+
+    /// <summary>Optional secondary line.</summary>
+    [Parameter] public string? Subtitle { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    private string HostClass =>
+        $"lucent-agenda-row lucent-agenda-row--{Category.ToString().ToLowerInvariant()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

@@ -1,0 +1,135 @@
+/* =============================================================================
+ * Scheduler parts — the reusable atoms the Month / Week / Agenda views compose.
+ *   .lucent-event-chip   — compact event pill (month cells)
+ *   .lucent-month-cell   — a tall day cell (date badge + stacked chips + overflow)
+ *   .lucent-event-block  — a time-grid block (week view; sized by its parent)
+ *   .lucent-agenda-row   — a list row (agenda view)
+ *
+ * Category color comes from the semantic event-category tokens (tokens/event-categories.css),
+ * surfaced onto each part as the internal --lucent-cat-surface / --lucent-cat-text pair.
+ * Categories: work · meeting · personal · deadline.
+ * ============================================================================= */
+
+/* Shared category → internal-var mapping (chip / block / agenda-row). */
+.lucent-event-chip--work, .lucent-event-block--work, .lucent-agenda-row--work {
+  --lucent-cat-surface: var(--color--semantic--event-work-surface);
+  --lucent-cat-text: var(--color--semantic--event-work-text);
+}
+.lucent-event-chip--meeting, .lucent-event-block--meeting, .lucent-agenda-row--meeting {
+  --lucent-cat-surface: var(--color--semantic--event-meeting-surface);
+  --lucent-cat-text: var(--color--semantic--event-meeting-text);
+}
+.lucent-event-chip--personal, .lucent-event-block--personal, .lucent-agenda-row--personal {
+  --lucent-cat-surface: var(--color--semantic--event-personal-surface);
+  --lucent-cat-text: var(--color--semantic--event-personal-text);
+}
+.lucent-event-chip--deadline, .lucent-event-block--deadline, .lucent-agenda-row--deadline {
+  --lucent-cat-surface: var(--color--semantic--event-deadline-surface);
+  --lucent-cat-text: var(--color--semantic--event-deadline-text);
+}
+
+/* ── Event Chip ──────────────────────────────────────────────────────────── */
+/* Category is carried by --lucent-cat-surface / --lucent-cat-text (set by the modifier block
+ * above); the var() fallback = work, so an uncategorized part still renders. Fallbacks (not a
+ * base declaration) keep this order-independent — a base default would beat the modifier at
+ * equal specificity. */
+.lucent-event-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--dimension--primitive--spacing-1);
+  max-width: 100%;
+  padding: 1px var(--dimension--primitive--spacing-1-5);
+  border-radius: var(--radius-sm);
+  background: var(--lucent-cat-surface, var(--color--semantic--event-work-surface));
+  color: var(--lucent-cat-text, var(--color--semantic--event-work-text));
+  font-family: var(--font--primitive--sans);
+  font-size: var(--dimension--primitive--fs-caption);
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lucent-event-chip__time { font-weight: var(--dimension--primitive--fw-medium); flex-shrink: 0; }
+.lucent-event-chip__label { overflow: hidden; text-overflow: ellipsis; }
+
+/* ── Month day cell ──────────────────────────────────────────────────────── */
+.lucent-month-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dimension--primitive--spacing-1);
+  min-height: 96px;
+  padding: var(--dimension--primitive--spacing-1-5);
+  background: var(--color--semantic--surface-default);
+  border: 1px solid var(--color--semantic--border-subtle);
+  font-family: var(--font--primitive--sans);
+}
+.lucent-month-cell__date {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--dimension--primitive--spacing-1);
+  border-radius: var(--radius-full);
+  font-size: var(--dimension--primitive--fs-body-sm);
+  color: var(--color--semantic--text-default);
+}
+.lucent-month-cell__events { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lucent-month-cell__more { font-size: var(--dimension--primitive--fs-caption); color: var(--color--semantic--text-muted); padding-left: var(--dimension--primitive--spacing-1); }
+
+.lucent-month-cell--today { background: var(--color--semantic--accent-subtle); }
+.lucent-month-cell--today .lucent-month-cell__date {
+  background: var(--color--semantic--accent-default);
+  color: var(--color--semantic--text-onaccent);
+  font-weight: var(--dimension--primitive--fw-medium);
+}
+.lucent-month-cell--outside { background: var(--color--semantic--surface-base); }
+.lucent-month-cell--outside .lucent-month-cell__date { color: var(--color--semantic--text-subtle); }
+
+/* ── Event block (week time-grid) ────────────────────────────────────────── */
+.lucent-event-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--dimension--primitive--spacing-1) var(--dimension--primitive--spacing-1-5);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--lucent-cat-text, var(--color--semantic--event-work-text));
+  background: var(--lucent-cat-surface, var(--color--semantic--event-work-surface));
+  color: var(--lucent-cat-text, var(--color--semantic--event-work-text));
+  font-family: var(--font--primitive--sans);
+  overflow: hidden;
+}
+.lucent-event-block__title {
+  font-size: var(--dimension--primitive--fs-body-sm);
+  font-weight: var(--dimension--primitive--fw-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lucent-event-block__time { font-size: var(--dimension--primitive--fs-caption); opacity: 0.85; }
+
+/* ── Agenda row ──────────────────────────────────────────────────────────── */
+.lucent-agenda-row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--dimension--primitive--spacing-3);
+  padding: var(--dimension--primitive--spacing-2) 0;
+  font-family: var(--font--primitive--sans);
+}
+.lucent-agenda-row__time {
+  flex-shrink: 0;
+  width: 72px;
+  font-size: var(--dimension--primitive--fs-body-sm);
+  color: var(--color--semantic--text-muted);
+}
+.lucent-agenda-row__bar {
+  flex-shrink: 0;
+  width: 4px;
+  border-radius: var(--radius-full);
+  background: var(--lucent-cat-text, var(--color--semantic--event-work-text));
+}
+.lucent-agenda-row__content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lucent-agenda-row__title { font-size: var(--dimension--primitive--fs-body-sm); font-weight: var(--dimension--primitive--fw-medium); color: var(--color--semantic--text-strong); }
+.lucent-agenda-row__subtitle { font-size: var(--dimension--primitive--fs-caption); color: var(--color--semantic--text-muted); }

@@ -107,6 +107,14 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-date-range-picker` | ✅ [date-range-picker.md](./date-range-picker.md) | ✅ reuses Date Picker shell + range Calendar |
 | `lucent-time-picker` | ✅ [time-picker.md](./time-picker.md) | ✅ hour/minute/period column popover |
 
+## Scheduler
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-event-chip` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ category tokens |
+| `lucent-month-cell` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ reuses Event Chip |
+| `lucent-event-block` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ parent-positioned |
+| `lucent-agenda-row` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ category bar |
+
 ## Services
 | Service | Doc | Conventions |
 |---|---|---|
