@@ -55,3 +55,5 @@ export type { DatedEvent, TimedEvent, SchedulerMonthProps, SchedulerWeekProps, S
 // ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
 export { Knob, Fader, Meter, Waveform } from './daw';
 export type { KnobProps, FaderProps, MeterProps, WaveformProps } from './daw';
+export { Track, PianoRoll } from './daw-sequencer';
+export type { TrackProps, PianoRollProps, TrackDef, ClipDef, PianoNote } from './daw-sequencer';

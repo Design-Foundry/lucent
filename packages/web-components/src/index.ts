@@ -46,3 +46,5 @@ export type { DatedEvent, TimedEvent } from './scheduler-views';
 
 // ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
 export { LucentKnob, LucentFader, LucentMeter, LucentWaveform } from './daw';
+export { LucentTrack, LucentPianoRoll } from './daw-sequencer';
+export type { TrackDef, ClipDef, PianoNote } from './daw-sequencer';

@@ -73,3 +73,69 @@
   --lucent-waveform-playhead: var(--color--semantic--accent-strong);
 }
 .lucent-waveform__canvas { display: block; border-radius: 6px; }
+
+/* ── Track (arrangement lane) ────────────────────────────────────────────── */
+.lucent-track {
+  /* MIDI clips use a secondary hue (the system has no dedicated MIDI/secondary brand token). */
+  --lucent-daw-midi: var(--color--primitive--slate-50);
+  display: flex;
+  width: fit-content;
+  background: var(--color--semantic--surface-raised);
+  border: 1px solid var(--color--semantic--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-family: var(--font--primitive--sans);
+  user-select: none;
+}
+.lucent-track__headers { flex: none; border-right: 1px solid var(--color--semantic--border-default); }
+.lucent-track__hd-spacer { border-bottom: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-default); }
+.lucent-track__hd { border-bottom: 1px solid var(--color--semantic--border-default); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+.lucent-track__nm { font-size: var(--dimension--primitive--fs-caption); font-weight: var(--dimension--primitive--fw-medium); color: var(--color--semantic--text-default); display: flex; align-items: center; gap: 6px; }
+.lucent-track__dot { width: 8px; height: 8px; border-radius: 2px; }
+.lucent-track__btns { display: flex; gap: 4px; }
+.lucent-track__btn { width: 20px; height: 18px; font: var(--dimension--primitive--fw-medium) 10px var(--font--primitive--sans); border: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-raised); color: var(--color--semantic--text-muted); border-radius: 4px; cursor: pointer; padding: 0; }
+.lucent-track__btn.is-on[data-k="M"] { background: var(--color--primitive--warning-50); color: #fff; border-color: transparent; }
+.lucent-track__btn.is-on[data-k="S"] { background: var(--color--semantic--accent-default); color: var(--color--semantic--text-onaccent); border-color: transparent; }
+.lucent-track__btn.is-on[data-k="R"] { background: var(--color--primitive--error-50); color: #fff; border-color: transparent; }
+.lucent-track__timeline { position: relative; }
+.lucent-track__ruler { border-bottom: 1px solid var(--color--semantic--border-default); position: relative; background: var(--color--semantic--surface-default); cursor: pointer; }
+.lucent-track__bar { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--color--semantic--border-default); font: var(--dimension--primitive--fw-medium) 10px var(--font--primitive--sans); color: var(--color--semantic--text-muted); padding: 5px 0 0 4px; }
+.lucent-track__lanes { position: relative; }
+.lucent-track__lane { border-bottom: 1px solid var(--color--semantic--border-default); position: relative; }
+.lucent-track__grid { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--color--semantic--surface-default); }
+.lucent-track__clip { position: absolute; top: 5px; bottom: 5px; border-radius: 6px; overflow: hidden; cursor: grab; border: 1px solid; }
+.lucent-track__clip.is-dragging { cursor: grabbing; }
+.lucent-track__clip canvas { display: block; }
+.lucent-track__clip--audio { background: oklch(from var(--color--semantic--accent-default) l c h / 0.16); border-color: oklch(from var(--color--semantic--accent-default) l c h / 0.55); }
+.lucent-track__clip--midi { background: oklch(from var(--lucent-daw-midi) l c h / 0.16); border-color: var(--lucent-daw-midi); }
+.lucent-track__note { position: absolute; height: 5px; border-radius: 2px; background: var(--lucent-daw-midi); }
+.lucent-track__playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color--semantic--accent-strong); pointer-events: none; }
+
+/* ── Piano roll ──────────────────────────────────────────────────────────── */
+.lucent-piano-roll {
+  display: inline-block;
+  background: var(--color--semantic--surface-raised);
+  border: 1px solid var(--color--semantic--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--font--primitive--sans);
+}
+.lucent-piano-roll__top { display: flex; }
+.lucent-piano-roll__corner { flex: none; border-right: 1px solid var(--color--semantic--border-default); border-bottom: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-default); }
+.lucent-piano-roll__ruler { position: relative; border-bottom: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-default); cursor: pointer; }
+.lucent-piano-roll__bar { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--color--semantic--border-default); font: var(--dimension--primitive--fw-medium) 10px var(--font--primitive--sans); color: var(--color--semantic--text-muted); padding: 4px 0 0 4px; }
+.lucent-piano-roll__body { display: flex; }
+.lucent-piano-roll__keys { flex: none; border-right: 1px solid var(--color--semantic--border-default); position: relative; }
+.lucent-piano-roll__key { box-sizing: border-box; border-bottom: 1px solid var(--color--semantic--border-subtle); font: var(--dimension--primitive--fw-medium) 9px var(--font--primitive--sans); padding-right: 4px; text-align: right; line-height: 1; display: flex; align-items: center; justify-content: flex-end; }
+.lucent-piano-roll__key--white { background: var(--color--semantic--surface-raised); color: var(--color--semantic--text-muted); }
+.lucent-piano-roll__key--black { background: var(--color--primitive--neutral-40); color: var(--color--primitive--neutral-95); }
+.lucent-piano-roll__grid { position: relative; cursor: crosshair; }
+.lucent-piano-roll__row { position: absolute; left: 0; right: 0; border-bottom: 1px solid var(--color--semantic--border-subtle); }
+.lucent-piano-roll__row--white { background: var(--color--semantic--surface-raised); }
+.lucent-piano-roll__row--black { background: var(--color--semantic--surface-default); }
+.lucent-piano-roll__vline { position: absolute; top: 0; bottom: 0; }
+.lucent-piano-roll__note { position: absolute; background: var(--color--semantic--accent-default); border-radius: 3px; box-sizing: border-box; border: 1px solid var(--color--semantic--accent-strong); cursor: grab; }
+.lucent-piano-roll__note.is-selected { background: var(--color--semantic--accent-strong); box-shadow: 0 0 0 2px oklch(from var(--color--semantic--accent-default) l c h / 0.35); }
+.lucent-piano-roll__handle { position: absolute; top: 0; right: 0; bottom: 0; width: 6px; cursor: ew-resize; }
+.lucent-piano-roll__playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color--semantic--accent-strong); pointer-events: none; }
