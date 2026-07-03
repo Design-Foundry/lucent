@@ -33,4 +33,4 @@ export { LucentTooltip, LucentSelect, LucentMenuTrigger } from './overlays';
 export { LucentReferenceTag, LucentMessageBubble, LucentTypingIndicator, LucentCodeBlock, LucentPromptSuggestion, LucentComposer, LucentChatTrigger, LucentConversationRow, LucentJumpToLatest } from './messaging';
 
 // ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
-export { LucentCalendar, LucentDatePicker } from './temporal';
+export { LucentCalendar, LucentDatePicker, LucentDateRangePicker } from './temporal';

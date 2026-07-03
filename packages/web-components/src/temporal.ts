@@ -7,6 +7,13 @@ import type { ControlSize } from './foundations';
 import './controls'; // ensures <lucent-icon-button> is registered for the header nav
 
 const fmtDate = (d: Date): string => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const fmtMd = (d: Date): string => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+/** "Jul 9 – 12, 2026" (same month) · "Sep 28 – Oct 3, 2026" (same year) · full both otherwise. */
+const fmtRange = (s: Date, e?: Date): string => {
+  if (!e) return fmtDate(s);
+  if (s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth()) return `${fmtMd(s)} – ${e.getDate()}, ${e.getFullYear()}`;
+  return `${s.getFullYear() === e.getFullYear() ? fmtMd(s) : fmtDate(s)} – ${fmtDate(e)}`;
+};
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -165,9 +172,98 @@ export class LucentDatePicker extends LucentElement {
   }
 }
 
+// ─── lucent-date-range-picker ───────────────────────────────────────────────
+/** A field that opens a range Calendar in a floating popover (start–end dates). */
+@customElement('lucent-date-range-picker')
+export class LucentDateRangePicker extends LucentElement {
+  @property({ attribute: false }) start?: Date;
+  @property({ attribute: false }) end?: Date;
+  @property() label = '';
+  @property() placeholder = 'Select dates';
+  @property() size: ControlSize = 'md';
+  @property({ attribute: false }) min?: Date;
+  @property({ attribute: false }) max?: Date;
+
+  @state() private open = false;
+  private _popover?: HTMLElement;
+  private _cal?: LucentCalendar;
+  private cleanup?: () => void;
+
+  protected hostClasses(): string { return cx('lucent-date-picker', `lucent-date-picker--${this.size}`); }
+
+  disconnectedCallback(): void { super.disconnectedCallback(); this._close(); }
+
+  private _toggle(): void { this.open ? this._close() : this._open(); }
+
+  private _open(): void {
+    const trigger = this.querySelector<HTMLElement>('.lucent-date-picker__trigger');
+    if (!trigger) return;
+    this.open = true;
+    const pop = document.createElement('div');
+    pop.className = 'lucent-date-picker__popover';
+    const cal = document.createElement('lucent-calendar') as LucentCalendar;
+    cal.mode = 'range';
+    cal.month = this.start ?? new Date();
+    cal.rangeStart = this.start;
+    cal.rangeEnd = this.end;
+    if (this.min) cal.min = this.min;
+    if (this.max) cal.max = this.max;
+    cal.addEventListener('change', (e: Event) => this._choose((e as CustomEvent<{ value: Date }>).detail.value));
+    pop.appendChild(cal);
+    document.body.appendChild(pop);
+    this._popover = pop;
+    this._cal = cal;
+    this.cleanup = autoUpdate(trigger, pop, () => {
+      computePosition(trigger, pop, { placement: 'bottom-start', middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })] })
+        .then(({ x, y }) => Object.assign(pop.style, { position: 'absolute', left: `${x}px`, top: `${y}px` }));
+    });
+    setTimeout(() => document.addEventListener('click', this._onOutside), 0);
+  }
+
+  private _close = (): void => {
+    this.open = false;
+    this.cleanup?.(); this.cleanup = undefined;
+    this._popover?.remove(); this._popover = undefined;
+    this._cal = undefined;
+    document.removeEventListener('click', this._onOutside);
+  };
+
+  private _onOutside = (e: Event): void => {
+    const t = e.target as Node;
+    if (!this.contains(t) && !this._popover?.contains(t)) this._close();
+  };
+
+  private _choose(date: Date): void {
+    if (!this.start || this.end) {
+      this.start = date; this.end = undefined; // begin a fresh range
+    } else if (date < this.start) {
+      this.end = this.start; this.start = date; // normalize start ≤ end
+    } else {
+      this.end = date;
+    }
+    if (this._cal) { this._cal.rangeStart = this.start; this._cal.rangeEnd = this.end; }
+    if (this.start && this.end) {
+      this.dispatchEvent(new CustomEvent('change', { detail: { start: this.start, end: this.end }, bubbles: true }));
+      this._close();
+    }
+  }
+
+  protected render(): TemplateResult {
+    return html`
+      ${this.label ? html`<span class="lucent-date-picker__label">${this.label}</span>` : nothing}
+      <button type="button" class=${cx('lucent-date-picker__trigger', this.open && 'lucent-date-picker__trigger--focus')}
+        aria-haspopup="dialog" aria-expanded=${this.open} @click=${() => this._toggle()}>
+        <lucent-icon class="lucent-date-picker__icon" name="date_range" size="sm"></lucent-icon>
+        <span class=${cx('lucent-date-picker__value', !this.start && 'is-placeholder')}>${this.start ? fmtRange(this.start, this.end) : this.placeholder}</span>
+        <lucent-icon class="lucent-date-picker__caret" name="arrow_drop_down" size="sm"></lucent-icon>
+      </button>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-calendar': LucentCalendar;
     'lucent-date-picker': LucentDatePicker;
+    'lucent-date-range-picker': LucentDateRangePicker;
   }
 }

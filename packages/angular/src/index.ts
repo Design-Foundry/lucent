@@ -150,6 +150,9 @@ export type { CalendarMode } from './calendar/calendar';
 
 export { LucentDatePicker } from './date-picker/date-picker';
 
+export { LucentDateRangePicker } from './date-range-picker/date-range-picker';
+export type { DateRange } from './date-range-picker/date-range-picker';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

@@ -104,6 +104,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 |---|---|---|
 | `lucent-calendar` | ✅ [calendar.md](./calendar.md) | ✅ on-convention (date-picker atom) |
 | `lucent-date-picker` | ✅ [date-picker.md](./date-picker.md) | ✅ field + floating Calendar popover |
+| `lucent-date-range-picker` | ✅ [date-range-picker.md](./date-range-picker.md) | ✅ reuses Date Picker shell + range Calendar |
 
 ## Services
 | Service | Doc | Conventions |
