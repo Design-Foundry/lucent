@@ -114,6 +114,9 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-month-cell` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ reuses Event Chip |
 | `lucent-event-block` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ parent-positioned |
 | `lucent-agenda-row` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ category bar |
+| `lucent-scheduler-month` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ composes month cells |
+| `lucent-scheduler-week` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ time-grid + now-line |
+| `lucent-scheduler-agenda` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ grouped list + empty state |
 
 ## Services
 | Service | Doc | Conventions |

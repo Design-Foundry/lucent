@@ -39,3 +39,7 @@ export type { Time } from './temporal';
 // ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
 export { LucentEventChip, LucentMonthCell, LucentEventBlock, LucentAgendaRow } from './scheduler';
 export type { EventCategory, SchedulerEvent } from './scheduler';
+
+// ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
+export { LucentSchedulerMonth, LucentSchedulerWeek, LucentSchedulerAgenda } from './scheduler-views';
+export type { DatedEvent, TimedEvent } from './scheduler-views';

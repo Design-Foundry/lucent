@@ -83,5 +83,6 @@
 @import "components/date-picker.css";
 @import "components/time-picker.css";
 
-/* Scheduler — event parts (Month / Week / Agenda views compose these). */
+/* Scheduler — event parts + the Month / Week / Agenda views that compose them. */
 @import "components/scheduler.css";
+@import "components/scheduler-views.css";

@@ -1,0 +1,78 @@
+@*
+    LucentSchedulerMonth — emits the `.lucent-scheduler-month` contract (styles/components/scheduler-views.css).
+    A month calendar: toolbar + weekday row + 6×7 grid of LucentMonthCell (chips + overflow).
+    Prev/next navigate and raise MonthChanged (requires an interactive render mode).
+*@
+
+<div class="lucent-scheduler-month">
+    <div class="lucent-scheduler__header">
+        <span class="lucent-scheduler__title">@Title</span>
+        <div class="lucent-scheduler__nav">
+            <LucentIconButton Icon="chevron_left" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Previous month" @onclick="() => Shift(-1)" />
+            <LucentIconButton Icon="chevron_right" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Next month" @onclick="() => Shift(1)" />
+        </div>
+    </div>
+    <div class="lucent-scheduler-month__weekdays">
+        @foreach (var d in Weekdays)
+        {
+            <span class="lucent-scheduler-month__weekday">@d</span>
+        }
+    </div>
+    <div class="lucent-scheduler-month__grid">
+        @foreach (var c in Cells)
+        {
+            <LucentMonthCell Day="c.Day" Today="c.Today" Outside="c.Outside" Events="c.Events" MaxVisible="MaxPerDay" />
+        }
+    </div>
+</div>
+
+@code {
+    /// <summary>Any date within the month to display initially.</summary>
+    [Parameter] public DateTime Month { get; set; } = DateTime.Today;
+
+    /// <summary>Raised when prev/next changes the displayed month.</summary>
+    [Parameter] public EventCallback<DateTime> MonthChanged { get; set; }
+
+    /// <summary>Events shown as chips in their day cells.</summary>
+    [Parameter] public IReadOnlyList<DatedEvent> Events { get; set; } = [];
+
+    /// <summary>Chips shown per day before collapsing into "+N more".</summary>
+    [Parameter] public int MaxPerDay { get; set; } = 2;
+
+    private static readonly string[] Weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+
+    private DateTime? _month;
+    private DateTime Displayed => new((_month ?? Month).Year, (_month ?? Month).Month, 1);
+    private string Title => Displayed.ToString("MMMM yyyy", CultureInfo.InvariantCulture);
+
+    private record CellVM(int Day, bool Today, bool Outside, IReadOnlyList<SchedulerEvent> Events);
+
+    private IEnumerable<CellVM> Cells
+    {
+        get
+        {
+            var cur = Displayed;
+            var first = new DateTime(cur.Year, cur.Month, 1);
+            var off = ((int)first.DayOfWeek + 6) % 7;
+            var today = DateTime.Today;
+            var byDay = new Dictionary<DateTime, List<SchedulerEvent>>();
+            foreach (var e in Events)
+            {
+                if (!byDay.TryGetValue(e.Date.Date, out var list)) { list = new(); byDay[e.Date.Date] = list; }
+                list.Add(new SchedulerEvent(e.Category, e.Label, e.Time));
+            }
+            for (var i = 0; i < 42; i++)
+            {
+                var date = first.AddDays(i - off);
+                byDay.TryGetValue(date.Date, out var evs);
+                yield return new CellVM(date.Day, date.Date == today, date.Month != cur.Month, evs ?? (IReadOnlyList<SchedulerEvent>)Array.Empty<SchedulerEvent>());
+            }
+        }
+    }
+
+    private async Task Shift(int delta)
+    {
+        _month = Displayed.AddMonths(delta);
+        await MonthChanged.InvokeAsync(_month.Value);
+    }
+}

@@ -47,3 +47,7 @@ export type { CalendarProps, DatePickerProps, DateRangePickerProps, DateRange, T
 // ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
 export { EventChip, MonthCell, EventBlock, AgendaRow } from './scheduler';
 export type { EventCategory, SchedulerEvent, EventChipProps, MonthCellProps, EventBlockProps, AgendaRowProps } from './scheduler';
+
+// ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
+export { SchedulerMonth, SchedulerWeek, SchedulerAgenda } from './scheduler-views';
+export type { DatedEvent, TimedEvent, SchedulerMonthProps, SchedulerWeekProps, SchedulerAgendaProps } from './scheduler-views';

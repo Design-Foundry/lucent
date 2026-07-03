@@ -1,0 +1,129 @@
+/* =============================================================================
+ * Scheduler views — compose the scheduler parts into full calendars.
+ *   .lucent-scheduler-month   — month grid of .lucent-month-cell + chips
+ *   .lucent-scheduler-week    — day-column time grid of .lucent-event-block + now-line
+ *   .lucent-scheduler-agenda  — grouped list of .lucent-agenda-row
+ *
+ * Column count / hour height are the only view-specific geometry; everything visual comes
+ * from tokens and the parts.
+ * ============================================================================= */
+
+/* ── Shared toolbar (title + nav), used by every view ────────────────────── */
+.lucent-scheduler__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dimension--primitive--spacing-2);
+}
+.lucent-scheduler__title {
+  font-size: var(--dimension--primitive--fs-heading-md);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-strong);
+}
+.lucent-scheduler__nav { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-1); }
+
+/* ── Month view ──────────────────────────────────────────────────────────── */
+.lucent-scheduler-month {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dimension--primitive--spacing-3);
+  font-family: var(--font--primitive--sans);
+}
+.lucent-scheduler-month__weekdays { display: grid; grid-template-columns: repeat(7, 1fr); }
+.lucent-scheduler-month__weekday {
+  padding: var(--dimension--primitive--spacing-1);
+  font-size: var(--dimension--primitive--fs-caption);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-muted);
+  text-align: center;
+}
+.lucent-scheduler-month__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--color--semantic--border-subtle);
+  border: 1px solid var(--color--semantic--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+/* In the grid the hairlines come from the 1px gap; the cells drop their own border. */
+.lucent-scheduler-month__grid .lucent-month-cell { border: none; }
+
+/* ── Week view (time grid) ───────────────────────────────────────────────── */
+.lucent-scheduler-week {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font--primitive--sans);
+  --lucent-week-hour-h: 44px;
+  --lucent-week-gutter-w: 56px;
+}
+.lucent-scheduler-week__head {
+  display: grid;
+  grid-template-columns: var(--lucent-week-gutter-w) repeat(7, 1fr);
+}
+.lucent-scheduler-week__day-head {
+  padding: var(--dimension--primitive--spacing-1);
+  text-align: center;
+  font-size: var(--dimension--primitive--fs-caption);
+  color: var(--color--semantic--text-muted);
+  border-left: 1px solid var(--color--semantic--border-subtle);
+}
+.lucent-scheduler-week__day-head.is-today { color: var(--color--semantic--accent-strong); font-weight: var(--dimension--primitive--fw-medium); }
+.lucent-scheduler-week__body {
+  display: grid;
+  grid-template-columns: var(--lucent-week-gutter-w) repeat(7, 1fr);
+}
+.lucent-scheduler-week__gutter { display: flex; flex-direction: column; }
+.lucent-scheduler-week__hour {
+  height: var(--lucent-week-hour-h);
+  font-size: var(--dimension--primitive--fs-caption);
+  color: var(--color--semantic--text-subtle);
+  text-align: right;
+  padding-right: var(--dimension--primitive--spacing-1);
+  transform: translateY(-0.5em);
+}
+.lucent-scheduler-week__col {
+  position: relative;
+  border-left: 1px solid var(--color--semantic--border-subtle);
+}
+.lucent-scheduler-week__col.is-today { background: var(--color--semantic--accent-subtle); }
+.lucent-scheduler-week__slot { height: var(--lucent-week-hour-h); border-top: 1px solid var(--color--semantic--border-subtle); }
+.lucent-scheduler-week__event { position: absolute; left: 2px; right: 2px; z-index: 1; }
+.lucent-scheduler-week__now {
+  position: absolute;
+  left: 0; right: 0;
+  height: 0;
+  border-top: 2px solid var(--color--semantic--error);
+  z-index: 2;
+}
+.lucent-scheduler-week__now::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: -4px;
+  width: 7px; height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--color--semantic--error);
+}
+
+/* ── Agenda view (grouped list) ──────────────────────────────────────────── */
+.lucent-scheduler-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dimension--primitive--spacing-4);
+  font-family: var(--font--primitive--sans);
+}
+.lucent-scheduler-agenda__group { display: flex; flex-direction: column; }
+.lucent-scheduler-agenda__day {
+  font-size: var(--dimension--primitive--fs-body-sm);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-default);
+  padding-bottom: var(--dimension--primitive--spacing-1);
+}
+.lucent-scheduler-agenda__day.is-today { color: var(--color--semantic--accent-strong); }
+.lucent-scheduler-agenda__group .lucent-agenda-row + .lucent-agenda-row { border-top: 1px solid var(--color--semantic--border-subtle); }
+.lucent-scheduler-agenda__empty {
+  padding: var(--dimension--primitive--spacing-6) var(--dimension--primitive--spacing-4);
+  text-align: center;
+  color: var(--color--semantic--text-muted);
+  font-size: var(--dimension--primitive--fs-body-sm);
+}
