@@ -51,3 +51,7 @@ export type { EventCategory, SchedulerEvent, EventChipProps, MonthCellProps, Eve
 // ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
 export { SchedulerMonth, SchedulerWeek, SchedulerAgenda } from './scheduler-views';
 export type { DatedEvent, TimedEvent, SchedulerMonthProps, SchedulerWeekProps, SchedulerAgendaProps } from './scheduler-views';
+
+// ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
+export { Knob, Fader } from './daw';
+export type { KnobProps, FaderProps } from './daw';

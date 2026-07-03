@@ -43,3 +43,6 @@ export type { EventCategory, SchedulerEvent } from './scheduler';
 // ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
 export { LucentSchedulerMonth, LucentSchedulerWeek, LucentSchedulerAgenda } from './scheduler-views';
 export type { DatedEvent, TimedEvent } from './scheduler-views';
+
+// ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
+export { LucentKnob, LucentFader } from './daw';

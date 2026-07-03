@@ -86,3 +86,6 @@
 /* Scheduler — event parts + the Month / Week / Agenda views that compose them. */
 @import "components/scheduler.css";
 @import "components/scheduler-views.css";
+
+/* DAW — audio-workstation controls (SVG/canvas + pointer interaction). */
+@import "components/daw.css";

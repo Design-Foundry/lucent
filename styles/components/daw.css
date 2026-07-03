@@ -1,0 +1,47 @@
+/* =============================================================================
+ * DAW controls — audio-workstation widgets. Unlike the rest of Lucent these render
+ * SVG / canvas and carry pointer interaction, so their JS lives in each kit; this file
+ * tokenizes the shared visual surface (colors, cursor, focus, geometry).
+ *   .lucent-knob   — rotary control (SVG)
+ *   .lucent-fader  — channel fader (absolutely-positioned track/fill/thumb)
+ * ============================================================================= */
+
+/* ── Knob ────────────────────────────────────────────────────────────────── */
+.lucent-knob {
+  display: inline-block;
+  cursor: ns-resize;
+  touch-action: none;
+  outline: none;
+}
+.lucent-knob[disabled], .lucent-knob.is-disabled { cursor: not-allowed; opacity: 0.5; }
+.lucent-knob:focus-visible svg {
+  outline: 2px solid var(--color--semantic--border-focus);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* ── Fader ───────────────────────────────────────────────────────────────── */
+.lucent-fader {
+  display: block;
+  position: relative;
+  touch-action: none;
+  outline: none;
+  cursor: ns-resize;
+}
+.lucent-fader[disabled], .lucent-fader.is-disabled { opacity: 0.5; cursor: not-allowed; }
+.lucent-fader:focus-visible {
+  outline: 2px solid var(--color--semantic--border-focus);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+.lucent-fader__track, .lucent-fader__fill, .lucent-fader__thumb, .lucent-fader__unity, .lucent-fader__tick { position: absolute; }
+.lucent-fader__track { background: var(--color--semantic--border-default); border-radius: 3px; }
+.lucent-fader__fill { background: var(--color--semantic--accent-default); border-radius: 3px; }
+.lucent-fader__unity { background: var(--color--semantic--text-muted); border-radius: 1px; }
+.lucent-fader__tick { background: var(--color--semantic--border-default); }
+.lucent-fader__thumb {
+  background: var(--color--semantic--surface-raised);
+  border: 1px solid var(--color--semantic--border-strong);
+  border-radius: 3px;
+  box-shadow: var(--shadow-sm);
+}
