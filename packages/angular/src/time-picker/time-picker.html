@@ -1,0 +1,46 @@
+@if (label()) {
+  <span class="lucent-time-picker__label">{{ label() }}</span>
+}
+
+<button
+  #trigger
+  cdkOverlayOrigin
+  #origin="cdkOverlayOrigin"
+  type="button"
+  class="lucent-time-picker__trigger"
+  [class.lucent-time-picker__trigger--focus]="isOpen()"
+  aria-haspopup="dialog"
+  [attr.aria-expanded]="isOpen()"
+  (click)="toggle()"
+>
+  <lucent-icon class="lucent-time-picker__icon" name="schedule" size="sm" />
+  <span class="lucent-time-picker__value" [class.is-placeholder]="!value()">{{ display() }}</span>
+  <lucent-icon class="lucent-time-picker__caret" name="arrow_drop_down" size="sm" />
+</button>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="isOpen()"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  (overlayOutsideClick)="close()"
+  (detach)="close()"
+>
+  <div class="lucent-time-picker__popover">
+    <div class="lucent-time-picker__col" role="listbox" aria-label="Hour">
+      @for (h of hours; track h) {
+        <button type="button" class="lucent-time-picker__cell" [class.is-selected]="selH() === h" (click)="pickHour(h)">{{ h }}</button>
+      }
+    </div>
+    <div class="lucent-time-picker__col" role="listbox" aria-label="Minute">
+      @for (m of minutes(); track m) {
+        <button type="button" class="lucent-time-picker__cell" [class.is-selected]="selM() === m" (click)="pickMinute(m)">{{ pad(m) }}</button>
+      }
+    </div>
+    <div class="lucent-time-picker__col" role="listbox" aria-label="Period">
+      @for (p of periods; track p) {
+        <button type="button" class="lucent-time-picker__cell" [class.is-selected]="selP() === p" (click)="pickPeriod(p)">{{ p }}</button>
+      }
+    </div>
+  </div>
+</ng-template>

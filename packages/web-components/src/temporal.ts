@@ -1,4 +1,4 @@
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, nothing, render, type TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom';
 import { LucentElement } from './base';
@@ -14,6 +14,13 @@ const fmtRange = (s: Date, e?: Date): string => {
   if (s.getFullYear() === e.getFullYear() && s.getMonth() === e.getMonth()) return `${fmtMd(s)} – ${e.getDate()}, ${e.getFullYear()}`;
   return `${s.getFullYear() === e.getFullYear() ? fmtMd(s) : fmtDate(s)} – ${fmtDate(e)}`;
 };
+
+/** A time of day, 24-hour internally. */
+export interface Time { hours: number; minutes: number; }
+const to12h = (h: number): number => ((h + 11) % 12) + 1;
+const periodOf = (h: number): 'AM' | 'PM' => (h < 12 ? 'AM' : 'PM');
+const from12h = (h12: number, period: 'AM' | 'PM'): number => (period === 'PM' ? (h12 % 12) + 12 : h12 % 12);
+const fmtTime = (t: Time): string => `${to12h(t.hours)}:${String(t.minutes).padStart(2, '0')} ${periodOf(t.hours)}`;
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -260,10 +267,114 @@ export class LucentDateRangePicker extends LucentElement {
   }
 }
 
+// ─── lucent-time-picker ─────────────────────────────────────────────────────
+/** A field that opens an hour / minute / period column popover to pick a time of day. */
+@customElement('lucent-time-picker')
+export class LucentTimePicker extends LucentElement {
+  @property({ attribute: false }) value?: Time;
+  @property() label = '';
+  @property() placeholder = 'Select time';
+  @property() size: ControlSize = 'md';
+  @property({ type: Number }) minuteStep = 5;
+
+  @state() private open = false;
+  private _popover?: HTMLElement;
+  private cleanup?: () => void;
+
+  protected hostClasses(): string { return cx('lucent-time-picker', `lucent-time-picker--${this.size}`); }
+
+  disconnectedCallback(): void { super.disconnectedCallback(); this._close(); }
+
+  private get _hours(): number[] { return Array.from({ length: 12 }, (_, i) => i + 1); }
+  private get _minutes(): number[] {
+    const step = this.minuteStep > 0 ? this.minuteStep : 5;
+    const out: number[] = [];
+    for (let m = 0; m < 60; m += step) out.push(m);
+    return out;
+  }
+
+  private _toggle(): void { this.open ? this._close() : this._open(); }
+
+  private _open(): void {
+    const trigger = this.querySelector<HTMLElement>('.lucent-time-picker__trigger');
+    if (!trigger) return;
+    this.open = true;
+    const pop = document.createElement('div');
+    pop.className = 'lucent-time-picker__popover';
+    document.body.appendChild(pop);
+    this._popover = pop;
+    this._renderPopover();
+    this.cleanup = autoUpdate(trigger, pop, () => {
+      computePosition(trigger, pop, { placement: 'bottom-start', middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })] })
+        .then(({ x, y }) => Object.assign(pop.style, { position: 'absolute', left: `${x}px`, top: `${y}px` }));
+    });
+    setTimeout(() => document.addEventListener('click', this._onOutside), 0);
+  }
+
+  private _renderPopover(): void {
+    if (!this._popover) return;
+    const v = this.value;
+    const selH = v ? to12h(v.hours) : null, selM = v ? v.minutes : null, selP = v ? periodOf(v.hours) : null;
+    render(html`
+      <div class="lucent-time-picker__col" role="listbox" aria-label="Hour">
+        ${this._hours.map((h) => html`<button type="button" class=${cx('lucent-time-picker__cell', selH === h && 'is-selected')} @click=${() => this._pickHour(h)}>${h}</button>`)}
+      </div>
+      <div class="lucent-time-picker__col" role="listbox" aria-label="Minute">
+        ${this._minutes.map((m) => html`<button type="button" class=${cx('lucent-time-picker__cell', selM === m && 'is-selected')} @click=${() => this._pickMinute(m)}>${String(m).padStart(2, '0')}</button>`)}
+      </div>
+      <div class="lucent-time-picker__col" role="listbox" aria-label="Period">
+        ${(['AM', 'PM'] as const).map((p) => html`<button type="button" class=${cx('lucent-time-picker__cell', selP === p && 'is-selected')} @click=${() => this._pickPeriod(p)}>${p}</button>`)}
+      </div>`, this._popover);
+  }
+
+  private _commit(t: Time): void {
+    this.value = t;
+    this.dispatchEvent(new CustomEvent('change', { detail: { value: t }, bubbles: true }));
+    this._renderPopover();
+  }
+
+  private _pickHour(h12: number): void {
+    const v = this.value;
+    this._commit({ hours: from12h(h12, v ? periodOf(v.hours) : 'AM'), minutes: v ? v.minutes : 0 });
+  }
+  private _pickMinute(m: number): void {
+    const v = this.value;
+    this._commit({ hours: v ? v.hours : 9, minutes: m });
+  }
+  private _pickPeriod(p: 'AM' | 'PM'): void {
+    const v = this.value;
+    this._commit({ hours: from12h(v ? to12h(v.hours) : 12, p), minutes: v ? v.minutes : 0 });
+  }
+
+  private _close = (): void => {
+    this.open = false;
+    this.cleanup?.(); this.cleanup = undefined;
+    this._popover?.remove(); this._popover = undefined;
+    document.removeEventListener('click', this._onOutside);
+  };
+
+  private _onOutside = (e: Event): void => {
+    const t = e.target as Node;
+    if (!this.contains(t) && !this._popover?.contains(t)) this._close();
+  };
+
+  protected render(): TemplateResult {
+    return html`
+      ${this.label ? html`<span class="lucent-time-picker__label">${this.label}</span>` : nothing}
+      <button type="button" class=${cx('lucent-time-picker__trigger', this.open && 'lucent-time-picker__trigger--focus')}
+        aria-haspopup="dialog" aria-expanded=${this.open} @click=${() => this._toggle()}>
+        <lucent-icon class="lucent-time-picker__icon" name="schedule" size="sm"></lucent-icon>
+        <span class=${cx('lucent-time-picker__value', !this.value && 'is-placeholder')}>${this.value ? fmtTime(this.value) : this.placeholder}</span>
+        <lucent-icon class="lucent-time-picker__caret" name="arrow_drop_down" size="sm"></lucent-icon>
+      </button>`;
+  }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-calendar': LucentCalendar;
     'lucent-date-picker': LucentDatePicker;
     'lucent-date-range-picker': LucentDateRangePicker;
+    'lucent-time-picker': LucentTimePicker;
   }
 }

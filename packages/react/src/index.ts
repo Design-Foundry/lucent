@@ -41,5 +41,5 @@ export { ReferenceTag, MessageBubble, TypingIndicator, CodeBlock, PromptSuggesti
 export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeBlockProps, PromptSuggestionProps, ComposerProps, ChatTriggerProps, ConversationRowProps, JumpToLatestProps } from './messaging';
 
 // ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
-export { Calendar, DatePicker, DateRangePicker } from './temporal';
-export type { CalendarProps, DatePickerProps, DateRangePickerProps, DateRange } from './temporal';
+export { Calendar, DatePicker, DateRangePicker, TimePicker } from './temporal';
+export type { CalendarProps, DatePickerProps, DateRangePickerProps, DateRange, TimePickerProps, Time } from './temporal';

@@ -14,6 +14,12 @@ const fmtRange = (s: Date, e?: Date): string => {
   return `${s.getFullYear() === e.getFullYear() ? fmtMd(s) : fmtDate(s)} – ${fmtDate(e)}`;
 };
 
+export interface Time { hours: number; minutes: number; }
+const to12h = (h: number): number => ((h + 11) % 12) + 1;
+const periodOf = (h: number): 'AM' | 'PM' => (h < 12 ? 'AM' : 'PM');
+const from12h = (h12: number, period: 'AM' | 'PM'): number => (period === 'PM' ? (h12 % 12) + 12 : h12 % 12);
+const fmtTime = (t: Time): string => `${to12h(t.hours)}:${String(t.minutes).padStart(2, '0')} ${periodOf(t.hours)}`;
+
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -207,6 +213,76 @@ export function DateRangePicker({ value, onChange, label, placeholder = 'Select 
               min={min} max={max}
               onChange={choose}
             />
+          </div>
+        </FloatingPortal>
+      )}
+    </div>
+  );
+}
+
+export interface TimePickerProps {
+  value?: Time | null;
+  onChange?: (time: Time) => void;
+  label?: string;
+  placeholder?: string;
+  size?: ControlSize;
+  /** Minute granularity in the minute column. */
+  minuteStep?: number;
+  className?: string;
+}
+
+/** A field that opens an hour / minute / period column popover to pick a time of day. */
+export function TimePicker({ value, onChange, label, placeholder = 'Select time', size = 'md', minuteStep = 5, className }: TimePickerProps) {
+  const [open, setOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    open, onOpenChange: setOpen, placement: 'bottom-start',
+    middleware: [offset(4), flip({ padding: 8 }), shift({ padding: 8 })],
+    whileElementsMounted: autoUpdate,
+  });
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    useClick(context), useDismiss(context), useRole(context, { role: 'dialog' }),
+  ]);
+
+  const hours = Array.from({ length: 12 }, (_, i) => i + 1);
+  const step = minuteStep > 0 ? minuteStep : 5;
+  const minutes = Array.from({ length: Math.ceil(60 / step) }, (_, i) => i * step);
+  const selH = value ? to12h(value.hours) : null, selM = value ? value.minutes : null, selP = value ? periodOf(value.hours) : null;
+
+  const pickHour = (h12: number) => onChange?.({ hours: from12h(h12, value ? periodOf(value.hours) : 'AM'), minutes: value ? value.minutes : 0 });
+  const pickMinute = (m: number) => onChange?.({ hours: value ? value.hours : 9, minutes: m });
+  const pickPeriod = (p: 'AM' | 'PM') => onChange?.({ hours: from12h(value ? to12h(value.hours) : 12, p), minutes: value ? value.minutes : 0 });
+
+  return (
+    <div className={cx('lucent-time-picker', `lucent-time-picker--${size}`, className)}>
+      {label && <span className="lucent-time-picker__label">{label}</span>}
+      <button
+        ref={refs.setReference} {...getReferenceProps()}
+        type="button"
+        className={cx('lucent-time-picker__trigger', open && 'lucent-time-picker__trigger--focus')}
+        aria-haspopup="dialog" aria-expanded={open}
+      >
+        <Icon className="lucent-time-picker__icon" name="schedule" size="sm" />
+        <span className={cx('lucent-time-picker__value', !value && 'is-placeholder')}>{value ? fmtTime(value) : placeholder}</span>
+        <Icon className="lucent-time-picker__caret" name="arrow_drop_down" size="sm" />
+      </button>
+      {open && (
+        <FloatingPortal>
+          <div ref={refs.setFloating} className="lucent-time-picker__popover" style={floatingStyles} {...getFloatingProps()}>
+            <div className="lucent-time-picker__col" role="listbox" aria-label="Hour">
+              {hours.map((h) => (
+                <button key={h} type="button" className={cx('lucent-time-picker__cell', selH === h && 'is-selected')} onClick={() => pickHour(h)}>{h}</button>
+              ))}
+            </div>
+            <div className="lucent-time-picker__col" role="listbox" aria-label="Minute">
+              {minutes.map((m) => (
+                <button key={m} type="button" className={cx('lucent-time-picker__cell', selM === m && 'is-selected')} onClick={() => pickMinute(m)}>{String(m).padStart(2, '0')}</button>
+              ))}
+            </div>
+            <div className="lucent-time-picker__col" role="listbox" aria-label="Period">
+              {(['AM', 'PM'] as const).map((p) => (
+                <button key={p} type="button" className={cx('lucent-time-picker__cell', selP === p && 'is-selected')} onClick={() => pickPeriod(p)}>{p}</button>
+              ))}
+            </div>
           </div>
         </FloatingPortal>
       )}
