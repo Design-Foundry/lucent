@@ -45,4 +45,4 @@ export { LucentSchedulerMonth, LucentSchedulerWeek, LucentSchedulerAgenda } from
 export type { DatedEvent, TimedEvent } from './scheduler-views';
 
 // ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
-export { LucentKnob, LucentFader } from './daw';
+export { LucentKnob, LucentFader, LucentMeter, LucentWaveform } from './daw';

@@ -53,5 +53,5 @@ export { SchedulerMonth, SchedulerWeek, SchedulerAgenda } from './scheduler-view
 export type { DatedEvent, TimedEvent, SchedulerMonthProps, SchedulerWeekProps, SchedulerAgendaProps } from './scheduler-views';
 
 // ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
-export { Knob, Fader } from './daw';
-export type { KnobProps, FaderProps } from './daw';
+export { Knob, Fader, Meter, Waveform } from './daw';
+export type { KnobProps, FaderProps, MeterProps, WaveformProps } from './daw';

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { cx } from './cx';
 
 const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
@@ -181,6 +181,134 @@ export function Fader({ min = -60, max = 6, value, defaultValue, disabled = fals
       ))}
       <div className="lucent-fader__unity" style={{ left: W / 2 - 9, width: 18, height: 2, bottom: dbToP(0) * H - 1 }} />
       <div className="lucent-fader__thumb" style={{ left: W / 2 - 14, width: 28, height: 12, bottom: y - 6 }} />
+    </div>
+  );
+}
+
+export interface MeterProps {
+  /** Current level in dB per channel, e.g. `[-12]` mono or `[-12, -9]` stereo. Drive per rAF. */
+  level?: number[];
+  segments?: number;
+  stereo?: boolean;
+  min?: number;
+  max?: number;
+  ariaLabel?: string;
+  className?: string;
+}
+
+/** A segmented level meter (mono or stereo) with green→amber→red zones and peak-hold. */
+export function Meter({ level, segments = 14, stereo = false, min = -60, max = 0, ariaLabel, className }: MeterProps) {
+  const chans = stereo ? 2 : 1;
+  const cur = level && level.length ? level : new Array(chans).fill(min);
+  const peakRef = useRef<number[]>(new Array(chans).fill(min));
+  // Peak-hold with slow decay (updated during render — a visualization, intentionally).
+  peakRef.current = cur.map((v, i) => Math.max(v, (peakRef.current[i] ?? min) - 0.7));
+  const peak = peakRef.current;
+  const range = max - min;
+  const zone = (i: number, n: number): string => (i >= n - 2 ? 'red' : i >= n - 5 ? 'amber' : 'green');
+
+  return (
+    <div className={cx('lucent-meter', className)} role="meter" aria-label={ariaLabel} aria-valuenow={Number(Math.max(...cur).toFixed(0))} aria-valuetext={cur.map((v) => v.toFixed(0)).join('/')}>
+      {cur.map((cv, c) => {
+        const lit = Math.round(((cv - min) / range) * segments);
+        const peakIdx = Math.min(segments - 1, Math.floor(((peak[c] - min) / range) * segments));
+        return (
+          <div key={c} className="lucent-meter__col">
+            {Array.from({ length: segments }, (_, i) => {
+              const on = i < lit || (i === peakIdx && peak[c] > min);
+              return <div key={i} className={cx('lucent-meter__seg', on && 'is-on', on && `lucent-meter__seg--${zone(i, segments)}`)} />;
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export interface WaveformProps {
+  peaks?: number[];
+  progress?: number;
+  defaultProgress?: number;
+  height?: number;
+  onInput?: (progress: number) => void;
+  onChange?: (progress: number) => void;
+  ariaLabel?: string;
+  className?: string;
+}
+
+/** A canvas peak-rendered waveform. Click/drag to seek; played portion is solid, rest faded. */
+export function Waveform({ peaks = [], progress, defaultProgress = 0, height = 96, onInput, onChange, ariaLabel, className }: WaveformProps) {
+  const controlled = progress !== undefined;
+  const [internal, setInternal] = useState(defaultProgress);
+  const prog = controlled ? (progress as number) : internal;
+  const progRef = useRef(prog);
+  progRef.current = prog;
+  const hostRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const setProg = (p: number) => {
+    const np = clamp(p, 0, 1);
+    progRef.current = np;
+    if (!controlled) setInternal(np);
+    onInput?.(np);
+  };
+
+  const draw = useCallback(() => {
+    const host = hostRef.current, canvas = canvasRef.current;
+    if (!host || !canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = host.clientWidth || 520, h = height;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = `${w}px`; canvas.style.height = `${h}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const mid = h / 2, n = peaks.length;
+    if (!n) return;
+    const playedX = progRef.current * w;
+    const cs = getComputedStyle(host);
+    const solid = cs.getPropertyValue('--lucent-waveform-played').trim() || '#2f6f5b';
+    const weak = cs.getPropertyValue('--lucent-waveform-unplayed').trim() || 'rgba(47,111,91,0.32)';
+    const ph = cs.getPropertyValue('--lucent-waveform-playhead').trim() || '#143b30';
+    for (let x = 0; x < w; x++) {
+      const amp = peaks[Math.floor(x / w * n)] * (mid - 2);
+      ctx.strokeStyle = x <= playedX ? solid : weak;
+      ctx.beginPath(); ctx.moveTo(x + 0.5, mid - amp); ctx.lineTo(x + 0.5, mid + amp); ctx.stroke();
+    }
+    ctx.strokeStyle = ph; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(playedX, 0); ctx.lineTo(playedX, h); ctx.stroke();
+  }, [peaks, height]);
+
+  useEffect(() => { draw(); }, [draw, prog]);
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    const ro = new ResizeObserver(() => draw());
+    ro.observe(host);
+    return () => ro.disconnect();
+  }, [draw]);
+
+  const seek = (clientX: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const r = canvas.getBoundingClientRect();
+    setProg((clientX - r.left) / r.width);
+  };
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    seek(e.clientX);
+    try { (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId); } catch { /* capture optional */ }
+    const move = (ev: PointerEvent) => seek(ev.clientX);
+    const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); onChange?.(progRef.current); };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    e.preventDefault();
+  };
+
+  return (
+    <div ref={hostRef} className={cx('lucent-waveform', className)} role="slider" aria-label={ariaLabel} aria-valuenow={Math.round(prog * 100)} onPointerDown={onPointerDown}>
+      <canvas ref={canvasRef} className="lucent-waveform__canvas" />
     </div>
   );
 }

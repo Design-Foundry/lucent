@@ -1,5 +1,5 @@
 import { html, type TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { LucentElement } from './base';
 
 const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
@@ -192,9 +192,139 @@ export class LucentFader extends LucentElement {
   }
 }
 
+// ─── lucent-meter ───────────────────────────────────────────────────────────
+/** A segmented level meter (mono or stereo) with green→amber→red zones and peak-hold.
+ *  Drive it each animation frame by assigning the `level` property (dB per channel). */
+@customElement('lucent-meter')
+export class LucentMeter extends LucentElement {
+  @property({ type: Number }) segments = 14;
+  @property({ type: Boolean }) stereo = false;
+  @property({ type: Number }) min = -60;
+  @property({ type: Number }) max = 0;
+
+  @state() private _cur: number[] = [];
+  @state() private _peak: number[] = [];
+
+  protected hostClasses(): string { return 'lucent-meter'; }
+
+  private get _chans(): number { return this.stereo ? 2 : 1; }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.setAttribute('role', 'meter');
+    if (this._cur.length === 0) { this._cur = new Array(this._chans).fill(this.min); this._peak = new Array(this._chans).fill(this.min); }
+  }
+
+  /** Current level in dB per channel (e.g. `[-12]` mono or `[-12, -9]` stereo). */
+  set level(arr: number[]) {
+    this._cur = arr;
+    this._peak = arr.map((v, i) => Math.max(v, (this._peak[i] ?? this.min) - 0.7));
+    this.setAttribute('aria-valuenow', arr.map((v) => v.toFixed(0)).join('/'));
+  }
+  get level(): number[] { return this._cur; }
+
+  private _zone(i: number, n: number): 'red' | 'amber' | 'green' { return i >= n - 2 ? 'red' : i >= n - 5 ? 'amber' : 'green'; }
+
+  protected render(): TemplateResult {
+    const n = this.segments, range = this.max - this.min;
+    const cur = this._cur.length ? this._cur : new Array(this._chans).fill(this.min);
+    const peak = this._peak.length ? this._peak : new Array(this._chans).fill(this.min);
+    return html`${cur.map((cv, c) => {
+      const lit = Math.round(((cv - this.min) / range) * n);
+      const peakIdx = Math.min(n - 1, Math.floor(((peak[c] - this.min) / range) * n));
+      return html`<div class="lucent-meter__col">${Array.from({ length: n }, (_, i) => {
+        const on = i < lit || (i === peakIdx && peak[c] > this.min);
+        return html`<div class=${on ? `lucent-meter__seg is-on lucent-meter__seg--${this._zone(i, n)}` : 'lucent-meter__seg'}></div>`;
+      })}</div>`;
+    })}`;
+  }
+}
+
+// ─── lucent-waveform ────────────────────────────────────────────────────────
+/** A canvas peak-rendered waveform. Click/drag to seek; played portion is solid, rest faded. */
+@customElement('lucent-waveform')
+export class LucentWaveform extends LucentElement {
+  @property({ type: Number }) height = 96;
+  @property({ type: Number }) progress = 0;
+  @property({ attribute: false }) peaks: number[] = [];
+
+  private _canvas?: HTMLCanvasElement;
+  private _ctx?: CanvasRenderingContext2D | null;
+  private _ro?: ResizeObserver;
+  private _move?: (e: PointerEvent) => void;
+
+  protected hostClasses(): string { return 'lucent-waveform'; }
+
+  protected firstUpdated(): void {
+    this._canvas = this.querySelector('canvas') ?? undefined;
+    this._ctx = this._canvas?.getContext('2d');
+    this.setAttribute('role', 'slider');
+    this.addEventListener('pointerdown', this._onDown);
+    this._ro = new ResizeObserver(() => this._draw());
+    this._ro.observe(this);
+    this._draw();
+  }
+
+  protected updated(): void { this._draw(); }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this._ro?.disconnect();
+    this.removeEventListener('pointerdown', this._onDown);
+  }
+
+  private _seek(clientX: number): void {
+    if (!this._canvas) return;
+    const r = this._canvas.getBoundingClientRect();
+    this.progress = clamp((clientX - r.left) / r.width, 0, 1);
+    this.dispatchEvent(new CustomEvent('input', { detail: { progress: this.progress }, bubbles: true }));
+  }
+
+  private _onDown = (e: PointerEvent): void => {
+    this._seek(e.clientX);
+    try { this.setPointerCapture(e.pointerId); } catch { /* capture optional */ }
+    this._move = (ev: PointerEvent) => this._seek(ev.clientX);
+    this.addEventListener('pointermove', this._move);
+    this.addEventListener('pointerup', () => {
+      if (this._move) this.removeEventListener('pointermove', this._move);
+      this.dispatchEvent(new CustomEvent('change', { detail: { progress: this.progress }, bubbles: true }));
+    }, { once: true });
+    e.preventDefault();
+  };
+
+  private _draw(): void {
+    if (!this._ctx || !this._canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = this.clientWidth || 520, h = this.height;
+    this._canvas.width = w * dpr; this._canvas.height = h * dpr;
+    this._canvas.style.width = `${w}px`; this._canvas.style.height = `${h}px`;
+    const ctx = this._ctx; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    const mid = h / 2, peaks = this.peaks, n = peaks.length;
+    if (!n) return;
+    const playedX = this.progress * w;
+    const cs = getComputedStyle(this);
+    const solid = cs.getPropertyValue('--lucent-waveform-played').trim() || '#2f6f5b';
+    const weak = cs.getPropertyValue('--lucent-waveform-unplayed').trim() || 'rgba(47,111,91,0.32)';
+    const ph = cs.getPropertyValue('--lucent-waveform-playhead').trim() || '#143b30';
+    for (let x = 0; x < w; x++) {
+      const amp = peaks[Math.floor(x / w * n)] * (mid - 2);
+      ctx.strokeStyle = x <= playedX ? solid : weak;
+      ctx.beginPath(); ctx.moveTo(x + 0.5, mid - amp); ctx.lineTo(x + 0.5, mid + amp); ctx.stroke();
+    }
+    ctx.strokeStyle = ph; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(playedX, 0); ctx.lineTo(playedX, h); ctx.stroke();
+    this.setAttribute('aria-valuenow', String(Math.round(this.progress * 100)));
+  }
+
+  protected render(): TemplateResult { return html`<canvas class="lucent-waveform__canvas"></canvas>`; }
+}
+
 declare global {
   interface HTMLElementTagNameMap {
     'lucent-knob': LucentKnob;
     'lucent-fader': LucentFader;
+    'lucent-meter': LucentMeter;
+    'lucent-waveform': LucentWaveform;
   }
 }
