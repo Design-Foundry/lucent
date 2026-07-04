@@ -1,0 +1,119 @@
+/* =============================================================================
+ * Calendar — framework-neutral component styles (date-picker atom).
+ *
+ * Structure every kit emits:
+ *   .lucent-calendar
+ *     .lucent-calendar__header   · .lucent-calendar__title + .lucent-calendar__nav
+ *     .lucent-calendar__weekdays · 7 × .lucent-calendar__weekday
+ *     .lucent-calendar__grid     · 6×7 × .lucent-day-cell (a <button>)
+ *
+ * Day-cell states (rounded-square selection + range):
+ *   .is-today (accent ring) · .is-selected (accent fill)
+ *   .is-range-start / .is-range-middle / .is-range-end (accent-subtle track + solid ends)
+ *   .lucent-day-cell--outside (muted, other month) · [disabled]
+ * ============================================================================= */
+
+.lucent-calendar {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--dimension--primitive--spacing-3);
+  padding: var(--dimension--primitive--spacing-4);
+  background: var(--color--semantic--surface-raised);
+  border: 1px solid var(--color--semantic--border-subtle);
+  border-radius: var(--radius-lg);
+  font-family: var(--font--primitive--sans);
+}
+
+.lucent-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dimension--primitive--spacing-2);
+}
+
+.lucent-calendar__title {
+  font-size: var(--dimension--primitive--fs-heading-md);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-strong);
+}
+
+.lucent-calendar__nav {
+  display: flex;
+  gap: var(--dimension--primitive--spacing-1);
+}
+
+.lucent-calendar__weekdays,
+.lucent-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 36px);
+}
+
+.lucent-calendar__weekday {
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--dimension--primitive--fs-caption);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-muted);
+}
+
+.lucent-day-cell {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--dimension--primitive--fs-body-sm);
+  font-weight: var(--dimension--primitive--fw-medium);
+  color: var(--color--semantic--text-default);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.lucent-day-cell:hover {
+  background: var(--color--semantic--accent-subtle);
+}
+
+.lucent-day-cell.is-today {
+  box-shadow: inset 0 0 0 1.5px var(--color--semantic--accent-default);
+  color: var(--color--semantic--accent-default);
+}
+
+.lucent-day-cell--outside {
+  color: var(--color--semantic--text-subtle);
+}
+
+.lucent-day-cell:disabled {
+  color: var(--color--semantic--text-subtle);
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Range track — middle cells tile edge-to-edge, endpoints are solid rounded squares. */
+.lucent-day-cell.is-range-middle {
+  background: var(--color--semantic--accent-subtle);
+  border-radius: 0;
+  color: var(--color--semantic--text-default);
+}
+
+.lucent-day-cell.is-range-start,
+.lucent-day-cell.is-range-end,
+.lucent-day-cell.is-selected {
+  background: var(--color--semantic--accent-default);
+  color: var(--color--semantic--text-onaccent);
+  box-shadow: none;
+}
+
+.lucent-day-cell.is-range-start:hover,
+.lucent-day-cell.is-range-end:hover,
+.lucent-day-cell.is-selected:hover {
+  background: var(--color--semantic--accent-strong);
+}

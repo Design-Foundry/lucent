@@ -1,0 +1,112 @@
+@*
+    LucentCalendar — emits the `.lucent-calendar` contract (styles/components/calendar.css).
+
+    The date-picker atom: a Monday-first 6×7 month grid with today / selected / range states.
+    `Month` sets the initial view; the prev/next buttons navigate and raise MonthChanged.
+    Reuses LucentIconButton for the header nav. Supports @bind-Value.
+*@
+
+<div class="@HostClass" @attributes="AdditionalAttributes">
+    <div class="lucent-calendar__header">
+        <span class="lucent-calendar__title">@Displayed.ToString("MMMM yyyy")</span>
+        <div class="lucent-calendar__nav">
+            <LucentIconButton Icon="chevron_left" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Previous month" @onclick="() => ShiftAsync(-1)" />
+            <LucentIconButton Icon="chevron_right" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Next month" @onclick="() => ShiftAsync(1)" />
+        </div>
+    </div>
+    <div class="lucent-calendar__weekdays">
+        @foreach (var d in Weekdays)
+        {
+            <span class="lucent-calendar__weekday">@d</span>
+        }
+    </div>
+    <div class="lucent-calendar__grid" role="grid">
+        @foreach (var c in Cells)
+        {
+            <button class="@c.Cls" role="gridcell" disabled="@c.Disabled" @onclick="() => SelectAsync(c.Date)">@c.Day</button>
+        }
+    </div>
+</div>
+
+@code {
+    private static readonly string[] Weekdays = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+
+    /// <summary>Any date within the month to display initially.</summary>
+    [Parameter] public DateTime Month { get; set; } = DateTime.Today;
+
+    /// <summary>Selected date (single mode). Two-way bindable via <c>@bind-Value</c>.</summary>
+    [Parameter] public DateTime? Value { get; set; }
+
+    /// <summary>Raised when a day is chosen.</summary>
+    [Parameter] public EventCallback<DateTime> ValueChanged { get; set; }
+
+    /// <summary>Single date or a start–end range.</summary>
+    [Parameter] public CalendarMode Mode { get; set; } = CalendarMode.Single;
+
+    [Parameter] public DateTime? RangeStart { get; set; }
+    [Parameter] public DateTime? RangeEnd { get; set; }
+    [Parameter] public DateTime? Min { get; set; }
+    [Parameter] public DateTime? Max { get; set; }
+
+    /// <summary>Raised when prev/next changes the displayed month.</summary>
+    [Parameter] public EventCallback<DateTime> MonthChanged { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    /// <summary>Pass-through attributes; applied to the host.</summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private DateTime? _month;
+    private DateTime Displayed => new((_month ?? Month).Year, (_month ?? Month).Month, 1);
+
+    private record struct Cell(DateTime Date, int Day, bool Disabled, string Cls);
+
+    private IEnumerable<Cell> Cells
+    {
+        get
+        {
+            var cur = Displayed;
+            var first = new DateTime(cur.Year, cur.Month, 1);
+            var off = ((int)first.DayOfWeek + 6) % 7; // Monday-first
+            for (var i = 0; i < 42; i++)
+            {
+                var date = first.AddDays(i - off);
+                yield return new Cell(date, date.Day, IsDisabled(date), CellClass(date, date.Month != cur.Month));
+            }
+        }
+    }
+
+    private async Task ShiftAsync(int delta)
+    {
+        _month = Displayed.AddMonths(delta);
+        await MonthChanged.InvokeAsync(_month.Value);
+    }
+
+    private async Task SelectAsync(DateTime date)
+    {
+        Value = date;
+        await ValueChanged.InvokeAsync(date);
+    }
+
+    private bool IsDisabled(DateTime d) =>
+        (Min.HasValue && d < Min.Value) || (Max.HasValue && d > Max.Value);
+
+    private static bool SameDay(DateTime? a, DateTime b) => a.HasValue && a.Value.Date == b.Date;
+
+    private string CellClass(DateTime date, bool outside)
+    {
+        var inRange = RangeStart.HasValue && RangeEnd.HasValue && date > RangeStart.Value && date < RangeEnd.Value;
+        var cls = new List<string> { "lucent-day-cell" };
+        if (outside) cls.Add("lucent-day-cell--outside");
+        if (date.Date == DateTime.Today) cls.Add("is-today");
+        if (Mode == CalendarMode.Single && SameDay(Value, date)) cls.Add("is-selected");
+        if (Mode == CalendarMode.Range && SameDay(RangeStart, date)) cls.Add("is-range-start");
+        if (Mode == CalendarMode.Range && SameDay(RangeEnd, date)) cls.Add("is-range-end");
+        if (Mode == CalendarMode.Range && inRange) cls.Add("is-range-middle");
+        return string.Join(" ", cls);
+    }
+
+    private string HostClass => "lucent-calendar" + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

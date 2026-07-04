@@ -39,3 +39,21 @@ export type { ModalProps, SnackbarProps, ToastProps, SpinnerProps, SkeletonProps
 // ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
 export { ReferenceTag, MessageBubble, TypingIndicator, CodeBlock, PromptSuggestion, Composer, ChatTrigger, ConversationRow, JumpToLatest } from './messaging';
 export type { ReferenceTagProps, MessageBubbleProps, TypingIndicatorProps, CodeBlockProps, PromptSuggestionProps, ComposerProps, ChatTriggerProps, ConversationRowProps, JumpToLatestProps } from './messaging';
+
+// ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
+export { Calendar, DatePicker, DateRangePicker, TimePicker } from './temporal';
+export type { CalendarProps, DatePickerProps, DateRangePickerProps, DateRange, TimePickerProps, Time } from './temporal';
+
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+export { EventChip, MonthCell, EventBlock, AgendaRow } from './scheduler';
+export type { EventCategory, SchedulerEvent, EventChipProps, MonthCellProps, EventBlockProps, AgendaRowProps } from './scheduler';
+
+// ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
+export { SchedulerMonth, SchedulerWeek, SchedulerAgenda } from './scheduler-views';
+export type { DatedEvent, TimedEvent, SchedulerMonthProps, SchedulerWeekProps, SchedulerAgendaProps } from './scheduler-views';
+
+// ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
+export { Knob, Fader, Meter, Waveform } from './daw';
+export type { KnobProps, FaderProps, MeterProps, WaveformProps } from './daw';
+export { Track, PianoRoll } from './daw-sequencer';
+export type { TrackProps, PianoRollProps, TrackDef, ClipDef, PianoNote } from './daw-sequencer';

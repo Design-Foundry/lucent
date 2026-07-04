@@ -59,17 +59,32 @@ export class LucentBreadcrumbs extends LucentElement {
 
   protected hostClasses(): string { return 'lucent-breadcrumbs'; }
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    // The host is the landmark: role=navigation + aria-label so AT announces a "Breadcrumb".
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'navigation');
+    if (!this.hasAttribute('aria-label')) this.setAttribute('aria-label', 'Breadcrumb');
+  }
+
   private _click(item: BreadcrumbItem, last: boolean): void {
     if (!last) this.dispatchEvent(new CustomEvent('itemclick', { detail: item, bubbles: true }));
   }
 
   protected render(): TemplateResult {
-    return html`${this.items.map((item, i) => {
+    return html`<ol class="lucent-breadcrumbs__list">${this.items.map((item, i) => {
       const last = i === this.items.length - 1;
-      return html`
-        <span class=${cx('lucent-breadcrumbs__item', last && 'is-last')} @click=${() => this._click(item, last)}>${item.label}</span>
-        ${!last ? html`<span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>` : nothing}`;
-    })}`;
+      // A crumb with a path is a real link (works without JS, middle-click, etc.); otherwise
+      // it stays a click-emitting span for programmatic navigation.
+      const item$ = !last && item.path
+        ? html`<a class="lucent-breadcrumbs__item" href=${item.path}>${item.label}</a>`
+        : html`<span
+            class=${cx('lucent-breadcrumbs__item', last && 'is-last')}
+            aria-current=${last ? 'page' : nothing}
+            @click=${() => this._click(item, last)}>${item.label}</span>`;
+      return html`<li class="lucent-breadcrumbs__crumb">${item$}${!last
+        ? html`<span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>`
+        : nothing}</li>`;
+    })}</ol>`;
   }
 }
 

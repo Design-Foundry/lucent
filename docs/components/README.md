@@ -99,6 +99,35 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-conversation-row` | ✅ [conversation-row.md](./conversation-row.md) | ✅ composes avatar + badge |
 | `lucent-jump-to-latest` | ✅ [jump-to-latest.md](./jump-to-latest.md) | ✅ on-convention |
 
+## Temporal
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-calendar` | ✅ [calendar.md](./calendar.md) | ✅ on-convention (date-picker atom) |
+| `lucent-date-picker` | ✅ [date-picker.md](./date-picker.md) | ✅ field + floating Calendar popover |
+| `lucent-date-range-picker` | ✅ [date-range-picker.md](./date-range-picker.md) | ✅ reuses Date Picker shell + range Calendar |
+| `lucent-time-picker` | ✅ [time-picker.md](./time-picker.md) | ✅ hour/minute/period column popover |
+
+## Scheduler
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-event-chip` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ category tokens |
+| `lucent-month-cell` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ reuses Event Chip |
+| `lucent-event-block` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ parent-positioned |
+| `lucent-agenda-row` | ✅ [scheduler-parts.md](./scheduler-parts.md) | ✅ category bar |
+| `lucent-scheduler-month` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ composes month cells |
+| `lucent-scheduler-week` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ time-grid + now-line |
+| `lucent-scheduler-agenda` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ grouped list + empty state |
+
+## DAW (WC + React)
+| Component | Doc | Conventions |
+|---|---|---|
+| `lucent-knob` | ✅ [daw.md](./daw.md) | ⚠️ per-kit JS (SVG + pointer) |
+| `lucent-fader` | ✅ [daw.md](./daw.md) | ⚠️ per-kit JS (tapered dB) |
+| `lucent-meter` | ✅ [daw.md](./daw.md) | ⚠️ bright-LED primitives |
+| `lucent-waveform` | ✅ [daw.md](./daw.md) | ⚠️ canvas render |
+| `lucent-track` | ✅ [daw.md](./daw.md) | ⚠️ imperative drag surface |
+| `lucent-piano-roll` | ✅ [daw.md](./daw.md) | ⚠️ imperative drag surface |
+
 ## Services
 | Service | Doc | Conventions |
 |---|---|---|

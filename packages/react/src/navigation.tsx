@@ -54,21 +54,32 @@ export interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items, onItemClick, className }: BreadcrumbsProps) {
   return (
-    <nav className={cx('lucent-breadcrumbs', className)}>
-      {items.map((item, i) => {
-        const last = i === items.length - 1;
-        return (
-          <span key={item.label + i}>
-            <span
-              className={cx('lucent-breadcrumbs__item', last && 'is-last')}
-              onClick={() => { if (!last) onItemClick?.(item); }}
-            >
-              {item.label}
-            </span>
-            {!last && <span className="lucent-breadcrumbs__sep" aria-hidden="true">/</span>}
-          </span>
-        );
-      })}
+    <nav className={cx('lucent-breadcrumbs', className)} aria-label="Breadcrumb">
+      <ol className="lucent-breadcrumbs__list">
+        {items.map((item, i) => {
+          const last = i === items.length - 1;
+          return (
+            <li key={item.label + i} className="lucent-breadcrumbs__crumb">
+              {/* A crumb with a path is a real link (works without JS, middle-click, etc.);
+                  otherwise it stays a click-emitting span for programmatic navigation. */}
+              {!last && item.path ? (
+                <a className="lucent-breadcrumbs__item" href={item.path}>
+                  {item.label}
+                </a>
+              ) : (
+                <span
+                  className={cx('lucent-breadcrumbs__item', last && 'is-last')}
+                  aria-current={last ? 'page' : undefined}
+                  onClick={() => { if (!last) onItemClick?.(item); }}
+                >
+                  {item.label}
+                </span>
+              )}
+              {!last && <span className="lucent-breadcrumbs__sep" aria-hidden="true">/</span>}
+            </li>
+          );
+        })}
+      </ol>
     </nav>
   );
 }

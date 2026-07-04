@@ -143,6 +143,29 @@ export { LucentConversationRow } from './conversation-row/conversation-row';
 
 export { LucentJumpToLatest } from './jump-to-latest/jump-to-latest';
 
+// ─── Tier 9 — Temporal (date & time) ─────────────────────────────────────────
+
+export { LucentCalendar } from './calendar/calendar';
+export type { CalendarMode } from './calendar/calendar';
+
+export { LucentDatePicker } from './date-picker/date-picker';
+
+export { LucentDateRangePicker } from './date-range-picker/date-range-picker';
+export type { DateRange } from './date-range-picker/date-range-picker';
+
+export { LucentTimePicker } from './time-picker/time-picker';
+export type { Time } from './time-picker/time-picker';
+
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+
+export { LucentEventChip, LucentMonthCell, LucentEventBlock, LucentAgendaRow } from './scheduler/scheduler';
+export type { EventCategory, SchedulerEvent } from './scheduler/scheduler';
+
+// ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
+
+export { LucentSchedulerMonth, LucentSchedulerWeek, LucentSchedulerAgenda } from './scheduler-views/scheduler-views';
+export type { DatedEvent, TimedEvent } from './scheduler-views/scheduler-views';
+
 // ─── Services (imperative overlays) ──────────────────────────────────────────
 
 export { ToastService } from './notifications/toast.service';

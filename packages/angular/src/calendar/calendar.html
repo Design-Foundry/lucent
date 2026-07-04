@@ -1,0 +1,17 @@
+<div class="lucent-calendar__header">
+	<span class="lucent-calendar__title">{{ title() }}</span>
+	<div class="lucent-calendar__nav">
+		<lucent-icon-button icon="chevron_left" variant="ghost" size="sm" ariaLabel="Previous month" (clicked)="shift(-1)"></lucent-icon-button>
+		<lucent-icon-button icon="chevron_right" variant="ghost" size="sm" ariaLabel="Next month" (clicked)="shift(1)"></lucent-icon-button>
+	</div>
+</div>
+<div class="lucent-calendar__weekdays">
+	@for (d of weekdays; track d) {
+		<span class="lucent-calendar__weekday">{{ d }}</span>
+	}
+</div>
+<div class="lucent-calendar__grid" role="grid">
+	@for (c of cells(); track $index) {
+		<button [class]="c.cls" role="gridcell" [disabled]="c.disabled" (click)="select(c)">{{ c.day }}</button>
+	}
+</div>

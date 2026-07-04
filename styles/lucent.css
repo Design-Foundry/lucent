@@ -14,6 +14,7 @@
 
 /* Tier 2 — semantic roles + the control-density alias layer. */
 @import "tokens/semantic-colors.css";
+@import "tokens/event-categories.css";
 @import "tokens/surfaces.css";
 @import "tokens/borders.css";
 @import "tokens/shadows.css";
@@ -76,3 +77,15 @@
 @import "components/chat-trigger.css";
 @import "components/conversation-row.css";
 @import "components/jump-to-latest.css";
+
+/* Temporal — date & time. */
+@import "components/calendar.css";
+@import "components/date-picker.css";
+@import "components/time-picker.css";
+
+/* Scheduler — event parts + the Month / Week / Agenda views that compose them. */
+@import "components/scheduler.css";
+@import "components/scheduler-views.css";
+
+/* DAW — audio-workstation controls (SVG/canvas + pointer interaction). */
+@import "components/daw.css";

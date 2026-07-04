@@ -1,0 +1,33 @@
+@*
+    LucentEventBlock — emits the `.lucent-event-block` contract (styles/components/scheduler.css).
+    A week time-grid block; positioning (top/height) is supplied by the parent column via Style.
+*@
+
+<div class="@HostClass" style="@Style">
+    <span class="lucent-event-block__title">@Title</span>
+    @if (!string.IsNullOrEmpty(Time))
+    {
+        <span class="lucent-event-block__time">@Time</span>
+    }
+</div>
+
+@code {
+    /// <summary>Event kind — sets the category color.</summary>
+    [Parameter] public EventCategory Category { get; set; } = EventCategory.Work;
+
+    /// <summary>Event title.</summary>
+    [Parameter] public string Title { get; set; } = "";
+
+    /// <summary>Optional time range (e.g. "9:00 – 9:30").</summary>
+    [Parameter] public string? Time { get; set; }
+
+    /// <summary>Inline style for parent-controlled positioning (top/height).</summary>
+    [Parameter] public string? Style { get; set; }
+
+    /// <summary>Extra classes appended to the host element.</summary>
+    [Parameter] public string? Class { get; set; }
+
+    private string HostClass =>
+        $"lucent-event-block lucent-event-block--{Category.ToString().ToLowerInvariant()}"
+        + (string.IsNullOrWhiteSpace(Class) ? "" : $" {Class}");
+}

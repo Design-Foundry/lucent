@@ -31,3 +31,20 @@ export { LucentTooltip, LucentSelect, LucentMenuTrigger } from './overlays';
 
 // ─── Tier 8 — Messaging & conversation ────────────────────────────────────────
 export { LucentReferenceTag, LucentMessageBubble, LucentTypingIndicator, LucentCodeBlock, LucentPromptSuggestion, LucentComposer, LucentChatTrigger, LucentConversationRow, LucentJumpToLatest } from './messaging';
+
+// ─── Tier 9 — Temporal (date & time) ──────────────────────────────────────────
+export { LucentCalendar, LucentDatePicker, LucentDateRangePicker, LucentTimePicker } from './temporal';
+export type { Time } from './temporal';
+
+// ─── Tier 10 — Scheduler (event parts) ────────────────────────────────────────
+export { LucentEventChip, LucentMonthCell, LucentEventBlock, LucentAgendaRow } from './scheduler';
+export type { EventCategory, SchedulerEvent } from './scheduler';
+
+// ─── Tier 11 — Scheduler views (Month / Week / Agenda) ────────────────────────
+export { LucentSchedulerMonth, LucentSchedulerWeek, LucentSchedulerAgenda } from './scheduler-views';
+export type { DatedEvent, TimedEvent } from './scheduler-views';
+
+// ─── Tier 12 — DAW (audio-workstation controls) ───────────────────────────────
+export { LucentKnob, LucentFader, LucentMeter, LucentWaveform } from './daw';
+export { LucentTrack, LucentPianoRoll } from './daw-sequencer';
+export type { TrackDef, ClipDef, PianoNote } from './daw-sequencer';
