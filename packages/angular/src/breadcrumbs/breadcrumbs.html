@@ -1,11 +1,20 @@
-@for (item of items(); track item.label; let last = $last) {
-	<span
-		class="lucent-breadcrumbs__item"
-		[class.is-last]="last"
-		(click)="!last && itemClick.emit(item)">
-		{{ item.label }}
-	</span>
-	@if (!last) {
-		<span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>
+<ol class="lucent-breadcrumbs__list">
+	@for (item of items(); track item.label; let last = $last) {
+		<li class="lucent-breadcrumbs__crumb">
+			@if (!last && item.path) {
+				<a class="lucent-breadcrumbs__item" [href]="item.path">{{ item.label }}</a>
+			} @else {
+				<span
+					class="lucent-breadcrumbs__item"
+					[class.is-last]="last"
+					[attr.aria-current]="last ? 'page' : null"
+					(click)="!last && itemClick.emit(item)">
+					{{ item.label }}
+				</span>
+			}
+			@if (!last) {
+				<span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>
+			}
+		</li>
 	}
-}
+</ol>

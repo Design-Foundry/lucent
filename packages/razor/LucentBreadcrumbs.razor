@@ -1,31 +1,47 @@
 @*
     LucentBreadcrumbs — emits the `.lucent-breadcrumbs` contract (styles/components/breadcrumbs.css).
 
-    Renders an Items trail with "/" separators; the last crumb is the current page (muted,
-    non-interactive). Non-last crumbs raise OnItemClick.
+    A `<nav aria-label="Breadcrumb">` trail rendered from Items, with "/" separators. A crumb that
+    carries a Path renders as a real `<a href>` — it navigates with no circuit (so it works under
+    static SSR, and the Blazor router intercepts it for SPA nav when the host is interactive). A
+    crumb without a Path stays a `<span>` that raises OnItemClick (for programmatic navigation). The
+    last crumb is the current page: muted, non-interactive, marked `aria-current="page"`.
 *@
 
-<div class="lucent-breadcrumbs" @attributes="AdditionalAttributes">
-    @for (var i = 0; i < Items.Count; i++)
-    {
-        var item = Items[i];
-        var last = i == Items.Count - 1;
-        <span class="lucent-breadcrumbs__item@(last ? " is-last" : "")"
-              @onclick="@(() => OnNonLastClick(item, last))">
-            @item.Label
-        </span>
-        @if (!last)
+<nav class="lucent-breadcrumbs" aria-label="Breadcrumb" @attributes="AdditionalAttributes">
+    <ol class="lucent-breadcrumbs__list">
+        @for (var i = 0; i < Items.Count; i++)
         {
-            <span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>
+            var item = Items[i];
+            var last = i == Items.Count - 1;
+            <li class="lucent-breadcrumbs__crumb">
+                @if (!last && !string.IsNullOrEmpty(item.Path))
+                {
+                    <a class="lucent-breadcrumbs__item" href="@item.Path">@item.Label</a>
+                }
+                else
+                {
+                    <span class="lucent-breadcrumbs__item@(last ? " is-last" : "")"
+                          aria-current="@(last ? "page" : null)"
+                          @onclick="@(() => OnNonLastClick(item, last))">
+                        @item.Label
+                    </span>
+                }
+                @if (!last)
+                {
+                    <span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span>
+                }
+            </li>
         }
-    }
-</div>
+    </ol>
+</nav>
 
 @code {
     /// <summary>Ordered crumbs, root first; the last is the current page.</summary>
     [Parameter] public IReadOnlyList<BreadcrumbItem> Items { get; set; } = [];
 
-    /// <summary>Raised when a non-last crumb is activated.</summary>
+    /// <summary>Raised when a non-last crumb <em>without a Path</em> is activated. A crumb with a
+    /// Path navigates via its `<a href>` and does not raise this.</summary>
     [Parameter] public EventCallback<BreadcrumbItem> OnItemClick { get; set; }
 
     /// <summary>Pass-through attributes; applied to the host.</summary>

@@ -1,19 +1,22 @@
 /* =============================================================================
  * Breadcrumbs — framework-neutral component styles.
  *
- * Structure both kits emit:
- *   .lucent-breadcrumbs
- *     .lucent-breadcrumbs__item (.is-last)
- *     .lucent-breadcrumbs__sep   ← "/" between items
+ * Structure all kits emit:
+ *   nav.lucent-breadcrumbs               ← glass pill + aria-label="Breadcrumb"
+ *                                          (Angular/WC put the class + role on the host element)
+ *     ol.lucent-breadcrumbs__list        ← the flex track (native list chrome reset)
+ *       li.lucent-breadcrumbs__crumb
+ *         a|span.lucent-breadcrumbs__item  ← <a href> when the crumb has a path, else <span>;
+ *                                            the last item is .is-last + aria-current="page"
+ *                                            (muted, non-interactive, the current page)
+ *         span.lucent-breadcrumbs__sep     ← "/" between items (aria-hidden)
  *
- * Glass trail; the last item is the current (muted, non-interactive) page.
  * Ported from packages/angular/src/breadcrumbs/breadcrumbs.scss.
  * ============================================================================= */
 
 .lucent-breadcrumbs {
   display: inline-flex;
   align-items: center;
-  gap: var(--dimension--primitive--spacing-1);
   height: var(--dimension--primitive--sizing-12);
   padding: 7px var(--dimension--primitive--spacing-3);
   border-radius: var(--radius-md);
@@ -31,7 +34,25 @@
   color: var(--color--semantic--text-default);
 }
 
+/* The ordered list is the flex track; strip the native list chrome. */
+.lucent-breadcrumbs__list {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dimension--primitive--spacing-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lucent-breadcrumbs__crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dimension--primitive--spacing-1);
+}
+
 .lucent-breadcrumbs__item {
+  color: inherit;
+  text-decoration: none; /* items styled as the trail, not as underlined links */
   cursor: pointer;
   transition: color 0.15s ease;
 }
