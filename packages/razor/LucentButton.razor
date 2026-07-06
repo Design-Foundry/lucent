@@ -1,20 +1,38 @@
 @*
     LucentButton — emits the `.lucent-button` contract (styles/components/button.css).
 
-    Static-SSR friendly: it renders a real <button>, so inside a <form> with Type="submit"
-    it works with no interactivity/JS. The outer <span> is the density/variant host
-    (the Angular `:host`); the <button> carries `.lucent-button__inner`. Pass-through
-    attributes (name, @onclick, aria-*, …) land on the inner button.
+    Two activation roles over one appearance contract (see the Foundry-model note
+    "activation roles"): the visual variant/size is orthogonal to *what activating it does*.
+      • act (default)  — no Href ⇒ a real <button>. Static-SSR friendly: inside a <form>
+        with Type="submit" it works with no JS; fires @onclick with interactivity.
+      • navigate        — Href set ⇒ an <a href> (link semantics), not a <button>.
+    The outer element is the density/variant host (the Angular `:host`); the inner element
+    carries `.lucent-button__inner` (the pill). Pass-through attributes land on the
+    *interactive* element — the inner <button> for act, the host <a> for navigate.
 *@
 
-<span class="@HostClass">
-    <button class="lucent-button__inner"
-            type="@Type"
-            disabled="@Disabled"
-            @attributes="AdditionalAttributes">
-        @ChildContent
-    </button>
-</span>
+@if (Href is null)
+{
+    <span class="@HostClass">
+        <button class="lucent-button__inner"
+                type="@Type"
+                disabled="@Disabled"
+                @attributes="AdditionalAttributes">
+            @ChildContent
+        </button>
+    </span>
+}
+else
+{
+    @* The anchor IS the interactive element, so it hosts both the contract classes and the
+       pass-through attrs; `.lucent-button`'s `text-decoration: none` keeps the label
+       un-underlined. Type/Disabled don't apply to a link and are ignored. *@
+    <a class="@HostClass"
+       href="@Href"
+       @attributes="AdditionalAttributes">
+        <span class="lucent-button__inner">@ChildContent</span>
+    </a>
+}
 
 @code {
     /// <summary>Button label / content.</summary>
@@ -28,6 +46,14 @@
 
     /// <summary>Native button type: <c>button</c> (default), <c>submit</c>, or <c>reset</c>.</summary>
     [Parameter] public string Type { get; set; } = "button";
+
+    /// <summary>
+    /// Navigation destination. When set, the control realizes the <b>navigate</b> role —
+    /// it renders an <c>&lt;a href&gt;</c> (link semantics) instead of a <c>&lt;button&gt;</c>.
+    /// Leave null for the <b>act</b> role (a <c>&lt;button&gt;</c> that submits a form or fires
+    /// <c>@onclick</c>). Both roles share the same visual variant/size contract.
+    /// </summary>
+    [Parameter] public string? Href { get; set; }
 
     [Parameter] public bool Disabled { get; set; }
 
