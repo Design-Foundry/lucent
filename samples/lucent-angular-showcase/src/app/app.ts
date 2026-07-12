@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, signal, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   LucentActivityBar,
@@ -56,6 +56,7 @@ type Theme = 'light' | 'dark';
     LucentToast, LucentSnackbar,
     LucentLabel, LucentHint, LucentError, LucentPrefix, LucentSupporting,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app.html',
 })
 export class App {

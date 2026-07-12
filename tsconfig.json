@@ -4,9 +4,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@design-foundry/lucent": ["packages/angular/src/index.ts"]
+      "@design-foundry/lucent": ["./packages/angular/src/index.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
