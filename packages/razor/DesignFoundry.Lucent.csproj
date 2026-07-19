@@ -25,17 +25,33 @@
   </ItemGroup>
 
   <!-- Ship the shared styles/ base as static web assets. The canonical source is the
-       repo-root styles/ (single source); mirror it into wwwroot before static-web-asset
-       resolution so it reaches consumers as _content/DesignFoundry.Lucent/<path>.
-       wwwroot/ is a build artifact (gitignored), not a second source. -->
+       repo-root styles/ — the single authored CSS, shared verbatim by all four kits. An RCL
+       can only serve static web assets out of its own wwwroot/, so we mirror styles/ into
+       wwwroot/ before static-web-asset resolution; consumers then load them as
+       _content/DesignFoundry.Lucent/<path>. wwwroot/ is a gitignored build artifact and
+       NEVER a second source — do not hand-edit it; edit styles/ and rebuild.
+
+       Correctness properties (why this isn't a plain Copy):
+         • Inputs/Outputs track the source set against a stamp, so ADDING a source file
+           (a new component, the DAW pack, etc.) always forces a re-sync — no silent lag,
+           which is exactly the gap that let daw.css go missing.
+         • The mirror is WIPED (RemoveDir) then rewritten, so a renamed or deleted source
+           file can't leave an orphaned copy behind in wwwroot.
+         • When the source tree is unchanged the target is skipped, keeping incremental
+           builds and `dotnet watch` fast.
+       The stamp lives in obj/ (not wwwroot) so it never leaks into the served asset set. -->
   <ItemGroup>
     <LucentStyleSource Include="$(MSBuildProjectDirectory)\..\..\styles\**\*.css" />
   </ItemGroup>
 
-  <Target Name="SyncLucentStyles" BeforeTargets="ResolveProjectStaticWebAssets;BeforeBuild">
+  <Target Name="SyncLucentStyles"
+          BeforeTargets="ResolveProjectStaticWebAssets;BeforeBuild"
+          Inputs="@(LucentStyleSource)"
+          Outputs="$(IntermediateOutputPath)lucent-style-sync.stamp">
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\wwwroot" />
     <Copy SourceFiles="@(LucentStyleSource)"
-          DestinationFiles="@(LucentStyleSource->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
+          DestinationFiles="@(LucentStyleSource->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Touch Files="$(IntermediateOutputPath)lucent-style-sync.stamp" AlwaysCreate="true" />
   </Target>
 
 </Project>
