@@ -4,6 +4,7 @@ import {
 	InjectionToken,
 	Injector,
 	inject,
+	ChangeDetectionStrategy,
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
@@ -98,6 +99,7 @@ let nextId = 0;
 	standalone: true,
 	imports: [LucentButton, LucentIconButton],
 	// Styled by the shared base (styles/components/modal.css) via the lucent- contract.
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
 		<div class="lucent-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="data.title ? titleId : null">
 			<div class="lucent-modal__header">

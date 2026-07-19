@@ -12,6 +12,7 @@
 
 .lucent-button {
   display: inline-block;
+  text-decoration: none; /* host may be an <a> (link-styled button) — stop the underline here, not on __inner */
 
   /* Density (default md). Buttons run a roomier inline padding than fields. */
   --_h: var(--control-height-md);

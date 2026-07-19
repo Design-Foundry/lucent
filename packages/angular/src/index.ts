@@ -55,6 +55,7 @@ export { LucentActivityBar } from './activity-bar/activity-bar';
 
 export { LucentBreadcrumbs } from './breadcrumbs/breadcrumbs';
 export type { BreadcrumbItem } from './breadcrumbs/breadcrumbs';
+export { LucentSpaLink } from './spa-link/spa-link';
 
 // ─── Tier 4 — Form inputs ─────────────────────────────────────────────────────
 export { LucentAvatar } from './avatar/avatar';

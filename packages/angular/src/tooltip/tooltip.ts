@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Input, OnDestroy, inject } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnDestroy, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
@@ -19,6 +19,7 @@ const POSITIONS: Record<TooltipPosition, ConnectedPosition> = {
 	standalone: true,
 	template: '{{ text }}',
 	// Bubble styled by the shared base (styles/components/tooltip.css) via the lucent- contract.
+	changeDetection: ChangeDetectionStrategy.Eager,
 	host: { 'class': 'lucent-tooltip', 'role': 'tooltip', '[id]': 'id' },
 })
 export class LucentTooltipBubble {
