@@ -20,6 +20,14 @@ const POSITIONS: Record<MenuPosition, ConnectedPosition> = {
 	'bottom-start': { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
 };
 
+/**
+ * Opens a menu (a `TemplateRef`, usually a `lucent-menu`) in a CDK overlay anchored to the host.
+ *
+ * The overlay uses a **transparent, click-catching backdrop**: an outside click dismisses the menu,
+ * and — since the backdrop also covers the trigger — a second click on the trigger closes it rather
+ * than stacking a second menu. The backdrop blocks interaction with the rest of the view while open,
+ * but does not dim it: a menu is not a modal. Escape and selecting an item also close it.
+ */
 @Directive({
 	selector: '[lucentMenuTrigger]',
 	standalone: true,
@@ -56,38 +64,47 @@ export class LucentMenuTrigger implements OnDestroy {
 
 	open(): void {
 		if (this._isOpen) return;
-		clearTimeout(this._closeTimer);
+		this._isOpen = true;
 
-		this._overlayRef = this._overlay.create({
+		// Cancel and finish any in-flight close so its overlay can't outlive this open (leak guard
+		// for a programmatic/keyboard reopen during the close animation; the backdrop covers the
+		// pointer case).
+		clearTimeout(this._closeTimer);
+		this._disposeNow();
+
+		const overlayRef = this._overlay.create({
 			positionStrategy: this._overlay.position()
 				.flexibleConnectedTo(this._el)
 				.withPositions([POSITIONS[this.lucentMenuPosition()]]),
 			scrollStrategy: this._overlay.scrollStrategies.reposition(),
+			hasBackdrop: true,
+			backdropClass: 'cdk-overlay-transparent-backdrop',
 		});
+		this._overlayRef = overlayRef;
 
-		this._subs.push(
-			this._overlayRef.outsidePointerEvents().subscribe(() => this.close()),
-			this._overlayRef.keydownEvents().subscribe(e => { if (e.key === 'Escape') this.close(); }),
-			fromEvent(this._overlayRef.overlayElement, 'click').subscribe(() => this.close()),
-		);
+		this._subs = [
+			overlayRef.backdropClick().subscribe(() => this.close()),
+			overlayRef.keydownEvents().subscribe(e => { if (e.key === 'Escape') this.close(); }),
+			// Selecting an item bubbles a click to the panel → close.
+			fromEvent(overlayRef.overlayElement, 'click').subscribe(() => this.close()),
+		];
 
-		this._overlayRef.attach(new TemplatePortal(this.template(), this._vcr));
-		this._isOpen = true;
+		overlayRef.attach(new TemplatePortal(this.template(), this._vcr));
 	}
 
 	close(): void {
-		if (!this._isOpen || !this._overlayRef) return;
-		clearTimeout(this._closeTimer);
+		if (!this._isOpen) return;
 		this._isOpen = false;
+		clearTimeout(this._closeTimer);
 
-		this._overlayRef.overlayElement
+		this._overlayRef?.overlayElement
 			.querySelector('lucent-menu')
 			?.classList.add('lucent-menu--closing');
 
-		this._closeTimer = setTimeout(() => this._teardown(), ANIM_MS);
+		this._closeTimer = setTimeout(() => this._disposeNow(), ANIM_MS);
 	}
 
-	private _teardown(): void {
+	private _disposeNow(): void {
 		for (const sub of this._subs) sub.unsubscribe();
 		this._subs = [];
 		this._overlayRef?.detach();
@@ -97,6 +114,6 @@ export class LucentMenuTrigger implements OnDestroy {
 
 	ngOnDestroy(): void {
 		clearTimeout(this._closeTimer);
-		this._teardown();
+		this._disposeNow();
 	}
 }
