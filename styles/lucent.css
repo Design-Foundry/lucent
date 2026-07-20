@@ -60,6 +60,8 @@
 @import "components/radio.css";
 @import "components/segmented-control.css";
 @import "components/nav-icon.css";
+@import "components/nav-item.css";
+@import "components/nav-group.css";
 @import "components/nav-divider.css";
 @import "components/nav-rail.css";
 @import "components/activity-bar.css";

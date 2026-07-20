@@ -1,0 +1,17 @@
+<a
+	class="lucent-nav-item"
+	[class.is-active]="active()"
+	[class.is-disabled]="disabled()"
+	[attr.href]="disabled() ? null : href() || null"
+	[attr.aria-current]="active() ? 'page' : null"
+	[attr.aria-disabled]="disabled() || null"
+	[attr.aria-label]="label() || null"
+	[attr.title]="label() || null">
+	<lucent-icon [name]="name()" size="lg" />
+	<span class="lucent-nav-item__text">
+		<span class="lucent-nav-item__label">{{ label() }}</span>
+		@if (subtitle()) {
+			<span class="lucent-nav-item__subtitle">{{ subtitle() }}</span>
+		}
+	</span>
+</a>
