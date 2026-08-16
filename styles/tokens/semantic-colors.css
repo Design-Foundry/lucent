@@ -3,7 +3,9 @@
 	 * Text
 	 * ========================================================= */
 
-	--color--semantic--text-strong: var(--color--primitive--slate-10);
+	/* slate-20, not slate-10: every ramp's -10 step is literal oklch(0 0 0), and pure black
+	   is a shadow colour, not a text colour — it hardens every heading it touches. */
+	--color--semantic--text-strong: var(--color--primitive--slate-20);
 	--color--semantic--text-default: var(--color--primitive--slate-30);
 	--color--semantic--text-muted: var(--color--primitive--slate-50);
 	--color--semantic--text-subtle: var(--color--primitive--slate-60);
@@ -45,6 +47,20 @@
 
 	--color--semantic--error-subtle:
 		var(--color--primitive--error-90);
+
+	/* =========================================================
+	 * Feedback — text ON a subtle fill
+	 *
+	 * `--color--semantic--success` and `--success-subtle` are ramp/70 and ramp/90: two steps
+	 * of one ramp, which is a 2.05:1 pair. Every status tag in the system was failing WCAG AA
+	 * by more than half. These are the readable partners for those fills — ramp/40 on light,
+	 * ramp/95 on dark (see themes.css), mirroring the surface+text pairing that
+	 * event-categories.css already established for the scheduler.
+	 * ========================================================= */
+
+	--color--semantic--success-on-subtle: var(--color--primitive--success-40);
+	--color--semantic--warning-on-subtle: var(--color--primitive--warning-40);
+	--color--semantic--error-on-subtle:   var(--color--primitive--error-40);
 
 	/* =========================================================
 	 * Overlay

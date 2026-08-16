@@ -23,7 +23,12 @@
   white-space: nowrap;
 }
 
-.lucent-status-tag--success { background: var(--color--semantic--success-subtle); color: var(--color--semantic--success); }
-.lucent-status-tag--neutral { background: var(--color--semantic--surface-base);    color: var(--color--semantic--text-muted); }
-.lucent-status-tag--warning { background: var(--color--semantic--warning-subtle); color: var(--color--semantic--warning); }
-.lucent-status-tag--error   { background: var(--color--semantic--error-subtle);   color: var(--color--semantic--error); }
+/* Foreground is the *-on-subtle partner, not the *-default token.
+ *
+ * `--success` on `--success-subtle` is ramp/70 on ramp/90 — adjacent steps of one ramp, and
+ * a measured 2.05:1. Warning came out at 2.12 and error at 2.22, against a 4.5 floor, at a
+ * 10px type size. These pills were unreadable in every app consuming Lucent. */
+.lucent-status-tag--success { background: var(--color--semantic--success-subtle); color: var(--color--semantic--success-on-subtle); }
+.lucent-status-tag--neutral { background: var(--color--semantic--surface-base);   color: var(--color--semantic--text-muted); }
+.lucent-status-tag--warning { background: var(--color--semantic--warning-subtle); color: var(--color--semantic--warning-on-subtle); }
+.lucent-status-tag--error   { background: var(--color--semantic--error-subtle);   color: var(--color--semantic--error-on-subtle); }

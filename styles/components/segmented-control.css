@@ -17,7 +17,14 @@
   padding: var(--dimension--primitive--spacing-0-5);
   /* Matches the segments it wraps: md made the track read as a rounded card rather than a rail. */
   border-radius: var(--radius-sm);
-  background: var(--color--semantic--border-default);   /* track */
+  /* A RECESSED SURFACE, not a border colour.
+   *
+   * This was --color--semantic--border-default, a value calibrated for 1px hairlines. As a
+   * filled track it rendered rgb(175,192,209) — a dark slab — and left the unselected label
+   * at 4.94:1, scraping past AA by 0.44, with the selected pill only 1.83:1 against it
+   * (WCAG 1.4.11 asks 3.0 for a non-text indicator). Border tokens are for lines. */
+  background: var(--color--semantic--surface-base);
+  border: 1px solid var(--color--semantic--border-subtle);
 
   /* Density (default md). */
   --_h: var(--control-height-md);
@@ -57,7 +64,11 @@
 
 .lucent-segmented-control__segment.is-selected {
   background: var(--color--semantic--surface-default);
-  border-color: var(--color--semantic--border-subtle);
+  /* border-STRONG: on a light track the pill's fill is close to the track's, so the OUTLINE
+   * carries the selected state and must clear WCAG 1.4.11's 3.0 for a non-text indicator.
+   * Measured on this track — subtle 1.69, default 1.71, strong 3.59. Only strong passes,
+   * and it holds even under a theme that flattens --shadow-* away. */
+  border-color: var(--color--semantic--border-strong);
   box-shadow: var(--shadow-sm);
   color: var(--color--semantic--text-strong);
 }
