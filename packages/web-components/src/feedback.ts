@@ -268,7 +268,7 @@ export class LucentModal extends LucentElement {
               <span class="lucent-modal__title" id=${this.titleId}>${this.title}</span>
               ${this.subtitle ? html`<p class="lucent-modal__subtitle">${this.subtitle}</p>` : nothing}
             </div>
-            <lucent-icon-button icon="close" variant="ghost" size="sm" label="Close" @click=${this._close}></lucent-icon-button>
+            <lucent-icon-button icon="close" variant="text" size="sm" label="Close" @click=${this._close}></lucent-icon-button>
           </div>
           <div class="lucent-modal__body"></div>
           ${this.hasFooter

@@ -43,7 +43,7 @@
 
 .lucent-icon-button--primary .lucent-icon-button__inner {
   background: var(--color--semantic--accent-strong);
-  color: var(--color--semantic--text-inverse);
+  color: var(--color--semantic--text-onaccent);
 }
 .lucent-icon-button--primary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h); }
 .lucent-icon-button--primary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h); }

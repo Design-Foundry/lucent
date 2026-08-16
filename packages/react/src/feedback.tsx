@@ -173,7 +173,7 @@ export function Modal({
                   {subtitle && <p className="lucent-modal__subtitle">{subtitle}</p>}
                 </div>
               )}
-              <IconButton icon="close" variant="ghost" size="sm" ariaLabel="Close" onClick={close} />
+              <IconButton icon="close" variant="text" size="sm" ariaLabel="Close" onClick={close} />
             </div>
 
             <div className="lucent-modal__body">{children}</div>
