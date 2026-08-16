@@ -68,7 +68,7 @@
  * WC/React float this to <body> (positioned by Floating UI); Angular CDK renders it into an
  * overlay pane; Blazor renders it inline as a child of __field and anchors it via the rule below. */
 .lucent-date-picker__popover {
-  z-index: 50;
+  z-index: var(--layer-popover);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }

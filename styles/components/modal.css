@@ -16,10 +16,13 @@
 .lucent-modal__scrim {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: var(--layer-modal);
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Centred on the VIEWPORT (100vw / 100vh), never on the content pane. A dialog is modal
+   * to the window: the scrim covers the whole window, so the panel belongs to the whole
+   * window too. Side rails and other app chrome do not shift it. */
   padding: var(--dimension--primitive--spacing-4);
   background: var(--color--semantic--scrim);
 }
@@ -34,12 +37,20 @@
   max-width: 520px;
   max-height: 85vh;
   overflow: auto;
-  background: var(--color--semantic--surface-glass-strong);
-  border: var(--border-glass);
+  /* OPAQUE, not glass — the one surface in the system that must be.
+   *
+   * Every other glass container floats over the page, so translucency picks up the page
+   * and reads as depth. A dialog floats over the SCRIM, so translucency picks up the
+   * dimming layer instead: the panel turns muddy grey and the whole modal looks dirty,
+   * exactly where the user's attention was just forced. The scrim already supplies the
+   * separation, so the panel gains nothing from glass and loses its cleanliness.
+   *
+   * surface-overlay exists for precisely this tier (see tokens/surfaces.css). No
+   * backdrop-filter either: there is nothing behind an opaque panel to frost. */
+  background: var(--color--semantic--surface-overlay);
+  border: var(--border-subtle);
   border-radius: var(--radius-md);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
 }
 
 .lucent-modal__body {
