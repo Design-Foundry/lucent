@@ -13,8 +13,8 @@
   padding: var(--dimension--primitive--spacing-3);
   border-radius: var(--radius-md);
   background: var(--color--semantic--surface-glass-strong);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-md);
   overflow: hidden;
 }
