@@ -63,5 +63,33 @@
 
 .lucent-chip--active {
   background: var(--color--semantic--accent-strong);
-  color: var(--color--semantic--text-inverse);
+  color: var(--color--semantic--text-onaccent);
+}
+
+/* ─── Interactive types ────────────────────────────────────────────────────────
+ * `tag` and `default` are LABELS — static, and correctly cursorless. `action` and
+ * `active` are chosen by the user, so they need the affordances every other control in
+ * the system has: a pointer, a hover response and a focus ring. Without them the chip
+ * reads as decoration and nobody clicks it. Only the close button carried a pointer,
+ * which meant the one interactive part was the one that destroys the chip.
+ * -------------------------------------------------------------------------- */
+.lucent-chip--action,
+.lucent-chip--active {
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.lucent-chip--action:hover {
+  border-color: var(--color--semantic--border-strong);
+  background: var(--color--semantic--surface-default);
+}
+
+.lucent-chip--active:hover {
+  background: var(--color--semantic--accent-default);
+}
+
+.lucent-chip--action:focus-visible,
+.lucent-chip--active:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 2px;
 }

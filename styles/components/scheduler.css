@@ -101,14 +101,44 @@
   font-family: var(--font--primitive--sans);
   overflow: hidden;
 }
+/* Interactive by default (see the `interactive` property on lucent-event-block). An event
+ * in a calendar is opened, and until now it offered no pointer, no hover and no focus ring
+ * — it looked like a painted band. */
+.lucent-event-block.is-interactive {
+  cursor: pointer;
+  transition: filter 0.12s ease;
+}
+.lucent-event-block.is-interactive:hover { filter: brightness(0.97); }
+.lucent-event-block.is-interactive:focus-visible {
+  outline: var(--border-focus);
+  outline-offset: 1px;
+}
+
+/* The title NEVER shrinks. Both children were shrinkable flex items, so in a short block —
+ * a 30-minute slot is ~22px — the title collapsed to zero height while the lower-priority
+ * time survived, leaving an event that shows the clock and hides who it is for. The grid
+ * already states the time; the title is the one thing the block exists to say.
+ *
+ * caption, not body-sm: a week column is ~110px wide. At 14px the patient's name was
+ * ellipsed after the first word, which defeats the purpose of showing a title at all. */
 .lucent-event-block__title {
-  font-size: var(--dimension--primitive--fs-body-sm);
+  flex: 0 0 auto;
+  font-size: var(--dimension--primitive--fs-caption);
   font-weight: var(--dimension--primitive--fw-medium);
+  line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.lucent-event-block__time { font-size: var(--dimension--primitive--fs-caption); opacity: 0.85; }
+
+/* The time yields instead: it is clipped by the host's overflow when there is no room. */
+.lucent-event-block__time {
+  flex: 0 1 auto;
+  min-height: 0;
+  font-size: var(--dimension--primitive--fs-11);
+  line-height: 1.2;
+  opacity: 0.85;
+}
 
 /* ── Agenda row ──────────────────────────────────────────────────────────── */
 .lucent-agenda-row {

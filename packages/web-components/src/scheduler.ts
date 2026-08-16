@@ -1,4 +1,4 @@
-import { html, nothing, type TemplateResult } from 'lit';
+import { html, nothing, type PropertyValues, type TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { LucentElement } from './base';
 import { cx } from './cx';
@@ -57,8 +57,43 @@ export class LucentEventBlock extends LucentElement {
   @property() category: EventCategory = 'work';
   @property() title = '';
   @property() time = '';
+  /**
+   * An event in a calendar is opened, so this defaults to true — matching lucent-list-item,
+   * which set the convention (interactive by default, opt out). Carries the pointer, the
+   * hover response, a focus ring and Enter/Space, so keyboard users get the same gesture.
+   */
+  @property({ type: Boolean }) interactive = true;
 
-  protected hostClasses(): string { return cx('lucent-event-block', `lucent-event-block--${this.category}`); }
+  protected hostClasses(): string {
+    return cx('lucent-event-block', `lucent-event-block--${this.category}`, this.interactive && 'is-interactive');
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('click', this._activate);
+    this.addEventListener('keydown', this._onKey);
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this._activate);
+    this.removeEventListener('keydown', this._onKey);
+  }
+
+  private _activate = (): void => {
+    if (this.interactive) this.dispatchEvent(new CustomEvent('activate', { bubbles: true }));
+  };
+
+  private _onKey = (e: KeyboardEvent): void => {
+    if (!this.interactive) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this._activate(); }
+  };
+
+  protected willUpdate(changed: PropertyValues): void {
+    super.willUpdate(changed);
+    if (this.interactive) { this.setAttribute('role', 'button'); this.tabIndex = 0; }
+    else { this.removeAttribute('role'); this.removeAttribute('tabindex'); }
+  }
 
   protected render(): TemplateResult {
     return html`<span class="lucent-event-block__title">${this.title}</span>${this.time ? html`<span class="lucent-event-block__time">${this.time}</span>` : nothing}`;
