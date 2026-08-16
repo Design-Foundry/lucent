@@ -48,8 +48,8 @@
 
 /* Mention — accent-tinted (@person / agent). */
 .lucent-reference-tag--mention {
-  background: color-mix(in oklch, var(--color--semantic--accent-subtle) 45%, var(--color--semantic--surface-default));
-  border-color: color-mix(in oklch, var(--color--semantic--accent-default) 25%, transparent);
+  background: color-mix(in oklab, var(--color--semantic--accent-subtle) 45%, var(--color--semantic--surface-default));
+  border-color: color-mix(in oklab, var(--color--semantic--accent-default) 25%, transparent);
   color: var(--color--semantic--accent-strong);
 }
 .lucent-reference-tag--mention .lucent-reference-tag__icon { color: var(--color--semantic--accent-strong); }
