@@ -19,6 +19,42 @@
   --color--semantic--surface-glass-subtle: oklch(
     from var(--color--primitive--neutral-100) l c h / 0.1
   );
+
+  /* =========================================================
+   * Surface — Blur
+   *
+   * The frosting radius that pairs with each glass background. Tokenized so a
+   * theme can SOLIDIFY the system (set these to 0 and raise the glass alphas)
+   * without touching a single component rule — the same way --shadow-* lets a
+   * theme flatten elevation. Component surfaces (card, nav rail, menu, modals,
+   * fields) share --blur-glass; the three utility classes keep their own steps.
+   * ========================================================= */
+
+  /* =========================================================
+   * Surface — Scrollbars
+   *
+   * The system had none: every scrollable surface in every consuming app fell back to the
+   * browser's default thumb, a hard grey slab that ignores the theme entirely and reads as
+   * heavy against any soft palette. `scrollbar-color` INHERITS, so declaring it once at the
+   * root themes every scroller, and a skin re-points it like any other token.
+   * ========================================================= */
+
+  /* Deliberately much lighter than the browser default (~rgb 193). A scrollbar is a hint
+   * about position, not a component: at default weight it competes with the content it
+   * measures, and inside a small popover it reads as a structural bar. It darkens on hover,
+   * which is when it stops being a hint and becomes a control.
+   *
+   * Concrete values, not oklch(from …): relative-colour syntax computes here but keeping the
+   * scrollbar tokens literal makes them trivially overridable by a skin. */
+  --color--semantic--scrollbar-thumb: oklch(0.8850 0.0090 248.0);
+  --color--semantic--scrollbar-thumb-hover: oklch(0.7600 0.0180 248.0);
+  --color--semantic--scrollbar-track: transparent;
+
+  --blur-glass: 50px;
+
+  --blur-surface-glass: 12px;
+  --blur-surface-glass-strong: 20px;
+  --blur-surface-glass-subtle: 8px;
 }
 
 /* ─── Utility Classes ────────────────────────────────────────────────────────── */
@@ -44,20 +80,20 @@
 
 .surface-glass {
   background-color: var(--color--semantic--surface-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(var(--blur-surface-glass));
+  -webkit-backdrop-filter: blur(var(--blur-surface-glass));
 }
 
 .surface-glass-strong {
   background-color: var(--color--semantic--surface-glass-strong);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(var(--blur-surface-glass-strong));
+  -webkit-backdrop-filter: blur(var(--blur-surface-glass-strong));
 }
 
 .surface-glass-subtle {
   background-color: var(--color--semantic--surface-glass-subtle);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--blur-surface-glass-subtle));
+  -webkit-backdrop-filter: blur(var(--blur-surface-glass-subtle));
 }
 
 .breath-soft {
