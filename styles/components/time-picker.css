@@ -67,7 +67,7 @@
 /* Popover — a raised card of scrolling columns. WC/React float to <body>; Angular uses a CDK
  * overlay; Blazor renders inline anchored via the __field rule below. */
 .lucent-time-picker__popover {
-  z-index: 50;
+  z-index: var(--layer-popover);
   display: flex;
   gap: var(--dimension--primitive--spacing-1);
   padding: var(--dimension--primitive--spacing-2);
@@ -84,7 +84,9 @@
   min-width: 52px;
   max-height: 216px;
   overflow-y: auto;
-  scrollbar-width: thin;
+  /* No `scrollbar-width` here: declaring it makes Chromium switch this element to the
+     standard scrollbar path and ignore the themed ::-webkit-scrollbar rules in lucent.css.
+     Scrollbar styling is a base concern now — see the @supports split there. */
 }
 .lucent-time-picker__col + .lucent-time-picker__col { border-left: 1px solid var(--color--semantic--border-subtle); padding-left: var(--dimension--primitive--spacing-1); }
 

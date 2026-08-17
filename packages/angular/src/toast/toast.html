@@ -1,7 +1,7 @@
 <div class="lucent-toast__header">
 	<span class="lucent-toast__title">{{ title() }}</span>
 	@if (closable()) {
-		<lucent-icon-button class="lucent-toast__close" icon="close" variant="ghost" size="sm" ariaLabel="Dismiss" (clicked)="closed.emit()" />
+		<lucent-icon-button class="lucent-toast__close" icon="close" variant="text" size="sm" ariaLabel="Dismiss" (clicked)="closed.emit()" />
 	}
 </div>
 @if (message()) {

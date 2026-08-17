@@ -11,7 +11,7 @@
         <span class="lucent-toast__title">@Title</span>
         @if (Closable)
         {
-            <LucentIconButton Class="lucent-toast__close" Icon="close" Variant="LucentButtonVariant.Ghost" Size="IconButtonSize.Sm" AriaLabel="Dismiss" @onclick="OnClosed" />
+            <LucentIconButton Class="lucent-toast__close" Icon="close" Variant="LucentButtonVariant.Text" Size="IconButtonSize.Sm" AriaLabel="Dismiss" @onclick="OnClosed" />
         }
     </div>
     @if (!string.IsNullOrEmpty(Message))

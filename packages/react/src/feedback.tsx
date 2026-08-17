@@ -102,7 +102,7 @@ export function InlineNotice({ variant = 'info', title, icon, dismissible = fals
         <IconButton
           className="lucent-inline-notice__dismiss"
           icon="close"
-          variant="ghost"
+          variant="text"
           size="sm"
           ariaLabel="Dismiss"
           onClick={onDismiss}
@@ -173,7 +173,7 @@ export function Modal({
                   {subtitle && <p className="lucent-modal__subtitle">{subtitle}</p>}
                 </div>
               )}
-              <IconButton icon="close" variant="ghost" size="sm" ariaLabel="Close" onClick={close} />
+              <IconButton icon="close" variant="text" size="sm" ariaLabel="Close" onClick={close} />
             </div>
 
             <div className="lucent-modal__body">{children}</div>
@@ -233,7 +233,7 @@ export function Toast({ title = '', message = '', variant = 'informative', closa
       <div className="lucent-toast__header">
         <span className="lucent-toast__title">{title}</span>
         {closable && (
-          <IconButton className="lucent-toast__close" icon="close" variant="ghost" size="sm" ariaLabel="Dismiss" onClick={onClose} />
+          <IconButton className="lucent-toast__close" icon="close" variant="text" size="sm" ariaLabel="Dismiss" onClick={onClose} />
         )}
       </div>
       {message && <p className="lucent-toast__message">{message}</p>}

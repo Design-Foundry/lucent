@@ -28,8 +28,8 @@
 
   /* Colour per severity (info default). Soft tint = a little of the accent over the surface. */
   --_c: var(--color--semantic--accent-default);
-  background: color-mix(in oklch, var(--_c) 12%, var(--color--semantic--surface-default));
-  border-color: color-mix(in oklch, var(--_c) 30%, transparent);
+  background: color-mix(in oklab, var(--_c) 12%, var(--color--semantic--surface-default));
+  border-color: color-mix(in oklab, var(--_c) 30%, transparent);
 }
 
 .lucent-inline-notice--success { --_c: var(--color--semantic--success); }

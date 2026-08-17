@@ -18,8 +18,8 @@
   background: var(--color--semantic--surface-glass-strong);
   border: var(--border-subtle);
   border-radius: var(--radius-full);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-md);
   overflow: hidden;
 }

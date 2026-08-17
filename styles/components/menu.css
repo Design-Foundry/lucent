@@ -11,6 +11,9 @@
  * ============================================================================= */
 
 .lucent-menu {
+  /* On the BASE class: lucent-menu-trigger portals this panel to <body>, so the anchored
+     `__anchor > .lucent-menu` rule below cannot reach it. See tokens/layers.css. */
+  z-index: var(--layer-popover);
   display: flex;
   flex-direction: column;
   min-width: 200px;
@@ -18,8 +21,8 @@
   border-radius: var(--radius-md);
   background: var(--color--semantic--surface-default);
   border: var(--border-strong);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-md);
   overflow: hidden;
   animation: lucent-menu-in 120ms ease;
@@ -38,7 +41,7 @@
 .lucent-menu__anchor > .lucent-menu {
   position: absolute;
   top: 100%;
-  z-index: 50;
+  z-index: var(--layer-popover);
   margin-top: 4px;
 }
 .lucent-menu--bottom-end { right: 0; }
@@ -47,5 +50,5 @@
 .lucent-menu__backdrop {
   position: fixed;
   inset: 0;
-  z-index: 40;
+  z-index: var(--layer-popover);
 }

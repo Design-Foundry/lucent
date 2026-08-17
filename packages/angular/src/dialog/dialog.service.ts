@@ -104,7 +104,7 @@ let nextId = 0;
 		<div class="lucent-modal" role="dialog" aria-modal="true" [attr.aria-labelledby]="data.title ? titleId : null">
 			<div class="lucent-modal__header">
 				<span class="lucent-modal__title" [id]="titleId">{{ data.title }}</span>
-				<lucent-icon-button icon="close" variant="ghost" size="sm" ariaLabel="Close" (clicked)="ref.close(false)" />
+				<lucent-icon-button icon="close" variant="text" size="sm" ariaLabel="Close" (clicked)="ref.close(false)" />
 			</div>
 			<div class="lucent-modal__body">
 				<p>{{ data.message }}</p>

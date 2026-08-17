@@ -11,7 +11,7 @@
   padding: var(--dimension--primitive--spacing-0-5);
   border-radius: var(--radius-sm);
   background: var(--color--semantic--surface-glass);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-sm);
 }

@@ -46,8 +46,8 @@
   border-radius: var(--_radius);
   border: var(--border-subtle);
   background: var(--color--semantic--surface-default);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   cursor: pointer;
   width: 100%;
   text-align: left;
@@ -85,11 +85,16 @@
 /* ─── Dropdown ─────────────────────────────────────────────────────────────── */
 
 .lucent-select__dropdown {
+  /* On the BASE class, not only on the Razor `field > dropdown` path below: the WC and
+   * Angular kits portal this panel to <body>, where a descendant selector no longer
+   * matches and the panel would carry no stacking declaration at all — landing under any
+   * dialog it was opened from. See tokens/layers.css. */
+  z-index: var(--layer-popover);
   background: var(--color--semantic--surface-default);
   border: var(--border-strong);
   border-radius: var(--radius-sm);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-0-5);
   box-shadow: var(--shadow-md);
   overflow: hidden;
@@ -104,7 +109,7 @@
   left: 0;
   right: 0;
   top: 100%;
-  z-index: 20;
+  z-index: var(--layer-popover);
   margin-top: 4px;
 }
 

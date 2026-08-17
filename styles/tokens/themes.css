@@ -36,6 +36,11 @@
   --color--semantic--error:          var(--color--primitive--error-70);
   --color--semantic--error-subtle:   var(--color--primitive--error-30);
 
+  /* Readable partners for the subtle fills — inverted for dark (see semantic-colors.css). */
+  --color--semantic--success-on-subtle: var(--color--primitive--success-95);
+  --color--semantic--warning-on-subtle: var(--color--primitive--warning-95);
+  --color--semantic--error-on-subtle:   var(--color--primitive--error-95);
+
   /* Overlay */
   --color--semantic--scrim: oklch(from var(--color--primitive--neutral-10) l c h / 0.6);
 
@@ -87,6 +92,11 @@
     --color--semantic--warning-subtle: var(--color--primitive--warning-30);
     --color--semantic--error:          var(--color--primitive--error-70);
     --color--semantic--error-subtle:   var(--color--primitive--error-30);
+
+  /* Readable partners for the subtle fills — inverted for dark (see semantic-colors.css). */
+  --color--semantic--success-on-subtle: var(--color--primitive--success-95);
+  --color--semantic--warning-on-subtle: var(--color--primitive--warning-95);
+  --color--semantic--error-on-subtle:   var(--color--primitive--error-95);
 
     --color--semantic--scrim: oklch(from var(--color--primitive--neutral-10) l c h / 0.6);
 

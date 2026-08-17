@@ -51,7 +51,7 @@
 /* ─── Roles ────────────────────────────────────────────────────────────────── */
 
 .lucent-message-bubble--user {
-  background: color-mix(in oklch, var(--color--semantic--accent-subtle) 60%, var(--color--semantic--surface-default));
+  background: color-mix(in oklab, var(--color--semantic--accent-subtle) 60%, var(--color--semantic--surface-default));
   border-color: transparent;
 }
 

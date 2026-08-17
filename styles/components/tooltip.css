@@ -12,6 +12,9 @@
  * ============================================================================= */
 
 .lucent-tooltip {
+  /* On the BASE class: the bubble is created and appended to <body> on hover, so the
+     `__host > .lucent-tooltip` rule below cannot reach it. See tokens/layers.css. */
+  z-index: var(--layer-tooltip);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -41,7 +44,7 @@
 
 .lucent-tooltip-host > .lucent-tooltip {
   position: absolute;
-  z-index: 10;
+  z-index: var(--layer-tooltip);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.12s ease;

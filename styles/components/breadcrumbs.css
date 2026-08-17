@@ -22,8 +22,8 @@
   border-radius: var(--radius-md);
   background: var(--color--semantic--surface-glass-strong);
   border: 1px solid var(--color--semantic--border-glass);
-  backdrop-filter: blur(50px);
-  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-md);
   overflow: hidden;
   white-space: nowrap;
@@ -32,6 +32,28 @@
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--dimension--primitive--lh-relaxed);
   color: var(--color--semantic--text-default);
+}
+
+/* -----------------------------------------------------------------------------
+ * Bare — structure only, no container.
+ *
+ * The default breadcrumbs render as a glass PILL: their own surface, border, blur and
+ * elevation. That reads correctly when they float over the page with no framing around
+ * them. Inside an already-demarcated bar it becomes a box inside a box — two containers
+ * competing to be the edge.
+ *
+ * `--bare` keeps the composition (the trail, the separators, the is-last treatment) and
+ * drops the container entirely, so the surrounding bar is the only frame.
+ * -------------------------------------------------------------------------- */
+.lucent-breadcrumbs--bare {
+  height: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
 }
 
 /* The ordered list is the flex track; strip the native list chrome. */

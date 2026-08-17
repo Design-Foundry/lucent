@@ -30,10 +30,12 @@
   gap: var(--dimension--primitive--spacing-2);
   padding: var(--dimension--primitive--spacing-2);
   border-radius: var(--radius-sm);
-  color: var(--color--semantic--text-default);
+  /* Navigation is scaffolding, not content: at rest an item is MUTED, so the page it
+     frames stays the loudest thing on screen. Emphasis is spent on the active row only. */
+  color: var(--color--semantic--text-muted);
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
   background: transparent;
   border: none;
   width: 100%;
@@ -41,11 +43,12 @@
 
 .lucent-nav-item:hover:not(.is-disabled) {
   background: var(--color--semantic--surface-glass-strong);
+  color: var(--color--semantic--text-default);
 }
 
 .lucent-nav-item.is-active {
   background: var(--color--semantic--accent-subtle);
-  color: var(--color--semantic--text-strong);
+  color: var(--color--semantic--text-default);
 }
 
 .lucent-nav-item.is-disabled {
@@ -65,7 +68,9 @@
 
 .lucent-nav-item__label {
   font-family: var(--font--primitive--sans);
-  font-weight: 500;
+  /* Regular at rest; the active row steps up to medium (below). Weight carries the state
+     together with the tint, so the rail reads even where the accent wash is subtle. */
+  font-weight: var(--dimension--primitive--fw-regular);
   font-size: var(--dimension--primitive--fs-body-sm);
   line-height: 1.15;
   overflow: hidden;
@@ -73,9 +78,13 @@
   white-space: nowrap;
 }
 
+.lucent-nav-item.is-active .lucent-nav-item__label {
+  font-weight: var(--dimension--primitive--fw-medium);
+}
+
 .lucent-nav-item__subtitle {
   font-family: var(--font--primitive--sans);
-  font-weight: 400;
+  font-weight: var(--dimension--primitive--fw-regular);
   font-size: var(--dimension--primitive--fs-caption);
   line-height: 1.6;
   color: var(--color--semantic--text-subtle);

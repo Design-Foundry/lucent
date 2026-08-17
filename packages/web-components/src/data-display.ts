@@ -59,7 +59,12 @@ export class LucentListItem extends LucentElement {
 
   protected render(): TemplateResult {
     return html`
-      ${this.icon ? html`<lucent-icon class="lucent-list-item__icon" name=${this.icon} size="sm"></lucent-icon>` : nothing}
+      ${this.icon
+        // The leading glyph scales with the row: a two-line row (label + supporting) is tall
+        // enough that a 14px icon reads as a speck beside it, so it steps up to lg. A single
+        // line row stays compact. The icon matches the content block, not a fixed size.
+        ? html`<lucent-icon class="lucent-list-item__icon" name=${this.icon} size=${this.supporting ? 'lg' : 'md'}></lucent-icon>`
+        : nothing}
       <span class="lucent-list-item__content">
         <span class="lucent-list-item__primary">${this.label}</span>
         ${this.supporting ? html`<span class="lucent-list-item__supporting">${this.supporting}</span>` : nothing}
