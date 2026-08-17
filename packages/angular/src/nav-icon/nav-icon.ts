@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
 import { LucentIcon } from '../icon/icon';
 
+/**
+ * @deprecated Superseded by {@link LucentNavItem}, which is the same row with a label and
+ * renders as a real `<a href>`; a compact rail hides the label for you. Kept for back-compat —
+ * this is icon-only and has no navigation semantics of its own, so it needs a wrapping anchor.
+ */
 @Component({
 	selector: 'lucent-nav-icon',
 	standalone: true,

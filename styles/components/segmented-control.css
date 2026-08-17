@@ -15,7 +15,8 @@
   align-items: stretch;
   gap: var(--dimension--primitive--spacing-0-5);
   padding: var(--dimension--primitive--spacing-0-5);
-  border-radius: var(--radius-md);
+  /* Matches the segments it wraps: md made the track read as a rounded card rather than a rail. */
+  border-radius: var(--radius-sm);
   background: var(--color--semantic--border-default);   /* track */
 
   /* Density (default md). */

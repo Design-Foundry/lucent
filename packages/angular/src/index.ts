@@ -47,6 +47,8 @@ export type { SegmentedOption } from './segmented-control/segmented-control';
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
 export { LucentNavIcon } from './nav-icon/nav-icon';
 
+export { LucentNavItem } from './nav-item/nav-item';
+export { LucentNavGroup } from './nav-group/nav-group';
 export { LucentNavRail } from './nav-rail/nav-rail';
 
 export { LucentNavDivider } from './nav-divider/nav-divider';
