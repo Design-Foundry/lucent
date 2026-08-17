@@ -136,7 +136,7 @@ export class LucentInlineNotice extends LucentSurface {
       const btn = document.createElement('lucent-icon-button');
       btn.className = 'lucent-inline-notice__dismiss';
       btn.setAttribute('icon', 'close');
-      btn.setAttribute('variant', 'ghost');
+      btn.setAttribute('variant', 'text');
       btn.setAttribute('size', 'sm');
       btn.setAttribute('label', 'Dismiss');
       btn.addEventListener('click', () => this.dispatchEvent(new CustomEvent('dismiss', { bubbles: true })));
@@ -214,7 +214,7 @@ export class LucentToast extends LucentElement {
       <div class="lucent-toast__header">
         <span class="lucent-toast__title">${this.title}</span>
         ${this.closable
-          ? html`<lucent-icon-button class="lucent-toast__close" icon="close" variant="ghost" size="sm" label="Dismiss" @click=${this._close}></lucent-icon-button>`
+          ? html`<lucent-icon-button class="lucent-toast__close" icon="close" variant="text" size="sm" label="Dismiss" @click=${this._close}></lucent-icon-button>`
           : nothing}
       </div>
       ${this.message ? html`<p class="lucent-toast__message">${this.message}</p>` : nothing}`;
