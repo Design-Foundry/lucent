@@ -21,7 +21,10 @@
   --color--semantic--text-muted:    var(--color--primitive--slate-70);
   --color--semantic--text-subtle:   var(--color--primitive--slate-60);
   --color--semantic--text-inverse:  var(--color--primitive--slate-20);
-  --color--semantic--text-onaccent: var(--color--primitive--pine-95);
+  /* pine-20, NOT pine-95: in dark the accent FILL flips light (accent-strong is pine-80) while
+     this stayed light too, putting pale text on a pale button at 1.94:1 — the primary action
+     was unreadable in dark mode in every app consuming Lucent. On dark, on-accent goes dark. */
+  --color--semantic--text-onaccent: var(--color--primitive--pine-20);
 
   /* Accent (keep brand mid; lighten emphasis, darken the tint) */
   --color--semantic--accent-default: var(--color--primitive--pine-70);
@@ -80,7 +83,10 @@
     --color--semantic--text-muted:    var(--color--primitive--slate-70);
     --color--semantic--text-subtle:   var(--color--primitive--slate-60);
     --color--semantic--text-inverse:  var(--color--primitive--slate-20);
-    --color--semantic--text-onaccent: var(--color--primitive--pine-95);
+    /* pine-20, NOT pine-95: in dark the accent FILL flips light (accent-strong is pine-80) while
+     this stayed light too, putting pale text on a pale button at 1.94:1 — the primary action
+     was unreadable in dark mode in every app consuming Lucent. On dark, on-accent goes dark. */
+  --color--semantic--text-onaccent: var(--color--primitive--pine-20);
 
     --color--semantic--accent-default: var(--color--primitive--pine-70);
     --color--semantic--accent-strong:  var(--color--primitive--pine-80);
