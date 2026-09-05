@@ -28,6 +28,21 @@ jobs:
         id: version
         run: echo "version=${GITHUB_REF_NAME#razor-v}" >> "$GITHUB_OUTPUT"
 
+      # MSBuild evaluates the SDK's static-web-assets glob against wwwroot/ once, at project
+      # evaluation — before any target runs. The in-csproj SyncLucentStyles target populates
+      # wwwroot/ too late for that glob on a clean checkout (it only "worked" locally because a
+      # previous build's wwwroot/ was already sitting on disk), so the packed .nupkg silently
+      # shipped with no CSS. Same fix publish.yml already uses for the npm package: populate
+      # wwwroot/ on disk *before* dotnet ever evaluates the project.
+      - name: Bundle the shared stylesheet into wwwroot before packing
+        # Only *.css — SyncLucentStyles (still runs too, for local dev) copies the same subset,
+        # and mirrors the disk state it expects; copying styles/README.md too made the SDK's
+        # static-web-assets evaluation register a file the target then deletes underneath it.
+        run: |
+          rm -rf packages/razor/wwwroot
+          mkdir -p packages/razor/wwwroot
+          (cd styles && find . -name '*.css' -exec cp --parents {} ../packages/razor/wwwroot/ \;)
+
       - name: Pack DesignFoundry.Lucent
         run: >
           dotnet pack packages/razor/DesignFoundry.Lucent.csproj
