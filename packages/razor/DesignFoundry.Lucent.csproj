@@ -54,6 +54,11 @@
     <RemoveDir Directories="$(MSBuildProjectDirectory)\wwwroot" />
     <Copy SourceFiles="@(LucentStyleSource)"
           DestinationFiles="@(LucentStyleSource->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <!-- On a clean checkout this target fires before anything else creates obj/<config>/<tfm>/
+         (it runs BeforeTargets="ResolveProjectStaticWebAssets;BeforeBuild") — Touch doesn't
+         create its own directory, so the stamp write fails. Local dev never hit this because a
+         leftover obj/ from a prior build already existed. -->
+    <MakeDir Directories="$(IntermediateOutputPath)" Condition="!Exists('$(IntermediateOutputPath)')" />
     <Touch Files="$(IntermediateOutputPath)lucent-style-sync.stamp" AlwaysCreate="true" />
   </Target>
 
