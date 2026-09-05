@@ -6,16 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <!-- Packaging — name reserved on NuGet; do NOT publish until v1.0.0. -->
+  <!-- Packaging — published to GitHub Packages (private feed) by publish-nuget.yml on tag push.
+       Version here is only the local/dev fallback; CI overrides it with -p:Version from the tag. -->
   <PropertyGroup>
     <PackageId>DesignFoundry.Lucent</PackageId>
-    <Version>0.0.0-dev</Version>
+    <Version>0.1.1</Version>
     <Authors>Design Foundry</Authors>
     <Description>Lucent design system — Razor (Blazor) component library.</Description>
     <RepositoryUrl>https://github.com/Design-Foundry/lucent</RepositoryUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2026 Diego Cancho Candela</Copyright>
-    <IsPackable>false</IsPackable>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,42 @@
+name: Publish Razor package
+
+on:
+  push:
+    tags:
+      - 'razor-v*'
+# Separate tag prefix from the Angular package's plain v* tags (0.1.1) — the two packages
+# version independently, and reusing v* would re-trigger publish.yml with an already-published
+# npm version, which npm publish rejects.
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Tag is the single source of truth for the version — keeps the csproj's own <Version>
+      # a local/dev fallback only, so it can't drift from what actually gets tagged.
+      - name: Derive package version from the tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#razor-v}" >> "$GITHUB_OUTPUT"
+
+      - name: Pack DesignFoundry.Lucent
+        run: >
+          dotnet pack packages/razor/DesignFoundry.Lucent.csproj
+          -c Release
+          -p:Version=${{ steps.version.outputs.version }}
+          -o dist/nuget
+
+      - name: Publish to GitHub Packages
+        run: >
+          dotnet nuget push dist/nuget/*.nupkg
+          --source https://nuget.pkg.github.com/Design-Foundry/index.json
+          --api-key ${{ secrets.GITHUB_TOKEN }}
