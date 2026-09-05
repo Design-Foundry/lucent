@@ -1,14 +1,19 @@
 # @design-foundry/lucent (Angular kit)
 
-The original Lucent component kit, in Angular. **Parked as reference** — Hub will
-re-consume it after its rewrite. Not actively built or published right now.
+The Angular implementation of the Lucent class contract. Every component emits the
+`lucent-` class names defined in [`styles/`](../../styles/) and ships **zero CSS of its
+own** — appearance lives in the shared stylesheet, so this kit and the React, Web
+Components, and Razor kits all render identically.
 
-`src/` is the verbatim kit harvested from `hub/`. Components reference the shared
-tokens in `styles/tokens/` as runtime CSS variables and emit the semantic class
-names documented in `docs/`. Each component still carries its own `.scss`; when the
-kit is un-parked these drop in favour of the shared `styles/` base (button and input
-already live there — see `styles/components/`).
+Components read the shared tokens in `styles/tokens/` as runtime CSS custom properties.
 
-`package.json` is `"private": true` at `0.0.0-dev` — flip to publish only at
-**v1.0.0** (`@design-foundry/lucent` on npm). Build tooling (ng-packagr) is added
-when the kit is un-parked.
+## Build
+
+```bash
+npm run lib:build      # ng-packagr → dist/lucent
+npm run lib:pack       # + npm pack
+npm run showcase       # verification host (samples/lucent-angular-showcase)
+```
+
+`package.json` is `"private": true` at `0.0.0-dev`. Nothing is published — see the
+[disclaimer](../../README.md) in the root README.

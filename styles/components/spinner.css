@@ -8,7 +8,7 @@
  *  • Bare `.lucent-spinner` — the arc is `currentColor`, so it inherits the surrounding
  *    text colour. This is what `button`/`icon-button` emit for their loading state, so the
  *    spinner contrasts against a filled button automatically. (Previously undefined — the
- *    loading span rendered nothing; see icon-button.css note / API-AUDIT §6.)
+ *    loading span rendered nothing; see icon-button.css note.)
  *  • `.lucent-spinner--sm|md|lg` — the standalone component form: fixed size + the accent
  *    colour by default.
  * ============================================================================= */

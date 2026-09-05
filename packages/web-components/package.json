@@ -3,7 +3,7 @@
   "version": "0.0.0-dev",
   "description": "Lucent design system — Web Components kit (Lit, Light DOM).",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "type": "module",
   "repository": {
     "type": "git",

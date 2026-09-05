@@ -13,6 +13,8 @@
     <Authors>Design Foundry</Authors>
     <Description>Lucent design system — Razor (Blazor) component library.</Description>
     <RepositoryUrl>https://github.com/Design-Foundry/lucent</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Copyright>Copyright 2026 Diego Cancho Candela</Copyright>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

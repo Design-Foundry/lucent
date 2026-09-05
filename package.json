@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Lucent design system — Angular workspace (library + showcase). Not published; the library at packages/angular is.",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "scripts": {
     "lib:build": "ng build lucent",
     "lib:watch": "ng build lucent --watch --configuration development",

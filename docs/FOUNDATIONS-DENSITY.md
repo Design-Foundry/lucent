@@ -35,10 +35,10 @@ but not a horizontal padding.
 
 ## Tokens
 
-Defined in [`_controls.scss`](../_controls.scss) (loaded in `styles.scss` after `typography`,
+Defined in [`controls.css`](../styles/tokens/controls.css) (loaded from `lucent.css` after `typography`,
 before `themes`). Each property has one token per size, resolving to existing primitives:
 
-```scss
+```css
 --control-height-xs … -lg     // sizing-6 / -7 / -8 / -10  → 24 / 28 / 32 / 40
 --control-text-xs … -lg       // fs-11 / fs-caption / fs-body-sm / fs-body-md → 11 / 12 / 14 / 16
 --control-icon-xs … -lg       // icon-sm / -md / -md / -lg
@@ -56,23 +56,24 @@ export type ControlSize = 'xs' | 'sm' | 'md' | 'lg';
 
 ## Applying it to a component
 
-1. **Class:** `readonly size = input<ControlSize>('md')` + host class `df-<comp>--{{size}}`
+1. **Class:** `readonly size = input<ControlSize>('md')` + host class `lucent-<comp>--{{size}}`
    (merge into the existing `[class]` binding, like `button`/`chip`, or add a `host` block,
    like `input`/`select`).
-2. **SCSS:** set local `--_*` vars to the `md` tokens on `:host`, override them per size class,
-   and have the inner element read the local vars. Copy `button.scss`:
+2. **CSS:** in `styles/components/<comp>.css`, set local `--_*` vars to the `md` tokens on the
+   block class, override them per size class, and have the inner element read the local vars.
+   Copy `styles/components/button.css`:
 
-```scss
-:host {
+```css
+.lucent-thing {
   --_h: var(--control-height-md);  --_text: var(--control-text-md);
   --_radius: var(--control-radius-md);  --_gap: var(--control-gap-md);
   --_px: var(--control-pad-x-md);
 }
-:host.df-thing--xs { --_h: var(--control-height-xs); --_text: var(--control-text-xs); /* … */ }
-:host.df-thing--sm { /* … */ }
-:host.df-thing--lg { /* … */ }
+.lucent-thing--xs { --_h: var(--control-height-xs); --_text: var(--control-text-xs); /* … */ }
+.lucent-thing--sm { /* … */ }
+.lucent-thing--lg { /* … */ }
 
-.df-thing__inner { height: var(--_h); padding: 0 var(--_px); gap: var(--_gap);
+.lucent-thing__inner { height: var(--_h); padding: 0 var(--_px); gap: var(--_gap);
                    border-radius: var(--_radius); font-size: var(--_text); }
 ```
 
@@ -80,23 +81,10 @@ Buttons override `--_px` with a roomier scale; checkboxes use explicit-px box/ic
 (`--_box`/`--_icon`) because a square doesn't map onto the height scale, while their label/gap
 still follow the shared tokens.
 
-## Current coverage
+## Exceptions
 
-| Status | Controls |
-|---|---|
-| ✅ on `ControlSize` | `button`, `input`, `select`, `chip`, `checkbox` |
-| ⚠️ own scale (migrate) | `icon-button` (`sm/md/lg`), `toggle` (`sm/md`), `tab` (`xs/sm/md/lg`), `avatar` (`xs/sm/md/lg`) |
-| n/a | `icon` (`xs…xl` glyph sizes — a different axis) |
+`icon` sizes on a separate `xs…xl` glyph axis — a glyph is not a control, and forcing it onto
+`ControlSize` would tie icon scale to row height, which is exactly the coupling this scale
+exists to avoid.
 
-## Roadmap
-
-- **Migrate the ⚠️ controls** onto `ControlSize` (align their host classes + consume the
-  `--control-*` tokens). Keep their current names as deprecated aliases for one minor.
-- **Container density (later):** a `[dfDensity]` / `data-density` attribute on a panel could
-  set `--control-height` (etc.) via the CSS cascade, so an entire inspector goes dense in one
-  line without setting `size` on each control. The token-set design above makes this a free
-  follow-up — start per-control, add the container override when a real need appears.
-- **Add `2xs` (20px)** only if toolbars need it; don't add speculatively.
-
-See [CONVENTIONS §10](./CONVENTIONS.md) for the rule and [COMPONENTS-ROADMAP.md](./COMPONENTS-ROADMAP.md)
-for where density sits in the broader plan.
+See [CONVENTIONS §10](./CONVENTIONS.md) for the rule.

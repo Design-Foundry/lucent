@@ -3,7 +3,7 @@
   "version": "0.0.0-dev",
   "description": "Lucent design system — React component kit.",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "type": "module",
   "repository": {
     "type": "git",
