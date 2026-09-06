@@ -32,7 +32,7 @@ export class LucentSuffix {}
 
 /**
  * Adornment slots for row/control components — the kit-wide vocabulary for
- * "what goes before / after the primary content" (API-PROPOSAL §Rule 2).
+ * "what goes before / after the primary content" (CONVENTIONS §5).
  *
  * `lucentLeading` / `lucentTrailing` supersede the older `lucentPrefix` / `lucentSuffix` pair;
  * `lucentSupporting` marks a secondary (second-line) text region (§Rule 1, §Rule 4).

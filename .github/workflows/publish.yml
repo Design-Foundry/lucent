@@ -1,0 +1,40 @@
+name: Publish Angular package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@design-foundry'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the Angular library
+        run: npm run lib:build
+
+      # ng-packagr only bundles the compiled library code — the shared, framework-agnostic
+      # stylesheet lives at repo root (styles/, used by all four kits) and never gets copied
+      # into dist/lucent on its own.
+      - name: Bundle the shared stylesheet into the package
+        run: cp -r styles dist/lucent/styles
+
+      - name: Publish @design-foundry/lucent
+        working-directory: dist/lucent
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

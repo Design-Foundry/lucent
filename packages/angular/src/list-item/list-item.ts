@@ -4,7 +4,7 @@ import { LucentLeading, LucentSupporting } from '../slots/slots';
 import { Tone } from '../tone';
 
 /**
- * Reference row primitive (API-PROPOSAL §Rule 4). An interactive, content-rich
+ * Reference row primitive (CONVENTIONS §5). An interactive, content-rich
  * list row that the rest of the kit's row components (`lucent-option`, `lucent-menu-item`)
  * specialize from. Demonstrates the kit conventions in one place:
  *

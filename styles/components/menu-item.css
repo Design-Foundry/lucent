@@ -7,7 +7,7 @@
  *     .lucent-menu-item__label
  *
  * Ported from packages/angular/src/menu-item/menu-item.scss. One fix: the Angular hover used
- * the UNDEFINED `--color--semantic--surface-subtle` (a dead hover — see API-AUDIT §5 /
+ * the UNDEFINED `--color--semantic--surface-subtle`  (a dead hover —
  * CONVENTIONS §8); this uses the working `--color--semantic--surface-base` instead.
  * ============================================================================= */
 

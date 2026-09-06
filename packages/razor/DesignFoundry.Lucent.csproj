@@ -6,14 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <!-- Packaging — name reserved on NuGet; do NOT publish until v1.0.0. -->
+  <!-- Packaging — published to GitHub Packages (private feed) by publish-nuget.yml on tag push.
+       Version here is only the local/dev fallback; CI overrides it with -p:Version from the tag. -->
   <PropertyGroup>
     <PackageId>DesignFoundry.Lucent</PackageId>
-    <Version>0.0.0-dev</Version>
+    <Version>0.1.1</Version>
     <Authors>Design Foundry</Authors>
     <Description>Lucent design system — Razor (Blazor) component library.</Description>
     <RepositoryUrl>https://github.com/Design-Foundry/lucent</RepositoryUrl>
-    <IsPackable>false</IsPackable>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Copyright>Copyright 2026 Diego Cancho Candela</Copyright>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,6 +54,11 @@
     <RemoveDir Directories="$(MSBuildProjectDirectory)\wwwroot" />
     <Copy SourceFiles="@(LucentStyleSource)"
           DestinationFiles="@(LucentStyleSource->'$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <!-- On a clean checkout this target fires before anything else creates obj/<config>/<tfm>/
+         (it runs BeforeTargets="ResolveProjectStaticWebAssets;BeforeBuild") — Touch doesn't
+         create its own directory, so the stamp write fails. Local dev never hit this because a
+         leftover obj/ from a prior build already existed. -->
+    <MakeDir Directories="$(IntermediateOutputPath)" Condition="!Exists('$(IntermediateOutputPath)')" />
     <Touch Files="$(IntermediateOutputPath)lucent-style-sync.stamp" AlwaysCreate="true" />
   </Target>
 

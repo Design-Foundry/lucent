@@ -7,7 +7,7 @@
  *
  * Renders a single Material Icons glyph by ligature name. The `material-icons`
  * class comes from the externally-loaded Material Icons font (a consumer/global
- * dependency — see docs/DISTRIBUTION.md §2c), not from this file.
+ * dependency), not from this file.
  *
  * Ported from packages/angular/src/icon/icon.scss. One deliberate change: size is
  * a `--lucent-icon--{size}` class setting a local `--_sz`, instead of Angular's

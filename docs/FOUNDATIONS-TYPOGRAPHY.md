@@ -82,7 +82,7 @@ Control text uses **`--control-line` (1.15)**, never the reading line-height. Se
 <code class="typography-label-md-mono">#0EA5E9</code>
 <p class="typography-body-md">Reading text wraps comfortably…</p>
 ```
-```scss
+```css
 /* or tokens directly */
 .thing { font: var(--typography--label-md--font-weight) var(--typography--label-md--font-size)/var(--typography--label-md--line-height) var(--typography--label-md--font-family); }
 ```
@@ -96,10 +96,5 @@ Control text uses **`--control-line` (1.15)**, never the reading line-height. Se
 - New components: control/label text uses `label-*` + `--control-line`; never hardcode px or
   reuse `caption`/`body-sm` for single-line UI labels.
 
-## Roadmap
-
-- Migrate existing components' ad-hoc `caption`/`body-sm` UI labels onto `label-*` (status-tag,
-  menu-item, list-item supporting text, breadcrumbs, field labels).
-- Consider an uppercase `overline`/section-label role (tracking-wider) if inspector section
-  headers want it.
-- Variable-font weight range is available (Outfit 100–900) — we currently use 300–700; fine.
+Outfit is a variable font with a 100–900 weight range; the system draws on 300–700 and leaves
+the extremes unused — a display face's thinnest and heaviest cuts do not survive at UI sizes.
