@@ -8,10 +8,7 @@ it floats a Calendar, and picking a day sets the value and closes the popover.
 
 | Target | Reference | Package |
 |---|---|---|
-| React | `<DatePicker>` | `@design-foundry/lucent-react` |
 | Angular | `<lucent-date-picker>` | `@design-foundry/lucent` |
-| Web Components | `<lucent-date-picker>` | `@design-foundry/lucent-wc` |
-| Blazor | `<LucentDatePicker>` | `DesignFoundry.Lucent` |
 
 Every kit renders the same `.lucent-date-picker` structure: `__label?` · `__trigger` (button:
 `__icon` + `__value` + `__caret`) · a `.lucent-date-picker__popover` wrapping a `.lucent-calendar`.
@@ -31,10 +28,7 @@ idiomatic way:
 
 | Kit | Mechanism |
 |---|---|
-| Web Components | Appended to `<body>`, positioned by Floating UI (`computePosition` + `autoUpdate`). |
-| React | `@floating-ui/react` `useFloating` + `FloatingPortal` (`useClick`/`useDismiss`/`useRole`). |
 | Angular | CDK `cdkConnectedOverlay` (same overlay the Select uses), outside-click dismiss. |
-| Blazor | Rendered inline as a child of `__field`; anchored with `position: absolute` via CSS. |
 
 ## API
 

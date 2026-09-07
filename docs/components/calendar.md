@@ -9,10 +9,7 @@ plus the month grid math.
 
 | Target | Reference | Package |
 |---|---|---|
-| React | `<Calendar>` | `@design-foundry/lucent-react` |
 | Angular | `<lucent-calendar>` | `@design-foundry/lucent` |
-| Web Components | `<lucent-calendar>` | `@design-foundry/lucent-wc` |
-| Blazor | `<LucentCalendar>` | `DesignFoundry.Lucent` |
 
 Underneath, every kit renders the same `.lucent-calendar` structure: `__header` (title +
 `__nav` with two icon-buttons) · `__weekdays` (7 × `__weekday`) · `__grid` (42 × `.lucent-day-cell`).
