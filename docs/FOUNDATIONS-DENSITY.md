@@ -40,7 +40,7 @@ before `themes`). Each property has one token per size, resolving to existing pr
 
 ```css
 --control-height-xs … -lg     // sizing-6 / -7 / -8 / -10  → 24 / 28 / 32 / 40
---control-text-xs … -lg       // fs-11 / fs-caption / fs-body-sm / fs-body-md → 11 / 12 / 14 / 16
+--control-text-xs … -lg       // fs-2xs / fs-xs / fs-sm / fs-md → 11 / 12 / 14 / 16 (one step down)
 --control-icon-xs … -lg       // icon-sm / -md / -md / -lg
 --control-radius-xs … -lg     // radius-xs / -xs / -sm / -sm
 --control-pad-x-xs … -lg      // spacing-2 / -2.5 / -3 / -4

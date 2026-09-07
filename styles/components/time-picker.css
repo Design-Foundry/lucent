@@ -20,7 +20,7 @@
 }
 
 .lucent-time-picker__label {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-muted);
 }
@@ -60,7 +60,7 @@
 .lucent-time-picker__caret { color: var(--color--semantic--text-muted); flex-shrink: 0; }
 
 .lucent-time-picker__message {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   color: var(--color--semantic--text-muted);
 }
 
@@ -96,7 +96,7 @@
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   color: var(--color--semantic--text-default);
   text-align: center;
   cursor: pointer;

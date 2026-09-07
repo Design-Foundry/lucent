@@ -71,7 +71,7 @@
   /* Regular at rest; the active row steps up to medium (below). Weight carries the state
      together with the tint, so the rail reads even where the accent wash is subtle. */
   font-weight: var(--dimension--primitive--fw-regular);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   line-height: 1.15;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -85,7 +85,7 @@
 .lucent-nav-item__subtitle {
   font-family: var(--font--primitive--sans);
   font-weight: var(--dimension--primitive--fw-regular);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   line-height: 1.6;
   color: var(--color--semantic--text-subtle);
   overflow: hidden;

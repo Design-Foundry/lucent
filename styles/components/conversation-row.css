@@ -43,7 +43,7 @@
 
 .lucent-conversation-row__title {
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-strong);
   white-space: nowrap;
@@ -53,7 +53,7 @@
 
 .lucent-conversation-row__preview {
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-light);
   color: var(--color--semantic--text-muted);
   white-space: nowrap;
@@ -71,7 +71,7 @@
 
 .lucent-conversation-row__time {
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-micro);
+  font-size: var(--dimension--primitive--fs-3xs);
   color: var(--color--semantic--text-subtle);
   white-space: nowrap;
 }

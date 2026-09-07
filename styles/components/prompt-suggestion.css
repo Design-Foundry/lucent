@@ -23,7 +23,7 @@
   background: var(--color--semantic--surface-default);
   color: var(--color--semantic--text-default);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--dimension--primitive--lh-snug);
   cursor: pointer;
@@ -58,7 +58,7 @@
 }
 
 .lucent-prompt-suggestion__desc {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   color: var(--color--semantic--text-muted);
 }
 

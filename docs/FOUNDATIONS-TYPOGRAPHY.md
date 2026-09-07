@@ -25,7 +25,18 @@ line-heights (1.4–1.6), which is too loose for a single-line control and risks
 
 ## The scale
 
-Sizes (sans is default; every role also has a `-mono`; reading roles also have `-serif`):
+The **primitive scale** names magnitude and nothing else — `fs-3xs` … `fs-4xl`, ten steps.
+It deliberately does *not* mirror the control sizes; see the skew below.
+
+| primitive | px | | primitive | px |
+|---|---|---|---|---|
+| `fs-3xs` | 10 | | `fs-lg` | 20 |
+| `fs-2xs` | 11 | | `fs-xl` | 28 |
+| `fs-xs` | 12 | | `fs-2xl` | 40 |
+| `fs-sm` | 14 | | `fs-3xl` | 60 |
+| `fs-md` | 16 | | `fs-4xl` | 96 |
+
+**Roles** sit on top (sans is default; every role also has a `-mono`):
 
 | Role | px | line-height | weight | use |
 |---|---|---|---|---|
@@ -37,15 +48,36 @@ Sizes (sans is default; every role also has a `-mono`; reading roles also have `
 | `body-md` | 16 | normal | regular | reading body; `lg` control text |
 | **`label-lg`** | **14** | **snug** | **medium** | **md/lg control text, field labels** |
 | `body-sm` | 14 | normal | regular | dense reading body |
-| `fs-13` | 13 | — | — | in-between dense step (raw size; AppKit control) |
 | **`label-md`** | **12** | **snug** | **medium** | **sm control text, dense labels** |
 | `caption` | 12 | relaxed | regular | helper/hint text (multi-line) |
 | **`label-sm`** | **11** | **snug** | **medium** | **xs control text, toolbar/meta labels** |
 | `micro` | 10 | relaxed | regular | tiniest meta / timestamps |
 
 **The dense band is 11–14.** That's where tool UI lives (Figma UI ≈ 11px; macOS controls
-11/13; Material `label-small` 11). We added **11** (`fs-11`) and **13** (`fs-13`) to fill the
-old `10 → 12 → 14` gap, and the **`label`** family to give that band a tight, single-line role.
+11/13; Material `label-small` 11). We added **11** (`fs-2xs`) to fill the old `10 → 12 → 14`
+gap, and the **`label`** family to give that band a tight, single-line role.
+
+A 13px step existed for a while (AppKit's control size) but had a single consumer, so it was
+absorbed into 14. Reintroducing it is a one-line addition to the primitive scale plus a
+re-point of whichever facet needs it — which is the reason the scale is named by magnitude
+rather than by role.
+
+## Controls run one step denser
+
+`--control-text-*` does not map onto the type scale one-to-one, and the naming is deliberately
+kept different so that stays visible:
+
+| control size | type primitive | px |
+|---|---|---|
+| `xs` | `fs-2xs` | 11 |
+| `sm` | `fs-xs` | 12 |
+| `md` | `fs-sm` | 14 |
+| `lg` | `fs-md` | 16 |
+
+Every step maps **one size down**. A control's size and the size of the text inside it are
+separate decisions — the same way `--control-radius-md` resolves to `radius-sm`, and
+`--control-icon-sm` and `--control-icon-md` share one glyph size. Naming the two scales alike
+would make a curated mapping look like an identity and invite someone to collapse it.
 
 ## Tracking (letter-spacing)
 
@@ -66,10 +98,10 @@ The `--control-text-*` tokens map onto the dense band (md unchanged → non-brea
 
 | `size` | control height | text token | px |
 |---|---|---|---|
-| `xs` | 24 | `fs-11` | 11 |
-| `sm` | 28 | `fs-caption` | 12 |
-| `md` | 32 | `fs-body-sm` | 14 |
-| `lg` | 40 | `fs-body-md` | 16 |
+| `xs` | 24 | `fs-2xs` | 11 |
+| `sm` | 28 | `fs-xs` | 12 |
+| `md` | 32 | `fs-sm` | 14 |
+| `lg` | 40 | `fs-md` | 16 |
 
 Control text uses **`--control-line` (1.15)**, never the reading line-height. See
 [FOUNDATIONS-DENSITY.md](./FOUNDATIONS-DENSITY.md).
@@ -90,7 +122,7 @@ Control text uses **`--control-line` (1.15)**, never the reading line-height. Se
 ## Conventions
 
 - **UI text → `label-*`** (or the `--control-*` tokens for controls). **Reading text → body/caption.**
-- **No serif labels** — the `label` family is sans + mono only (mono for hex/dimension/value
+- **Labels are sans + mono only** (mono for hex/dimension/value
   text in a design tool).
 - **Don't use `display`/`title-*` in app chrome** — they're marketing/empty-state sizes.
 - New components: control/label text uses `label-*` + `--control-line`; never hardcode px or

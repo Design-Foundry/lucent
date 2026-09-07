@@ -24,7 +24,7 @@
   margin: 0;
   font-family: var(--font--primitive--sans);
   font-weight: 500;
-  font-size: var(--dimension--primitive--fs-11);
+  font-size: var(--dimension--primitive--fs-2xs);
   line-height: 1.15;
   letter-spacing: 0.22px;
   color: var(--color--semantic--text-subtle);

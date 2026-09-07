@@ -43,7 +43,7 @@
   background: var(--lucent-cat-surface, var(--color--semantic--event-work-surface));
   color: var(--lucent-cat-text, var(--color--semantic--event-work-text));
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   line-height: 1.5;
   white-space: nowrap;
   overflow: hidden;
@@ -71,11 +71,11 @@
   height: 24px;
   padding: 0 var(--dimension--primitive--spacing-1);
   border-radius: var(--radius-full);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   color: var(--color--semantic--text-default);
 }
 .lucent-month-cell__events { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.lucent-month-cell__more { font-size: var(--dimension--primitive--fs-caption); color: var(--color--semantic--text-muted); padding-left: var(--dimension--primitive--spacing-1); }
+.lucent-month-cell__more { font-size: var(--dimension--primitive--fs-xs); color: var(--color--semantic--text-muted); padding-left: var(--dimension--primitive--spacing-1); }
 
 .lucent-month-cell--today { background: var(--color--semantic--accent-subtle); }
 .lucent-month-cell--today .lucent-month-cell__date {
@@ -123,7 +123,7 @@
  * ellipsed after the first word, which defeats the purpose of showing a title at all. */
 .lucent-event-block__title {
   flex: 0 0 auto;
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   line-height: 1.25;
   white-space: nowrap;
@@ -135,7 +135,7 @@
 .lucent-event-block__time {
   flex: 0 1 auto;
   min-height: 0;
-  font-size: var(--dimension--primitive--fs-11);
+  font-size: var(--dimension--primitive--fs-2xs);
   line-height: 1.2;
   opacity: 0.85;
 }
@@ -151,7 +151,7 @@
 .lucent-agenda-row__time {
   flex-shrink: 0;
   width: 72px;
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   color: var(--color--semantic--text-muted);
 }
 .lucent-agenda-row__bar {
@@ -161,5 +161,5 @@
   background: var(--lucent-cat-text, var(--color--semantic--event-work-text));
 }
 .lucent-agenda-row__content { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.lucent-agenda-row__title { font-size: var(--dimension--primitive--fs-body-sm); font-weight: var(--dimension--primitive--fw-medium); color: var(--color--semantic--text-strong); }
-.lucent-agenda-row__subtitle { font-size: var(--dimension--primitive--fs-caption); color: var(--color--semantic--text-muted); }
+.lucent-agenda-row__title { font-size: var(--dimension--primitive--fs-sm); font-weight: var(--dimension--primitive--fw-medium); color: var(--color--semantic--text-strong); }
+.lucent-agenda-row__subtitle { font-size: var(--dimension--primitive--fs-xs); color: var(--color--semantic--text-muted); }

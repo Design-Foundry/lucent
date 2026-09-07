@@ -16,7 +16,7 @@
   gap: var(--dimension--primitive--spacing-2);
 }
 .lucent-scheduler__title {
-  font-size: var(--dimension--primitive--fs-heading-md);
+  font-size: var(--dimension--primitive--fs-lg);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-strong);
 }
@@ -32,7 +32,7 @@
 .lucent-scheduler-month__weekdays { display: grid; grid-template-columns: repeat(7, 1fr); }
 .lucent-scheduler-month__weekday {
   padding: var(--dimension--primitive--spacing-1);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-muted);
   text-align: center;
@@ -64,7 +64,7 @@
 .lucent-scheduler-week__day-head {
   padding: var(--dimension--primitive--spacing-1);
   text-align: center;
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   color: var(--color--semantic--text-muted);
   border-left: 1px solid var(--color--semantic--border-subtle);
 }
@@ -76,7 +76,7 @@
 .lucent-scheduler-week__gutter { display: flex; flex-direction: column; }
 .lucent-scheduler-week__hour {
   height: var(--lucent-week-hour-h);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   color: var(--color--semantic--text-subtle);
   text-align: right;
   padding-right: var(--dimension--primitive--spacing-1);
@@ -114,7 +114,7 @@
 }
 .lucent-scheduler-agenda__group { display: flex; flex-direction: column; }
 .lucent-scheduler-agenda__day {
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-default);
   padding-bottom: var(--dimension--primitive--spacing-1);
@@ -125,5 +125,5 @@
   padding: var(--dimension--primitive--spacing-6) var(--dimension--primitive--spacing-4);
   text-align: center;
   color: var(--color--semantic--text-muted);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
 }

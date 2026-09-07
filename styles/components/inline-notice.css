@@ -21,7 +21,7 @@
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--dimension--primitive--lh-normal);
   color: var(--color--semantic--text-default);

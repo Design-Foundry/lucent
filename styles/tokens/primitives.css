@@ -119,17 +119,16 @@
 	--dimension--primitive--sizing-80: 320px;
 	--dimension--primitive--sizing-96: 384px;
 	--dimension--primitive--sizing-128: 512px;
-	--dimension--primitive--fs-display: 96px;
-	--dimension--primitive--fs-title-lg: 60px;
-	--dimension--primitive--fs-title-md: 40px;
-	--dimension--primitive--fs-heading-lg: 28px;
-	--dimension--primitive--fs-heading-md: 20px;
-	--dimension--primitive--fs-body-md: 16px;
-	--dimension--primitive--fs-body-sm: 14px;
-	--dimension--primitive--fs-13: 13px;      /* in-between dense step (macOS control size) */
-	--dimension--primitive--fs-caption: 12px;
-	--dimension--primitive--fs-11: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
-	--dimension--primitive--fs-micro: 10px;
+	--dimension--primitive--fs-4xl: 96px;
+	--dimension--primitive--fs-3xl: 60px;
+	--dimension--primitive--fs-2xl: 40px;
+	--dimension--primitive--fs-xl: 28px;
+	--dimension--primitive--fs-lg: 20px;
+	--dimension--primitive--fs-md: 16px;
+	--dimension--primitive--fs-sm: 14px;
+	--dimension--primitive--fs-xs: 12px;
+	--dimension--primitive--fs-2xs: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
+	--dimension--primitive--fs-3xs: 10px;
 	--dimension--primitive--fw-light: 300;
 	--dimension--primitive--fw-regular: 400;
 	--dimension--primitive--fw-medium: 500;
