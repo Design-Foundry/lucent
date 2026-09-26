@@ -80,6 +80,12 @@
   /* Single-line text for controls/labels: tight line-height, medium weight, slight */
   /* tracking at small sizes. Distinct from body/caption (reading text). Mono is kept */
   /* for code/value labels (hex, dimensions). */
+  --typography--label-xl--font-size: var(--dimension--primitive--fs-md);   /* 16 — control-text-lg */
+  --typography--label-xl--line-height: var(--dimension--primitive--lh-snug);
+  --typography--label-xl--font-weight: var(--dimension--primitive--fw-medium);
+  --typography--label-xl--font-family: var(--font--primitive--sans);
+  --typography--label-xl--letter-spacing: var(--dimension--primitive--tracking-normal);
+
   --typography--label-lg--font-size: var(--dimension--primitive--fs-sm);   /* 14 */
   --typography--label-lg--line-height: var(--dimension--primitive--lh-snug);
   --typography--label-lg--font-weight: var(--dimension--primitive--fw-medium);
@@ -97,6 +103,12 @@
   --typography--label-sm--font-weight: var(--dimension--primitive--fw-medium);
   --typography--label-sm--font-family: var(--font--primitive--sans);
   --typography--label-sm--letter-spacing: var(--dimension--primitive--tracking-wide);
+
+  --typography--label-xl-mono--font-size: var(--dimension--primitive--fs-md);
+  --typography--label-xl-mono--line-height: var(--dimension--primitive--lh-snug);
+  --typography--label-xl-mono--font-weight: var(--dimension--primitive--fw-medium);
+  --typography--label-xl-mono--font-family: var(--font--primitive--mono);
+  --typography--label-xl-mono--letter-spacing: var(--dimension--primitive--tracking-normal);
 
   --typography--label-lg-mono--font-size: var(--dimension--primitive--fs-sm);
   --typography--label-lg-mono--line-height: var(--dimension--primitive--lh-snug);
@@ -239,6 +251,14 @@
   font-family: var(--typography--body-sm-mono--font-family);
 }
 
+.typography-label-xl {
+  font-size: var(--typography--label-xl--font-size);
+  line-height: var(--typography--label-xl--line-height);
+  font-weight: var(--typography--label-xl--font-weight);
+  font-family: var(--typography--label-xl--font-family);
+  letter-spacing: var(--typography--label-xl--letter-spacing);
+}
+
 .typography-label-lg {
   font-size: var(--typography--label-lg--font-size);
   line-height: var(--typography--label-lg--line-height);
@@ -261,6 +281,14 @@
   font-weight: var(--typography--label-sm--font-weight);
   font-family: var(--typography--label-sm--font-family);
   letter-spacing: var(--typography--label-sm--letter-spacing);
+}
+
+.typography-label-xl-mono {
+  font-size: var(--typography--label-xl-mono--font-size);
+  line-height: var(--typography--label-xl-mono--line-height);
+  font-weight: var(--typography--label-xl-mono--font-weight);
+  font-family: var(--typography--label-xl-mono--font-family);
+  letter-spacing: var(--typography--label-xl-mono--letter-spacing);
 }
 
 .typography-label-lg-mono {
