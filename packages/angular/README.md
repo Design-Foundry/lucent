@@ -1,11 +1,26 @@
 # @design-foundry/lucent (Angular kit)
 
 The Angular implementation of the Lucent class contract. Every component emits the
-`lucent-` class names defined in [`styles/`](../../styles/) and ships **zero CSS of its
-own** — appearance lives in the shared stylesheet, so this kit and the React, Web
-Components, and Razor kits all render identically.
+`lucent-` class names defined in [`styles/`](../../styles/) and ships no CSS of its own:
+appearance lives in the shared stylesheet, which is published inside this package under
+`styles/` (`core.css`, `packs/*.css`, or `lucent.css` for everything).
 
 Components read the shared tokens in `styles/tokens/` as runtime CSS custom properties.
+
+## Install
+
+The package is on GitHub Packages:
+
+```
+@design-foundry:registry=https://npm.pkg.github.com
+```
+
+```bash
+npm install @design-foundry/lucent @angular/cdk
+```
+
+Add `node_modules/@design-foundry/lucent/styles/core.css` (plus any packs) to the `styles`
+array in `angular.json`, and load Outfit, Roboto Mono and Material Icons.
 
 ## Build
 
@@ -15,5 +30,4 @@ npm run lib:pack       # + npm pack
 npm run showcase       # verification host (samples/lucent-angular-showcase)
 ```
 
-`package.json` is `"private": true` at `0.0.0-dev`. Nothing is published — see the
-[disclaimer](../../README.md) in the root README.
+Pushing a `v*` tag publishes the package (`.github/workflows/publish.yml`).

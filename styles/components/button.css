@@ -121,7 +121,7 @@
 
 .lucent-button--danger .lucent-button__inner {
   background: var(--color--semantic--error-subtle);
-  color: var(--color--semantic--error);
+  color: var(--color--semantic--error-on-subtle);
 }
 .lucent-button--danger .lucent-button__inner:hover:not(:disabled) {
   background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h);
