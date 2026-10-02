@@ -35,7 +35,7 @@
   /* ─── Heading LG ───────────────────────────────────────────────────────────── */
   --typography--heading-lg--font-size: var(--dimension--primitive--fs-xl);
   --typography--heading-lg--line-height: var(--dimension--primitive--lh-snug);
-  --typography--heading-lg--font-weight: var(--dimension--primitive--fw-regular);
+  --typography--heading-lg--font-weight: var(--dimension--primitive--fw-medium);
   --typography--heading-lg--font-family: var(--font--primitive--sans);
 
   --typography--heading-lg-mono--font-size: var(--dimension--primitive--fs-xl);
@@ -53,6 +53,17 @@
   --typography--heading-md-mono--line-height: var(--dimension--primitive--lh-normal);
   --typography--heading-md-mono--font-weight: var(--dimension--primitive--fw-medium);
   --typography--heading-md-mono--font-family: var(--font--primitive--mono);
+
+  /* ─── Body LG ──────────────────────────────────────────────────────────────── */
+  --typography--body-lg--font-size: var(--dimension--primitive--fs-lg);
+  --typography--body-lg--line-height: var(--dimension--primitive--lh-normal);
+  --typography--body-lg--font-weight: var(--dimension--primitive--fw-regular);
+  --typography--body-lg--font-family: var(--font--primitive--sans);
+
+  --typography--body-lg-mono--font-size: var(--dimension--primitive--fs-lg);
+  --typography--body-lg-mono--line-height: var(--dimension--primitive--lh-normal);
+  --typography--body-lg-mono--font-weight: var(--dimension--primitive--fw-regular);
+  --typography--body-lg-mono--font-family: var(--font--primitive--mono);
 
   /* ─── Body MD ──────────────────────────────────────────────────────────────── */
   --typography--body-md--font-size: var(--dimension--primitive--fs-md);
@@ -221,6 +232,20 @@
   line-height: var(--typography--heading-md-mono--line-height);
   font-weight: var(--typography--heading-md-mono--font-weight);
   font-family: var(--typography--heading-md-mono--font-family);
+}
+
+.typography-body-lg {
+  font-size: var(--typography--body-lg--font-size);
+  line-height: var(--typography--body-lg--line-height);
+  font-weight: var(--typography--body-lg--font-weight);
+  font-family: var(--typography--body-lg--font-family);
+}
+
+.typography-body-lg-mono {
+  font-size: var(--typography--body-lg-mono--font-size);
+  line-height: var(--typography--body-lg-mono--line-height);
+  font-weight: var(--typography--body-lg-mono--font-weight);
+  font-family: var(--typography--body-lg-mono--font-family);
 }
 
 .typography-body-md {

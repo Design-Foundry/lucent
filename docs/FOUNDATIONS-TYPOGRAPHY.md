@@ -43,8 +43,9 @@ It deliberately does *not* mirror the control sizes; see the skew below.
 | `display` | 96 | tight | bold | ⚠️ marketing only — **not app chrome** |
 | `title-lg` | 60 | tight | bold | ⚠️ marketing / hero |
 | `title-md` | 40 | snug | semibold | ⚠️ marketing / large empty-states |
-| `heading-lg` | 28 | snug | regular | page titles |
+| `heading-lg` | 28 | snug | medium | page titles |
 | `heading-md` | 20 | normal | medium | section headings |
+| `body-lg` | 20 | normal | regular | leads under a title; marketing intro text |
 | `body-md` | 16 | normal | regular | reading body; `lg` control text |
 | **`label-lg`** | **14** | **snug** | **medium** | **md/lg control text, field labels** |
 | `body-sm` | 14 | normal | regular | dense reading body |
