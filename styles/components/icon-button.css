@@ -80,7 +80,7 @@
 
 .lucent-icon-button--danger .lucent-icon-button__inner {
   background: var(--color--semantic--error-subtle);
-  color: var(--color--semantic--error);
+  color: var(--color--semantic--error-on-subtle);
 }
 .lucent-icon-button--danger .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h); }
 .lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--error); color: var(--color--semantic--text-inverse); }
