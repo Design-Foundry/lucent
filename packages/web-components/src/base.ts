@@ -16,7 +16,7 @@ function applyHostClasses(el: Element, owned: string, prev: string): void {
 
 /**
  * Base for Lucent web components. Both variants render into **Light DOM** so the shared
- * `styles/lucent.css` (a global, class-keyed layer) styles the elements — no Shadow DOM,
+ * `styles/core.css` (a global, class-keyed layer) styles the elements — no Shadow DOM,
  * no per-component CSS, identical `lucent-` classes to the other kits.
  *
  * `LucentElement` — for components whose content comes from props (icon, toggle, …): Lit

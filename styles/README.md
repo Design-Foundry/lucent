@@ -23,7 +23,13 @@ selector + an `@media` rule can't share one declaration block in plain CSS).
 
 ```
 styles/
-  lucent.css            ← single entry; @imports everything in cascade order
+  core.css              ← tokens + the 43 components every product needs
+  packs/
+    messaging.css       ← conversation UI (9)
+    temporal.css        ← date & time (3)
+    scheduler.css       ← events + Month/Week/Agenda views (2)
+    daw.css             ← audio-workstation controls (6) — NOT in lucent.css, see below
+  lucent.css            ← core + every shipping pack, for consumers that want the lot
   tokens/
     primitives.css      ← Tier 1: raw scales (--color--primitive--*, --dimension--primitive--*, fonts)
     semantic-colors.css ← Tier 2: --color--semantic--* roles
@@ -38,8 +44,27 @@ styles/
   components/
     button.css          ← .lucent-button …
     text-input.css      ← .lucent-text-input …
-    …                     one file per component (58 in total)
+    …                     one file per component (63 in total)
 ```
+
+## Core and packs
+
+`core.css` is the base. A component belongs in core when it needs no concept from
+outside the design system to be meaningful — a button is defined by its form. A pack
+component presupposes a domain: `scheduler` presupposes events with a start and an end,
+`composer` presupposes messages, `fader` presupposes an audio signal. Read the core list
+and you cannot name the industry; read a pack list and you can.
+
+That test, not "which components are common", is what decides membership — and note it
+is not interactivity: `modal`, `select` and `menu` are interactive and are core, while
+`message-bubble` is a styled container and is not.
+
+Packs are a partition, not a tagging scheme: a component ships in exactly one. Import
+`core.css` plus the packs you use.
+
+**DAW is not in `lucent.css`.** Its CSS exists and its components exist in the React and
+Web Components kits, but not in Angular or Razor — so it is not something the bundle can
+honestly claim to ship. Import `packs/daw.css` explicitly if you want it.
 
 ## Token tiers
 
@@ -51,11 +76,15 @@ alignment. There is **no component-token tier**; components bind straight to sem
 
 ## Consuming
 
-- **Razor RCL** (`packages/razor`) ships `lucent.css` as a static web asset under
-  `_content/DesignFoundry.Lucent/`; the consuming app links it once.
-- **Angular, React, Web Components** import `lucent.css` once, globally. The Web
+- **Razor RCL** (`packages/razor`) mirrors this whole tree into its `wwwroot/` as static
+  web assets under `_content/DesignFoundry.Lucent/`; the consuming app links what it needs.
+- **Angular, React, Web Components** import the stylesheets once, globally. The Web
   Components kit renders into the **light DOM** precisely so this global sheet still
   reaches it.
+
+Prefer `core.css` plus explicit packs over `lucent.css`. Both current consumers —
+`hub/web` and `account/web` — use core components only, so `lucent.css` costs them 25% of
+the stylesheet for domains they never touch.
 
 No kit carries per-component CSS. A component's appearance is added here, once, and
 every kit picks it up by emitting the class.

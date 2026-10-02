@@ -1,0 +1,5 @@
+/* Lucent pack — Scheduler — event parts + the Month / Week / Agenda views that compose them.
+   Opt-in: not part of styles/core.css. Import alongside it. */
+
+@import "../components/scheduler.css";
+@import "../components/scheduler-views.css";

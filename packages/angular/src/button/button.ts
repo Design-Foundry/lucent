@@ -8,7 +8,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-glass' | 'da
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './button.html',
-	// Styles come from the shared base (styles/lucent.css) via the lucent- class contract;
+	// Styles come from the shared base (styles/core.css) via the lucent- class contract;
 	// no per-component SCSS. The host carries the base + variant + size classes.
 	host: {
 		'[class]': '"lucent-button lucent-button--" + variant() + " lucent-button--" + size()',

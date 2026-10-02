@@ -85,7 +85,7 @@
   max-height: 216px;
   overflow-y: auto;
   /* No `scrollbar-width` here: declaring it makes Chromium switch this element to the
-     standard scrollbar path and ignore the themed ::-webkit-scrollbar rules in lucent.css.
+     standard scrollbar path and ignore the themed ::-webkit-scrollbar rules in core.css.
      Scrollbar styling is a base concern now — see the @supports split there. */
 }
 .lucent-time-picker__col + .lucent-time-picker__col { border-left: 1px solid var(--color--semantic--border-subtle); padding-left: var(--dimension--primitive--spacing-1); }
