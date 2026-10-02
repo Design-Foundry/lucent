@@ -14,12 +14,17 @@ four framework kits that emit the same class names.
 ## What it is
 
 Lucent is the design system behind [Design Foundry](https://designfoundry.app)'s
-products. One plain-CSS layer defines **58 components** as a contract of class names.
-Four kits — Angular, React, Web Components, and a Razor class library — implement
-those components and emit that same contract and nothing else.
+products. One plain-CSS layer defines **63 components** as a contract of class names.
+The Angular kit implements them.
 
-That is the whole architecture. A component *is* its classes. A kit is a way of
-producing them.
+**A component's definition and its implementation are different things.** The class
+contract says which parts must exist — the parts style and interaction are defined on.
+It does not say they are the only nodes present. A kit is free to add whatever wrappers,
+hosts or portals its framework needs; the contract is a floor, not a ceiling.
+
+The CSS is written that way on purpose. Of 631 component rules, seven use a direct-child
+combinator — and all seven are popovers that must be positioned against their field.
+Everything else is descendant-matched and survives extra nodes.
 
 The kits are deliberately thin. None of them ships a line of component CSS, and none of
 them is required: emit the classes by hand and you get the component, with no framework
@@ -31,9 +36,14 @@ in the picture at all.
 </span>
 ```
 
-That is the same button an Angular `<lucent-button>`, a React `<Button>`, a
-`<lucent-button>` custom element, and a Blazor `<LucentButton>` each produce. The kits
-exist to make it typed and ergonomic, not to make it work.
+That is what an Angular `<lucent-button>` produces. The kit exists to make it typed and
+ergonomic, not to make it work — paste the markup above into a page that links the
+stylesheet and you get the same button with no kit at all.
+
+It also shows the contract's shape: two named parts, a host and an `__inner`. That they
+are a `<span>` and a `<button>` is the *implementation's* choice, not the system's — the
+CSS never names an element. Another kit could reach for `<div>` and `<a>`, or add a
+wrapper of its own, and the styling still lands.
 
 ## Why it looks like this
 
@@ -73,7 +83,7 @@ at **[lucent.designfoundry.app](https://lucent.designfoundry.app)**.
 **Three token tiers, one direction.** Primitives are raw values. Semantic tokens name
 roles (`surface-raised`, `text-strong`, `accent-default`). Components read semantics and
 never reach past them to a primitive. Dark mode, and every skin in the demos, are the
-same mechanism: re-point the semantic layer and 58 components follow, with no rebuild
+same mechanism: re-point the semantic layer and 63 components follow, with no rebuild
 and no component edits.
 
 The one rule that falls out of this and is easy to get wrong: a custom property that
@@ -91,9 +101,9 @@ Components kit. Three concrete reasons:
 - ARIA references cross elements by ID. `aria-labelledby`, `aria-describedby`, and
   `aria-controls` do not traverse a shadow root; encapsulation would break the
   accessibility wiring between a field, its label, and its error text.
-- One global stylesheet reaches all four kits. Encapsulation would mean a second CSS
-  contract to keep in sync with the first — the exact duplication this repo exists to
-  avoid.
+- One global stylesheet reaches the kit without ceremony. Encapsulation would mean a
+  second CSS contract to keep in sync with the first — the exact duplication this repo
+  exists to avoid.
 
 The cost is real and accepted: authors can restyle anything, and there is no protection
 from a colliding global selector.
@@ -112,18 +122,16 @@ it stayed light, giving **1.94:1** on the primary button in every consuming app.
 
 ```
 styles/                framework-neutral core — plain CSS, no build step
-  lucent.css             single entry; @imports everything in cascade order
+  core.css               tokens + the 43 components every product needs
+  packs/                 messaging · temporal · scheduler · daw (opt-in, by domain)
+  lucent.css             core + the shipping packs, for consumers that want the lot
   tokens/                primitives → semantic → control aliases, themes, layers
-  components/            58 stylesheets keyed to lucent- class names
+  components/            63 stylesheets keyed to lucent- class names
 docs/                  the "why" — conventions, density, typography (the reference lives on the docs site)
 packages/
   angular/               @design-foundry/lucent          (Angular library, ng-packagr)
-  react/                 @design-foundry/lucent-react    (React)
-  web-components/        @design-foundry/lucent-wc       (Lit, light DOM)
-  razor/                 DesignFoundry.Lucent            (Razor class library)
 samples/
   lucent-angular-showcase          Angular verification host (light/dark)
-  DesignFoundry.Lucent.Showcase    Blazor verification host (light/dark)
 ```
 
 `styles/` and `docs/` are the source of truth. A kit that disagrees with them is the

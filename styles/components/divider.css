@@ -23,7 +23,7 @@
   align-items: center;
   gap: var(--dimension--primitive--spacing-3);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   letter-spacing: var(--dimension--primitive--tracking-wide);
   color: var(--color--semantic--text-muted);

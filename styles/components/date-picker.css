@@ -18,7 +18,7 @@
 }
 
 .lucent-date-picker__label {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-muted);
 }
@@ -60,7 +60,7 @@
 .lucent-date-picker__caret { color: var(--color--semantic--text-muted); flex-shrink: 0; }
 
 .lucent-date-picker__message {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   color: var(--color--semantic--text-muted);
 }
 

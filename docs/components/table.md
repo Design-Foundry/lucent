@@ -16,9 +16,7 @@ framework wrappers only attach the class and forward attributes:
 | Target | How |
 |---|---|
 | Angular | `<table lucentTable> … </table>` (attribute directive) |
-| React | `<Table> … </Table>` → `<table class="lucent-table">` (spreads table attrs) |
 | Web Components / HTML | `<table class="lucent-table"> … </table>` (a custom element can't *be* a table) |
-| Blazor | `<LucentTable> … </LucentTable>` → `<table class="lucent-table">` |
 
 **Structure:** author `<thead><tr><th>…` and `<tbody><tr><td>…`. Alignment helpers:
 `.lucent-table__cell--right` / `--center` on a `th`/`td`. Optional footer:

@@ -19,7 +19,7 @@
 
 .lucent-checkbox {
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--_gap);
   cursor: pointer;
   user-select: none;
@@ -105,5 +105,6 @@
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--control-line);
   color: var(--color--semantic--text-strong);
-  white-space: nowrap;
+  /* Long labels wrap; the first line stays centred on the box, which is always taller. */
+  padding-top: calc((var(--_box) - var(--_text) * var(--control-line)) / 2);
 }

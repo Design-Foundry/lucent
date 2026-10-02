@@ -21,10 +21,10 @@
 	--control-height-lg: var(--dimension--primitive--sizing-10); /* 40 */
 
 	/* ─── Text (font-size) — skewed dense; see docs/FOUNDATIONS-TYPOGRAPHY.md ────── */
-	--control-text-xs: var(--dimension--primitive--fs-11);       /* 11 */
-	--control-text-sm: var(--dimension--primitive--fs-caption);  /* 12 */
-	--control-text-md: var(--dimension--primitive--fs-body-sm);  /* 14 (unchanged default) */
-	--control-text-lg: var(--dimension--primitive--fs-body-md);  /* 16 */
+	--control-text-xs: var(--dimension--primitive--fs-2xs);       /* 11 */
+	--control-text-sm: var(--dimension--primitive--fs-xs);  /* 12 */
+	--control-text-md: var(--dimension--primitive--fs-sm);  /* 14 (unchanged default) */
+	--control-text-lg: var(--dimension--primitive--fs-md);  /* 16 */
 
 	/* Single-line control text — tight, never the reading line-height (1.6). */
 	--control-line: var(--dimension--primitive--lh-snug);  /* 1.15 */

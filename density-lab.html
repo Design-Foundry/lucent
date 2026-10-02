@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lucent — density lab</title>
+
+<!-- The real stylesheet. Nothing here reimplements a component. -->
+<link rel="stylesheet" href="styles/core.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+<style>
+  /* Lucent ships no global box-sizing reset; both real consumers set their own.
+     Toggle it to see what a fresh consumer gets. */
+  html[data-reset="on"] *, html[data-reset="on"] *::before, html[data-reset="on"] *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font--primitive--sans); background: var(--color--semantic--surface-base); color: var(--color--semantic--text-default); }
+  .lab { display: grid; grid-template-columns: 340px 1fr; min-height: 100vh; }
+  .panel { border-right: 1px solid var(--color--semantic--border-subtle); padding: 16px; position: sticky; top: 0; align-self: start; max-height: 100vh; overflow: auto; }
+  .stage { padding: 24px 28px; }
+  h1 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+  h2 { font-size: 12px; font-weight: 600; margin: 24px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: var(--color--semantic--text-muted); }
+  .hint { font-size: 12px; line-height: 1.5; color: var(--color--semantic--text-muted); margin: 0 0 12px; }
+
+  table.matrix { border-collapse: collapse; width: 100%; font-size: 12px; }
+  table.matrix th { text-align: left; font-weight: 500; color: var(--color--semantic--text-muted); padding: 4px 6px; }
+  table.matrix td { padding: 2px 3px; }
+  table.matrix input { width: 100%; box-sizing: border-box; font: inherit; font-family: var(--font--primitive--mono); padding: 4px 6px; border: 1px solid var(--color--semantic--border-subtle); border-radius: 4px; background: var(--color--semantic--surface-default); color: inherit; }
+  table.matrix input:focus { outline: 2px solid var(--color--semantic--accent-strong); outline-offset: -1px; }
+  td.role { color: var(--color--semantic--text-muted); font-size: 11px; white-space: nowrap; padding-right: 8px; }
+
+  .btnrow { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .btnrow button { font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--color--semantic--border-subtle); background: var(--color--semantic--surface-default); color: inherit; cursor: pointer; }
+  .btnrow button:hover { background: var(--color--semantic--surface-raised); }
+
+  .sizeblock { margin-bottom: 28px; }
+  .sizehead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .sizehead .name { font-size: 13px; font-weight: 600; }
+  .sizehead .meta { font-size: 11px; font-family: var(--font--primitive--mono); color: var(--color--semantic--text-muted); }
+  .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border: 1px dashed var(--color--semantic--border-subtle); border-radius: 8px; }
+
+  /* The measured verdict. Deliberately outside the design system: it is instrumentation. */
+  .verdict { margin-left: auto; font-family: var(--font--primitive--mono); font-size: 11px; padding: 3px 8px; border-radius: 999px; }
+  .ok   { background: #123d24; color: #7ee2a8; }
+  .bad  { background: #45141a; color: #ff9aa6; }
+  :root[data-theme="light"] .ok  { background: #dcf5e6; color: #14683a; }
+  :root[data-theme="light"] .bad { background: #fde2e6; color: #a01427; }
+  .detail { font-family: var(--font--primitive--mono); font-size: 11px; color: var(--color--semantic--text-muted); margin-top: 6px; white-space: pre; }
+</style>
+</head>
+<body>
+<div class="lab">
+
+  <aside class="panel">
+    <h1>Density lab</h1>
+    <p class="hint">
+      Every field writes a <code>--control-*</code> token on <code>:root</code>. Nothing below is
+      re-implemented — the shipped <code>core.css</code> does all the rendering, so what you see is
+      what the system does.
+    </p>
+
+    <h2>Container</h2>
+    <table class="matrix" id="m-container"></table>
+
+    <h2>Content</h2>
+    <table class="matrix" id="m-content"></table>
+
+    <h2>Relation</h2>
+    <table class="matrix" id="m-relation"></table>
+
+    <div class="btnrow">
+      <button data-preset="shipped">Shipped</button>
+      <button data-preset="tighter">Tighter rows</button>
+      <button data-preset="airier">Airier rows</button>
+      <button data-preset="bigtext">Text +2 only</button>
+      <button id="reset">box-sizing: on</button>
+      <button id="theme">Toggle theme</button>
+    </div>
+    <p class="hint" style="margin-top:12px">
+      Only <strong>12 of 58</strong> component stylesheets consume <code>--control-*</code> at all;
+      the scale governs interactive controls, not the whole kit. Anything that reads a primitive
+      directly will not move when you drag these — <code>icon-button</code> is the one to watch.
+    </p>
+    <p class="hint">
+      “Text +2 only” changes <em>one</em> row of the matrix. If the model holds, the controls should
+      still line up — height is fixed by the container, and the type is fitted into it.
+    </p>
+  </aside>
+
+  <main class="stage" id="stage"></main>
+</div>
+
+<script>
+const SIZES = ['xs','sm','md','lg'];
+
+// facet -> [token suffix, group, shipped values per size]
+const FACETS = [
+  ['height', 'container', [24, 28, 32, 40], 'px'],
+  ['radius', 'container', [4, 4, 8, 8], 'px'],
+  ['text',   'content',   [11, 12, 14, 16], 'px'],
+  ['icon',   'content',   [14, 16, 16, 24], 'px'],
+  ['gap',    'relation',  [4, 4, 6, 8], 'px'],
+  ['pad-x',  'relation',  [8, 10, 12, 16], 'px'],
+];
+
+const PRESETS = {
+  shipped: {},
+  tighter: { height: [22, 26, 28, 34] },
+  airier:  { height: [28, 32, 38, 46] },
+  bigtext: { text:   [13, 14, 16, 18] },
+};
+
+const state = {};
+FACETS.forEach(([f, , vals]) => state[f] = vals.slice());
+
+function apply() {
+  const r = document.documentElement.style;
+  FACETS.forEach(([f]) => SIZES.forEach((s, i) => r.setProperty(`--control-${f}-${s}`, state[f][i] + 'px')));
+  requestAnimationFrame(measure);
+}
+
+function buildMatrix(group, host) {
+  const rows = FACETS.filter(([, g]) => g === group);
+  host.innerHTML =
+    '<tr><th></th>' + SIZES.map(s => `<th>${s}</th>`).join('') + '</tr>' +
+    rows.map(([f]) =>
+      `<tr><td class="role">${f}</td>` +
+      SIZES.map((s, i) => `<td><input type="number" data-f="${f}" data-i="${i}" value="${state[f][i]}"></td>`).join('') +
+      '</tr>').join('');
+}
+
+// ── The stage: real markup against the class contract ──────────────────────
+function control(size) {
+  const mod = k => size === 'md' ? '' : ` lucent-${k}--${size}`;
+  return `
+    <div class="row" data-size="${size}">
+      <span class="lucent-button lucent-button--primary${mod('button')}"><button class="lucent-button__inner">Save</button></span>
+      <span class="lucent-button lucent-button--secondary${mod('button')}"><button class="lucent-button__inner">Cancel</button></span>
+      <span class="lucent-button lucent-button--ghost${mod('button')}"><button class="lucent-button__inner"><span class="material-icons lucent-icon">add</span>New</button></span>
+      <span class="lucent-icon-button lucent-icon-button--secondary lucent-icon-button--${size}"><button class="lucent-icon-button__inner"><span class="material-icons lucent-icon">more_vert</span></button></span>
+      <span class="lucent-chip lucent-chip--tag${mod('chip')}"><span class="lucent-chip__label">design-system</span></span>
+      <span class="lucent-text-input${mod('text-input')}"><span class="lucent-text-input__wrapper"><input placeholder="Search…"></span></span>
+      <span class="verdict" data-v="${size}">—</span>
+    </div>`;
+}
+
+document.getElementById('stage').innerHTML = SIZES.map(s => `
+  <section class="sizeblock">
+    <div class="sizehead"><span class="name">size = ${s}</span><span class="meta" data-meta="${s}"></span></div>
+    ${control(s)}
+    <div class="detail" data-detail="${s}"></div>
+  </section>`).join('');
+
+// ── Instrumentation: does the alignment contract actually hold? ────────────
+function measure() {
+  SIZES.forEach((s, i) => {
+    const row = document.querySelector(`.row[data-size="${s}"]`);
+    const boxes = [...row.querySelectorAll('.lucent-button__inner, .lucent-icon-button__inner, .lucent-chip, .lucent-text-input__wrapper')];
+    const hs = boxes.map(b => Math.round(b.getBoundingClientRect().height));
+    const uniq = [...new Set(hs)];
+    const v = row.querySelector('.verdict');
+    const ok = uniq.length === 1;
+    v.className = 'verdict ' + (ok ? 'ok' : 'bad');
+    v.textContent = ok ? `aligned · ${uniq[0]}px` : `${uniq.length} heights: ${uniq.join(' / ')}`;
+
+    document.querySelector(`[data-meta="${s}"]`).textContent =
+      FACETS.map(([f]) => `${f} ${state[f][i]}`).join('  ·  ');
+
+    const names = ['button', 'button', 'button', 'icon-button', 'chip', 'text-input'];
+    document.querySelector(`[data-detail="${s}"]`).textContent =
+      ok ? '' : names.map((n, k) => `${n.padEnd(12)} ${hs[k]}px`).join('\n');
+  });
+}
+
+// ── Wiring ─────────────────────────────────────────────────────────────────
+['container','content','relation'].forEach(g => buildMatrix(g, document.getElementById('m-' + g)));
+
+document.querySelectorAll('.matrix').forEach(t => t.addEventListener('input', e => {
+  const el = e.target;
+  if (!el.dataset.f) return;
+  state[el.dataset.f][+el.dataset.i] = +el.value || 0;
+  apply();
+}));
+
+document.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => {
+  FACETS.forEach(([f, , vals]) => state[f] = vals.slice());
+  Object.entries(PRESETS[b.dataset.preset]).forEach(([f, vals]) => state[f] = vals.slice());
+  ['container','content','relation'].forEach(g => buildMatrix(g, document.getElementById('m-' + g)));
+  apply();
+}));
+
+document.getElementById('theme').addEventListener('click', () => {
+  const r = document.documentElement;
+  r.dataset.theme = r.dataset.theme === 'light' ? 'dark' : 'light';
+});
+
+document.documentElement.dataset.theme = 'dark';
+document.documentElement.dataset.reset = 'on';
+apply();
+
+document.getElementById('reset').addEventListener('click', e => {
+  const r = document.documentElement;
+  r.dataset.reset = r.dataset.reset === 'on' ? 'off' : 'on';
+  e.target.textContent = `box-sizing: ${r.dataset.reset}`;
+  requestAnimationFrame(measure);
+});
+
+// The first pass has to wait for the stylesheet and the webfont, or every box is
+// measured before it has its real height.
+window.addEventListener('load', measure);
+if (document.fonts) document.fonts.ready.then(measure);
+window.addEventListener('resize', measure);
+</script>
+</body>
+</html>

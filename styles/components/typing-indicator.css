@@ -21,7 +21,7 @@
   background: var(--color--semantic--surface-raised);
   color: var(--color--semantic--text-muted);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   line-height: var(--dimension--primitive--lh-tight);
 }
 

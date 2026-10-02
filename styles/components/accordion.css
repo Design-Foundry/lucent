@@ -28,7 +28,7 @@
   cursor: pointer;
   text-align: left;
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-medium);
   line-height: var(--control-line);
   color: var(--color--semantic--text-strong);
@@ -52,7 +52,7 @@
 .lucent-accordion__content {
   padding: 0 0 var(--dimension--primitive--spacing-3);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--dimension--primitive--lh-relaxed);
   color: var(--color--semantic--text-default);

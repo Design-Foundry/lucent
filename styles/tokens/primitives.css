@@ -68,7 +68,7 @@
   --color--primitive--warning: oklch(0.0000 0.0000 0.0 / 1);
   --color--primitive--warning-10: oklch(0.0993 0.0203 90.1 / 1);
   --color--primitive--warning-20: oklch(0.2003 0.0388 89.6 / 1);
-  --color--primitive--warning-30: oklch(0.2003 0.0388 89.6 / 1);
+  --color--primitive--warning-30: oklch(0.3000 0.0388 89.6 / 1);
   --color--primitive--warning-40: oklch(0.3009 0.0586 88.6 / 1);
   --color--primitive--warning-50: oklch(0.4009 0.0771 88.4 / 1);
   --color--primitive--warning-60: oklch(0.4994 0.0957 87.7 / 1);
@@ -119,17 +119,16 @@
 	--dimension--primitive--sizing-80: 320px;
 	--dimension--primitive--sizing-96: 384px;
 	--dimension--primitive--sizing-128: 512px;
-	--dimension--primitive--fs-display: 96px;
-	--dimension--primitive--fs-title-lg: 60px;
-	--dimension--primitive--fs-title-md: 40px;
-	--dimension--primitive--fs-heading-lg: 28px;
-	--dimension--primitive--fs-heading-md: 20px;
-	--dimension--primitive--fs-body-md: 16px;
-	--dimension--primitive--fs-body-sm: 14px;
-	--dimension--primitive--fs-13: 13px;      /* in-between dense step (macOS control size) */
-	--dimension--primitive--fs-caption: 12px;
-	--dimension--primitive--fs-11: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
-	--dimension--primitive--fs-micro: 10px;
+	--dimension--primitive--fs-4xl: 96px;
+	--dimension--primitive--fs-3xl: 60px;
+	--dimension--primitive--fs-2xl: 40px;
+	--dimension--primitive--fs-xl: 28px;
+	--dimension--primitive--fs-lg: 20px;
+	--dimension--primitive--fs-md: 16px;
+	--dimension--primitive--fs-sm: 14px;
+	--dimension--primitive--fs-xs: 12px;
+	--dimension--primitive--fs-2xs: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
+	--dimension--primitive--fs-3xs: 10px;
 	--dimension--primitive--fw-light: 300;
 	--dimension--primitive--fw-regular: 400;
 	--dimension--primitive--fw-medium: 500;
@@ -184,6 +183,5 @@
 	--dimension--primitive--spacing-96: 384px;
 	--dimension--primitive--spacing-128: 512px;
 	--font--primitive--sans: "Outfit", sans-serif;
-	--font--primitive--serif: "Merriweather", serif;
 	--font--primitive--mono: "Roboto Mono", monospace;
 }

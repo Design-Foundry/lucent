@@ -1,15 +1,15 @@
 # styles/ — the framework-neutral base
 
 The single shared source of truth for Lucent's look: **design tokens + component
-styles, authored as plain CSS** (no SCSS, no build step). All four kits — Angular,
-React, Web Components, and the Razor RCL — consume this directory and emit identical
+styles, authored as plain CSS** (no SCSS, no build step). The Angular kit consumes
+this directory and emits
 `lucent-` class names, so one stylesheet styles every one of them. This is the
 "consume from one source" contract: packages hold framework-specific
 *implementations* only; appearance lives here.
 
 > **Class contract:** a component's CSS class is the kebab-case of its type name —
 > `LucentButton` → `.lucent-button`, `LucentTextInput` → `.lucent-text-input`. All
-> four kits emit these, and no kit ships component CSS of its own.
+> the kit emits these, and it ships no component CSS of its own.
 
 ## Why plain CSS (no SCSS)
 
@@ -62,9 +62,9 @@ is not interactivity: `modal`, `select` and `menu` are interactive and are core,
 Packs are a partition, not a tagging scheme: a component ships in exactly one. Import
 `core.css` plus the packs you use.
 
-**DAW is not in `lucent.css`.** Its CSS exists and its components exist in the React and
-Web Components kits, but not in Angular or Razor — so it is not something the bundle can
-honestly claim to ship. Import `packs/daw.css` explicitly if you want it.
+**DAW is not in `lucent.css`.** Its CSS exists but no kit implements the components, so
+it is not something the bundle can honestly claim to ship. Import `packs/daw.css`
+explicitly if you want it.
 
 ## Token tiers
 
@@ -76,11 +76,7 @@ alignment. There is **no component-token tier**; components bind straight to sem
 
 ## Consuming
 
-- **Razor RCL** (`packages/razor`) mirrors this whole tree into its `wwwroot/` as static
-  web assets under `_content/DesignFoundry.Lucent/`; the consuming app links what it needs.
-- **Angular, React, Web Components** import the stylesheets once, globally. The Web
-  Components kit renders into the **light DOM** precisely so this global sheet still
-  reaches it.
+- **Angular** imports the stylesheets once, globally.
 
 Prefer `core.css` plus explicit packs over `lucent.css`. Both current consumers —
 `hub/web` and `account/web` — use core components only, so `lucent.css` costs them 25% of

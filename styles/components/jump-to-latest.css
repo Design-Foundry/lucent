@@ -21,7 +21,7 @@
   color: var(--color--semantic--text-default);
   box-shadow: var(--shadow-md);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   line-height: var(--dimension--primitive--lh-tight);
   cursor: pointer;

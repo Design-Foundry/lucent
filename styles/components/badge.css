@@ -20,7 +20,7 @@
   padding: 0 var(--dimension--primitive--spacing-1-5);
   border-radius: var(--radius-full);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-micro);   /* 10 */
+  font-size: var(--dimension--primitive--fs-3xs);   /* 10 */
   font-weight: var(--dimension--primitive--fw-medium);
   line-height: var(--dimension--primitive--lh-tight);
   white-space: nowrap;
@@ -37,7 +37,7 @@
 /* Short text label ("AI", "NEW", "BETA") — a hair roomier and larger than a count. */
 .lucent-badge--label {
   padding: 0 var(--dimension--primitive--spacing-1-5);
-  font-size: var(--dimension--primitive--fs-11);
+  font-size: var(--dimension--primitive--fs-2xs);
 }
 
 /* Bare presence dot — no content; a fixed 8px circle. */

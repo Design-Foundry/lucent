@@ -24,7 +24,7 @@
   background: var(--color--semantic--surface-raised);
   color: var(--color--semantic--text-default);
   font-family: var(--font--primitive--sans);
-  font-size: var(--dimension--primitive--fs-body-sm);
+  font-size: var(--dimension--primitive--fs-sm);
   font-weight: var(--dimension--primitive--fw-light);
   line-height: var(--dimension--primitive--lh-normal);
 }
@@ -36,13 +36,13 @@
 }
 
 .lucent-message-bubble__author {
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   font-weight: var(--dimension--primitive--fw-medium);
   color: var(--color--semantic--text-strong);
 }
 
 .lucent-message-bubble__time {
-  font-size: var(--dimension--primitive--fs-micro);
+  font-size: var(--dimension--primitive--fs-3xs);
   color: var(--color--semantic--text-subtle);
 }
 
@@ -60,7 +60,7 @@
   background: transparent;
   border-color: transparent;
   color: var(--color--semantic--text-muted);
-  font-size: var(--dimension--primitive--fs-caption);
+  font-size: var(--dimension--primitive--fs-xs);
   text-align: center;
   padding: var(--dimension--primitive--spacing-1) var(--dimension--primitive--spacing-2);
 }
