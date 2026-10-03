@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lucent scenes</title>
+<link rel="stylesheet" href="../styles/lucent.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font--primitive--sans); color: var(--color--semantic--text-default); background: var(--color--semantic--surface-base); }
+  body.is-tint { background: var(--color--semantic--surface-tint); }
+  .app { display: grid; grid-template-columns: auto 1fr; min-height: 100vh; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-4); }
+  .app > .lucent-nav-rail { position: sticky; top: var(--dimension--primitive--spacing-4); height: calc(100vh - 2 * var(--dimension--primitive--spacing-4)); }
+  .main { min-width: 0; display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-5); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4) var(--dimension--primitive--spacing-12); }
+  .bar { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); flex-wrap: wrap; }
+  .bar .grow { flex: 1; }
+  .bar > .lucent-text-input, .bar > .lucent-select { width: 220px; flex: none; }
+  .row.between > .lucent-text-input { width: 220px; flex: none; }
+  .scene-title { font-size: var(--typography--heading-lg--font-size); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); margin: 0; }
+  .scene-h { font-size: var(--typography--heading-md--font-size); font-weight: var(--dimension--primitive--fw-regular); color: var(--color--semantic--text-strong); margin: 0; }
+  .muted { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .lucent-table .muted { font-size: var(--dimension--primitive--fs-xs); }
+  .cols { display: grid; gap: var(--dimension--primitive--spacing-4); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-4); }
+  .row { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); }
+  .row.between { justify-content: space-between; }
+  .person { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-2); }
+  .num { font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--dimension--primitive--spacing-4); }
+  .kpi__label { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .kpi__value { font-size: var(--dimension--primitive--fs-xl); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); font-variant-numeric: tabular-nums; }
+  .scene-switches { position: fixed; right: var(--dimension--primitive--spacing-4); bottom: var(--dimension--primitive--spacing-4); z-index: 50; display: flex; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4); border-radius: var(--radius-md); background: var(--color--semantic--surface-glass-strong); backdrop-filter: blur(var(--blur-glass)); box-shadow: var(--shadow-md); }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .app > .lucent-nav-rail { display: none; } .cols { grid-template-columns: 1fr !important; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<main class="main" style="max-width:880px;margin:0 auto;padding-top:var(--dimension--primitive--spacing-12)">
+  <h1 class="scene-title">Lucent scenes</h1>
+  <div class="stack" style="gap:2px">
+    <a class="lucent-list-item is-interactive" href="clinic.html"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">open_in_new</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Northside Veterinary</span><span class="lucent-list-item__supporting">Front desk schedule and a patient check-in form</span></span></a><a class="lucent-list-item is-interactive" href="shipments.html"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">open_in_new</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Corvid Freight</span><span class="lucent-list-item__supporting">Shipment tracking with filters, tabs and progress</span></span></a><a class="lucent-list-item is-interactive" href="budget.html"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">open_in_new</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Ledgerly</span><span class="lucent-list-item__supporting">Monthly budget with category limits and alert settings</span></span></a><a class="lucent-list-item is-interactive" href="support.html"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">open_in_new</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Harbor Helpdesk</span><span class="lucent-list-item__supporting">Support inbox with a conversation thread</span></span></a>
+  </div>
+</main>
+<div class="scene-switches">
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="dark" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Dark</span></label>
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="tint" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Sage background</span></label>
+</div>
+<script>
+  for (const input of document.querySelectorAll('[data-switch] input, input[data-switch]')) {
+    const kind = (input.closest('[data-switch]') || input).dataset.switch;
+    input.addEventListener('change', () => {
+      if (kind === 'dark') document.documentElement.dataset.theme = input.checked ? 'dark' : 'light';
+      else document.body.classList.toggle('is-tint', input.checked);
+      input.closest('.lucent-toggle')?.classList.toggle('is-checked', input.checked);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Appointments | Northside Veterinary</title>
+<link rel="stylesheet" href="../styles/lucent.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font--primitive--sans); color: var(--color--semantic--text-default); background: var(--color--semantic--surface-base); }
+  body.is-tint { background: var(--color--semantic--surface-tint); }
+  .app { display: grid; grid-template-columns: auto 1fr; min-height: 100vh; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-4); }
+  .app > .lucent-nav-rail { position: sticky; top: var(--dimension--primitive--spacing-4); height: calc(100vh - 2 * var(--dimension--primitive--spacing-4)); }
+  .main { min-width: 0; display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-5); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4) var(--dimension--primitive--spacing-12); }
+  .bar { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); flex-wrap: wrap; }
+  .bar .grow { flex: 1; }
+  .bar > .lucent-text-input, .bar > .lucent-select { width: 220px; flex: none; }
+  .row.between > .lucent-text-input { width: 220px; flex: none; }
+  .scene-title { font-size: var(--typography--heading-lg--font-size); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); margin: 0; }
+  .scene-h { font-size: var(--typography--heading-md--font-size); font-weight: var(--dimension--primitive--fw-regular); color: var(--color--semantic--text-strong); margin: 0; }
+  .muted { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .lucent-table .muted { font-size: var(--dimension--primitive--fs-xs); }
+  .cols { display: grid; gap: var(--dimension--primitive--spacing-4); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-4); }
+  .row { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); }
+  .row.between { justify-content: space-between; }
+  .person { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-2); }
+  .num { font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--dimension--primitive--spacing-4); }
+  .kpi__label { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .kpi__value { font-size: var(--dimension--primitive--fs-xl); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); font-variant-numeric: tabular-nums; }
+  .scene-switches { position: fixed; right: var(--dimension--primitive--spacing-4); bottom: var(--dimension--primitive--spacing-4); z-index: 50; display: flex; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4); border-radius: var(--radius-md); background: var(--color--semantic--surface-glass-strong); backdrop-filter: blur(var(--blur-glass)); box-shadow: var(--shadow-md); }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .app > .lucent-nav-rail { display: none; } .cols { grid-template-columns: 1fr !important; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="lucent-nav-rail is-expanded" aria-label="Clinic">
+    <div class="lucent-nav-group" role="group" aria-label="Front desk"><span class="lucent-nav-group__title">Front desk</span><a class="lucent-nav-item is-active" href="#" aria-current="page"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">today</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Today</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">event</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Appointments</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">pets</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Patients</span></span></a></div>
+    <hr class="lucent-divider" />
+    <div class="lucent-nav-group" role="group" aria-label="Practice"><span class="lucent-nav-group__title">Practice</span><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">inventory_2</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Pharmacy</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">receipt_long</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Billing</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">settings</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Settings</span></span></a></div>
+  </nav>
+  <main class="main">
+    <div class="bar">
+      <h1 class="scene-title">Thursday, 2 October</h1>
+      <span class="grow"></span>
+      <div class="lucent-segmented-control lucent-segmented-control--md" role="group" aria-label="Range"><button type="button" class="lucent-segmented-control__segment is-selected" aria-pressed="true" data-value="day">Day</button><button type="button" class="lucent-segmented-control__segment" aria-pressed="false" data-value="week">Week</button></div>
+      <span class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">add</span></span><span class="lucent-button__label">New appointment</span></button></span>
+    </div>
+    <div class="kpis">
+      <div class="lucent-card "><span class="kpi__label">Booked</span><span class="kpi__value">18</span></div>
+      <div class="lucent-card "><span class="kpi__label">Checked in</span><span class="kpi__value">4</span></div>
+      <div class="lucent-card "><span class="kpi__label">Waiting</span><span class="kpi__value">2</span></div>
+      <div class="lucent-card "><span class="kpi__label">Open slots</span><span class="kpi__value">5</span></div>
+    </div>
+    <div class="cols" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+      <div class="lucent-card "><div class="row between"><h2 class="scene-h">Schedule</h2><div class="lucent-text-input lucent-text-input--sm"><div class="lucent-text-input__wrapper"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">search</span></span><input id="ti-1" type="text" placeholder="Find a patient" /></div></div></div>
+        <table class="lucent-table"><thead><tr><th>Time</th><th>Patient</th><th>Owner</th><th>Reason</th><th>Status</th></tr></thead><tbody>
+        <tr><td class="num">08:30</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">B</span></div></div><span><div>Biscuit</div><div class="muted">Golden retriever</div></span></div></td><td>Marta Ruiz</td><td>Annual check-up</td><td><span class="lucent-status-tag lucent-status-tag--success"><span>Checked in</span></span></td></tr><tr><td class="num">09:00</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">P</span></div></div><span><div>Pepper</div><div class="muted">Domestic shorthair</div></span></div></td><td>Tom Okafor</td><td>Dental cleaning</td><td><span class="lucent-status-tag lucent-status-tag--warning"><span>Waiting</span></span></td></tr><tr><td class="num">09:30</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">J</span></div></div><span><div>Juniper</div><div class="muted">Holland lop</div></span></div></td><td>Aiko Tanaka</td><td>Nail trim</td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>Scheduled</span></span></td></tr><tr><td class="num">10:15</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">R</span></div></div><span><div>Rocco</div><div class="muted">Boxer</div></span></div></td><td>Lena Fischer</td><td>Limping, front left</td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>Scheduled</span></span></td></tr><tr><td class="num">11:00</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">M</span></div></div><span><div>Mochi</div><div class="muted">Ragdoll</div></span></div></td><td>Sam Patel</td><td>Vaccination</td><td><span class="lucent-status-tag lucent-status-tag--error"><span>No show</span></span></td></tr><tr><td class="num">11:30</td><td><div class="person"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">O</span></div></div><span><div>Olive</div><div class="muted">Border collie</div></span></div></td><td>Grace Lin</td><td>Post-op review</td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>Scheduled</span></span></td></tr>
+        </tbody></table></div>
+      <div class="stack">
+        <div class="lucent-card "><div class="row between"><h2 class="scene-h">Pepper</h2><span class="lucent-status-tag lucent-status-tag--warning"><span>Waiting</span></span></div>
+          <div class="lucent-inline-notice lucent-inline-notice--warning" role="alert"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">warning</span></span><div class="lucent-inline-notice__content">Rabies booster is 3 weeks overdue.</div></div>
+          <div class="lucent-text-input lucent-text-input--md"><label class="lucent-text-input__label typography-caption" for="ti-2">Owner</label><div class="lucent-text-input__wrapper"><input id="ti-2" type="text" placeholder=" " value="Tom Okafor" /></div></div>
+          <div class="lucent-select lucent-select--md" data-lucent-select><span class="lucent-select__label typography-caption" id="sel-3-label">Room</span><div class="lucent-select__field"><button type="button" class="lucent-select__trigger lucent-select__trigger--filled" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sel-3-list" aria-labelledby="sel-3-label"><span class="lucent-select__value">Exam room 2</span><span class="lucent-icon lucent-icon--md lucent-select__caret" aria-hidden="true"><span class="material-icons lucent-icon__glyph">arrow_drop_down</span></span></button><div class="lucent-select__dropdown" role="listbox" id="sel-3-list" hidden><div class="lucent-option" role="option" data-value="r1" aria-selected="false"><span class="lucent-option__label">Exam room 1</span></div><div class="lucent-option is-selected" role="option" data-value="r2" aria-selected="true"><span class="lucent-option__label">Exam room 2</span></div><div class="lucent-option" role="option" data-value="r3" aria-selected="false"><span class="lucent-option__label">Surgery</span></div></div></div></div>
+          <div class="lucent-textarea lucent-textarea--md"><label class="lucent-textarea__label typography-caption" for="ta-4">Notes</label><div class="lucent-textarea__wrapper"><textarea id="ta-4" rows="3" placeholder=" ">Eating less on the left side. Bad breath for two weeks.</textarea></div></div>
+          <label class="lucent-checkbox lucent-checkbox--md"><input type="checkbox" class="lucent-checkbox__input" checked /><span class="lucent-checkbox__box"><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--check" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check</span></span></span><span class="lucent-checkbox__label">Sedation consent signed</span></label>
+          <label class="lucent-toggle lucent-toggle--md"><input type="checkbox" class="lucent-toggle__input" role="switch" checked /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Text the owner when ready</span></label>
+          <div class="row" style="justify-content:flex-end"><span class="lucent-button lucent-button--ghost lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">Reschedule</span></button></span><span class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">Start visit</span></button></span></div></div>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="scene-switches">
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="dark" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Dark</span></label>
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="tint" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Sage background</span></label>
+</div>
+<script>
+  for (const input of document.querySelectorAll('[data-switch] input, input[data-switch]')) {
+    const kind = (input.closest('[data-switch]') || input).dataset.switch;
+    input.addEventListener('change', () => {
+      if (kind === 'dark') document.documentElement.dataset.theme = input.checked ? 'dark' : 'light';
+      else document.body.classList.toggle('is-tint', input.checked);
+      input.closest('.lucent-toggle')?.classList.toggle('is-checked', input.checked);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shipments | Corvid Freight</title>
+<link rel="stylesheet" href="../styles/lucent.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font--primitive--sans); color: var(--color--semantic--text-default); background: var(--color--semantic--surface-base); }
+  body.is-tint { background: var(--color--semantic--surface-tint); }
+  .app { display: grid; grid-template-columns: auto 1fr; min-height: 100vh; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-4); }
+  .app > .lucent-nav-rail { position: sticky; top: var(--dimension--primitive--spacing-4); height: calc(100vh - 2 * var(--dimension--primitive--spacing-4)); }
+  .main { min-width: 0; display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-5); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4) var(--dimension--primitive--spacing-12); }
+  .bar { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); flex-wrap: wrap; }
+  .bar .grow { flex: 1; }
+  .bar > .lucent-text-input, .bar > .lucent-select { width: 220px; flex: none; }
+  .row.between > .lucent-text-input { width: 220px; flex: none; }
+  .scene-title { font-size: var(--typography--heading-lg--font-size); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); margin: 0; }
+  .scene-h { font-size: var(--typography--heading-md--font-size); font-weight: var(--dimension--primitive--fw-regular); color: var(--color--semantic--text-strong); margin: 0; }
+  .muted { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .lucent-table .muted { font-size: var(--dimension--primitive--fs-xs); }
+  .cols { display: grid; gap: var(--dimension--primitive--spacing-4); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-4); }
+  .row { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); }
+  .row.between { justify-content: space-between; }
+  .person { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-2); }
+  .num { font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--dimension--primitive--spacing-4); }
+  .kpi__label { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .kpi__value { font-size: var(--dimension--primitive--fs-xl); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); font-variant-numeric: tabular-nums; }
+  .scene-switches { position: fixed; right: var(--dimension--primitive--spacing-4); bottom: var(--dimension--primitive--spacing-4); z-index: 50; display: flex; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4); border-radius: var(--radius-md); background: var(--color--semantic--surface-glass-strong); backdrop-filter: blur(var(--blur-glass)); box-shadow: var(--shadow-md); }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .app > .lucent-nav-rail { display: none; } .cols { grid-template-columns: 1fr !important; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="lucent-nav-rail is-expanded" aria-label="Freight">
+    <div class="lucent-nav-group" role="group" aria-label="Operations"><span class="lucent-nav-group__title">Operations</span><a class="lucent-nav-item is-active" href="#" aria-current="page"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">local_shipping</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Shipments</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">warehouse</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Warehouses</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">route</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Routes</span></span></a></div>
+    <hr class="lucent-divider" />
+    <div class="lucent-nav-group" role="group" aria-label="Account"><span class="lucent-nav-group__title">Account</span><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">request_quote</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Quotes</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">description</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Documents</span></span></a></div>
+  </nav>
+  <main class="main">
+    <nav class="lucent-breadcrumbs" aria-label="Breadcrumb"><ol class="lucent-breadcrumbs__list"><li class="lucent-breadcrumbs__crumb"><a class="lucent-breadcrumbs__item" href="#">Operations</a><span class="lucent-breadcrumbs__sep" aria-hidden="true">/</span></li><li class="lucent-breadcrumbs__crumb"><span class="lucent-breadcrumbs__item is-last" aria-current="page">Shipments</span></li></ol></nav>
+    <div class="bar"><h1 class="scene-title">Shipments</h1><span class="grow"></span><span class="lucent-button lucent-button--secondary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">download</span></span><span class="lucent-button__label">Export</span></button></span><span class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">add</span></span><span class="lucent-button__label">Book shipment</span></button></span></div>
+    <div class="lucent-tab-list" role="tablist"><button type="button" class="lucent-tab lucent-tab--md lucent-tab--active" role="tab" aria-selected="true" tabindex="0" data-value="all"><span class="lucent-tab__label">All</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="transit"><span class="lucent-tab__label">In transit</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="delayed"><span class="lucent-tab__label">Delayed</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="done"><span class="lucent-tab__label">Delivered</span></button></div>
+    <div class="lucent-inline-notice lucent-inline-notice--error" role="alert"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">error</span></span><div class="lucent-inline-notice__content"><span class="lucent-inline-notice__title">Action needed</span>Two shipments need documents before customs will release them.</div></div>
+    <div class="bar">
+      <div class="lucent-text-input lucent-text-input--sm"><div class="lucent-text-input__wrapper"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">search</span></span><input id="ti-5" type="text" placeholder="Reference or port" /></div></div>
+      <div class="lucent-select lucent-select--sm" data-lucent-select><div class="lucent-select__field"><button type="button" class="lucent-select__trigger lucent-select__trigger--filled" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sel-6-list"><span class="lucent-select__value">Any carrier</span><span class="lucent-icon lucent-icon--md lucent-select__caret" aria-hidden="true"><span class="material-icons lucent-icon__glyph">arrow_drop_down</span></span></button><div class="lucent-select__dropdown" role="listbox" id="sel-6-list" hidden><div class="lucent-option is-selected" role="option" data-value="any" aria-selected="true"><span class="lucent-option__label">Any carrier</span></div><div class="lucent-option" role="option" data-value="maersk" aria-selected="false"><span class="lucent-option__label">Northline</span></div><div class="lucent-option" role="option" data-value="msc" aria-selected="false"><span class="lucent-option__label">Tidewater</span></div></div></div></div>
+      <div class="lucent-segmented-control lucent-segmented-control--sm" role="group" aria-label="Mode"><button type="button" class="lucent-segmented-control__segment is-selected" aria-pressed="true" data-value="sea">Sea</button><button type="button" class="lucent-segmented-control__segment" aria-pressed="false" data-value="air">Air</button><button type="button" class="lucent-segmented-control__segment" aria-pressed="false" data-value="road">Road</button></div>
+      <span class="lucent-chip lucent-chip--active lucent-chip--sm"><span class="lucent-chip__label">Arriving this week</span></span>
+      <span class="lucent-button lucent-button--ghost lucent-button--sm"><button class="lucent-button__inner" type="button"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">tune</span></span><span class="lucent-button__label">Filters</span></button></span>
+    </div>
+    <div class="lucent-card "><table class="lucent-table"><thead><tr><th>Reference</th><th>Route</th><th>Mode</th><th>Progress</th><th>Status</th><th></th></tr></thead><tbody>
+      <tr><td class="num">CF-20418</td><td>Rotterdam to Chicago</td><td>Sea</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><span class="lucent-progress__bar" style="width:72%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>In transit</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr><tr><td class="num">CF-20422</td><td>Shenzhen to Los Angeles</td><td>Sea</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><span class="lucent-progress__bar" style="width:100%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--success"><span>Delivered</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr><tr><td class="num">CF-20431</td><td>Hamburg to Toronto</td><td>Air</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45"><span class="lucent-progress__bar" style="width:45%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--warning"><span>Delayed</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr><tr><td class="num">CF-20437</td><td>Busan to Seattle</td><td>Sea</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18"><span class="lucent-progress__bar" style="width:18%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>In transit</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr><tr><td class="num">CF-20440</td><td>Valencia to Miami</td><td>Air</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"><span class="lucent-progress__bar" style="width:60%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--error"><span>Held at customs</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr><tr><td class="num">CF-20446</td><td>Monterrey to Dallas</td><td>Road</td><td style="min-width:160px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="88"><span class="lucent-progress__bar" style="width:88%"></span></div></td><td><span class="lucent-status-tag lucent-status-tag--neutral"><span>In transit</span></span></td><td class="lucent-table__cell--right"><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></td></tr>
+      </tbody></table></div>
+  </main>
+</div>
+<div class="scene-switches">
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="dark" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Dark</span></label>
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="tint" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Sage background</span></label>
+</div>
+<script>
+  for (const input of document.querySelectorAll('[data-switch] input, input[data-switch]')) {
+    const kind = (input.closest('[data-switch]') || input).dataset.switch;
+    input.addEventListener('change', () => {
+      if (kind === 'dark') document.documentElement.dataset.theme = input.checked ? 'dark' : 'light';
+      else document.body.classList.toggle('is-tint', input.checked);
+      input.closest('.lucent-toggle')?.classList.toggle('is-checked', input.checked);
+    });
+  }
+</script>
+</body>
+</html>
