@@ -1,17 +1,20 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, output } from '@angular/core';
 import { LucentIcon, IconSize } from '../icon/icon';
 import { ButtonVariant } from '../button/button';
+import { ControlSize } from '../sizing';
 
-export type IconButtonSize = 'sm' | 'md' | 'lg';
+export type IconButtonSize = ControlSize;
 
 const ICON_SIZE: Record<IconButtonSize, IconSize> = {
-	sm: 'sm',
+	xs: 'sm',
+	sm: 'md',
 	md: 'md',
 	lg: 'lg',
 };
 
 const SPINNER_DIAMETER: Record<IconButtonSize, number> = {
-	sm: 12,
+	xs: 12,
+	sm: 14,
 	md: 16,
 	lg: 20,
 };
