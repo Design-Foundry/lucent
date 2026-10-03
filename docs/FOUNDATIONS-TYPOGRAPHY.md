@@ -36,15 +36,18 @@ It deliberately does *not* mirror the control sizes; see the skew below.
 | `fs-sm` | 14 | | `fs-3xl` | 60 |
 | `fs-md` | 16 | | `fs-4xl` | 96 |
 
-**Roles** sit on top (sans is default; every role also has a `-mono`):
+**Roles** sit on top (sans is default; every role also has a `-mono`). Title, heading, body and
+label each come in `lg`, `md` and `sm`; display, caption and micro are single roles:
 
 | Role | px | line-height | weight | use |
 |---|---|---|---|---|
 | `display` | 96 | tight | bold | ⚠️ marketing only — **not app chrome** |
 | `title-lg` | 60 | tight | bold | ⚠️ marketing / hero |
 | `title-md` | 40 | snug | semibold | ⚠️ marketing / large empty-states |
+| `title-sm` | 28 | snug | semibold | ⚠️ marketing / section heroes |
 | `heading-lg` | 28 | snug | medium | page titles |
 | `heading-md` | 20 | normal | medium | section headings |
+| `heading-sm` | 16 | normal | medium | sub-section and card headings |
 | `body-lg` | 20 | normal | regular | leads under a title; marketing intro text |
 | `body-md` | 16 | normal | regular | reading body; `lg` control text |
 | **`label-lg`** | **14** | **snug** | **medium** | **md/lg control text, field labels** |

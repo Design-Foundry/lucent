@@ -65,5 +65,5 @@
 	 * ========================================================= */
 
 	--color--semantic--scrim:
-		oklch(0 0 0 / 0.5);
+		oklch(from var(--color--primitive--black) l c h / var(--opacity--primitive--50));
 }
