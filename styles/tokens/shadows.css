@@ -3,7 +3,7 @@
    * Shadow — Color
    * ========================================================= */
 
-  --color--semantic--shadow-default: var(--color--primitive--slate-10);
+  --color--semantic--shadow-default: oklch(0 0 0);
 
   /* =========================================================
    * Shadow — Composite tokens

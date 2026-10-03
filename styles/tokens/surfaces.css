@@ -7,6 +7,7 @@
   --color--semantic--surface-default: var(--color--primitive--neutral-100);
   --color--semantic--surface-raised:  var(--color--primitive--neutral-100);
   --color--semantic--surface-overlay: var(--color--primitive--neutral-100);
+  --color--semantic--surface-tint:    var(--color--primitive--sage-100);
 
   --color--semantic--surface-glass: oklch(
     from var(--color--primitive--neutral-100) l c h / 0.5
@@ -55,9 +56,30 @@
   --blur-surface-glass: 12px;
   --blur-surface-glass-strong: 20px;
   --blur-surface-glass-subtle: 8px;
+
+  /* =========================================================
+   * Surface — Gradient
+   *
+   * The only two gradients in the system. Reserved for showcase backgrounds and
+   * specimen surfaces, never for component fills or app chrome.
+   * ========================================================= */
+
+  --gradient-breath:
+    radial-gradient(circle at 20% 20%, #D1E6E6 0%, rgba(255, 255, 255, 0) 60%),
+    radial-gradient(circle at 80% 80%, #C2DBF4 0%, rgba(243, 245, 245, 0) 60%),
+    linear-gradient(#FFFFFF, #FFFFFF);
+
+  --gradient-breath-soft:
+    radial-gradient(circle at 15% 10%, rgba(209, 230, 230, 0.35) 0%, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(circle at 85% 85%, rgba(194, 219, 244, 0.30) 0%, rgba(243, 245, 245, 0) 55%),
+    linear-gradient(#FAFBFB, #FAFBFB);
 }
 
 /* ─── Utility Classes ────────────────────────────────────────────────────────── */
+
+.surface-tint {
+  background-color: var(--color--semantic--surface-tint);
+}
 
 .surface-base {
   background-color: var(--color--semantic--surface-base);
@@ -96,8 +118,12 @@
   -webkit-backdrop-filter: blur(var(--blur-surface-glass-subtle));
 }
 
+.breath {
+  background: var(--gradient-breath);
+}
+
 .breath-soft {
-	background: radial-gradient(77.01% 159.26% at 72.95% 81.4%, rgba(194, 219, 244, 0.30) 0%, rgba(243, 245, 245, 0.55) 100%), radial-gradient(162.6% 145.43% at 22.75% 25.63%, rgba(209, 230, 230, 0.35) 0%, rgba(255, 255, 255, 0.55) 100%), #FFF;
+  background: var(--gradient-breath-soft);
 }
 
 .clickable-card {

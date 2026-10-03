@@ -2,7 +2,7 @@
  * Icon button — framework-neutral component styles.
  *
  * Structure both kits emit:
- *   .lucent-icon-button  (.lucent-icon-button--{variant} .lucent-icon-button--{sm|md|lg})
+ *   .lucent-icon-button  (.lucent-icon-button--{variant} .lucent-icon-button--{xs|sm|md|lg})
  *     .lucent-icon-button__inner  (<button>)
  *       .lucent-icon                ← the glyph
  *
@@ -14,6 +14,8 @@
  * ============================================================================= */
 
 .lucent-icon-button {
+  --_h: var(--control-height-md);
+  --_radius: var(--control-radius-md);
   display: inline-block;
 }
 
@@ -21,7 +23,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  width: var(--_h);
+  height: var(--_h);
+  border-radius: var(--_radius);
   border: none;
   cursor: pointer;
   transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
@@ -35,9 +39,9 @@
 
 /* ─── Sizes ────────────────────────────────────────────────────────────────── */
 
-.lucent-icon-button--sm .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-6);  height: var(--dimension--primitive--sizing-6); }
-.lucent-icon-button--md .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-8);  height: var(--dimension--primitive--sizing-8); }
-.lucent-icon-button--lg .lucent-icon-button__inner { width: var(--dimension--primitive--sizing-10); height: var(--dimension--primitive--sizing-10); }
+.lucent-icon-button--xs { --_h: var(--control-height-xs); --_radius: var(--control-radius-xs); }
+.lucent-icon-button--sm { --_h: var(--control-height-sm); --_radius: var(--control-radius-sm); }
+.lucent-icon-button--lg { --_h: var(--control-height-lg); --_radius: var(--control-radius-lg); }
 
 /* ─── Primary ──────────────────────────────────────────────────────────────── */
 

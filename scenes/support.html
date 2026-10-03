@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inbox | Harbor Helpdesk</title>
+<link rel="stylesheet" href="../styles/lucent.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font--primitive--sans); color: var(--color--semantic--text-default); background: var(--color--semantic--surface-base); }
+  body.is-tint { background: var(--color--semantic--surface-tint); }
+  .app { display: grid; grid-template-columns: auto 1fr; min-height: 100vh; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-4); }
+  .app > .lucent-nav-rail { position: sticky; top: var(--dimension--primitive--spacing-4); height: calc(100vh - 2 * var(--dimension--primitive--spacing-4)); }
+  .main { min-width: 0; display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-5); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4) var(--dimension--primitive--spacing-12); }
+  .bar { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); flex-wrap: wrap; }
+  .bar .grow { flex: 1; }
+  .bar > .lucent-text-input, .bar > .lucent-select { width: 220px; flex: none; }
+  .row.between > .lucent-text-input { width: 220px; flex: none; }
+  .scene-title { font-size: var(--typography--heading-lg--font-size); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); margin: 0; }
+  .scene-h { font-size: var(--typography--heading-md--font-size); font-weight: var(--dimension--primitive--fw-regular); color: var(--color--semantic--text-strong); margin: 0; }
+  .muted { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .lucent-table .muted { font-size: var(--dimension--primitive--fs-xs); }
+  .cols { display: grid; gap: var(--dimension--primitive--spacing-4); align-items: start; }
+  .stack { display: flex; flex-direction: column; gap: var(--dimension--primitive--spacing-4); }
+  .row { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-3); }
+  .row.between { justify-content: space-between; }
+  .person { display: flex; align-items: center; gap: var(--dimension--primitive--spacing-2); }
+  .num { font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--dimension--primitive--spacing-4); }
+  .kpi__label { color: var(--color--semantic--text-muted); font-size: var(--dimension--primitive--fs-sm); }
+  .kpi__value { font-size: var(--dimension--primitive--fs-xl); font-weight: var(--dimension--primitive--fw-light); color: var(--color--semantic--text-strong); font-variant-numeric: tabular-nums; }
+  .scene-switches { position: fixed; right: var(--dimension--primitive--spacing-4); bottom: var(--dimension--primitive--spacing-4); z-index: 50; display: flex; gap: var(--dimension--primitive--spacing-4); padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-4); border-radius: var(--radius-md); background: var(--color--semantic--surface-glass-strong); backdrop-filter: blur(var(--blur-glass)); box-shadow: var(--shadow-md); }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .app > .lucent-nav-rail { display: none; } .cols { grid-template-columns: 1fr !important; } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .scene-thread { display: flex; flex-direction: column; min-height: 0; }
+  .scene-thread .thread { flex: 1; overflow: auto; gap: var(--dimension--primitive--spacing-2); }
+  .msg { display: flex; }
+  .msg--out { justify-content: flex-end; }
+  .msg .lucent-message-bubble { max-width: 70%; }
+  .scene-scroll { overflow: auto; }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="lucent-nav-rail" aria-label="Helpdesk">
+    <a class="lucent-nav-item is-active" href="#" aria-current="page"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">inbox</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Inbox</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">person</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Customers</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">bar_chart</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Reports</span></span></a><a class="lucent-nav-item" href="#"><span class="lucent-icon lucent-icon--lg" aria-hidden="true"><span class="material-icons lucent-icon__glyph">settings</span></span><span class="lucent-nav-item__text"><span class="lucent-nav-item__label">Settings</span></span></a>
+  </nav>
+  <main class="main" style="padding-bottom:var(--dimension--primitive--spacing-4)">
+    <div class="cols" style="grid-template-columns:300px minmax(0,1fr) 280px;height:calc(100vh - 48px);align-items:stretch">
+      <div class="lucent-card scene-scroll"><div class="row between"><h2 class="scene-h">Inbox</h2><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="New conversation"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">edit_square</span></span></button></span></div>
+        <div class="lucent-text-input lucent-text-input--sm"><div class="lucent-text-input__wrapper"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">search</span></span><input id="ti-9" type="text" placeholder="Search conversations" /></div></div>
+        <div class="stack" style="gap:2px">
+          <button type="button" class="lucent-conversation-row is-active" aria-current="true"><span class="lucent-conversation-row__leading"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">PN</span></div></div></span><span class="lucent-conversation-row__main"><span class="lucent-conversation-row__title">Priya Nair</span><span class="lucent-conversation-row__preview">The invoice still shows the old address</span></span><span class="lucent-conversation-row__meta"><span class="lucent-conversation-row__time">09:42</span><span class="lucent-badge lucent-badge--count lucent-badge--accent lucent-conversation-row__badge">2</span></span></button>
+          <button type="button" class="lucent-conversation-row"><span class="lucent-conversation-row__leading"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">DA</span></div></div></span><span class="lucent-conversation-row__main"><span class="lucent-conversation-row__title">Diego Alvarez</span><span class="lucent-conversation-row__preview">Thanks, that fixed it!</span></span><span class="lucent-conversation-row__meta"><span class="lucent-conversation-row__time">09:10</span></span></button>
+          <button type="button" class="lucent-conversation-row"><span class="lucent-conversation-row__leading"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">RM</span></div></div></span><span class="lucent-conversation-row__main"><span class="lucent-conversation-row__title">Ruth Mensah</span><span class="lucent-conversation-row__preview">Can I move my plan to annual billing?</span></span><span class="lucent-conversation-row__meta"><span class="lucent-conversation-row__time">Yesterday</span><span class="lucent-badge lucent-badge--count lucent-badge--accent lucent-conversation-row__badge">1</span></span></button>
+          <button type="button" class="lucent-conversation-row"><span class="lucent-conversation-row__leading"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">KM</span></div></div></span><span class="lucent-conversation-row__main"><span class="lucent-conversation-row__title">Kenji Mori</span><span class="lucent-conversation-row__preview">Export keeps timing out on large files</span></span><span class="lucent-conversation-row__meta"><span class="lucent-conversation-row__time">Mon</span></span></button>
+        </div></div>
+      <div class="lucent-card scene-thread"><div class="row between"><h2 class="scene-h">Priya Nair</h2><div class="row"><span class="lucent-status-tag lucent-status-tag--warning"><span>Waiting on us</span></span><span class="lucent-icon-button lucent-icon-button--ghost lucent-icon-button--sm"><button class="lucent-icon-button__inner" type="button" aria-label="More"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">more_horiz</span></span></button></span></div></div>
+        <div class="stack thread">
+          <div class="lucent-message-bubble lucent-message-bubble--system lucent-message-bubble--standalone"><div class="lucent-message-bubble__body">Conversation assigned to you</div></div>
+          <div class="msg msg--in"><div class="lucent-message-bubble lucent-message-bubble--other lucent-message-bubble--standalone"><div class="lucent-message-bubble__meta"><span class="lucent-message-bubble__author">Priya Nair</span><span class="lucent-message-bubble__time">09:31</span></div><div class="lucent-message-bubble__body">Hi! I updated our billing address last week but the October invoice still shows the old one.</div></div></div>
+          <div class="msg msg--in"><div class="lucent-message-bubble lucent-message-bubble--other lucent-message-bubble--continuation"><div class="lucent-message-bubble__body">We need it corrected before our finance team can pay it.</div></div></div>
+          <div class="msg msg--out"><div class="lucent-message-bubble lucent-message-bubble--user lucent-message-bubble--standalone"><div class="lucent-message-bubble__meta"><span class="lucent-message-bubble__author">You</span><span class="lucent-message-bubble__time">09:40</span></div><div class="lucent-message-bubble__body">Sorry about that, Priya. I can see the new address on your account. I will reissue the invoice now.</div></div></div>
+          <div class="msg msg--in"><div class="lucent-message-bubble lucent-message-bubble--other lucent-message-bubble--standalone"><div class="lucent-message-bubble__meta"><span class="lucent-message-bubble__author">Priya Nair</span><span class="lucent-message-bubble__time">09:42</span></div><div class="lucent-message-bubble__body">Perfect, thank you. Can you send it to accounts@nairstudio.com too?</div></div></div>
+        </div>
+        <div class="lucent-composer lucent-composer--md"><textarea class="lucent-composer__field" rows="1" placeholder="Reply to Priya"></textarea><div class="lucent-composer__actions"><span class="lucent-icon-button lucent-icon-button--primary lucent-icon-button--md"><button class="lucent-icon-button__inner" type="button" aria-label="Send" disabled><span class="lucent-icon lucent-icon--md" aria-hidden="true"><span class="material-icons lucent-icon__glyph">arrow_upward</span></span></button></span></div></div></div>
+      <div class="lucent-card "><h2 class="scene-h">Customer</h2>
+        <div class="person"><div class="lucent-avatar lucent-avatar--md lucent-avatar--none"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">PN</span></div></div><span><div>Priya Nair</div><div class="muted">Nair Studio</div></span></div>
+        <div class="row" style="flex-wrap:wrap"><span class="lucent-status-tag lucent-status-tag--success"><span>Paid plan</span></span><span class="lucent-status-tag lucent-status-tag--neutral"><span>EU</span></span></div>
+        <div class="lucent-list-item is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">workspace_premium</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Business plan</span><span class="lucent-list-item__supporting">Renews 14 Jan</span></span></div>
+        <div class="lucent-list-item is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">receipt_long</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">3 open invoices</span><span class="lucent-list-item__supporting">1 overdue</span></span></div>
+        <div class="lucent-list-item is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">schedule</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Last seen 4 min ago</span></span></div>
+        <div class="lucent-inline-notice lucent-inline-notice--info" role="status"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">info</span></span><div class="lucent-inline-notice__content">Priya has contacted support 3 times this month.</div></div></div>
+    </div>
+  </main>
+</div>
+<div class="scene-switches">
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="dark" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Dark</span></label>
+  <label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" data-switch="tint" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Sage background</span></label>
+</div>
+<script>
+  for (const input of document.querySelectorAll('[data-switch] input, input[data-switch]')) {
+    const kind = (input.closest('[data-switch]') || input).dataset.switch;
+    input.addEventListener('change', () => {
+      if (kind === 'dark') document.documentElement.dataset.theme = input.checked ? 'dark' : 'light';
+      else document.body.classList.toggle('is-tint', input.checked);
+      input.closest('.lucent-toggle')?.classList.toggle('is-checked', input.checked);
+    });
+  }
+</script>
+</body>
+</html>

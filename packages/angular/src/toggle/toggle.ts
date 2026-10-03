@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlSize } from '../sizing';
 
-export type ToggleSize = 'md' | 'sm';
+export type ToggleSize = ControlSize;
 
 @Component({
 	selector: 'lucent-toggle',

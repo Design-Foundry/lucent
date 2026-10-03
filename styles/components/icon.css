@@ -31,7 +31,9 @@
 .lucent-icon--lg { --_sz: var(--dimension--primitive--icon-lg); }
 .lucent-icon--xl { --_sz: var(--dimension--primitive--icon-xl); }
 
-.lucent-icon__glyph {
+/* Two classes so the Material Icons stylesheet's `.material-icons { font-size: 24px }` can't
+   override the glyph size, whichever stylesheet loads last. */
+.lucent-icon .lucent-icon__glyph {
   color: inherit;
   overflow: hidden;
   font-size: var(--_sz);

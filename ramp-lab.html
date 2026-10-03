@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lucent ramp lab</title>
+
+<link rel="stylesheet" href="styles/lucent.css" />
+<style id="ramp-override"></style>
+<style id="semantic-override"></style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@100..700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font--primitive--sans); background: var(--color--semantic--surface-base); color: var(--color--semantic--text-default); }
+  .lab { display: grid; grid-template-columns: 380px 1fr; min-height: 100vh; }
+  .panel { border-right: 1px solid var(--color--semantic--border-subtle); background: var(--color--semantic--surface-default); padding: 20px; position: sticky; top: 0; align-self: start; height: 100vh; overflow: auto; }
+  .stage { padding: 28px 36px 64px; max-width: 1180px; width: 100%; margin: 0 auto; }
+  h1 { font-size: 18px; font-weight: 500; margin: 0 0 16px; color: var(--color--semantic--text-strong); }
+  h2 { font-size: 15px; font-weight: 500; margin: 36px 0 12px; color: var(--color--semantic--text-strong); }
+  h3 { font-size: 13px; font-weight: 500; margin: 20px 0 8px; color: var(--color--semantic--text-muted); }
+  .mono { font-family: var(--font--primitive--mono); }
+
+  .seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 8px; background: var(--color--semantic--surface-base); border: 1px solid var(--color--semantic--border-subtle); }
+  .seg button { font: inherit; font-size: 12px; padding: 4px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--color--semantic--text-muted); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--color--semantic--surface-default); color: var(--color--semantic--text-strong); box-shadow: var(--shadow-xs); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: 13px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 4px; }
+  .actions button { font: inherit; font-size: 12px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-default); color: inherit; cursor: pointer; }
+  .actions button:hover { background: var(--color--semantic--surface-base); }
+
+  .ramp { padding: 12px 0; border-top: 1px solid var(--color--semantic--border-subtle); }
+  .ramp__head { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 500; color: var(--color--semantic--text-strong); margin-bottom: 8px; }
+  .ramp__strip { display: grid; grid-template-columns: repeat(11, 1fr); gap: 2px; margin-bottom: 8px; }
+  .ramp__strip span { height: 14px; border-radius: 3px; }
+  .slider { display: grid; grid-template-columns: 74px 1fr 52px; align-items: center; gap: 8px; font-size: 12px; color: var(--color--semantic--text-muted); margin: 4px 0; }
+  .slider input[type="range"] { width: 100%; accent-color: var(--color--semantic--accent-strong); }
+  .slider output { font-family: var(--font--primitive--mono); font-size: 11px; text-align: right; color: var(--color--semantic--text-default); }
+
+  .grid { display: grid; grid-template-columns: 72px repeat(11, minmax(0, 1fr)); gap: 4px; align-items: center; font-size: 12px; }
+  .grid .h { text-align: center; color: var(--color--semantic--text-muted); }
+  .grid .n { color: var(--color--semantic--text-muted); }
+  .grid .sw { height: 34px; border-radius: 6px; border: 1px solid var(--color--semantic--border-subtle); }
+
+  table.cr { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.cr th { text-align: left; font-weight: 500; color: var(--color--semantic--text-muted); padding: 6px 8px; border-bottom: 1px solid var(--color--semantic--border-default); }
+  table.cr td { padding: 6px 8px; border-bottom: 1px solid var(--color--semantic--border-subtle); }
+  table.cr .chip { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 24px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+  table.cr .fail { color: var(--color--semantic--error-on-subtle); background: var(--color--semantic--error-subtle); padding: 2px 8px; border-radius: 6px; }
+
+  .specimen { padding: 40px 32px; border-radius: 24px; border: 1px solid var(--color--semantic--border-subtle); display: flex; justify-content: center; }
+  html[data-theme="dark"] .specimen { background: var(--color--semantic--surface-default); }
+  .spec-panel { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 20px; }
+  .spec-row { display: grid; grid-template-columns: 1fr 160px; gap: 12px; align-items: end; }
+  .spec-actions { display: flex; justify-content: flex-end; gap: 8px; }
+  .demos { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .demo { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 20px; border-radius: 16px; border: 1px solid var(--color--semantic--border-subtle); background: var(--color--semantic--surface-default); }
+  .demo--wide { grid-column: 1 / -1; }
+  .demo__panel { width: 100%; max-width: 100%; }
+  .demo .demo__panel[style] { width: 100% !important; }
+  textarea.export { width: 100%; height: 160px; font-family: var(--font--primitive--mono); font-size: 11px; padding: 8px; border-radius: 8px; border: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-base); color: inherit; resize: vertical; }
+</style>
+</head>
+<body>
+<div class="lab">
+  <aside class="panel">
+    <h1>Ramp lab</h1>
+
+    <div class="row"><span>Theme</span>
+      <span class="seg" id="theme"><button data-v="light" aria-pressed="true">Light</button><button data-v="dark" aria-pressed="false">Dark</button></span></div>
+    <div class="row"><span>Ramps</span>
+      <span class="seg" id="source"><button data-v="lab" aria-pressed="true">Lab</button><button data-v="today" aria-pressed="false">Today</button></span></div>
+    <div class="row"><span>Semantics</span>
+      <span class="seg" id="semantics"><button data-v="today" aria-pressed="false">Today</button><button data-v="repointed" aria-pressed="true">Re-pointed</button></span></div>
+    <div class="row"><span>Preset</span>
+      <span class="seg" id="preset"><button data-v="roles">Roles</button><button data-v="sonnet">Sonnet</button><button data-v="c">Option C</button></span></div>
+    <div class="row"><label for="sageBase">Sage page background</label><input type="checkbox" id="sageBase" /></div>
+    <div class="row"><span>Swatches</span>
+      <span class="seg" id="view"><button data-v="c" aria-pressed="true">Colour</button><button data-v="l" aria-pressed="false">Luminance</button></span></div>
+
+    <h3>Every ramp</h3>
+    <div class="slider"><span>Dark end</span><input type="range" id="taperDark" min="0.2" max="1" step="0.01" /><output id="taperDarkOut"></output></div>
+    <div class="slider"><span>Light end</span><input type="range" id="taperLight" min="0.1" max="1" step="0.01" /><output id="taperLightOut"></output></div>
+    <div class="row" style="margin-top:8px"><label for="keepWhites">Keep neutral 95 and 100 as surface whites</label><input type="checkbox" id="keepWhites" /></div>
+
+    <div id="ramps"></div>
+
+    <div class="actions">
+      <button id="copy">Copy CSS</button>
+    </div>
+    <textarea class="export" id="export" readonly aria-label="Primitive ramp CSS"></textarea>
+  </aside>
+
+  <main class="stage">
+    <h2 style="margin-top:0">Ramps</h2>
+    <div class="grid" id="grid"></div>
+
+    <h2>Contrast</h2>
+    <table class="cr"><thead><tr><th>Pair</th><th>Sample</th><th>Ratio</th><th>Needs</th></tr></thead><tbody id="cr"></tbody></table>
+
+    <h2>Components</h2>
+    <section class="specimen breath" aria-label="Specimen">
+ <div class="spec-panel"> <div class="lucent-tab-list" role="tablist"><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="members"><span class="lucent-tab__label">Members</span></button><button type="button" class="lucent-tab lucent-tab--md lucent-tab--active" role="tab" aria-selected="true" tabindex="0" data-value="invites"><span class="lucent-tab__label">Invites</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="roles"><span class="lucent-tab__label">Roles</span></button></div> <div class="spec-row"> <div class="lucent-text-input lucent-text-input--md"><label class="lucent-text-input__label typography-caption" for="ti-26">Work email</label><div class="lucent-text-input__wrapper"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">mail</span></span><input id="ti-26" type="text" placeholder="ana@northwind.studio" /></div></div> <div class="lucent-select lucent-select--md" data-lucent-select><span class="lucent-select__label typography-caption" id="sel-27-label">Role</span><div class="lucent-select__field"><button type="button" class="lucent-select__trigger lucent-select__trigger--filled" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sel-27-list" aria-labelledby="sel-27-label"><span class="lucent-select__value">Editor</span><span class="lucent-icon lucent-icon--md lucent-select__caret" aria-hidden="true"><span class="material-icons lucent-icon__glyph">arrow_drop_down</span></span></button><div class="lucent-select__dropdown" role="listbox" id="sel-27-list" hidden><div class="lucent-option is-selected" role="option" data-value="editor" aria-selected="true"><span class="lucent-option__label">Editor</span></div><div class="lucent-option" role="option" data-value="viewer" aria-selected="false"><span class="lucent-option__label">Viewer</span></div></div></div></div> </div> <label class="lucent-toggle lucent-toggle--md"><input type="checkbox" class="lucent-toggle__input" role="switch" checked /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Require single sign-on</span></label> <div class="lucent-inline-notice lucent-inline-notice--info" role="status"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">info</span></span><div class="lucent-inline-notice__content">Invites expire after 7 days.</div></div> <div class="spec-actions"> <span class="lucent-button lucent-button--ghost lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">Cancel</span></button></span> <span class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">send</span></span><span class="lucent-button__label">Send invite</span></button></span> </div> </div> 
+    </section>
+    <div class="demos" style="margin-top:16px">
+      <div class="demo demo--wide"><span class="lucent-button lucent-button--primary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">primary</span></button></span><span class="lucent-button lucent-button--secondary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">secondary</span></button></span><span class="lucent-button lucent-button--ghost lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">ghost</span></button></span><span class="lucent-button lucent-button--on-glass lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">on-glass</span></button></span><span class="lucent-button lucent-button--danger lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">danger</span></button></span><span class="lucent-button lucent-button--text lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">text</span></button></span></div>
+      <div class="demo demo--wide"><span class="lucent-button lucent-button--secondary lucent-button--xs"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">xs</span></button></span><span class="lucent-button lucent-button--secondary lucent-button--sm"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">sm</span></button></span><span class="lucent-button lucent-button--secondary lucent-button--md"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">md</span></button></span><span class="lucent-button lucent-button--secondary lucent-button--lg"><button class="lucent-button__inner" type="button"><span class="lucent-button__label">lg</span></button></span></div>
+      <div class="demo"><span class="lucent-status-tag lucent-status-tag--success"><span>Live</span></span><span class="lucent-status-tag lucent-status-tag--neutral"><span>Draft</span></span><span class="lucent-status-tag lucent-status-tag--warning"><span>Expiring</span></span><span class="lucent-status-tag lucent-status-tag--error"><span>Failed</span></span></div>
+      <div class="demo"><span class="lucent-badge lucent-badge--label lucent-badge--neutral">AI</span><span class="lucent-badge lucent-badge--count lucent-badge--accent">3</span><span class="lucent-badge lucent-badge--count lucent-badge--error">99+</span><span class="lucent-badge lucent-badge--dot lucent-badge--success" aria-hidden="true"></span></div>
+      <div class="demo"><span class="lucent-tag">v1.2.0</span><span class="lucent-tag">build 4821</span></div>
+      <div class="demo"><span class="lucent-chip lucent-chip--default lucent-chip--md"><span class="lucent-chip__label">Default</span></span><span class="lucent-chip lucent-chip--active lucent-chip--md"><span class="lucent-chip__label">Active</span></span><span class="lucent-chip lucent-chip--tag lucent-chip--md"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">tag</span></span><span class="lucent-chip__label">Tag</span></span><span class="lucent-chip lucent-chip--action lucent-chip--md"><span class="lucent-chip__label">Removable</span><button type="button" class="lucent-chip__close" aria-label="Remove Removable" data-lucent-dismiss=".lucent-chip"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">close</span></span></button></span></div>
+      <div class="demo demo--wide"><div class="demo__panel" style="width:440px;display:flex;flex-direction:column;gap:12px"><div class="lucent-inline-notice lucent-inline-notice--info" role="status"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">info</span></span><div class="lucent-inline-notice__content"><span class="lucent-inline-notice__title">Heads up</span>Your trial ends in 3 days.</div></div><div class="lucent-inline-notice lucent-inline-notice--success" role="status"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check_circle</span></span><div class="lucent-inline-notice__content">Changes saved.</div></div><div class="lucent-inline-notice lucent-inline-notice--warning" role="alert"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">warning</span></span><div class="lucent-inline-notice__content">Storage is almost full.</div><span class="lucent-icon-button lucent-icon-button--text lucent-icon-button--sm lucent-inline-notice__dismiss"><button class="lucent-icon-button__inner" type="button" aria-label="Dismiss" data-lucent-dismiss=".lucent-inline-notice"><span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">close</span></span></button></span></div><div class="lucent-inline-notice lucent-inline-notice--error" role="alert"><span class="lucent-icon lucent-icon--sm lucent-inline-notice__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">error</span></span><div class="lucent-inline-notice__content"><span class="lucent-inline-notice__title">Payment failed</span>We couldn’t charge your card.</div></div></div></div>
+      <div class="demo"><label class="lucent-checkbox lucent-checkbox--md"><input type="checkbox" class="lucent-checkbox__input" /><span class="lucent-checkbox__box"><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--check" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check</span></span></span><span class="lucent-checkbox__label">Unchecked</span></label><label class="lucent-checkbox lucent-checkbox--md"><input type="checkbox" class="lucent-checkbox__input" checked /><span class="lucent-checkbox__box"><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--check" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check</span></span></span><span class="lucent-checkbox__label">Checked</span></label><label class="lucent-checkbox lucent-checkbox--md is-indeterminate"><input type="checkbox" class="lucent-checkbox__input" aria-checked="mixed" /><span class="lucent-checkbox__box"><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--check" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check</span></span><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--dash" aria-hidden="true"><span class="material-icons lucent-icon__glyph">remove</span></span></span><span class="lucent-checkbox__label">Indeterminate</span></label><label class="lucent-checkbox lucent-checkbox--md is-disabled"><input type="checkbox" class="lucent-checkbox__input" disabled /><span class="lucent-checkbox__box"><span class="lucent-icon lucent-icon--sm lucent-checkbox__icon lucent-checkbox__icon--check" aria-hidden="true"><span class="material-icons lucent-icon__glyph">check</span></span></span><span class="lucent-checkbox__label">Disabled</span></label></div>
+      <div class="demo"><label class="lucent-toggle lucent-toggle--md"><input type="checkbox" class="lucent-toggle__input" role="switch" /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Off</span></label><label class="lucent-toggle lucent-toggle--md"><input type="checkbox" class="lucent-toggle__input" role="switch" checked /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">On</span></label><label class="lucent-toggle lucent-toggle--sm"><input type="checkbox" class="lucent-toggle__input" role="switch" checked /><span class="lucent-toggle__track"><span class="lucent-toggle__thumb"></span></span><span class="lucent-toggle__label">Small</span></label></div>
+      <div class="demo"><div class="lucent-radio-group" role="radiogroup" aria-label="Plan"><label class="lucent-radio lucent-radio--md"><input type="radio" class="lucent-radio__input" name="rg-21" value="free" /><span class="lucent-radio__circle"></span><span class="lucent-radio__label">Free</span></label><label class="lucent-radio lucent-radio--md"><input type="radio" class="lucent-radio__input" name="rg-21" value="standard" checked /><span class="lucent-radio__circle"></span><span class="lucent-radio__label">Standard</span></label><label class="lucent-radio lucent-radio--md"><input type="radio" class="lucent-radio__input" name="rg-21" value="pro" /><span class="lucent-radio__circle"></span><span class="lucent-radio__label">Pro</span></label></div></div>
+      <div class="demo"><div class="lucent-tab-list" role="tablist"><button type="button" class="lucent-tab lucent-tab--md lucent-tab--active" role="tab" aria-selected="true" tabindex="0" data-value="overview"><span class="lucent-icon lucent-icon--md" aria-hidden="true"><span class="material-icons lucent-icon__glyph">dashboard</span></span><span class="lucent-tab__label">Overview</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="activity"><span class="lucent-icon lucent-icon--md" aria-hidden="true"><span class="material-icons lucent-icon__glyph">timeline</span></span><span class="lucent-tab__label">Activity</span></button><button type="button" class="lucent-tab lucent-tab--md" role="tab" aria-selected="false" tabindex="-1" data-value="settings"><span class="lucent-icon lucent-icon--md" aria-hidden="true"><span class="material-icons lucent-icon__glyph">settings</span></span><span class="lucent-tab__label">Settings</span></button><button type="button" class="lucent-tab lucent-tab--md lucent-tab--disabled" role="tab" aria-selected="false" tabindex="-1" data-value="locked" disabled><span class="lucent-tab__label">Locked</span></button></div></div>
+      <div class="demo"><div class="demo__panel"><div class="lucent-text-input lucent-text-input--md"><label class="lucent-text-input__label typography-caption" for="ti-40">Work email</label><div class="lucent-text-input__wrapper"><input id="ti-40" type="text" placeholder="studio@designfoundry.co" aria-describedby="ti-40-msg" /></div><span class="lucent-text-input__message" id="ti-40-msg">we'll only use this for your beta invite.</span></div></div></div>
+      <div class="demo"><div class="demo__panel"><div class="lucent-select lucent-select--md" data-lucent-select><span class="lucent-select__label typography-caption" id="sel-20-label">Environment</span><div class="lucent-select__field"><button type="button" class="lucent-select__trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="sel-20-list" aria-labelledby="sel-20-label"><span class="lucent-select__value is-placeholder">Choose environment</span><span class="lucent-icon lucent-icon--md lucent-select__caret" aria-hidden="true"><span class="material-icons lucent-icon__glyph">arrow_drop_down</span></span></button><div class="lucent-select__dropdown" role="listbox" id="sel-20-list" hidden><div class="lucent-option" role="option" data-value="prod" aria-selected="false"><span class="lucent-option__label">Production</span></div><div class="lucent-option" role="option" data-value="staging" aria-selected="false"><span class="lucent-option__label">Staging</span></div><div class="lucent-option" role="option" data-value="dev" aria-selected="false"><span class="lucent-option__label">Development</span></div></div></div><span class="lucent-select__message" id="sel-20-msg">Pick a deployment target.</span></div></div></div>
+      <div class="demo"><div class="demo__panel" style="width:320px;display:flex;flex-direction:column;gap:12px"><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"><span class="lucent-progress__bar" style="width:40%"></span></div><div class="lucent-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80"><span class="lucent-progress__bar" style="width:80%"></span></div><div class="lucent-progress lucent-progress--indeterminate" role="progressbar"><span class="lucent-progress__bar"></span></div></div></div>
+      <div class="demo"><div class="lucent-avatar lucent-avatar--sm lucent-avatar--trailing"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">DC</span></div><div class="lucent-avatar__labels"><span class="lucent-avatar__name">Diego Cancho</span></div></div><div class="lucent-avatar lucent-avatar--md lucent-avatar--trailing"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">AL</span></div><div class="lucent-avatar__labels"><span class="lucent-avatar__name">Ada Lovelace</span></div></div><div class="lucent-avatar lucent-avatar--lg lucent-avatar--trailing"><div class="lucent-avatar__circle"><span class="lucent-avatar__initials">GH</span></div><div class="lucent-avatar__labels"><span class="lucent-avatar__name">Grace Hopper</span><span class="lucent-avatar__tenant">Acme</span></div></div></div>
+      <div class="demo demo--wide"><div class="demo__panel"><div class="lucent-list" role="list"><div class="lucent-list-item is-selected is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">inbox</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Inbox</span></span></div><div class="lucent-list-item is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">send</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Sent</span><span class="lucent-list-item__supporting">24 messages</span></span></div><div class="lucent-list-item is-interactive" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">drafts</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Drafts</span></span></div><div class="lucent-list-item is-interactive is-danger" role="button" tabindex="0"><span class="lucent-icon lucent-icon--sm lucent-list-item__icon" aria-hidden="true"><span class="material-icons lucent-icon__glyph">delete</span></span><span class="lucent-list-item__content"><span class="lucent-list-item__primary">Trash</span></span></div></div></div></div>
+    </div>
+  </main>
+</div>
+
+<script>
+const STEPS = ['10','20','30','40','50','60','70','80','90','95','100'];
+const TONE = { 10: 10, 20: 20, 30: 30, 40: 40, 50: 50, 60: 60, 70: 70, 80: 80, 90: 88, 95: 94, 100: 97 };
+const DARK_TAPER_STEPS = { 10: 1 };
+const OPTION_C = {
+  taperDark: 0.85, taperLight: 0.55, keepWhites: true, lightSteps: { 80: 0.33, 90: 1, 95: 1.35, 100: 1.6 },
+  ramps: {
+    pine: { h: 165.3, s: 0.50 }, slate: { h: 248.4, s: 0.235 }, sage: { h: 196.6, s: 0.17 },
+    neutral: { h: 250, s: 0.03 }, success: { h: 151.1, s: 0.6 }, warning: { h: 88.4, s: 0.6 }, error: { h: 27.9, s: 0.6 },
+  },
+};
+const SONNET = {
+  taperDark: 0.85, taperLight: 0.5, keepWhites: true, lightSteps: { 70: 0.4, 80: 0.9, 90: 1.3, 95: 1.1, 100: 0.8 },
+  ramps: {
+    pine: { h: 165.3, s: 0.5 }, slate: { h: 248.4, s: 0.235, taperLight: 0.9 },
+    sage: { h: 196.6, s: 0.17, taperLight: 0.75 }, neutral: { h: 250, s: 0.03, taperLight: 0.9 }, success: { h: 151.1, s: 0.6, taperLight: 0.65 },
+    warning: { h: 85, s: 0.78, taperLight: 0.6 }, error: { h: 26, s: 0.62, taperLight: 0.85 },
+  },
+};
+const ROLES = {
+  taperDark: 0.85, taperLight: 0.5, keepWhites: true, lightSteps: { 70: 0.4, 80: 0.9, 90: 1.3, 95: 1.1, 100: 0.8 },
+  ramps: {
+    pine: { h: 165.3, s: 0.5 }, slate: { h: 248.4, s: 0.235, taperLight: 0.9 }, sage: { h: 196.6, s: 0.2, taperLight: 1 },
+    neutral: { h: 250, s: 0.03, taperLight: 0.9 }, success: { h: 145, s: 0.85, taperLight: 0.42 },
+    warning: { h: 85, s: 0.95, taperLight: 0.55 }, error: { h: 26, s: 0.72, taperLight: 1 },
+  },
+};
+const SAGE_BASE = `html:root:not([data-theme='dark']) { --color--semantic--surface-base: var(--color--primitive--sage-100); }`;
+const REPOINTED = `.lucent-inline-notice--info { --_c: var(--color--semantic--info); }
+.lucent-inline-notice { background: color-mix(in oklab, var(--_c) 18%, var(--color--semantic--surface-default)); border-color: color-mix(in oklab, var(--_c) 36%, transparent); }
+html:root {
+  --color--semantic--text-strong:  var(--color--primitive--slate-10);
+  --color--semantic--text-default: var(--color--primitive--slate-20);
+  --color--semantic--text-muted:   var(--color--primitive--slate-40);
+  --color--semantic--text-subtle:  var(--color--primitive--slate-50);
+  --color--semantic--text-inverse: var(--color--primitive--slate-95);
+  --color--semantic--text-onaccent: var(--color--primitive--pine-95);
+  --color--semantic--accent-default: var(--color--primitive--pine-50);
+  --color--semantic--accent-strong:  var(--color--primitive--pine-30);
+  --color--semantic--accent-subtle:  var(--color--primitive--pine-80);
+  --color--semantic--success: var(--color--primitive--success-50);
+  --color--semantic--success-subtle: var(--color--primitive--success-90);
+  --color--semantic--success-on-subtle: var(--color--primitive--success-30);
+  --color--semantic--warning: var(--color--primitive--warning-50);
+  --color--semantic--warning-subtle: var(--color--primitive--warning-90);
+  --color--semantic--warning-on-subtle: var(--color--primitive--warning-30);
+  --color--semantic--error: var(--color--primitive--error-50);
+  --color--semantic--error-subtle: var(--color--primitive--error-90);
+  --color--semantic--error-on-subtle: var(--color--primitive--error-30);
+  --color--semantic--border-focus: var(--color--primitive--pine-50);
+  --color--semantic--info: var(--color--primitive--slate-50);
+  --color--semantic--border-default: var(--color--primitive--slate-80);
+  --color--semantic--border-strong: var(--color--primitive--slate-50);
+  --color--semantic--border-subtle: oklch(from var(--color--primitive--sage-80) l c h / 0.4);
+  --color--semantic--event-work-surface: var(--color--primitive--pine-90);
+  --color--semantic--event-work-text: var(--color--primitive--pine-20);
+  --color--semantic--event-meeting-surface: var(--color--primitive--slate-90);
+  --color--semantic--event-meeting-text: var(--color--primitive--slate-20);
+  --color--semantic--event-personal-surface: var(--color--primitive--warning-90);
+  --color--semantic--event-personal-text: var(--color--primitive--warning-20);
+  --color--semantic--event-deadline-surface: var(--color--primitive--error-90);
+  --color--semantic--event-deadline-text: var(--color--primitive--error-20);
+}
+html:root[data-theme='dark'] {
+  --color--semantic--text-strong:  var(--color--primitive--slate-100);
+  --color--semantic--text-default: var(--color--primitive--slate-90);
+  --color--semantic--text-muted:   var(--color--primitive--slate-70);
+  --color--semantic--text-subtle:  var(--color--primitive--slate-60);
+  --color--semantic--text-inverse: var(--color--primitive--slate-10);
+  --color--semantic--text-onaccent: var(--color--primitive--pine-10);
+  --color--semantic--accent-default: var(--color--primitive--pine-60);
+  --color--semantic--accent-strong:  var(--color--primitive--pine-70);
+  --color--semantic--accent-subtle:  var(--color--primitive--pine-20);
+  --color--semantic--success: var(--color--primitive--success-60);
+  --color--semantic--success-subtle: var(--color--primitive--success-20);
+  --color--semantic--success-on-subtle: var(--color--primitive--success-95);
+  --color--semantic--warning: var(--color--primitive--warning-60);
+  --color--semantic--warning-subtle: var(--color--primitive--warning-20);
+  --color--semantic--warning-on-subtle: var(--color--primitive--warning-95);
+  --color--semantic--error: var(--color--primitive--error-60);
+  --color--semantic--error-subtle: var(--color--primitive--error-20);
+  --color--semantic--error-on-subtle: var(--color--primitive--error-95);
+  --color--semantic--border-focus: var(--color--primitive--pine-60);
+  --color--semantic--info: var(--color--primitive--slate-60);
+  --color--semantic--surface-base:    var(--color--primitive--neutral-10);
+  --color--semantic--surface-default: var(--color--primitive--neutral-20);
+  --color--semantic--surface-raised:  var(--color--primitive--neutral-20);
+  --color--semantic--surface-overlay: var(--color--primitive--neutral-30);
+  --color--semantic--surface-glass:        oklch(from var(--color--primitive--neutral-20) l c h / 0.5);
+  --color--semantic--surface-glass-strong: oklch(from var(--color--primitive--neutral-30) l c h / 0.7);
+  --color--semantic--surface-glass-subtle: oklch(from var(--color--primitive--neutral-20) l c h / 0.12);
+  --color--semantic--event-work-surface: var(--color--primitive--pine-20);
+  --color--semantic--event-work-text: var(--color--primitive--pine-80);
+  --color--semantic--event-meeting-surface: var(--color--primitive--slate-20);
+  --color--semantic--event-meeting-text: var(--color--primitive--slate-80);
+  --color--semantic--event-personal-surface: var(--color--primitive--warning-20);
+  --color--semantic--event-personal-text: var(--color--primitive--warning-80);
+  --color--semantic--event-deadline-surface: var(--color--primitive--error-20);
+  --color--semantic--event-deadline-text: var(--color--primitive--error-80);
+}`;
+const NEUTRAL_WHITES = { 95: 'oklch(0.9700 0.0018 250.0)', 100: 'oklch(0.9950 0.0015 250.0)' };
+const STORE = 'lucent-ramp-lab-v5';
+
+function lin(l, c, h) {
+  const r = h * Math.PI / 180, a = c * Math.cos(r), b = c * Math.sin(r);
+  const L = (l + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const M = (l - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const S = (l - 0.0894841775 * a - 1.291485548 * b) ** 3;
+  return [4.0767416621 * L - 3.3077115913 * M + 0.2309699292 * S, -1.2684380046 * L + 2.6097574011 * M - 0.3413193965 * S, -0.0041960863 * L - 0.7034186147 * M + 1.707614701 * S];
+}
+const inGamut = (l, c, h) => lin(l, c, h).every((v) => v >= -1e-4 && v <= 1 + 1e-4);
+function maxC(l, h) { let lo = 0, hi = 0.4; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; inGamut(l, m, h) ? lo = m : hi = m; } return lo; }
+const lumOf = (rgbLin) => { const [r, g, b] = rgbLin.map((v) => Math.min(1, Math.max(0, v))); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+const yOfTone = (t) => { const f = (t + 16) / 116; return f > 6 / 29 ? f ** 3 : 3 * (6 / 29) ** 2 * (f - 4 / 29); };
+const enc = (y) => Math.round(255 * (y <= 0.0031308 ? 12.92 * y : 1.055 * Math.pow(y, 1 / 2.4) - 0.055));
+
+function taper(step, name) {
+  let t = 1;
+  if (DARK_TAPER_STEPS[step]) t *= 1 - (1 - state.taperDark) * DARK_TAPER_STEPS[step];
+  const tl = state.ramps[name].taperLight ?? state.taperLight;
+  const k = state.lightSteps[step];
+  if (k) t *= Math.max(0, 1 - (1 - tl) * k);
+  return t;
+}
+
+function solve(rampName, step) {
+  const { h, s } = state.ramps[rampName];
+  const target = yOfTone(TONE[step]);
+  let lo = 0, hi = 1, l = 0.5, c = 0;
+  for (let i = 0; i < 32; i++) {
+    l = (lo + hi) / 2;
+    c = s * taper(step, rampName) * maxC(l, h);
+    lumOf(lin(l, c, h)) < target ? lo = l : hi = l;
+  }
+  return { l, c, h, y: lumOf(lin(l, c, h)) };
+}
+
+let state = load();
+function load() {
+  try { const raw = localStorage.getItem(STORE); if (raw) { const saved = JSON.parse(raw); if (saved.lightSteps) { delete saved.ramps.mint; return saved; } } } catch {}
+  return structuredClone(ROLES);
+}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {} }
+
+const fmt = (v) => `oklch(${v.l.toFixed(4)} ${v.c.toFixed(4)} ${v.h.toFixed(1)} / 1)`;
+let computed = {};
+
+function compute() {
+  computed = {};
+  for (const name of Object.keys(state.ramps)) {
+    computed[name] = {};
+    for (const st of STEPS) {
+      if (name === 'neutral' && state.keepWhites && NEUTRAL_WHITES[st]) {
+        const [l, c, h] = NEUTRAL_WHITES[st].match(/[\d.]+/g).map(Number);
+        computed[name][st] = { l, c, h, y: lumOf(lin(l, c, h)) };
+      } else computed[name][st] = solve(name, st);
+    }
+  }
+}
+
+function cssText() {
+  const lines = [];
+  for (const [name, steps] of Object.entries(computed)) for (const st of STEPS) lines.push(`  --color--primitive--${name}-${st}: ${fmt(steps[st])};`);
+  return `:root {\n${lines.join('\n')}\n}`;
+}
+
+const overrideEl = document.getElementById('ramp-override');
+const semanticEl = document.getElementById('semantic-override');
+let source = 'lab', view = 'c', semantics = 'repointed', sageBase = false;
+
+function apply() {
+  compute();
+  const css = cssText();
+  overrideEl.textContent = source === 'lab' ? css.replace(':root', 'html:root') : '';
+  semanticEl.textContent = (semantics === 'repointed' ? REPOINTED : '') + (sageBase ? ' ' + SAGE_BASE : '');
+  document.getElementById('export').value = css;
+  renderStrips();
+  renderGrid();
+  renderContrast();
+  save();
+}
+
+function rampControls() {
+  const host = document.getElementById('ramps');
+  host.innerHTML = '';
+  for (const name of Object.keys(state.ramps)) {
+    const r = state.ramps[name];
+    const el = document.createElement('div');
+    el.className = 'ramp';
+    el.innerHTML = `
+      <div class="ramp__head"><span>${name}</span></div>
+      <div class="ramp__strip" data-strip="${name}">${STEPS.map(() => '<span></span>').join('')}</div>
+      <div class="slider"><span>Hue</span><input type="range" min="0" max="360" step="0.5" value="${r.h}" data-ramp="${name}" data-k="h" /><output>${r.h.toFixed(1)}</output></div>
+      <div class="slider"><span>Saturation</span><input type="range" min="0" max="1" step="0.005" value="${r.s}" data-ramp="${name}" data-k="s" /><output>${r.s.toFixed(3)}</output></div>
+      <div class="slider"><span>Light end</span><input type="range" min="0.1" max="1" step="0.01" value="${r.taperLight ?? state.taperLight}" data-ramp="${name}" data-k="taperLight" /><output>${(r.taperLight ?? state.taperLight).toFixed(2)}</output></div>`;
+    host.appendChild(el);
+  }
+  host.querySelectorAll('input[type="range"]').forEach((inp) => inp.addEventListener('input', () => {
+    state.ramps[inp.dataset.ramp][inp.dataset.k] = +inp.value;
+    inp.nextElementSibling.textContent = (+inp.value).toFixed(inp.dataset.k === 'h' ? 1 : inp.dataset.k === 's' ? 3 : 2);
+    schedule();
+  }));
+}
+
+function renderStrips() {
+  for (const name of Object.keys(computed)) {
+    const spans = document.querySelectorAll(`[data-strip="${name}"] span`);
+    STEPS.forEach((st, i) => { spans[i].style.background = `var(--color--primitive--${name}-${st})`; });
+  }
+}
+
+function resolvedColor(cssVar) {
+  probe.style.color = `var(${cssVar})`;
+  return getComputedStyle(probe).color;
+}
+function parseColor(str) {
+  const ok = str.match(/oklch\(([\d.]+)%?\s+([\d.]+)\s+([\d.]+)/);
+  if (ok) { let l = +ok[1]; if (str.includes('%')) l /= 100; return lumOf(lin(l, +ok[2], +ok[3])); }
+  const rgb = str.match(/rgba?\(([\d.]+)[, ]+([\d.]+)[, ]+([\d.]+)/);
+  if (rgb) return lumOf([+rgb[1], +rgb[2], +rgb[3]].map((v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }));
+  const srgb = str.match(/color\(srgb\s+([\d.-]+)\s+([\d.-]+)\s+([\d.-]+)/);
+  if (srgb) return lumOf([+srgb[1], +srgb[2], +srgb[3]].map((v) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return null;
+}
+
+function renderGrid() {
+  const g = document.getElementById('grid');
+  g.innerHTML = '<div></div>' + STEPS.map((s) => `<div class="h">${s}</div>`).join('');
+  for (const name of Object.keys(state.ramps)) {
+    g.insertAdjacentHTML('beforeend', `<div class="n">${name}</div>`);
+    for (const st of STEPS) {
+      const d = document.createElement('div');
+      d.className = 'sw';
+      const varName = `--color--primitive--${name}-${st}`;
+      if (view === 'c') d.style.background = `var(${varName})`;
+      else {
+        const y = parseColor(resolvedColor(varName)) ?? 0;
+        const v = enc(y);
+        d.style.background = `rgb(${v},${v},${v})`;
+      }
+      const v = computed[name][st];
+      d.title = source === 'lab' ? `${name}-${st}  ${fmt(v)}  Y ${v.y.toFixed(3)}` : `${name}-${st}`;
+      g.appendChild(d);
+    }
+  }
+}
+
+const PAIRS = [
+  ['Strong text on surface', '--color--semantic--text-strong', '--color--semantic--surface-default', 4.5],
+  ['Default text on surface', '--color--semantic--text-default', '--color--semantic--surface-default', 4.5],
+  ['Muted text on surface', '--color--semantic--text-muted', '--color--semantic--surface-default', 4.5],
+  ['Muted text on base', '--color--semantic--text-muted', '--color--semantic--surface-base', 4.5],
+  ['Subtle text on surface', '--color--semantic--text-subtle', '--color--semantic--surface-default', 3],
+  ['Primary button', '--color--semantic--text-onaccent', '--color--semantic--accent-strong', 4.5],
+  ['Accent on surface', '--color--semantic--accent-default', '--color--semantic--surface-default', 3],
+  ['Success tag', '--color--semantic--success-on-subtle', '--color--semantic--success-subtle', 4.5],
+  ['Info icon on surface', '--color--semantic--info', '--color--semantic--surface-default', 3],
+  ['Warning tag', '--color--semantic--warning-on-subtle', '--color--semantic--warning-subtle', 4.5],
+  ['Danger button and error tag', '--color--semantic--error-on-subtle', '--color--semantic--error-subtle', 4.5],
+  ['Focus ring on surface', '--color--semantic--border-focus', '--color--semantic--surface-default', 3],
+];
+
+function renderContrast() {
+  const body = document.getElementById('cr');
+  body.innerHTML = '';
+  for (const [label, fg, bg, need] of PAIRS) {
+    const yf = parseColor(resolvedColor(fg)), yb = parseColor(resolvedColor(bg));
+    const ratio = yf == null || yb == null ? null : (Math.max(yf, yb) + 0.05) / (Math.min(yf, yb) + 0.05);
+    const ratioCell = ratio == null ? 'n/a' : ratio < need ? `<span class="fail">${ratio.toFixed(2)}</span>` : ratio.toFixed(2);
+    body.insertAdjacentHTML('beforeend', `<tr><td>${label}</td><td><span class="chip" style="color:var(${fg});background:var(${bg})">Aa</span></td><td class="mono">${ratioCell}</td><td class="mono">${need}</td></tr>`);
+  }
+}
+
+let pending = false;
+function schedule() { if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; apply(); }); }
+
+const probe = document.createElement('span');
+probe.style.display = 'none';
+document.body.appendChild(probe);
+
+function seg(id, onPick) {
+  const host = document.getElementById(id);
+  host.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+    host.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    onPick(b.dataset.v);
+  }));
+}
+seg('theme', (v) => { document.documentElement.dataset.theme = v; requestAnimationFrame(() => { renderGrid(); renderContrast(); }); });
+seg('source', (v) => { source = v; apply(); });
+seg('view', (v) => { view = v; renderGrid(); });
+seg('semantics', (v) => { semantics = v; apply(); });
+seg('preset', (v) => { state = structuredClone(v === 'c' ? OPTION_C : v === 'sonnet' ? SONNET : ROLES); bindAll(); apply(); });
+document.getElementById('sageBase').addEventListener('change', (e) => { sageBase = e.target.checked; apply(); });
+
+function bindGlobal(id, key, digits) {
+  const inp = document.getElementById(id), out = document.getElementById(id + 'Out');
+  inp.value = state[key]; out.textContent = (+state[key]).toFixed(digits);
+  inp.addEventListener('input', () => { state[key] = +inp.value; out.textContent = (+inp.value).toFixed(digits); schedule(); });
+}
+function bindAll() {
+  bindGlobal('taperDark', 'taperDark', 2);
+  bindGlobal('taperLight', 'taperLight', 2);
+  const kw = document.getElementById('keepWhites');
+  kw.checked = state.keepWhites;
+  kw.onchange = () => { state.keepWhites = kw.checked; schedule(); };
+  rampControls();
+}
+
+document.getElementById('copy').addEventListener('click', async (e) => {
+  const btn = e.currentTarget;
+  try { await navigator.clipboard.writeText(document.getElementById('export').value); btn.textContent = 'Copied'; }
+  catch { document.getElementById('export').select(); btn.textContent = 'Select and copy'; }
+  setTimeout(() => { btn.textContent = 'Copy CSS'; }, 1400);
+});
+
+bindAll();
+apply();
+</script>
+</body>
+</html>

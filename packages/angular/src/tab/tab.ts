@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, booleanAttribute, inject, input, model, output } from '@angular/core';
+import { ControlSize } from '../sizing';
 import { LucentIcon } from '../icon/icon';
 
-export type TabScale = 'lg' | 'md' | 'sm' | 'xs';
+export type TabScale = ControlSize;
 
 @Component({
 	selector: 'lucent-tab',
