@@ -11,7 +11,7 @@
  * ============================================================================= */
 
 .lucent-button {
-  display: inline-block;
+  display: inline-flex;
   text-decoration: none; /* host may be an <a> (link-styled button) — stop the underline here, not on __inner */
 
   /* Density (default md). Buttons run a roomier inline padding than fields. */

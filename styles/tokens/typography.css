@@ -32,6 +32,16 @@
   --typography--title-md-mono--font-weight: var(--dimension--primitive--fw-semibold);
   --typography--title-md-mono--font-family: var(--font--primitive--mono);
 
+  /* ─── Title SM ─────────────────────────────────────────────────────────────── */
+  --typography--title-sm--font-size: var(--dimension--primitive--fs-xl);
+  --typography--title-sm--line-height: var(--dimension--primitive--lh-snug);
+  --typography--title-sm--font-weight: var(--dimension--primitive--fw-semibold);
+  --typography--title-sm--font-family: var(--font--primitive--sans);
+
+  --typography--title-sm-mono--font-size: var(--dimension--primitive--fs-xl);
+  --typography--title-sm-mono--line-height: var(--dimension--primitive--lh-snug);
+  --typography--title-sm-mono--font-weight: var(--dimension--primitive--fw-semibold);
+  --typography--title-sm-mono--font-family: var(--font--primitive--mono);
   /* ─── Heading LG ───────────────────────────────────────────────────────────── */
   --typography--heading-lg--font-size: var(--dimension--primitive--fs-xl);
   --typography--heading-lg--line-height: var(--dimension--primitive--lh-snug);
@@ -54,6 +64,16 @@
   --typography--heading-md-mono--font-weight: var(--dimension--primitive--fw-medium);
   --typography--heading-md-mono--font-family: var(--font--primitive--mono);
 
+  /* ─── Heading SM ───────────────────────────────────────────────────────────── */
+  --typography--heading-sm--font-size: var(--dimension--primitive--fs-md);
+  --typography--heading-sm--line-height: var(--dimension--primitive--lh-normal);
+  --typography--heading-sm--font-weight: var(--dimension--primitive--fw-medium);
+  --typography--heading-sm--font-family: var(--font--primitive--sans);
+
+  --typography--heading-sm-mono--font-size: var(--dimension--primitive--fs-md);
+  --typography--heading-sm-mono--line-height: var(--dimension--primitive--lh-normal);
+  --typography--heading-sm-mono--font-weight: var(--dimension--primitive--fw-medium);
+  --typography--heading-sm-mono--font-family: var(--font--primitive--mono);
   /* ─── Body LG ──────────────────────────────────────────────────────────────── */
   --typography--body-lg--font-size: var(--dimension--primitive--fs-lg);
   --typography--body-lg--line-height: var(--dimension--primitive--lh-normal);
@@ -91,12 +111,6 @@
   /* Single-line text for controls/labels: tight line-height, medium weight, slight */
   /* tracking at small sizes. Distinct from body/caption (reading text). Mono is kept */
   /* for code/value labels (hex, dimensions). */
-  --typography--label-xl--font-size: var(--dimension--primitive--fs-md);   /* 16 — control-text-lg */
-  --typography--label-xl--line-height: var(--dimension--primitive--lh-snug);
-  --typography--label-xl--font-weight: var(--dimension--primitive--fw-medium);
-  --typography--label-xl--font-family: var(--font--primitive--sans);
-  --typography--label-xl--letter-spacing: var(--dimension--primitive--tracking-normal);
-
   --typography--label-lg--font-size: var(--dimension--primitive--fs-sm);   /* 14 */
   --typography--label-lg--line-height: var(--dimension--primitive--lh-snug);
   --typography--label-lg--font-weight: var(--dimension--primitive--fw-medium);
@@ -114,12 +128,6 @@
   --typography--label-sm--font-weight: var(--dimension--primitive--fw-medium);
   --typography--label-sm--font-family: var(--font--primitive--sans);
   --typography--label-sm--letter-spacing: var(--dimension--primitive--tracking-wide);
-
-  --typography--label-xl-mono--font-size: var(--dimension--primitive--fs-md);
-  --typography--label-xl-mono--line-height: var(--dimension--primitive--lh-snug);
-  --typography--label-xl-mono--font-weight: var(--dimension--primitive--fw-medium);
-  --typography--label-xl-mono--font-family: var(--font--primitive--mono);
-  --typography--label-xl-mono--letter-spacing: var(--dimension--primitive--tracking-normal);
 
   --typography--label-lg-mono--font-size: var(--dimension--primitive--fs-sm);
   --typography--label-lg-mono--line-height: var(--dimension--primitive--lh-snug);
@@ -206,6 +214,20 @@
   font-family: var(--typography--title-md-mono--font-family);
 }
 
+.typography-title-sm {
+  font-size: var(--typography--title-sm--font-size);
+  line-height: var(--typography--title-sm--line-height);
+  font-weight: var(--typography--title-sm--font-weight);
+  font-family: var(--typography--title-sm--font-family);
+}
+
+.typography-title-sm-mono {
+  font-size: var(--typography--title-sm-mono--font-size);
+  line-height: var(--typography--title-sm-mono--line-height);
+  font-weight: var(--typography--title-sm-mono--font-weight);
+  font-family: var(--typography--title-sm-mono--font-family);
+}
+
 .typography-heading-lg {
   font-size: var(--typography--heading-lg--font-size);
   line-height: var(--typography--heading-lg--line-height);
@@ -232,6 +254,20 @@
   line-height: var(--typography--heading-md-mono--line-height);
   font-weight: var(--typography--heading-md-mono--font-weight);
   font-family: var(--typography--heading-md-mono--font-family);
+}
+
+.typography-heading-sm {
+  font-size: var(--typography--heading-sm--font-size);
+  line-height: var(--typography--heading-sm--line-height);
+  font-weight: var(--typography--heading-sm--font-weight);
+  font-family: var(--typography--heading-sm--font-family);
+}
+
+.typography-heading-sm-mono {
+  font-size: var(--typography--heading-sm-mono--font-size);
+  line-height: var(--typography--heading-sm-mono--line-height);
+  font-weight: var(--typography--heading-sm-mono--font-weight);
+  font-family: var(--typography--heading-sm-mono--font-family);
 }
 
 .typography-body-lg {
@@ -276,14 +312,6 @@
   font-family: var(--typography--body-sm-mono--font-family);
 }
 
-.typography-label-xl {
-  font-size: var(--typography--label-xl--font-size);
-  line-height: var(--typography--label-xl--line-height);
-  font-weight: var(--typography--label-xl--font-weight);
-  font-family: var(--typography--label-xl--font-family);
-  letter-spacing: var(--typography--label-xl--letter-spacing);
-}
-
 .typography-label-lg {
   font-size: var(--typography--label-lg--font-size);
   line-height: var(--typography--label-lg--line-height);
@@ -306,14 +334,6 @@
   font-weight: var(--typography--label-sm--font-weight);
   font-family: var(--typography--label-sm--font-family);
   letter-spacing: var(--typography--label-sm--letter-spacing);
-}
-
-.typography-label-xl-mono {
-  font-size: var(--typography--label-xl-mono--font-size);
-  line-height: var(--typography--label-xl-mono--line-height);
-  font-weight: var(--typography--label-xl-mono--font-weight);
-  font-family: var(--typography--label-xl-mono--font-family);
-  letter-spacing: var(--typography--label-xl-mono--letter-spacing);
 }
 
 .typography-label-lg-mono {

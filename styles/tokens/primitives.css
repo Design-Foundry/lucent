@@ -75,6 +75,7 @@
   --color--primitive--error-80: oklch(0.8349 0.0657 26.0 / 1);
   --color--primitive--error-90: oklch(0.9006 0.0372 26.0 / 1);
   --color--primitive--error-95: oklch(0.9502 0.0178 26.0 / 1);
+  --color--primitive--black: oklch(0 0 0 / 1);
   --color--primitive--error-100: oklch(0.9751 0.0087 26.0 / 1);
   --dimension--primitive--screen-sm: 640px;
   --dimension--primitive--screen-md: 768px;
@@ -115,7 +116,7 @@
 	--dimension--primitive--fs-md: 16px;
 	--dimension--primitive--fs-sm: 14px;
 	--dimension--primitive--fs-xs: 12px;
-	--dimension--primitive--fs-2xs: 11px;      /* dense-UI workhorse (Figma/Material label-small) */
+	--dimension--primitive--fs-2xs: 11px;
 	--dimension--primitive--fs-3xs: 10px;
 	--dimension--primitive--fw-light: 300;
 	--dimension--primitive--fw-regular: 400;
@@ -139,8 +140,8 @@
 	--dimension--primitive--lh-relaxed: 1.6;
 	--dimension--primitive--tracking-tight: -0.01em;
 	--dimension--primitive--tracking-normal: 0em;
-	--dimension--primitive--tracking-wide: 0.02em;   /* small UI labels (11–12px) */
-	--dimension--primitive--tracking-wider: 0.04em;  /* uppercase / status labels */
+	--dimension--primitive--tracking-wide: 0.02em;
+	--dimension--primitive--tracking-wider: 0.04em;
 	--dimension--primitive--spacing-0: 0px;
 	--dimension--primitive--spacing-0-5: 2px;
 	--dimension--primitive--spacing-1: 4px;
@@ -170,6 +171,14 @@
 	--dimension--primitive--spacing-80: 320px;
 	--dimension--primitive--spacing-96: 384px;
 	--dimension--primitive--spacing-128: 512px;
+	--opacity--primitive--10: 0.1;
+	--opacity--primitive--15: 0.15;
+	--opacity--primitive--20: 0.2;
+	--opacity--primitive--30: 0.3;
+	--opacity--primitive--40: 0.4;
+	--opacity--primitive--50: 0.5;
+	--opacity--primitive--60: 0.6;
+	--opacity--primitive--70: 0.7;
 	--font--primitive--sans: "Outfit", sans-serif;
 	--font--primitive--mono: "Roboto Mono", monospace;
 }

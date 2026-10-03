@@ -16,7 +16,7 @@
 .lucent-icon-button {
   --_h: var(--control-height-md);
   --_radius: var(--control-radius-md);
-  display: inline-block;
+  display: inline-flex;
 }
 
 .lucent-icon-button__inner {

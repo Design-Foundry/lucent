@@ -10,15 +10,15 @@
   --color--semantic--surface-tint:    var(--color--primitive--sage-100);
 
   --color--semantic--surface-glass: oklch(
-    from var(--color--primitive--neutral-100) l c h / 0.5
+    from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--50)
   );
 
   --color--semantic--surface-glass-strong: oklch(
-    from var(--color--primitive--neutral-100) l c h / 0.7
+    from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--70)
   );
 
   --color--semantic--surface-glass-subtle: oklch(
-    from var(--color--primitive--neutral-100) l c h / 0.1
+    from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--10)
   );
 
   /* =========================================================
@@ -40,15 +40,8 @@
    * root themes every scroller, and a skin re-points it like any other token.
    * ========================================================= */
 
-  /* Deliberately much lighter than the browser default (~rgb 193). A scrollbar is a hint
-   * about position, not a component: at default weight it competes with the content it
-   * measures, and inside a small popover it reads as a structural bar. It darkens on hover,
-   * which is when it stops being a hint and becomes a control.
-   *
-   * Concrete values, not oklch(from …): relative-colour syntax computes here but keeping the
-   * scrollbar tokens literal makes them trivially overridable by a skin. */
-  --color--semantic--scrollbar-thumb: oklch(0.8850 0.0090 248.0);
-  --color--semantic--scrollbar-thumb-hover: oklch(0.7600 0.0180 248.0);
+  --color--semantic--scrollbar-thumb: var(--color--primitive--slate-90);
+  --color--semantic--scrollbar-thumb-hover: var(--color--primitive--slate-70);
   --color--semantic--scrollbar-track: transparent;
 
   --blur-glass: 50px;

@@ -46,6 +46,8 @@ before `themes`). Each property has one token per size, resolving to existing pr
 --control-pad-x-xs … -lg      // spacing-2 / -2.5 / -3 / -4
 --control-gap-xs … -lg        // spacing-1 / -1 / -1.5 / -2
 --control-line                // lh-snug (1.15) — single-line control text
+--control-switch-w-xs … -lg   // sizing-6 / -7 / -9 / -11 → 24 / 28 / 36 / 44 (toggle track)
+--control-switch-thumb-xs … -lg // icon-xs / sizing-3 / -4 / -5 → 10 / 12 / 16 / 20
 ```
 
 The TypeScript counterpart is `ControlSize` (exported from the kit root):
