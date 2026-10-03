@@ -3,11 +3,12 @@
  *
  * Structure both kits emit:
  *   .lucent-icon  (.lucent-icon--xs|sm|md|lg|xl)
- *     .material-icons.lucent-icon__glyph   ← the ligature glyph
+ *     svg.lucent-icon__svg                   ← a Lucent glyph (icons/), or
+ *     .material-icons.lucent-icon__glyph   ← a Material Icons ligature, for names Lucent doesn't draw
  *
- * Renders a single Material Icons glyph by ligature name. The `material-icons`
- * class comes from the externally-loaded Material Icons font (a consumer/global
- * dependency), not from this file.
+ * Lucent glyphs keep a near-constant rendered stroke across sizes (optical sizing):
+ * `--_stroke` is in screen pixels and the paths use non-scaling strokes. The
+ * `material-icons` class comes from the externally-loaded Material Icons font.
  *
  * Ported from packages/angular/src/icon/icon.scss. One deliberate change: size is
  * a `--lucent-icon--{size}` class setting a local `--_sz`, instead of Angular's
@@ -22,15 +23,26 @@
   flex-shrink: 0;
   user-select: none;
 
-  /* Glyph box size (default md). */
+  /* Glyph box size and rendered stroke (default md). */
   --_sz: var(--dimension--primitive--icon-md);
+  --_stroke: 1.3px;
 }
 
-.lucent-icon--xs { --_sz: var(--dimension--primitive--icon-xs); }
-.lucent-icon--sm { --_sz: var(--dimension--primitive--icon-sm); }
-.lucent-icon--md { --_sz: var(--dimension--primitive--icon-md); }
-.lucent-icon--lg { --_sz: var(--dimension--primitive--icon-lg); }
-.lucent-icon--xl { --_sz: var(--dimension--primitive--icon-xl); }
+.lucent-icon--xs { --_sz: var(--dimension--primitive--icon-xs); --_stroke: 1.1px; }
+.lucent-icon--sm { --_sz: var(--dimension--primitive--icon-sm); --_stroke: 1.25px; }
+.lucent-icon--md { --_sz: var(--dimension--primitive--icon-md); --_stroke: 1.3px; }
+.lucent-icon--lg { --_sz: var(--dimension--primitive--icon-lg); --_stroke: 1.5px; }
+.lucent-icon--xl { --_sz: var(--dimension--primitive--icon-xl); --_stroke: 1.5px; }
+
+.lucent-icon .lucent-icon__svg {
+  display: block;
+  width: var(--_sz);
+  height: var(--_sz);
+  stroke-width: var(--_stroke);
+}
+
+.lucent-icon .lucent-icon__svg * { vector-effect: non-scaling-stroke; }
+.lucent-icon .lucent-icon__svg .dot { fill: currentColor; stroke: none; }
 
 /* Two classes so the Material Icons stylesheet's `.material-icons { font-size: 24px }` can't
    override the glyph size, whichever stylesheet loads last. */
