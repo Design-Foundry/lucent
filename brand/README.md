@@ -12,6 +12,8 @@ Five sheets fanned from one pivot, slate to neutral. Generated from the primitiv
 | `lucent-mark-white.svg` | One color on dark and pine surfaces. |
 | `lucent-mark-solid-{size}.svg` | Single ink, sheets separated by cuts. Paints `currentColor`. |
 | `lucent-tile.svg`, `lucent-tile-dark.svg` | Three sheets on a sage-95 or neutral-10 tile, for app icons and near-white surfaces. |
+| `lucent-wordmark.svg`, `lucent-wordmark-white.svg` | Outfit Light, respaced: L foot shortened, L-u closed, light overall tightening. |
+| `lucent-lockup.svg`, `lucent-lockup-dark.svg` | Tile and wordmark. Cap height is half the tile, gap is a quarter tile. |
 | `favicon.svg` | The tile, following `prefers-color-scheme`. |
 
 Each color variant has a `-small` file with three sheets. Use it at 32px and below.
