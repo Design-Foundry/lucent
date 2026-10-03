@@ -3,12 +3,10 @@
 	 * Text
 	 * ========================================================= */
 
-	/* slate-20, not slate-10: every ramp's -10 step is literal oklch(0 0 0), and pure black
-	   is a shadow colour, not a text colour — it hardens every heading it touches. */
-	--color--semantic--text-strong: var(--color--primitive--slate-20);
-	--color--semantic--text-default: var(--color--primitive--slate-30);
-	--color--semantic--text-muted: var(--color--primitive--slate-50);
-	--color--semantic--text-subtle: var(--color--primitive--slate-60);
+	--color--semantic--text-strong: var(--color--primitive--slate-10);
+	--color--semantic--text-default: var(--color--primitive--slate-20);
+	--color--semantic--text-muted: var(--color--primitive--slate-40);
+	--color--semantic--text-subtle: var(--color--primitive--slate-50);
 
 	--color--semantic--text-inverse: var(--color--primitive--slate-95);
 	--color--semantic--text-onaccent: var(--color--primitive--pine-95);
@@ -18,54 +16,54 @@
 	 * ========================================================= */
 
 	--color--semantic--accent-default:
-		var(--color--primitive--pine-70);
-
-	--color--semantic--accent-strong:
 		var(--color--primitive--pine-50);
 
+	--color--semantic--accent-strong:
+		var(--color--primitive--pine-30);
+
 	--color--semantic--accent-subtle:
-		var(--color--primitive--pine-90);
+		var(--color--primitive--pine-80);
 
 	/* =========================================================
 	 * Feedback
 	 * ========================================================= */
 
 	--color--semantic--success:
-		var(--color--primitive--success-70);
+		var(--color--primitive--success-50);
 
 	--color--semantic--success-subtle:
 		var(--color--primitive--success-90);
 
 	--color--semantic--warning:
-		var(--color--primitive--warning-70);
+		var(--color--primitive--warning-50);
 
 	--color--semantic--warning-subtle:
 		var(--color--primitive--warning-90);
 
 	--color--semantic--error:
-		var(--color--primitive--error-70);
+		var(--color--primitive--error-50);
 
 	--color--semantic--error-subtle:
 		var(--color--primitive--error-90);
 
+	--color--semantic--info:
+		var(--color--primitive--slate-50);
+
 	/* =========================================================
 	 * Feedback — text ON a subtle fill
 	 *
-	 * `--color--semantic--success` and `--success-subtle` are ramp/70 and ramp/90: two steps
-	 * of one ramp, which is a 2.05:1 pair. Every status tag in the system was failing WCAG AA
-	 * by more than half. These are the readable partners for those fills — ramp/40 on light,
-	 * ramp/95 on dark (see themes.css), mirroring the surface+text pairing that
-	 * event-categories.css already established for the scheduler.
+	 * Every ramp shares one luminance per step, so ramp/30 on ramp/90 is the same
+	 * contrast (6.9:1) for every status colour.
 	 * ========================================================= */
 
-	--color--semantic--success-on-subtle: var(--color--primitive--success-40);
-	--color--semantic--warning-on-subtle: var(--color--primitive--warning-40);
-	--color--semantic--error-on-subtle:   var(--color--primitive--error-40);
+	--color--semantic--success-on-subtle: var(--color--primitive--success-30);
+	--color--semantic--warning-on-subtle: var(--color--primitive--warning-30);
+	--color--semantic--error-on-subtle:   var(--color--primitive--error-30);
 
 	/* =========================================================
 	 * Overlay
 	 * ========================================================= */
 
 	--color--semantic--scrim:
-		oklch(from var(--color--primitive--neutral-20) l c h / 0.5);
+		oklch(0 0 0 / 0.5);
 }

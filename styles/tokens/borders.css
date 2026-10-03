@@ -4,14 +4,14 @@
    * ========================================================= */
 
   --color--semantic--border-subtle: oklch(
-    from var(--color--primitive--sage-90) l c h / 0.4
+    from var(--color--primitive--sage-80) l c h / 0.4
   );
 
-  --color--semantic--border-default: var(--color--primitive--slate-90);
+  --color--semantic--border-default: var(--color--primitive--slate-80);
 
-  --color--semantic--border-strong: var(--color--primitive--slate-70);
+  --color--semantic--border-strong: var(--color--primitive--slate-50);
 
-  --color--semantic--border-focus: var(--color--primitive--pine-70);
+  --color--semantic--border-focus: var(--color--primitive--pine-50);
 
   --color--semantic--border-glass: oklch(
     from var(--color--primitive--neutral-100) l c h / 0.6

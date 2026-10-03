@@ -51,9 +51,9 @@
   display: flex;
   gap: 4px;
   /* LED zone colors — bright primitives (the semantic feedback tokens read muddy as LEDs). */
-  --lucent-meter-green: var(--color--primitive--success-50);
-  --lucent-meter-amber: var(--color--primitive--warning-50);
-  --lucent-meter-red: var(--color--primitive--error-50);
+  --lucent-meter-green: var(--color--primitive--success-40);
+  --lucent-meter-amber: var(--color--primitive--warning-40);
+  --lucent-meter-red: var(--color--primitive--error-40);
   --lucent-meter-off: var(--color--semantic--border-subtle);
 }
 .lucent-meter__col { display: flex; flex-direction: column-reverse; gap: 2px; }
@@ -77,7 +77,7 @@
 /* ── Track (arrangement lane) ────────────────────────────────────────────── */
 .lucent-track {
   /* MIDI clips use a secondary hue (the system has no dedicated MIDI/secondary brand token). */
-  --lucent-daw-midi: var(--color--primitive--slate-50);
+  --lucent-daw-midi: var(--color--primitive--slate-40);
   display: flex;
   width: fit-content;
   background: var(--color--semantic--surface-raised);
@@ -94,9 +94,9 @@
 .lucent-track__dot { width: 8px; height: 8px; border-radius: 2px; }
 .lucent-track__btns { display: flex; gap: 4px; }
 .lucent-track__btn { width: 20px; height: 18px; font: var(--dimension--primitive--fw-medium) 10px var(--font--primitive--sans); border: 1px solid var(--color--semantic--border-default); background: var(--color--semantic--surface-raised); color: var(--color--semantic--text-muted); border-radius: 4px; cursor: pointer; padding: 0; }
-.lucent-track__btn.is-on[data-k="M"] { background: var(--color--primitive--warning-50); color: #fff; border-color: transparent; }
+.lucent-track__btn.is-on[data-k="M"] { background: var(--color--primitive--warning-40); color: #fff; border-color: transparent; }
 .lucent-track__btn.is-on[data-k="S"] { background: var(--color--semantic--accent-default); color: var(--color--semantic--text-onaccent); border-color: transparent; }
-.lucent-track__btn.is-on[data-k="R"] { background: var(--color--primitive--error-50); color: #fff; border-color: transparent; }
+.lucent-track__btn.is-on[data-k="R"] { background: var(--color--primitive--error-40); color: #fff; border-color: transparent; }
 .lucent-track__timeline { position: relative; }
 .lucent-track__ruler { border-bottom: 1px solid var(--color--semantic--border-default); position: relative; background: var(--color--semantic--surface-default); cursor: pointer; }
 .lucent-track__bar { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--color--semantic--border-default); font: var(--dimension--primitive--fw-medium) 10px var(--font--primitive--sans); color: var(--color--semantic--text-muted); padding: 5px 0 0 4px; }
@@ -129,7 +129,7 @@
 .lucent-piano-roll__keys { flex: none; border-right: 1px solid var(--color--semantic--border-default); position: relative; }
 .lucent-piano-roll__key { box-sizing: border-box; border-bottom: 1px solid var(--color--semantic--border-subtle); font: var(--dimension--primitive--fw-medium) 9px var(--font--primitive--sans); padding-right: 4px; text-align: right; line-height: 1; display: flex; align-items: center; justify-content: flex-end; }
 .lucent-piano-roll__key--white { background: var(--color--semantic--surface-raised); color: var(--color--semantic--text-muted); }
-.lucent-piano-roll__key--black { background: var(--color--primitive--neutral-40); color: var(--color--primitive--neutral-95); }
+.lucent-piano-roll__key--black { background: var(--color--primitive--neutral-20); color: var(--color--primitive--neutral-95); }
 .lucent-piano-roll__grid { position: relative; cursor: crosshair; }
 .lucent-piano-roll__row { position: absolute; left: 0; right: 0; border-bottom: 1px solid var(--color--semantic--border-subtle); }
 .lucent-piano-roll__row--white { background: var(--color--semantic--surface-raised); }
