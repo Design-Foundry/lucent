@@ -4,7 +4,7 @@
    * ========================================================= */
 
   --color--semantic--border-subtle: oklch(
-    from var(--color--primitive--sage-80) l c h / var(--opacity--primitive--40)
+    from var(--color--primitive--slate-80) l c h / var(--opacity--primitive--40)
   );
 
   --color--semantic--border-default: var(--color--primitive--slate-80);

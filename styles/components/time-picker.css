@@ -32,7 +32,7 @@
   min-width: 160px;
   height: var(--control-height-md);
   padding: 0 var(--control-pad-x-md);
-  background: var(--color--semantic--surface-glass);
+  background: var(--color--semantic--surface-default);
   border: 1px solid var(--color--semantic--border-default);
   border-radius: var(--radius-md);
   font-family: inherit;

@@ -19,14 +19,15 @@
 | `clicked` | output | `MouseEvent` | — | Emitted on click (not `(click)`) |
 
 **Content slots:** default = label · `[dfPrefix]` (leading) · `[dfSuffix]` (trailing).
-**Exported types:** `ButtonVariant = 'primary' \| 'secondary' \| 'ghost' \| 'on-glass' \| 'danger' \| 'text'`
+**Exported types:** `ButtonVariant = 'primary' \| 'secondary' \| 'text' \| 'danger'` (deprecated: `'ghost'`, `'on-glass'`); `ButtonTone = 'neutral' \| 'danger'`
 
 ## Usage
 
 ```html
 <df-button (clicked)="save()">Save</df-button>
 <df-button variant="danger" [loading]="deleting()">Delete</df-button>
-<df-button variant="ghost"><df-icon dfPrefix name="add" /> New</df-button>
+<df-button variant="text"><df-icon dfPrefix name="add" /> New</df-button>
+<df-button variant="secondary" tone="danger">Revoke all</df-button>
 ```
 
 > Emits **`(clicked)`**, not `(click)` — a frequent gotcha.

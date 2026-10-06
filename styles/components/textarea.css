@@ -57,9 +57,7 @@
   padding: var(--_py) var(--_px);
   border-radius: var(--_radius);
   border: var(--border-subtle);
-  background: var(--color--semantic--surface-glass);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
+  background: var(--color--semantic--surface-default);
   transition: border-color 0.15s ease;
 }
 

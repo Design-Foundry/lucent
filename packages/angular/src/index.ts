@@ -25,7 +25,7 @@ export type { TooltipPosition } from './tooltip/tooltip';
 
 // ─── Tier 2 — Interactive ─────────────────────────────────────────────────────
 export { LucentButton } from './button/button';
-export type { ButtonVariant } from './button/button';
+export type { ButtonVariant, ButtonTone, DeprecatedButtonVariant } from './button/button';
 
 export { LucentIconButton } from './icon-button/icon-button';
 export type { IconButtonSize } from './icon-button/icon-button';

@@ -60,9 +60,7 @@
   padding: 0 var(--_px);
   border-radius: var(--_radius);
   border: var(--border-subtle);
-  background: var(--color--semantic--surface-glass);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
+  background: var(--color--semantic--surface-default);
   transition: border-color 0.15s ease;
 }
 
@@ -89,6 +87,7 @@
 .lucent-text-input input {
   flex: 1 0 0;
   min-width: 0;
+  width: 0;
   background: transparent;
   border: none;
   outline: none;

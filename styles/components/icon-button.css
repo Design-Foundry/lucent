@@ -6,7 +6,7 @@
  *     .lucent-icon-button__inner  (<button>)
  *       .lucent-icon                ← the glyph
  *
- * Shares the button's six variants but is square (icon-only). Ported from
+ * Shares the button's variants and danger tone but is square (icon-only). Ported from
  * packages/angular/src/icon-button/icon-button.scss (`:host` → `.lucent-icon-button`).
  *
  * NOTE: the Angular `loading` spinner is omitted — `.df-spinner` was never defined in the
@@ -27,14 +27,20 @@
   height: var(--_h);
   border-radius: var(--_radius);
   border: none;
+  background: transparent;
   cursor: pointer;
   transition: background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
+.lucent-icon-button__inner:focus-visible {
+  outline: 2px solid var(--color--semantic--border-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled mirrors the button: opaque, per-variant (below). */
 .lucent-icon-button__inner:disabled {
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.4;
 }
 
 /* ─── Sizes ────────────────────────────────────────────────────────────────── */
@@ -49,51 +55,59 @@
   background: var(--color--semantic--accent-strong);
   color: var(--color--semantic--text-onaccent);
 }
-.lucent-icon-button--primary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h); }
-.lucent-icon-button--primary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h); }
+.lucent-icon-button--primary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.05) c h); }
+.lucent-icon-button--primary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-strong) calc(l - 0.06) c h); }
+.lucent-icon-button--primary .lucent-icon-button__inner:disabled {
+  background: color-mix(in oklab, var(--color--semantic--accent-strong) 38%, var(--color--semantic--surface-default));
+  color: var(--color--semantic--surface-default);
+}
 
 /* ─── Secondary ────────────────────────────────────────────────────────────── */
 
 .lucent-icon-button--secondary .lucent-icon-button__inner {
-  background: var(--color--semantic--accent-subtle);
-  color: var(--color--semantic--text-strong);
-}
-.lucent-icon-button--secondary .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.08) c h); }
-.lucent-icon-button--secondary .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.16) c h); }
-
-/* ─── Ghost ────────────────────────────────────────────────────────────────── */
-
-.lucent-icon-button--ghost .lucent-icon-button__inner {
   background: var(--color--semantic--surface-default);
   color: var(--color--semantic--text-strong);
-  border: var(--border-default);
+  box-shadow: inset 0 0 0 1px var(--color--semantic--border-default);
 }
-.lucent-icon-button--ghost .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--accent-subtle) calc(l + 0.03) c h); }
-.lucent-icon-button--ghost .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--accent-subtle); }
-
-/* ─── On glass ─────────────────────────────────────────────────────────────── */
-
-.lucent-icon-button--on-glass .lucent-icon-button__inner {
-  background: var(--color--semantic--surface-glass);
-  color: var(--color--semantic--text-strong);
-}
-.lucent-icon-button--on-glass .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
-.lucent-icon-button--on-glass .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-sm); }
-
-/* ─── Danger ───────────────────────────────────────────────────────────────── */
-
-.lucent-icon-button--danger .lucent-icon-button__inner {
-  background: var(--color--semantic--error-subtle);
-  color: var(--color--semantic--error-on-subtle);
-}
-.lucent-icon-button--danger .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--error-subtle) calc(l - 0.08) c h); }
-.lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--error); color: var(--color--semantic--text-inverse); }
+.lucent-icon-button--secondary .lucent-icon-button__inner:hover:not(:disabled)  { background: color-mix(in oklab, var(--color--semantic--text-strong) 5%, var(--color--semantic--surface-default)); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+.lucent-icon-button--secondary .lucent-icon-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, var(--color--semantic--surface-default)); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+.lucent-icon-button--secondary .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
 
 /* ─── Text ─────────────────────────────────────────────────────────────────── */
+/* Transparent, ink glyph. The icon shape carries the affordance, so icon buttons stay
+   neutral where text buttons use the accent. `ghost` is a deprecated alias. */
 
-.lucent-icon-button--text .lucent-icon-button__inner {
-  background: transparent;
-  color: var(--color--semantic--accent-default);
+:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner { color: var(--color--semantic--text-strong); }
+:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--state-hover); }
+:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:active:not(:disabled) { background: var(--state-press); }
+:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); }
+
+/* ─── Danger tone ──────────────────────────────────────────────────────────── */
+
+.lucent-icon-button--danger .lucent-icon-button__inner {
+  background: var(--color--semantic--error);
+  color: var(--color--primitive--neutral-100);
 }
-.lucent-icon-button--text .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-default); }
-.lucent-icon-button--text .lucent-icon-button__inner:active:not(:disabled) { color: var(--color--semantic--accent-strong); }
+.lucent-icon-button--danger .lucent-icon-button__inner:hover:not(:disabled)  { background: oklch(from var(--color--semantic--error) calc(l + 0.04) c h); }
+.lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--error) calc(l - 0.08) c h); }
+.lucent-icon-button--danger .lucent-icon-button__inner:disabled {
+  background: color-mix(in oklab, var(--color--semantic--error) 38%, var(--color--semantic--surface-default));
+  color: var(--color--semantic--surface-default);
+}
+
+.lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner {
+  background: var(--color--semantic--surface-default);
+  color: var(--color--semantic--error-on-subtle);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color--semantic--error) 45%, transparent);
+}
+.lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner:hover:not(:disabled)  { background: color-mix(in oklab, var(--color--semantic--error) 8%, var(--color--semantic--surface-default)); }
+.lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--error) 16%, var(--color--semantic--surface-default)); }
+.lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner:disabled { background: var(--color--semantic--surface-default); color: var(--color--semantic--disabled-fg); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+
+/* ─── On glass (deprecated) ────────────────────────────────────────────────── */
+/* Glass is a surface, not a button type. A transparent ink glyph whose state layer frosts. */
+
+.lucent-icon-button--on-glass .lucent-icon-button__inner { color: var(--color--semantic--text-strong); }
+.lucent-icon-button--on-glass .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
+.lucent-icon-button--on-glass .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--surface-default); }
+.lucent-icon-button--on-glass .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); }

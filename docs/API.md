@@ -100,13 +100,15 @@ Accessible tooltip on any focusable trigger. Shows on hover + keyboard focus, se
 | Member | Kind | Type | Default |
 |---|---|---|---|
 | `variant` | input | `ButtonVariant` | `'primary'` |
+| `tone` | input | `ButtonTone` | `'neutral'` |
 | `size` | input | `ControlSize` | `'md'` |
 | `loading` | input | `boolean` | `false` |
 | `disabled` | input | `boolean` | `false` |
 | `type` | input | `'button'｜'submit'｜'reset'` | `'button'` |
 | `clicked` | output | `MouseEvent` | — |
 
-`type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'on-glass' | 'danger' | 'text'`
+`type ButtonVariant = 'primary' | 'secondary' | 'text' | 'danger'` (plus deprecated `'ghost'`, an alias of `text`, and `'on-glass'`)
+`type ButtonTone = 'neutral' | 'danger'`
 Content (label) is projected: `<df-button variant="danger">Delete</df-button>`.
 
 ### `DfIconButton` — `<df-icon-button>`

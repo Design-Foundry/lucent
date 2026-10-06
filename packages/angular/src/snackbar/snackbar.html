@@ -5,5 +5,5 @@
 	<span class="lucent-snackbar__message">{{ message() }}</span>
 </div>
 @if (actionLabel()) {
-	<lucent-button variant="ghost" (clicked)="action.emit()">{{ actionLabel() }}</lucent-button>
+	<lucent-button variant="text" (clicked)="action.emit()">{{ actionLabel() }}</lucent-button>
 }

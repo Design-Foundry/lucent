@@ -68,7 +68,7 @@ export class LucentSupporting {}
  *   </div>
  *   <p>Body content (the default slot).</p>
  *   <div lucentModalActions>
- *     <lucent-button variant="ghost">Cancel</lucent-button>
+ *     <lucent-button variant="secondary">Cancel</lucent-button>
  *     <lucent-button variant="primary">Confirm</lucent-button>
  *   </div>
  * </lucent-modal>

@@ -29,7 +29,7 @@
 				@if (actionsRef()) {
 					<ng-content select="[lucentModalActions]" />
 				} @else {
-					<lucent-button variant="ghost" (clicked)="cancel()">{{ cancelLabel() }}</lucent-button>
+					<lucent-button variant="secondary" (clicked)="cancel()">{{ cancelLabel() }}</lucent-button>
 					<lucent-button
 						[variant]="isDestructive() ? 'danger' : 'primary'"
 						(clicked)="confirm()">

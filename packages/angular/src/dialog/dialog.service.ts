@@ -110,7 +110,7 @@ let nextId = 0;
 				<p>{{ data.message }}</p>
 			</div>
 			<div class="lucent-modal__footer">
-				<lucent-button variant="ghost" (clicked)="ref.close(false)">{{ data.cancelLabel ?? 'Cancel' }}</lucent-button>
+				<lucent-button variant="secondary" (clicked)="ref.close(false)">{{ data.cancelLabel ?? 'Cancel' }}</lucent-button>
 				<lucent-button
 					[variant]="data.variant === 'destructive' ? 'danger' : 'primary'"
 					(clicked)="ref.close(true)">

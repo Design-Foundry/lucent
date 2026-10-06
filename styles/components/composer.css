@@ -19,9 +19,7 @@
   padding: var(--dimension--primitive--spacing-2);
   border-radius: var(--radius-md);
   border: var(--border-subtle);
-  background: var(--color--semantic--surface-glass);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
+  background: var(--color--semantic--surface-default);
   transition: border-color 0.15s ease;
 
   --_text: var(--control-text-md);
@@ -38,6 +36,7 @@
 .lucent-composer__field {
   flex: 1 0 0;
   min-width: 0;
+  width: 0;
   border: none;
   background: transparent;
   outline: none;

@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lucent button lab</title>
+<link rel="stylesheet" href="styles/lucent.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto+Mono:wght@400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font--primitive--sans); font-weight: 300; background: var(--color--semantic--surface-base); color: var(--color--semantic--text-default); }
+  .page { max-width: 1440px; margin: 0 auto; padding: 32px 40px 56px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  h1 { font-size: 22px; font-weight: 400; margin: 0; color: var(--color--semantic--text-strong); }
+  h2 { font-size: 16px; font-weight: 500; margin: 36px 0 12px; color: var(--color--semantic--text-strong); }
+  .theme { display: inline-flex; gap: 2px; padding: 2px; border-radius: 8px; border: var(--border-default); background: var(--color--semantic--surface-default); }
+  .theme button { font: inherit; font-size: 12px; padding: 4px 10px; border: 0; border-radius: 6px; background: transparent; color: var(--color--semantic--text-muted); cursor: pointer; }
+  .theme button[aria-pressed="true"] { background: var(--color--semantic--surface-base); color: var(--color--semantic--text-strong); }
+
+  .matrix { display: grid; grid-template-columns: 200px repeat(5, minmax(0, 1fr)); align-items: center; row-gap: 14px; column-gap: 12px; padding: 20px; border-radius: 16px; border: var(--border-subtle); background: var(--color--semantic--surface-default); }
+  .matrix .h { font-size: 12px; color: var(--color--semantic--text-muted); }
+  .matrix .n { font-size: 13px; color: var(--color--semantic--text-strong); }
+  .matrix .n span { display: block; font-size: 11px; color: var(--color--semantic--text-muted); }
+  .cell { display: flex; align-items: center; gap: 8px; }
+
+  .backdrop { padding: 28px; border-radius: 24px; background: var(--gradient-breath); border: var(--border-subtle); }
+  .backdrop .matrix { background: var(--color--semantic--surface-glass); backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); border: var(--border-glass); }
+
+  .pairs { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .pair { display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; border: var(--border-subtle); background: var(--color--semantic--surface-default); }
+  .pair .n { font-size: 12px; color: var(--color--semantic--text-muted); }
+  .pair .row { display: flex; justify-content: flex-end; gap: 8px; align-items: center; }
+  .pair .row--start { justify-content: flex-start; }
+  .glass-pair { background: var(--color--semantic--surface-glass); backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); border: var(--border-glass); }
+
+  /* ── Proposals (layered on the real class contract) ───────────────────── */
+
+  .lucent-button .lucent-button__inner, .lucent-icon-button .lucent-icon-button__inner { outline: none; }
+  .fx .lucent-button__inner.is-focus,
+  .fx .lucent-icon-button__inner.is-focus,
+  .fx .lucent-button__inner:focus-visible,
+  .fx .lucent-icon-button__inner:focus-visible { outline: 2px solid var(--color--semantic--border-focus); outline-offset: 2px; }
+
+  /* Secondary: outlined only. */
+  .p-secondary .lucent-button__inner, .p-secondary .lucent-icon-button__inner {
+    background: transparent; color: var(--color--semantic--text-strong);
+    box-shadow: inset 0 0 0 1px var(--color--semantic--border-default);
+  }
+  .p-secondary .is-hover, .p-secondary :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) {
+    background: color-mix(in oklab, var(--color--semantic--text-strong) 5%, transparent);
+    box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong);
+  }
+  .p-secondary .is-active, .p-secondary :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) {
+    background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent);
+    box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong);
+  }
+
+  /* Ghost: transparent until touched. */
+  .p-ghost .lucent-button__inner, .p-ghost .lucent-icon-button__inner { background: transparent; color: var(--color--semantic--text-strong); border: 0; }
+  .p-ghost .is-hover, .p-ghost :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 6%, transparent); }
+  .p-ghost .is-active, .p-ghost :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent); }
+
+  /* Text: four ways to mark interaction. */
+  .p-text .lucent-button__inner { background: transparent; color: var(--color--semantic--accent-default); text-decoration: none; padding: 0 8px; border: 0; }
+  .t-current .lucent-button__inner { text-decoration: underline; padding: 0 var(--_px); }
+  .t-current .is-hover, .t-current .lucent-button__inner:hover:not(:disabled) { color: var(--color--semantic--accent-strong); }
+
+  .t-color .is-hover, .t-color .lucent-button__inner:hover:not(:disabled) { color: var(--color--semantic--accent-strong); }
+  .t-color .is-active, .t-color .lucent-button__inner:active:not(:disabled) { color: var(--color--primitive--pine-10); }
+  :root[data-theme='dark'] .t-color .is-active { color: var(--color--primitive--pine-90); }
+
+  .t-tint .is-hover, .t-tint .lucent-button__inner:hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 12%, transparent); }
+  .t-tint .is-active, .t-tint .lucent-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 22%, transparent); }
+
+  .t-both .lucent-button__inner { color: var(--color--semantic--accent-strong); }
+  .t-both .is-hover, .t-both .lucent-button__inner:hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 12%, transparent); }
+  .t-both .is-active, .t-both .lucent-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 22%, transparent); }
+
+  .t-rule .lucent-button__inner { box-shadow: inset 0 -1px 0 transparent; border-radius: 0; padding: 0 2px; transition: box-shadow 0.15s ease, color 0.15s ease; }
+  .t-rule .is-hover, .t-rule .lucent-button__inner:hover:not(:disabled) { box-shadow: inset 0 -2px 0 color-mix(in oklab, var(--color--semantic--accent-default) 45%, transparent); color: var(--color--semantic--accent-strong); }
+  .t-rule .is-active, .t-rule .lucent-button__inner:active:not(:disabled) { box-shadow: inset 0 -2px 0 var(--color--semantic--accent-default); color: var(--color--semantic--accent-strong); }
+
+  /* Danger as a tone. */
+  .d-primary .lucent-button__inner { background: var(--color--semantic--error); color: var(--color--primitive--neutral-100); }
+  .d-primary .is-hover, .d-primary .lucent-button__inner:hover:not(:disabled) { background: oklch(from var(--color--semantic--error) calc(l - 0.06) c h); }
+  .d-primary .is-active, .d-primary .lucent-button__inner:active:not(:disabled) { background: oklch(from var(--color--semantic--error) calc(l - 0.12) c h); }
+  .d-secondary .lucent-button__inner { background: transparent; color: var(--color--semantic--error-on-subtle); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color--semantic--error) 45%, transparent); }
+  :root[data-theme='dark'] .d-secondary .lucent-button__inner { color: var(--color--primitive--error-80); }
+  .d-secondary .is-hover, .d-secondary .lucent-button__inner:hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--error) 8%, transparent); }
+  .d-secondary .is-active, .d-secondary .lucent-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--error) 16%, transparent); }
+
+  /* Glass options. */
+  .g-current .lucent-button__inner, .g-current .lucent-icon-button__inner { background: var(--color--semantic--surface-glass); color: var(--color--semantic--text-strong); border: 0; }
+  .g-current .is-hover { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
+  .g-current .is-active { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-sm); }
+
+  .g-frost .lucent-button__inner, .g-frost .lucent-icon-button__inner {
+    background: var(--color--semantic--surface-glass-strong); color: var(--color--semantic--text-strong); border: 0;
+    box-shadow: inset 0 0 0 1px var(--color--semantic--border-glass), var(--shadow-xs);
+  }
+  .g-frost .is-hover, .g-frost :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: var(--color--semantic--surface-default); box-shadow: inset 0 0 0 1px var(--color--semantic--border-glass), var(--shadow-sm); }
+  .g-frost .is-active, .g-frost :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: var(--color--semantic--surface-default); box-shadow: inset 0 0 0 1px var(--color--semantic--border-glass); }
+
+  .g-outline .lucent-button__inner, .g-outline .lucent-icon-button__inner {
+    background: transparent; color: var(--color--semantic--text-strong); border: 0;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color--semantic--text-strong) 18%, transparent);
+  }
+  .g-outline .is-hover, .g-outline :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: var(--color--semantic--surface-glass-strong); }
+  .g-outline .is-active, .g-outline :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: var(--color--semantic--surface-default); }
+
+  .g-ghost .lucent-button__inner, .g-ghost .lucent-icon-button__inner { background: transparent; color: var(--color--semantic--text-strong); border: 0; }
+  .g-ghost .is-hover, .g-ghost :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
+  .g-ghost .is-active, .g-ghost :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: var(--color--semantic--surface-default); box-shadow: none; }
+
+  /* ── Round 2 ─────────────────────────────────────────────────────────── */
+
+  .grid { display: grid; align-items: center; row-gap: 14px; column-gap: 16px; padding: 20px; border-radius: 16px; border: var(--border-subtle); background: var(--color--semantic--surface-default); }
+  .grid--glass { background: var(--color--semantic--surface-glass); backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); border: var(--border-glass); }
+  .grid .h { font-size: 12px; color: var(--color--semantic--text-muted); }
+  .grid .n { font-size: 13px; color: var(--color--semantic--text-strong); }
+  .grid .n span { display: block; font-size: 11px; color: var(--color--semantic--text-muted); }
+  .grid .cell { flex-wrap: wrap; }
+  .prose { font-size: 14px; line-height: 1.5; color: var(--color--semantic--text-default); }
+  .lrow { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 6px 0; border-top: var(--border-subtle); border-bottom: var(--border-subtle); }
+  .lrow b { font-weight: 400; color: var(--color--semantic--text-strong); font-size: 14px; }
+  .lrow small { display: block; font-size: 11px; color: var(--color--semantic--text-muted); }
+  .tb { display: inline-flex; gap: 2px; padding: 3px; border-radius: 10px; border: var(--border-subtle); background: var(--color--semantic--surface-default); }
+
+  /* Decided variants, so every row below uses them. */
+  .x-primary .lucent-button__inner { background: var(--color--semantic--accent-strong); color: var(--color--semantic--text-onaccent); border: 0; }
+  .x-danger .lucent-button__inner { background: var(--color--semantic--error); color: var(--color--primitive--neutral-100); border: 0; }
+  .x-secondary :is(.lucent-button__inner, .lucent-icon-button__inner) { background: transparent; color: var(--color--semantic--text-strong); border: 0; box-shadow: inset 0 0 0 1px var(--color--semantic--border-default); }
+  .x-ghost :is(.lucent-button__inner, .lucent-icon-button__inner) { background: transparent; color: var(--color--semantic--text-strong); border: 0; }
+  .x-text .lucent-button__inner { background: transparent; color: var(--color--semantic--accent-strong); border: 0; text-decoration: none; padding: 0 8px; }
+  .x-ghost .is-hover, .x-ghost :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 6%, transparent); }
+  .x-text .is-hover, .x-text .lucent-button__inner:hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 12%, transparent); }
+  .x-text .is-active, .x-text .lucent-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-default) 22%, transparent); }
+
+  /* Pressed direction. Hover lifts a little in every option; only pressed changes. */
+  :is(.pr-today, .pr-darken, .pr-inset, .pr-both) .x-primary .is-hover { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.05) c h); }
+  :is(.pr-today, .pr-darken, .pr-inset, .pr-both) .x-danger .is-hover { background: oklch(from var(--color--semantic--error) calc(l + 0.04) c h); }
+  :is(.pr-today, .pr-darken, .pr-inset, .pr-both) .x-secondary .is-hover { background: color-mix(in oklab, var(--color--semantic--text-strong) 5%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .pr-today .x-primary .is-hover { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.08) c h); }
+  .pr-today .x-primary .is-active { background: oklch(from var(--color--semantic--accent-strong) calc(l + 0.16) c h); }
+  .pr-today .x-danger .is-active { background: oklch(from var(--color--semantic--error) calc(l + 0.12) c h); }
+  .pr-today .x-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .pr-today .x-ghost .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent); }
+
+  .pr-darken .x-primary .is-active { background: oklch(from var(--color--semantic--accent-strong) calc(l - 0.06) c h); }
+  .pr-darken .x-danger .is-active { background: oklch(from var(--color--semantic--error) calc(l - 0.08) c h); }
+  .pr-darken .x-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .pr-darken .x-ghost .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent); }
+
+  .pr-inset .x-primary .is-active { background: var(--color--semantic--accent-strong); box-shadow: inset 0 2px 4px oklch(0 0 0 / 0.35); }
+  .pr-inset .x-danger .is-active { background: var(--color--semantic--error); box-shadow: inset 0 2px 4px oklch(0 0 0 / 0.35); }
+  .pr-inset .x-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 4%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong), inset 0 2px 4px oklch(0 0 0 / 0.14); }
+  .pr-inset .x-ghost .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 6%, transparent); box-shadow: inset 0 2px 4px oklch(0 0 0 / 0.14); }
+
+  .pr-both .x-primary .is-active { background: oklch(from var(--color--semantic--accent-strong) calc(l - 0.04) c h); box-shadow: inset 0 1px 3px oklch(0 0 0 / 0.3); }
+  .pr-both .x-danger .is-active { background: oklch(from var(--color--semantic--error) calc(l - 0.05) c h); box-shadow: inset 0 1px 3px oklch(0 0 0 / 0.3); }
+  .pr-both .x-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong), inset 0 1px 3px oklch(0 0 0 / 0.12); }
+  .pr-both .x-ghost .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent); box-shadow: inset 0 1px 3px oklch(0 0 0 / 0.12); }
+
+  /* Disabled. */
+  :is(.ds-neutral, .ds-aware) :is(.lucent-button__inner, .lucent-icon-button__inner):disabled { opacity: 1; }
+  .ds-neutral :is(.x-primary, .x-danger, .x-secondary, .x-ghost) :disabled { background: color-mix(in oklab, var(--color--semantic--text-strong) 7%, transparent); color: var(--color--semantic--text-subtle); box-shadow: none; }
+  .ds-neutral .x-text :disabled { color: var(--color--semantic--text-subtle); }
+  .ds-aware :is(.x-primary, .x-danger) :disabled { background: color-mix(in oklab, var(--color--semantic--text-strong) 9%, transparent); color: var(--color--semantic--text-subtle); }
+  .ds-aware .x-secondary :disabled { color: var(--color--semantic--text-subtle); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+  .ds-aware :is(.x-ghost, .x-text) :disabled { color: var(--color--semantic--text-subtle); }
+
+  :is(.ds-hue, .ds-faded) :is(.lucent-button__inner, .lucent-icon-button__inner):disabled { opacity: 1; }
+  .ds-hue .x-primary :disabled { background: var(--color--semantic--accent-subtle); color: color-mix(in oklab, var(--color--semantic--accent-strong) 55%, var(--color--semantic--accent-subtle)); }
+  .ds-hue .x-danger :disabled { background: var(--color--semantic--error-subtle); color: color-mix(in oklab, var(--color--semantic--error) 60%, var(--color--semantic--error-subtle)); }
+  .ds-hue .x-secondary :disabled { color: var(--color--semantic--text-subtle); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+  .ds-hue .x-ghost :disabled { color: var(--color--semantic--text-subtle); }
+  .ds-hue .x-text :disabled { color: var(--color--semantic--text-subtle); }
+  .ds-faded .x-primary :disabled { background: color-mix(in oklab, var(--color--semantic--accent-strong) 38%, var(--color--semantic--surface-default)); color: var(--color--semantic--surface-default); }
+  .ds-faded .x-danger :disabled { background: color-mix(in oklab, var(--color--semantic--error) 38%, var(--color--semantic--surface-default)); color: var(--color--semantic--surface-default); }
+  .ds-faded { --disabled-fg: color-mix(in oklab, var(--color--semantic--text-subtle) 55%, var(--color--semantic--surface-default)); }
+  .ds-faded .x-secondary :disabled { color: var(--disabled-fg); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+  .ds-faded .x-ghost :disabled { color: var(--disabled-fg); }
+  .ds-faded .d-secondary .lucent-button__inner:disabled { opacity: 1; color: var(--disabled-fg); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+  .ds-faded .x-text .lucent-button__inner:disabled { color: var(--disabled-fg); }
+
+  /* Toggled (aria-pressed). */
+  .tg-ink [aria-pressed="true"] { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent) !important; }
+  .tg-ink [aria-pressed="true"].is-hover { background: color-mix(in oklab, var(--color--semantic--text-strong) 14%, transparent) !important; }
+  .tg-accent [aria-pressed="true"] { background: var(--color--semantic--accent-subtle) !important; color: var(--color--semantic--accent-strong) !important; }
+  :root[data-theme='dark'] .tg-accent [aria-pressed="true"] { color: var(--color--primitive--pine-90) !important; }
+  .tg-accent [aria-pressed="true"].is-hover { background: oklch(from var(--color--semantic--accent-subtle) calc(l - 0.04) c h) !important; }
+  .tg-edge [aria-pressed="true"] { background: color-mix(in oklab, var(--color--semantic--text-strong) 8%, transparent) !important; box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong) !important; }
+  .tg-edge [aria-pressed="true"].is-hover { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent) !important; }
+  .tg-raised [aria-pressed="true"] { background: var(--color--semantic--surface-default) !important; box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--color--semantic--border-subtle) !important; }
+  .tg-raised .tb { background: var(--color--semantic--surface-base); }
+
+  /* Text emphasis. */
+  .te-a .x-text .lucent-button__inner { font-weight: 400; }
+  .te-b .x-text .lucent-button__inner { color: oklch(0.43 0.09 165.3); }
+  :root[data-theme='dark'] .te-b .x-text .lucent-button__inner { color: oklch(0.78 0.1 165.3); }
+  .te-c .x-text .lucent-button__inner { color: var(--color--semantic--accent-text); }
+  .te-c .x-text .is-hover, .te-c .x-text .lucent-button__inner:hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-text) 12%, transparent); }
+  .te-c .x-text .is-active, .te-c .x-text .lucent-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--accent-text) 22%, transparent); }
+  #final .d-secondary .lucent-button__inner { background: var(--color--semantic--surface-default); }
+  #final .d-secondary .is-hover { background: color-mix(in oklab, var(--color--semantic--error) 8%, var(--color--semantic--surface-default)); }
+  #final .d-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--error) 16%, var(--color--semantic--surface-default)); }
+  #final .x-text-neutral.ds-off, #final .ds-faded .x-text-neutral :disabled { color: var(--disabled-fg); }
+  .te-d .x-text .lucent-button__inner { font-weight: 400; gap: 2px; }
+
+  /* Padding: one inline padding for every variant. */
+  .pd-16 .lucent-button--md { --_px: var(--dimension--primitive--spacing-4); }
+  .pd-16 .lucent-button--sm { --_px: var(--dimension--primitive--spacing-3); }
+  .pd-12 .lucent-button--md { --_px: var(--control-pad-x-md); }
+  .pd-12 .lucent-button--sm { --_px: var(--control-pad-x-sm); }
+  :is(.pd-16, .pd-12) .x-text .lucent-button__inner { padding: 0 var(--_px); }
+
+  .tw-350 .lucent-button__inner { font-weight: 350; }
+  .tw-400 .lucent-button__inner { font-weight: 400; }
+  .tw-500 .lucent-button__inner { font-weight: 500; }
+  .text-400 .x-text .lucent-button__inner { font-weight: 400; }
+
+  /* Round 3: filled secondary, text tones, background swatches. */
+  .x-secfill :is(.lucent-button__inner, .lucent-icon-button__inner) { background: var(--color--semantic--surface-default); color: var(--color--semantic--text-strong); border: 0; box-shadow: inset 0 0 0 1px var(--color--semantic--border-default); }
+  .x-secfill .is-hover, .x-secfill :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 5%, var(--color--semantic--surface-default)); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .x-secfill .is-active, .x-secfill :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, var(--color--semantic--surface-default)); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .x-secfill :is(.lucent-button__inner, .lucent-icon-button__inner):disabled { opacity: 1; color: var(--color--semantic--disabled-fg, color-mix(in oklab, var(--color--semantic--text-subtle) 55%, var(--color--semantic--surface-default))); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
+  .x-secondary .is-hover { background: color-mix(in oklab, var(--color--semantic--text-strong) 5%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .x-secondary .is-active { background: color-mix(in oklab, var(--color--semantic--text-strong) 10%, transparent); box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong); }
+  .x-text-neutral .lucent-icon-button__inner, .x-text-neutral .lucent-button__inner { background: transparent; color: var(--color--semantic--text-strong); border: 0; padding-inline: var(--_px); }
+  .x-text-neutral .is-hover, .x-text-neutral :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 6%, transparent); }
+  .x-text-neutral .is-active, .x-text-neutral :is(.lucent-button__inner, .lucent-icon-button__inner):active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--text-strong) 12%, transparent); }
+  .x-text-accent .lucent-icon-button__inner { background: transparent; color: oklch(from var(--color--semantic--accent-strong) l calc(c * 1.8) h); border: 0; }
+  .x-text-accent .lucent-icon-button__inner.is-hover, .x-text-accent .lucent-icon-button__inner:hover { background: color-mix(in oklab, var(--color--semantic--accent-default) 12%, transparent); }
+  .x-text-danger .lucent-button__inner, .x-text-danger .lucent-icon-button__inner { background: transparent; color: var(--color--semantic--error); border: 0; font-weight: 400; }
+  :root[data-theme='dark'] .x-text-danger :is(.lucent-button__inner, .lucent-icon-button__inner) { color: var(--color--primitive--error-70); }
+  .x-text-danger .is-hover, .x-text-danger :is(.lucent-button__inner, .lucent-icon-button__inner):hover:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--error) 10%, transparent); }
+  .bg-cell { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; width: 268px; }
+  #r-secfill-states .bg-cell { width: auto; }
+  #r-secfill .lucent-button--md, #r-tones .lucent-button--md { --_px: var(--control-pad-x-sm); }
+  .bg-surface { background: var(--color--semantic--surface-default); border: var(--border-subtle); }
+  .bg-base { background: var(--color--semantic--surface-base); }
+  .bg-tint { background: var(--color--semantic--surface-tint); }
+  .bg-glass-wrap { padding: 10px; border-radius: 16px; background: var(--gradient-breath); }
+  .bg-glass { background: var(--color--semantic--surface-glass); backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); border: var(--border-glass); }
+  .fld { display: flex; align-items: center; height: var(--control-height-md); padding: 0 var(--control-pad-x-md); border-radius: var(--control-radius-md); border: var(--border-default); background: var(--color--semantic--surface-default); font-size: 14px; color: var(--color--semantic--text-default); }
+  .rowx { display: flex; align-items: center; gap: 8px; }
+
+  /* Label weight. */
+  .wt-400 .lucent-button__inner { font-weight: 400; }
+  .wt-500 .lucent-button__inner { font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="page fx">
+  <div class="bar">
+    <h1>Button lab</h1>
+    <span class="theme" id="theme"><button data-v="light" aria-pressed="true">Light</button><button data-v="dark" aria-pressed="false">Dark</button></span>
+  </div>
+
+  <div id="round3">
+  <h2>Secondary: outlined or filled</h2>
+  <div class="grid pd-12 te-c text-400 pr-darken" id="r-secfill"></div>
+  <h2>Secondary filled: states</h2>
+  <div class="grid pd-12 te-c text-400 pr-darken" id="r-secfill-states"></div>
+  <h2>Text with tones (ghost folded in)</h2>
+  <div class="grid pd-12 te-c text-400 pr-darken" id="r-tones"></div>
+  </div>
+
+  <div id="final">
+  <h2>Combined</h2>
+  <div class="grid pr-darken pd-12 te-c tg-raised text-400" id="r-final"></div>
+  <div class="pairs pr-darken pd-12 te-c tg-raised text-400" id="r-final-pairs" style="margin-top:16px"></div>
+  <h2>Text weight</h2>
+  <div class="grid pr-darken pd-12 te-c" id="r-textweight"></div>
+  </div>
+
+  <div id="round2">
+  <h2>Pressed direction</h2>
+  <div class="grid" id="r-pressed"></div>
+
+  <h2>Disabled</h2>
+  <div class="grid" id="r-disabled"></div>
+  <div class="backdrop" style="margin-top:12px"><div class="grid grid--glass" id="r-disabled-glass"></div></div>
+
+  <h2>Toggled</h2>
+  <div class="grid" id="r-toggled"></div>
+
+  <h2>Text emphasis</h2>
+  <div class="grid" id="r-text"></div>
+
+  <h2>Padding</h2>
+  <div class="grid" id="r-padding"></div>
+
+  <h2>Label weight</h2>
+  <div class="grid" id="r-weight"></div>
+
+  </div>
+
+  <h2 style="margin-top:64px">Round 1</h2>
+
+  <h2>Emphasis</h2>
+  <div class="matrix" id="emphasis"></div>
+
+  <h2>Text button markers</h2>
+  <div class="matrix" id="text"></div>
+
+  <h2>Danger tone</h2>
+  <div class="matrix" id="danger"></div>
+
+  <h2>In context</h2>
+  <div class="pairs" id="pairs"></div>
+
+  <h2>On glass</h2>
+  <div class="backdrop"><div class="matrix" id="glass"></div></div>
+
+  <h2>Glass in context</h2>
+  <div class="backdrop"><div class="pairs" id="glass-pairs"></div></div>
+</div>
+
+<script>
+const STATES = ['', 'is-hover', 'is-active', 'is-focus', 'disabled'];
+const HEAD = ['Rest', 'Hover', 'Pressed', 'Focus', 'Disabled'];
+const icon = (n) => `<span class="lucent-icon lucent-icon--sm" aria-hidden="true"><span class="material-icons lucent-icon__glyph">${n}</span></span>`;
+const btn = (cls, label, state = '', lead = '') =>
+  `<span class="lucent-button lucent-button--md ${cls}"><button type="button" class="lucent-button__inner ${state === 'disabled' ? '' : state}"${state === 'disabled' ? ' disabled' : ''}>${lead ? icon(lead) : ''}<span class="lucent-button__label">${label}</span></button></span>`;
+const ibtn = (cls, glyph, state = '') =>
+  `<span class="lucent-icon-button lucent-icon-button--md ${cls}"><button type="button" class="lucent-icon-button__inner ${state === 'disabled' ? '' : state}" aria-label="${glyph}"${state === 'disabled' ? ' disabled' : ''}>${icon(glyph)}</button></span>`;
+
+const b2 = (cls, label, o = {}) => {
+  const st = o.state === 'disabled' ? '' : (o.state ?? '');
+  const dis = o.state === 'disabled' ? ' disabled' : '';
+  const pressed = o.pressed === undefined ? '' : ` aria-pressed="${o.pressed}"`;
+  return `<span class="lucent-button lucent-button--${o.size ?? 'md'} ${cls}"><button type="button" class="lucent-button__inner ${st}"${dis}${pressed}>${o.lead ? icon(o.lead) : ''}<span class="lucent-button__label">${label}</span>${o.trail ? icon(o.trail) : ''}</button></span>`;
+};
+const i2 = (cls, glyph, o = {}) => {
+  const st = o.state === 'disabled' ? '' : (o.state ?? '');
+  const dis = o.state === 'disabled' ? ' disabled' : '';
+  const pressed = o.pressed === undefined ? '' : ` aria-pressed="${o.pressed}"`;
+  return `<span class="lucent-icon-button lucent-icon-button--${o.size ?? 'md'} ${cls}"><button type="button" class="lucent-icon-button__inner ${st}" aria-label="${glyph}"${dis}${pressed}>${icon(glyph)}</button></span>`;
+};
+
+function grid(id, heads, rows, first = '190px') {
+  const el = document.getElementById(id);
+  el.style.gridTemplateColumns = `${first} repeat(${heads.length}, max-content)`;
+  el.innerHTML = '<div></div>' + heads.map((h) => `<div class="h">${h}</div>`).join('') +
+    rows.map(([name, note, cls, cells]) => `<div class="n">${name}<span>${note}</span></div>` + cells.map((c) => `<div class="cell ${cls}">${c}</div>`).join('')).join('');
+}
+
+const pressedRow = (name, note, cls) => [name, note, cls, ['', 'is-hover', 'is-active'].map((s) =>
+  b2('x-primary', 'Publish', { state: s, size: 'sm' }) + b2('x-danger', 'Delete', { state: s, size: 'sm' }) + b2('x-secondary', 'Cancel', { state: s, size: 'sm' }) + b2('x-ghost', 'Rename', { state: s, size: 'sm' }))];
+grid('r-pressed', ['Rest', 'Hover', 'Pressed'], [
+  pressedRow('Today', 'lighter on hover, lighter again on press', 'pr-today'),
+  pressedRow('A. Darken', 'press goes darker than rest', 'pr-darken'),
+  pressedRow('B. Inset', 'press keeps the fill, adds an inner shadow', 'pr-inset'),
+  pressedRow('C. Both', 'slightly darker plus a soft inner shadow', 'pr-both'),
+]);
+
+const disabledCells = () => [
+  b2('x-primary', 'Publish') + b2('x-primary', 'Publish', { state: 'disabled' }),
+  b2('x-danger', 'Delete') + b2('x-danger', 'Delete', { state: 'disabled' }),
+  b2('x-secondary', 'Cancel') + b2('x-secondary', 'Cancel', { state: 'disabled' }),
+  b2('x-ghost', 'Rename') + b2('x-ghost', 'Rename', { state: 'disabled' }),
+  b2('x-text', 'Sign out') + b2('x-text', 'Sign out', { state: 'disabled' }),
+];
+const disabledRows = [
+  ['Today', 'every variant at 40% opacity', 'ds-today', disabledCells()],
+  ['A. Neutral', 'one flat ink fill, subtle text', 'ds-neutral', disabledCells()],
+  ['B. Variant-aware', 'fills grey out, outlines thin out, text dims', 'ds-aware', disabledCells()],
+  ['C. Keeps its hue', 'primary goes to its subtle tint, still pine', 'ds-hue', disabledCells()],
+  ['D. Faded solid', 'primary fill mixed into the surface, opaque', 'ds-faded', disabledCells()],
+];
+const dHeads = ['Primary', 'Danger', 'Secondary', 'Ghost', 'Text'];
+grid('r-disabled', dHeads, disabledRows);
+grid('r-disabled-glass', dHeads, disabledRows.map((r) => [r[0] + ' on glass', r[1], r[2], disabledCells()]));
+
+const toolbar = (on) => `<span class="tb">${[['format_bold', on[0]], ['format_italic', on[1]], ['format_underlined', on[2]], ['wrap_text', on[3]], ['grid_on', on[4]]].map(([g, p]) => i2('x-ghost', g, { size: 'sm', pressed: p })).join('')}</span>`;
+const toggledRow = (name, note, cls) => [name, note, cls, [
+  i2('x-ghost', 'format_bold', { pressed: false }),
+  i2('x-ghost', 'format_bold', { pressed: true }),
+  i2('x-ghost', 'format_bold', { pressed: true, state: 'is-hover' }),
+  b2('x-ghost', 'Show grid', { pressed: true, lead: 'grid_on' }),
+  toolbar([true, false, true, false, true]),
+]];
+grid('r-toggled', ['Off', 'On', 'On, hover', 'With label', 'Toolbar'], [
+  toggledRow('A. Ink fill', 'surface state-selected', 'tg-ink'),
+  toggledRow('B. Accent', 'pine tint, pine glyph', 'tg-accent'),
+  toggledRow('C. Ink + edge', 'fill plus a strong inner border', 'tg-edge'),
+  toggledRow('D. Raised', 'lifts like the selected tab', 'tg-raised'),
+]);
+
+const textCells = (o = {}) => [
+  `<p class="prose" style="margin:0;max-width:300px">4 devices are signed in to this workspace. ${b2('x-text', 'Sign out the others', { size: 'sm', trail: o.trail })}</p>`,
+  `<div class="lrow" style="width:300px"><span><b>Safari on iPhone</b><small>Madrid, 2 hours ago</small></span>${b2('x-text', 'Sign out', { size: 'sm', trail: o.trail })}</div>`,
+  `<span class="row" style="display:flex;gap:8px">${b2('x-secondary', 'Cancel', { size: 'sm' })}${b2('x-text', 'Learn more', { size: 'sm', trail: o.trail })}</span>`,
+];
+grid('r-text', ['In a sentence', 'In a row', 'Next to a button'], [
+  ['C (decided)', 'pine-30, weight 300', '', textCells()],
+  ['A. Weight', 'pine-30, weight 400', 'te-a', textCells()],
+  ['B. Chroma', 'pine at 0.09 chroma, weight 300', 'te-b', textCells()],
+  ['C. Brighter pine', 'accent-strong, chroma x1.8, weight 300', 'te-c', textCells()],
+  ['D. Cue', 'pine-30, weight 400, trailing arrow', 'te-d', textCells({ trail: 'arrow_forward' })],
+]);
+
+const mixed = (size) => b2('x-primary', 'Publish', { size }) + b2('x-secondary', 'Preview', { size }) + b2('x-ghost', 'Rename', { size }) + b2('x-text', 'Learn more', { size });
+grid('r-padding', ['Medium', 'Small'], [
+  ['Today', '24 / 20, text 8', '', [mixed('md'), mixed('sm')]],
+  ['A. 16', '16 / 12 for every variant', 'pd-16', [mixed('md'), mixed('sm')]],
+  ['B. 12', 'same as fields: 12 / 10', 'pd-12', [mixed('md'), mixed('sm')]],
+]);
+
+const weightCells = () => [
+  b2('x-primary', 'Publish') + b2('x-primary', 'Publish', { size: 'sm' }),
+  b2('x-danger', 'Delete') + b2('x-danger', 'Delete', { size: 'sm' }),
+  b2('x-secondary', 'Cancel') + b2('x-secondary', 'Cancel', { size: 'sm' }),
+  b2('x-ghost', 'Rename') + b2('x-text', 'Sign out'),
+];
+grid('r-weight', ['Primary', 'Danger', 'Secondary', 'Ghost and text'], [
+  ['300', 'today', '', weightCells()],
+  ['400', 'regular', 'wt-400', weightCells()],
+  ['500', 'medium', 'wt-500', weightCells()],
+]);
+
+const fin = (make) => ['', 'is-hover', 'is-active', 'is-focus'].map((s) => make({ state: s })).concat(
+  [`<span class="ds-faded">${make({ state: 'disabled' })}</span>`]);
+grid('r-final', ['Rest', 'Hover', 'Pressed', 'Focus', 'Disabled'], [
+  ['Primary', '', '', fin((o) => b2('x-primary', 'Publish', o))],
+  ['Danger', 'primary: final confirm', '', fin((o) => b2('x-danger', 'Delete', o))],
+  ['Danger', 'secondary: entry point', '', fin((o) => b2('d-secondary', 'Revoke all', o))],
+  ['Secondary', 'filled, like fields', '', fin((o) => b2('x-secfill', 'Cancel', o) + i2('x-secfill', 'tune', o))],
+  ['Text', 'accent label; icon buttons in ink', '', fin((o) => b2('x-text', 'Sign out', o) + i2('x-text-neutral', 'more_horiz', o))],
+  ['Toggled', 'always in a track: off, then on', '', fin((o) => `<span class="tb">${i2('x-text-neutral', 'grid_on', { ...o, size: 'sm', pressed: false })}${i2('x-text-neutral', 'grid_on', { ...o, size: 'sm', pressed: true })}</span>`)],
+]);
+document.getElementById('r-final-pairs').innerHTML = [
+  ['Dialog footer', `<div class="row">${b2('x-secfill', 'Cancel')}${b2('x-primary', 'Send invite', { lead: 'send' })}</div>`],
+  ['Not ready yet', `<div class="row">${b2('x-secfill', 'Cancel')}<span class="ds-faded">${b2('x-primary', 'Send invite', { lead: 'send', state: 'disabled' })}</span></div>`],
+  ['Destructive confirm', `<div class="row">${b2('x-secfill', 'Keep project')}${b2('x-danger', 'Delete project')}</div>`],
+  ['Destructive entry', `<div class="lrow"><span><b>Other sessions</b><small>3 devices</small></span>${b2('d-secondary', 'Sign out everywhere else', { size: 'sm' })}</div>`],
+  ['Toolbar', `<div class="row row--start" data-wide>${toolbar([true, false, true, false, true])}<span style="flex:1"></span>${b2('x-text', 'Learn more')}${b2('x-secfill', 'Preview')}${b2('x-primary', 'Publish')}</div>`],
+  ['Session row', `<div class="lrow"><span><b>Safari on iPhone</b><small>Madrid, 2 hours ago</small></span><span class="row">${b2('x-text', 'Sign out', { size: 'sm' })}${i2('x-text-neutral', 'more_horiz', { size: 'sm' })}</span></div>`],
+].map(([n, h]) => `<div class="pair"${h.includes('data-wide') ? ' style="grid-column: span 2"' : ''}><span class="n">${n}</span>${h}</div>`).join('');
+
+const twCells = (w) => {
+  const t = (label, size = 'sm', trail) => b2(`x-text ${w}`, label, { size, trail });
+  return [
+    `<p class="prose" style="margin:0;max-width:280px">4 devices are signed in to this workspace. ${t('Sign out the others')}</p>`,
+    `<div class="lrow" style="width:280px"><span><b>Safari on iPhone</b><small>Madrid, 2 hours ago</small></span>${t('Sign out')}</div>`,
+    `<span class="row" style="display:flex;gap:8px">${t('Learn more', 'md')}${b2('x-secondary', 'Preview')}${b2('x-primary', 'Publish')}</span>`,
+  ];
+};
+grid('r-textweight', ['In a sentence', 'In a row', 'Next to buttons'], [
+  ['300', 'same as every label', '', twCells('')],
+  ['350', 'text buttons only', '', twCells('tw-350')],
+  ['400', 'text buttons only', '', twCells('tw-400')],
+  ['500', 'text buttons only', '', twCells('tw-500')],
+]);
+
+const bgCell = (bg, inner) => bg === 'glass'
+  ? `<div class="bg-glass-wrap"><div class="bg-cell bg-glass">${inner}</div></div>`
+  : `<div class="bg-cell bg-${bg}">${inner}</div>`;
+const secCombo = (sec) => `<div class="fld">ana@northwind.studio</div><div class="rowx">${b2('x-text', 'Learn more')}<span style="flex:1"></span>${b2(sec, 'Cancel')}${b2('x-primary', 'Invite')}</div><div class="rowx">${b2(sec, 'Preview', { state: 'is-hover' })}${b2('x-text', 'Learn more', { state: 'is-hover' })}<span class="h" style="font-size:11px">both hovered</span></div>`;
+const BGS = ['surface', 'base', 'tint', 'glass'];
+grid('r-secfill', ['On surface', 'On page base', 'On tinted', 'On glass'], [
+  ['A. Outlined', 'transparent + border (current)', '', BGS.map((bg) => bgCell(bg, secCombo('x-secondary')))],
+  ['B. Filled', 'surface fill + border, like fields', '', BGS.map((bg) => bgCell(bg, secCombo('x-secfill')))],
+], '150px');
+grid('r-secfill-states', ['Rest', 'Hover', 'Pressed', 'Focus', 'Disabled'], [
+  ['B on page base', '', '', ['', 'is-hover', 'is-active', 'is-focus', 'disabled'].map((st) => bgCell('base', `<div class="rowx">${b2('x-secfill', 'Cancel', { state: st })}${i2('x-secfill', 'tune', { state: st })}</div>`))],
+]);
+const toneRow = (name, note, label, ico) => [name, note, '', BGS.map((bg) => bgCell(bg, `<div class="rowx">${label}</div><div class="rowx">${ico}</div>`))];
+grid('r-tones', ['On surface', 'On page base', 'On tinted', 'On glass'], [
+  toneRow('Accent', 'default for labels', b2('x-text', 'Sign out') + b2('x-text', 'Learn more') + b2('x-text', 'Sign out', { state: 'is-hover' }), i2('x-text-accent', 'more_horiz') + i2('x-text-accent', 'content_copy') + i2('x-text-accent', 'close')),
+  toneRow('Neutral', 'default for icon-only', b2('x-text-neutral', 'Rename') + b2('x-text-neutral', 'Duplicate') + b2('x-text-neutral', 'Rename', { state: 'is-hover' }), i2('x-text-neutral', 'more_horiz') + i2('x-text-neutral', 'content_copy') + i2('x-text-neutral', 'close')),
+  toneRow('Danger', 'quiet destructive on a row', b2('x-text-danger', 'Remove') + b2('x-text-danger', 'Remove', { state: 'is-hover' }), i2('x-text-danger', 'delete') + i2('x-text-danger', 'delete', { state: 'is-hover' })),
+], '150px');
+
+function matrix(id, rows) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<div></div>' + HEAD.map((h) => `<div class="h">${h}</div>`).join('') +
+    rows.map(([name, note, make]) => `<div class="n">${name}<span>${note}</span></div>` + STATES.map((s) => `<div class="cell">${make(s)}</div>`).join('')).join('');
+}
+
+matrix('emphasis', [
+  ['Primary', 'unchanged', (s) => btn('lucent-button--primary', 'Publish', s)],
+  ['Secondary', 'outlined, no fill', (s) => btn('p-secondary', 'Cancel', s) + ibtn('p-secondary', 'tune', s)],
+  ['Ghost', 'transparent until touched', (s) => btn('p-ghost', 'Rename', s) + ibtn('p-ghost', 'more_horiz', s)],
+  ['Ghost today', 'for comparison', (s) => btn('lucent-button--ghost', 'Rename', s) + ibtn('lucent-icon-button--ghost', 'more_horiz', s)],
+]);
+
+matrix('text', [
+  ['Underline', 'today', (s) => btn('lucent-button--text p-text t-current', 'Sign out', s)],
+  ['A. Color', 'pine-50, darker on hover and press', (s) => btn('p-text t-color', 'Sign out', s)],
+  ['B. Tint', 'pine-50, soft pine fill on hover', (s) => btn('p-text t-tint', 'Sign out', s)],
+  ['C. Strong + tint', 'pine-30 at rest, fill on hover', (s) => btn('p-text t-both', 'Sign out', s)],
+  ['D. Rule', 'bottom rule on hover, thicker on press', (s) => btn('p-text t-rule', 'Sign out', s)],
+]);
+
+matrix('danger', [
+  ['Primary danger', 'final destructive confirm', (s) => btn('d-primary', 'Delete project', s)],
+  ['Secondary danger', 'entry into a destructive flow', (s) => btn('d-secondary', 'Revoke all', s)],
+  ['Danger today', 'for comparison', (s) => btn('lucent-button--danger', 'Delete project', s)],
+]);
+
+const pairs = [
+  ['Dialog footer', `<div class="row">${btn('p-secondary', 'Cancel')}${btn('lucent-button--primary', 'Send invite', '', 'send')}</div>`],
+  ['Destructive confirm', `<div class="row">${btn('p-secondary', 'Keep project')}${btn('d-primary', 'Delete project')}</div>`],
+  ['Toolbar', `<div class="row row--start" data-wide>${ibtn('p-ghost', 'undo')}${ibtn('p-ghost', 'redo')}${ibtn('p-ghost', 'content_copy')}<span style="flex:1"></span>${btn('p-secondary', 'Preview')}${btn('lucent-button--primary', 'Publish')}</div>`],
+  ['Row actions', `<div class="row" style="justify-content:space-between"><span class="n" style="color:var(--color--semantic--text-strong)">Safari on iPhone</span><span class="row">${btn('p-text t-tint', 'Sign out')}${ibtn('p-ghost', 'more_horiz')}</span></div>`],
+];
+document.getElementById('pairs').innerHTML = pairs.map(([n, h]) => `<div class="pair"${h.includes('data-wide') ? ' style="grid-column: span 2"' : ''}><span class="n">${n}</span>${h}</div>`).join('');
+
+matrix('glass', [
+  ['Today', 'glass fill, no edge', (s) => btn('g-current', 'Filters', s) + ibtn('g-current', 'tune', s)],
+  ['A. Frosted', 'stronger glass, hairline, lift', (s) => btn('g-frost', 'Filters', s) + ibtn('g-frost', 'tune', s)],
+  ['B. Outline', 'clear with a soft edge', (s) => btn('g-outline', 'Filters', s) + ibtn('g-outline', 'tune', s)],
+  ['C. Ghost', 'clear until touched', (s) => btn('g-ghost', 'Filters', s) + ibtn('g-ghost', 'tune', s)],
+  ['Primary', 'stays solid on glass', (s) => btn('lucent-button--primary', 'Apply', s)],
+]);
+
+const gp = (name, sec, ico) => [name, `<div class="row row--start">${ibtn(ico, 'zoom_out')}${ibtn(ico, 'zoom_in')}${ibtn(ico, 'fit_screen')}<span style="flex:1"></span>${btn(sec, 'Share')}${btn('lucent-button--primary', 'Publish')}</div>`];
+document.getElementById('glass-pairs').innerHTML = [
+  gp('Today', 'g-current', 'g-current'),
+  gp('A. Frosted', 'g-frost', 'g-ghost'),
+  gp('B. Outline', 'g-outline', 'g-ghost'),
+  gp('C. Ghost', 'g-ghost', 'g-ghost'),
+].map(([n, h]) => `<div class="pair glass-pair"><span class="n">${n}</span>${h}</div>`).join('');
+
+document.querySelectorAll('#theme button').forEach((b) => b.addEventListener('click', () => {
+  document.documentElement.dataset.theme = b.dataset.v;
+  document.querySelectorAll('#theme button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+}));
+const q = new URLSearchParams(location.search).get('theme');
+if (q) document.querySelector(`#theme [data-v="${q}"]`)?.click();
+</script>
+</body>
+</html>
