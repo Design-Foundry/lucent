@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, output } from '@angular/core';
 import { LucentIcon, IconSize } from '../icon/icon';
-import { ButtonVariant } from '../button/button';
+import { ButtonTone, ButtonVariant } from '../button/button';
 import { ControlSize } from '../sizing';
 
 export type IconButtonSize = ControlSize;
@@ -27,13 +27,15 @@ const SPINNER_DIAMETER: Record<IconButtonSize, number> = {
 	templateUrl: './icon-button.html',
 	// Styled by the shared base (styles/components/icon-button.css) via the lucent- contract.
 	host: {
-		'[class]': '"lucent-icon-button lucent-icon-button--" + variant() + " lucent-icon-button--" + size()',
+		'[class]': '"lucent-icon-button lucent-icon-button--" + variant() + (tone() === "danger" ? " lucent-icon-button--danger" : "") + " lucent-icon-button--" + size()',
 		'[class.is-loading]': 'loading()'
 	}
 })
 export class LucentIconButton {
 	readonly icon = input('');
+	/** Same set as the button. `text` draws the glyph in ink: the icon carries the affordance. */
 	readonly variant = input<ButtonVariant>('primary');
+	readonly tone = input<ButtonTone>('neutral');
 	readonly size = input<IconButtonSize>('md');
 	readonly loading = input(false, { transform: booleanAttribute });
 	readonly disabled = input(false, { transform: booleanAttribute });

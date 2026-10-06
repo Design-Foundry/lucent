@@ -47,8 +47,6 @@
   border-radius: var(--_radius);
   border: var(--border-subtle);
   background: var(--color--semantic--surface-default);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
   cursor: pointer;
   width: 100%;
   text-align: left;

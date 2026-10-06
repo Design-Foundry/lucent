@@ -22,7 +22,7 @@
   box-sizing: border-box;
 }
 
-.lucent-toast--informative { background: var(--color--semantic--surface-base);    --lucent-toast-color: var(--color--semantic--text-muted); }
+.lucent-toast--informative { background: var(--color--semantic--info-subtle);    --lucent-toast-color: oklch(from var(--color--semantic--info) calc(l - 0.4) c h); }
 .lucent-toast--success     { background: var(--color--semantic--success-subtle); --lucent-toast-color: oklch(from var(--color--semantic--success) calc(l - 0.4) c h); }
 .lucent-toast--warning     { background: var(--color--semantic--warning-subtle); --lucent-toast-color: oklch(from var(--color--semantic--warning) calc(l - 0.3) c h); }
 .lucent-toast--error       { background: var(--color--semantic--error-subtle);   --lucent-toast-color: oklch(from var(--color--semantic--error) calc(l - 0.4) c h); }

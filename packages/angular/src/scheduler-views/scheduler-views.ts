@@ -31,8 +31,8 @@ interface MonthCellVM { day: number; today: boolean; outside: boolean; events: S
 		<div class="lucent-scheduler__header">
 			<span class="lucent-scheduler__title">{{ title() }}</span>
 			<div class="lucent-scheduler__nav">
-				<lucent-icon-button icon="chevron_left" variant="ghost" size="sm" ariaLabel="Previous month" (clicked)="shift(-1)" />
-				<lucent-icon-button icon="chevron_right" variant="ghost" size="sm" ariaLabel="Next month" (clicked)="shift(1)" />
+				<lucent-icon-button icon="chevron_left" variant="text" size="sm" ariaLabel="Previous month" (clicked)="shift(-1)" />
+				<lucent-icon-button icon="chevron_right" variant="text" size="sm" ariaLabel="Next month" (clicked)="shift(1)" />
 			</div>
 		</div>
 		<div class="lucent-scheduler-month__weekdays">
@@ -91,8 +91,8 @@ interface WeekColVM { today: boolean; showNow: boolean; events: WeekEventVM[]; }
 		<div class="lucent-scheduler__header">
 			<span class="lucent-scheduler__title">{{ title() }}</span>
 			<div class="lucent-scheduler__nav">
-				<lucent-icon-button icon="chevron_left" variant="ghost" size="sm" ariaLabel="Previous week" (clicked)="shift(-1)" />
-				<lucent-icon-button icon="chevron_right" variant="ghost" size="sm" ariaLabel="Next week" (clicked)="shift(1)" />
+				<lucent-icon-button icon="chevron_left" variant="text" size="sm" ariaLabel="Previous week" (clicked)="shift(-1)" />
+				<lucent-icon-button icon="chevron_right" variant="text" size="sm" ariaLabel="Next week" (clicked)="shift(1)" />
 			</div>
 		</div>
 		<div class="lucent-scheduler-week__head">

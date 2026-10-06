@@ -26,7 +26,7 @@
 ## Usage
 
 ```html
-<df-icon-button icon="more_vert" ariaLabel="Actions" variant="ghost" />
+<df-icon-button icon="more_vert" ariaLabel="Actions" variant="text" />
 <df-icon-button icon="delete" ariaLabel="Delete" variant="danger" [loading]="busy()" />
 ```
 
