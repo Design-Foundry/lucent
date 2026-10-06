@@ -36,6 +36,7 @@
 .lucent-composer__field {
   flex: 1 0 0;
   min-width: 0;
+  width: 0;
   border: none;
   background: transparent;
   outline: none;

@@ -28,6 +28,8 @@
   --color--semantic--accent-strong:  var(--color--primitive--pine-70);
   --color--semantic--accent-subtle:  var(--color--primitive--pine-20);
   --color--semantic--accent-text:    oklch(from var(--color--primitive--pine-70) l calc(c * 1.8) h);
+  --color--semantic--scrollbar-thumb: var(--color--primitive--slate-30);
+  --color--semantic--scrollbar-thumb-hover: var(--color--primitive--slate-50);
 
   /* Feedback (keep saturated colors; darken the subtle backgrounds) */
   --color--semantic--success:        var(--color--primitive--success-60);
@@ -100,6 +102,8 @@
     --color--semantic--accent-strong:  var(--color--primitive--pine-70);
     --color--semantic--accent-subtle:  var(--color--primitive--pine-20);
     --color--semantic--accent-text:    oklch(from var(--color--primitive--pine-70) l calc(c * 1.8) h);
+    --color--semantic--scrollbar-thumb: var(--color--primitive--slate-30);
+    --color--semantic--scrollbar-thumb-hover: var(--color--primitive--slate-50);
 
     --color--semantic--success:        var(--color--primitive--success-60);
     --color--semantic--success-subtle: var(--color--primitive--success-20);

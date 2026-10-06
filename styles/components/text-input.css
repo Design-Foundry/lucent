@@ -87,6 +87,7 @@
 .lucent-text-input input {
   flex: 1 0 0;
   min-width: 0;
+  width: 0;
   background: transparent;
   border: none;
   outline: none;
