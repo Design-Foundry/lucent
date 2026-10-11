@@ -111,3 +111,18 @@ Pagination · Empty-state · Accordion/disclosure.
 | `ControlSize` scale + tokens; retrofit of button/input/select/chip/checkbox | Migrate icon-button/toggle/tab/avatar to `ControlSize`; field wrapper; segmented control |
 
 Keep this doc current as items land — it's the single place that answers "what next and why."
+
+## 7. Parked
+
+**Named layout presets** (`stack`, `row`, `cluster`, `grid`, `split`, `box`). Parked 2026-10-11.
+
+Three levels exist: mechanical utilities (per-property, Tailwind style), intent presets (a few named
+layouts whose only knob is a spacing scale), and patterns (property row, inspector, form layout).
+The presets are the middle level. They were parked because they are close to a preset with no
+consumer yet, and because the design system has no home for a layout that is not a component. Text
+utilities are different: they project typography tokens that already exist (see
+[text.md](./components/text.md)).
+
+To revive: model each preset as a component of the system (a surface root, a body slot, axes bound
+to the spacing collection). That needs `wrap` and automatic grid columns in the model, recorded in
+hub `docs/model-decisions-bench.md` as D13. `gap` and padding stay style properties.
