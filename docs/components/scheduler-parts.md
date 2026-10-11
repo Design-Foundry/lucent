@@ -17,7 +17,7 @@ category palette and one shared CSS layer (`styles/components/scheduler.css`).
 | Event Block | `<EventBlock>` | `<lucent-event-block>` | `<LucentEventBlock>` |
 | Agenda Row | `<AgendaRow>` | `<lucent-agenda-row>` | `<LucentAgendaRow>` |
 
-Packages: `@design-foundry/lucent-react` · `@design-foundry/lucent` (Angular) ·
+Packages: `@design-foundry/lucent-react` · `@design-foundry/lucent-angular` (Angular) ·
 `@design-foundry/lucent-wc` · `DesignFoundry.Lucent`.
 
 ## Category palette

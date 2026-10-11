@@ -8,7 +8,7 @@ it floats a Calendar, and picking a day sets the value and closes the popover.
 
 | Target | Reference | Package |
 |---|---|---|
-| Angular | `<lucent-date-picker>` | `@design-foundry/lucent` |
+| Angular | `<lucent-date-picker>` | `@design-foundry/lucent-angular` |
 
 Every kit renders the same `.lucent-date-picker` structure: `__label?` · `__trigger` (button:
 `__icon` + `__value` + `__caret`) · a `.lucent-date-picker__popover` wrapping a `.lucent-calendar`.

@@ -9,7 +9,7 @@ sensible defaults) and keeps the popover open so the other columns can be adjust
 
 | Target | Reference | Package |
 |---|---|---|
-| Angular | `<lucent-time-picker>` | `@design-foundry/lucent` |
+| Angular | `<lucent-time-picker>` | `@design-foundry/lucent-angular` |
 
 Every kit renders the same `.lucent-time-picker` structure: `__label?` · `__trigger` (`schedule`
 icon + `__value` + caret) · a `.lucent-time-picker__popover` of three `__col`s, each holding
