@@ -1,6 +1,6 @@
 {
   "name": "lucent-workspace",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "Lucent design system — Angular workspace (library + showcase). Not published; the library at packages/angular is.",
   "private": true,
   "license": "Apache-2.0",
@@ -10,7 +10,9 @@
     "lib:pack": "npm run lib:build && cd dist/lucent && npm pack",
     "showcase": "ng serve",
     "showcase:build": "ng build lucent-angular-showcase",
-    "build": "npm run lib:build && npm run showcase:build"
+    "build": "npm run lib:build && npm run showcase:build",
+    "version:sync": "node scripts/sync-version.mjs",
+    "version:check": "node scripts/sync-version.mjs --check"
   },
   "dependencies": {
     "@angular/cdk": "^22.0.4",

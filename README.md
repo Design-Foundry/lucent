@@ -121,7 +121,7 @@ it stayed light, giving **1.94:1** on the primary button in every consuming app.
 ## Layout
 
 ```
-styles/                framework-neutral core — plain CSS, no build step
+styles/                @design-foundry/lucent-styles  (framework-neutral core — plain CSS, no build step)
   core.css               tokens + the 43 components every product needs
   packs/                 messaging · temporal · scheduler · daw (opt-in, by domain)
   lucent.css             core + the shipping packs, for consumers that want the lot
@@ -129,7 +129,7 @@ styles/                framework-neutral core — plain CSS, no build step
   components/            63 stylesheets keyed to lucent- class names
 docs/                  the "why" — conventions, density, typography (the reference lives on the docs site)
 packages/
-  angular/               @design-foundry/lucent          (Angular library, ng-packagr)
+  angular/               @design-foundry/lucent-angular          (Angular library, ng-packagr)
 samples/
   lucent-angular-showcase          Angular verification host (light/dark)
 ```

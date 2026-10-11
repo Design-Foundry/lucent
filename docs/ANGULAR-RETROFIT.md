@@ -28,7 +28,7 @@ kits.
 > ```
 >
 > The showcase consumes the library **by source** via a TS path alias
-> (`@design-foundry/lucent` → `packages/angular/src/index.ts` in the root `tsconfig.json`) — the
+> (`@design-foundry/lucent-angular` → `packages/angular/src/index.ts` in the root `tsconfig.json`) — the
 > dev-loop analog of a .NET `ProjectReference`, so edits show up on save with no pack/install step.
 > A component still on `df-` classes renders via its own (parked) SCSS; once retrofitted it drops
 > the SCSS and picks up the shared `styles/lucent.css` — so the showcase shows each component

@@ -9,7 +9,7 @@ is never after the end.
 
 | Target | Reference | Package |
 |---|---|---|
-| Angular | `<lucent-date-range-picker>` | `@design-foundry/lucent` |
+| Angular | `<lucent-date-range-picker>` | `@design-foundry/lucent-angular` |
 
 Reuses the `.lucent-date-picker` structure and CSS: `__label?` · `__trigger` (`date_range` icon +
 `__value` + caret) · a `.lucent-date-picker__popover` wrapping a range-mode `.lucent-calendar`.

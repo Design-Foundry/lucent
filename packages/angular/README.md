@@ -1,4 +1,4 @@
-# @design-foundry/lucent (Angular kit)
+# @design-foundry/lucent-angular (Angular kit)
 
 The Angular implementation of the Lucent class contract. Every component emits the
 `lucent-` class names defined in [`styles/`](../../styles/) and ships no CSS of its own:
@@ -16,10 +16,10 @@ The package is on GitHub Packages:
 ```
 
 ```bash
-npm install @design-foundry/lucent @angular/cdk
+npm install @design-foundry/lucent-angular @design-foundry/lucent-styles @angular/cdk
 ```
 
-Add `node_modules/@design-foundry/lucent/styles/core.css` (plus any packs) to the `styles`
+Add `node_modules/@design-foundry/lucent-styles/core.css` (plus any packs) to the `styles`
 array in `angular.json`, and load Outfit, Roboto Mono and Material Icons.
 
 ## Build
