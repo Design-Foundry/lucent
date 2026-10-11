@@ -115,6 +115,7 @@ Keep this doc current as items land — it's the single place that answers "what
 ## 7. Parked
 
 **Named layout presets** (`stack`, `row`, `cluster`, `grid`, `split`, `box`). Parked 2026-10-11.
+Full analysis in [parked/layout-presets.md](./parked/layout-presets.md).
 
 Three levels exist: mechanical utilities (per-property, Tailwind style), intent presets (a few named
 layouts whose only knob is a spacing scale), and patterns (property row, inspector, form layout).
