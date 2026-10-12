@@ -72,7 +72,8 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `df-menu-trigger` | ✅ [menu-trigger.md](./menu-trigger.md) | ⚠️ no `aria-haspopup`/`expanded` |
 | `df-menu-item` | ✅ [menu-item.md](./menu-item.md) | ❌ dead `surface-subtle` hover; no projection |
 | `df-menu-divider` | ✅ [menu-divider.md](./menu-divider.md) | ⚠️ duplicates `nav-divider` |
-| `lucent-accordion` | ✅ [accordion.md](./accordion.md) | ✅ on-convention |
+| `lucent-accordion` | Defined, not implemented [accordion.md](./accordion.md) | The group: selection and focus movement |
+| `lucent-accordion-item` | ✅ [accordion-item.md](./accordion-item.md) | ✅ on-convention; renamed from `lucent-accordion` |
 
 ## Feedback
 | Component | Doc | Conventions |
