@@ -91,8 +91,10 @@ in development.
 - Field does not list the controls it accepts: any component that declares `fieldControl@1` participates.
   The closed-set rule for `allowedComponents` applies to slots of components in the design system, and
   Field is not one.
-- Label, hint and error are not components. Their text takes `.lucent-text-label-md` and
-  `.lucent-text-caption` and the semantic color tokens; spacing between the pieces is the consumer's.
+- Label, hint and error are not components. `lucent-styles` ships default classes for the parts,
+  `.lucent-field__label`, `.lucent-field__hint` and `.lucent-field__error`, built from the text utilities
+  (`.lucent-text-label-md`, `.lucent-text-caption`) and the semantic color tokens. They are CSS only and
+  carry no logic; spacing between the pieces stays the consumer's.
 
 ## States & accessibility
 
@@ -131,6 +133,4 @@ contract.
 
 ## Notes / TODO
 
-- Open: whether `lucent-styles` ships default classes for the label, hint and error parts (for example
-  `.lucent-field__label`), built from the text utilities. It is CSS only and would not change the logic.
 - Wave 1 follow-ups: number field, search field, accordion group.
