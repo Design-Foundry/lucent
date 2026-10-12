@@ -47,6 +47,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 |---|---|---|
 | `lucent-field` | Defined, not implemented [field.md](./field.md) | Logic only, no appearance |
 | `lucent-number-field` | Defined, not implemented [number-field.md](./number-field.md) | Spinbutton pattern, scrub deferred |
+| `lucent-search-field` | Defined, not implemented [search-field.md](./search-field.md) | Interactions plus `setValue`, autocomplete deferred to Combobox |
 | `df-avatar` | ✅ [avatar.md](./avatar.md) | ⚠️ initials have no accessible name |
 | `df-input` | ✅ [input.md](./input.md) | ✅ CVA reference; ⚠️ legacy adornment slots |
 | `df-inline-input` | ✅ [inline-input.md](./inline-input.md) | ⚠️ no labelling; forms-only disabled |
