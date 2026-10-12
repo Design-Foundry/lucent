@@ -45,6 +45,7 @@ biggest known drift (see each page's Conventions-check table for the full list).
 ## Form inputs
 | Component | Doc | Conventions |
 |---|---|---|
+| `lucent-field` | Defined, not implemented [field.md](./field.md) | Logic only, no appearance |
 | `df-avatar` | ✅ [avatar.md](./avatar.md) | ⚠️ initials have no accessible name |
 | `df-input` | ✅ [input.md](./input.md) | ✅ CVA reference; ⚠️ legacy adornment slots |
 | `df-inline-input` | ✅ [inline-input.md](./inline-input.md) | ⚠️ no labelling; forms-only disabled |
