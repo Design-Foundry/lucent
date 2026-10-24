@@ -21,6 +21,7 @@
   flex-direction: column;
   gap: var(--dimension--primitive--spacing-0-5);
   width: 100%;
+  box-sizing: border-box;
   min-width: 0;
 
   /* Density (default md). */
