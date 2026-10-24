@@ -8,9 +8,9 @@
 
 body {
   margin: 0;
-  background: var(--color--surface--canvas, #fff);
-  color: var(--color--text--primary, #1a1a1a);
-  font-family: var(--typography--font-family--sans, system-ui, sans-serif);
+  background: var(--color--semantic--surface-base);
+  color: var(--color--semantic--text-default);
+  font-family: var(--font--primitive--sans);
 }
 
 .sc-header {
@@ -22,8 +22,8 @@ body {
   justify-content: space-between;
   gap: 16px;
   padding: 12px 24px;
-  background: var(--color--surface--base, #f5f5f5);
-  border-bottom: 1px solid var(--color--border--subtle, #e0e0e0);
+  background: var(--color--semantic--surface-default);
+  border-bottom: var(--border-subtle);
 }
 
 .sc-header__title {
@@ -46,8 +46,8 @@ body {
   gap: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid var(--color--border--default, #ccc);
-  background: var(--color--surface--canvas, #fff);
+  border: var(--border-default);
+  background: var(--color--semantic--surface-base);
   color: inherit;
   font: inherit;
   font-size: 14px;
@@ -95,8 +95,8 @@ body {
 .sc-card {
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid var(--color--border--subtle, #e0e0e0);
-  background: var(--color--surface--base, #fafafa);
+  border: var(--border-subtle);
+  background: var(--color--semantic--surface-default);
 }
 
 .sc-label {
@@ -111,11 +111,20 @@ body {
   margin-top: 4px;
 }
 
+.sc-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* A neutral surface block to preview components meant to sit on a panel. */
 .sc-panel {
   width: 260px;
   padding: 8px;
   border-radius: 12px;
-  border: 1px solid var(--color--border--subtle, #e0e0e0);
-  background: var(--color--surface--base, #fafafa);
+  border: var(--border-subtle);
+  background: var(--color--semantic--surface-default);
 }

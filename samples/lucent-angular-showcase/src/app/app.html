@@ -38,6 +38,16 @@
         <lucent-status-tag variant="error" label="Error" />
       </div>
 
+      <div class="sc-label">Badge</div>
+      <div class="sc-row">
+        <lucent-badge variant="accent" kind="count" label="3" />
+        <lucent-badge variant="error" kind="count" label="12" />
+        <lucent-badge variant="success" label="New" />
+        <lucent-badge variant="neutral" label="Beta" />
+        <lucent-badge variant="accent" kind="dot" />
+        <lucent-badge variant="error" kind="dot" />
+      </div>
+
       <div class="sc-label">Tooltip (hover / focus the button)</div>
       <div class="sc-row">
         <lucent-button [lucentTooltip]="'Saves your changes'" variant="secondary">Hover me</lucent-button>
@@ -95,6 +105,21 @@
         <lucent-checkbox label="Small" size="sm" [ngModel]="true" />
       </div>
 
+      <div class="sc-label">Radio group</div>
+      <div class="sc-row">
+        <lucent-radio-group label="Digest frequency" [(ngModel)]="frequency">
+          <lucent-radio value="daily" label="Daily" />
+          <lucent-radio value="weekly" label="Weekly" />
+          <lucent-radio value="never" label="Never" [disabled]="true" />
+        </lucent-radio-group>
+      </div>
+
+      <div class="sc-label">Segmented control</div>
+      <div class="sc-row">
+        <lucent-segmented-control label="View" [options]="viewOptions" [(value)]="view" />
+        <lucent-segmented-control label="View" size="sm" [options]="viewOptions" [(value)]="view" />
+      </div>
+
       <div class="sc-label">Chip</div>
       <div class="sc-row">
         <lucent-chip label="Default" />
@@ -132,6 +157,22 @@
           <lucent-icon-button variant="text" icon="notifications" ariaLabel="Alerts" />
           <lucent-icon-button variant="text" icon="help" ariaLabel="Help" />
         </lucent-activity-bar>
+      </div>
+
+      <div class="sc-label">Expanded nav rail with nav groups</div>
+      <div class="sc-row" style="align-items:stretch">
+        <lucent-nav-rail [expanded]="true">
+          <lucent-nav-group heading="Workspace">
+            <lucent-nav-item name="dashboard" label="Overview" href="#" [active]="true" />
+            <lucent-nav-item name="group" label="Members" href="#" subtitle="12 people" />
+          </lucent-nav-group>
+          <lucent-divider />
+          <lucent-nav-group heading="Library">
+            <lucent-nav-item name="palette" label="Tokens" href="#" />
+            <lucent-nav-item name="widgets" label="Components" href="#" />
+            <lucent-nav-item name="archive" label="Archived" href="#" [disabled]="true" />
+          </lucent-nav-group>
+        </lucent-nav-rail>
       </div>
     </div>
   </section>
@@ -178,6 +219,27 @@
           </div>
         </div>
       </div>
+
+      <div class="sc-row" style="align-items:flex-start">
+        <div class="sc-col" style="min-width:260px">
+          <div class="sc-label">Textarea</div>
+          <lucent-textarea placeholder="What changed in this release?" [rows]="4">
+            <span lucentLabel>Release notes</span>
+            <span lucentHint>Markdown is supported.</span>
+          </lucent-textarea>
+        </div>
+
+        <div class="sc-col" style="min-width:260px">
+          <div class="sc-label">Date picker</div>
+          <lucent-date-picker label="Due date" [(value)]="date" />
+
+          <div class="sc-label" style="margin-top:12px">Date range picker</div>
+          <lucent-date-range-picker label="Sprint" [(value)]="range" />
+
+          <div class="sc-label" style="margin-top:12px">Time picker</div>
+          <lucent-time-picker label="Start time" [(value)]="time" [minuteStep]="15" />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -198,6 +260,36 @@
           <lucent-list-item icon="delete" label="Trash" tone="danger" />
           <lucent-list-item icon="block" label="Disabled" [disabled]="true" />
         </lucent-list>
+      </div>
+
+      <div class="sc-label" style="margin-top:16px">Table</div>
+      <table lucentTable>
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th class="lucent-table__cell--right">Files</th>
+            <th class="lucent-table__cell--center"><span class="sc-visually-hidden">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (release of releases; track release.version) {
+            <tr>
+              <td>{{ release.version }}</td>
+              <td><lucent-avatar [name]="release.owner" scale="sm" /></td>
+              <td><lucent-status-tag [variant]="release.status" [label]="release.label" /></td>
+              <td class="lucent-table__cell--right">{{ release.files }}</td>
+              <td class="lucent-table__cell--center"><lucent-icon-button icon="more_vert" variant="text" size="sm" ariaLabel="More" /></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+      <div class="sc-label" style="margin-top:16px">Calendar</div>
+      <div class="sc-row" style="align-items:flex-start">
+        <lucent-calendar [month]="calendarMonth" [value]="calendarValue()" (changed)="calendarValue.set($event)" />
+        <lucent-calendar mode="range" [month]="calendarMonth" [rangeStart]="range()?.start ?? null" [rangeEnd]="range()?.end ?? null" />
       </div>
     </div>
   </section>
@@ -255,6 +347,17 @@
           </lucent-menu>
         </div>
       </div>
+
+      <div class="sc-label">Accordion</div>
+      <div class="sc-col" style="align-items:stretch;max-width:520px">
+        <lucent-accordion title="What does a release include?" [expanded]="true">
+          <p style="margin:0">Every package on the design system version, published together.</p>
+        </lucent-accordion>
+        <lucent-accordion title="Who can publish?">
+          <p style="margin:0">Admins, by pushing a v* tag on main.</p>
+        </lucent-accordion>
+        <lucent-accordion title="Archived releases" [disabled]="true" />
+      </div>
     </div>
   </section>
 
@@ -289,6 +392,151 @@
       <div class="sc-col">
         <lucent-snackbar message="Message archived." actionLabel="Undo" />
         <lucent-snackbar message="Copied to clipboard." icon="content_copy" />
+      </div>
+
+      <div class="sc-label" style="margin-top:16px">Inline notice</div>
+      <div class="sc-col" style="align-items:stretch;max-width:520px">
+        <lucent-inline-notice variant="info" title="Release candidate">0.6.1-rc.0 is published under next.</lucent-inline-notice>
+        <lucent-inline-notice variant="success" title="Published">Both packages are on npm.</lucent-inline-notice>
+        <lucent-inline-notice variant="warning">The token expires in 7 days.</lucent-inline-notice>
+        <lucent-inline-notice variant="error" title="Publish failed" [dismissible]="true">npm returned 404.</lucent-inline-notice>
+      </div>
+
+      <div class="sc-label" style="margin-top:16px">Progress</div>
+      <div class="sc-col" style="align-items:stretch;max-width:520px">
+        <lucent-progress label="Uploading tokens" [value]="64" />
+        <lucent-progress label="Resolving" [indeterminate]="true" />
+      </div>
+
+      <div class="sc-label" style="margin-top:16px">Spinner</div>
+      <div class="sc-row">
+        <lucent-spinner size="sm" label="Loading" />
+        <lucent-spinner size="md" label="Loading" />
+        <lucent-spinner size="lg" label="Loading" />
+      </div>
+
+      <div class="sc-label">Skeleton</div>
+      <div class="sc-row" style="align-items:flex-start">
+        <lucent-skeleton shape="circle" />
+        <div class="sc-col" style="align-items:stretch;width:280px">
+          <lucent-skeleton />
+          <lucent-skeleton />
+          <lucent-skeleton shape="block" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pack: Messaging ──────────────────────────────────────────────────── -->
+  <section class="sc-section">
+    <p class="sc-section__head">Messaging pack</p>
+    <h2 class="sc-section__title">Messaging</h2>
+
+    <div class="sc-card">
+      <div class="sc-row" style="align-items:flex-start">
+        <div class="sc-col" style="width:300px">
+          <div class="sc-label">Conversation row</div>
+          <div class="sc-panel" style="width:100%">
+            <lucent-conversation-row title="Release planning" preview="Tag is on main, publishing now" time="09:41" [unread]="2" [active]="true" />
+            <lucent-conversation-row title="Ada Lovelace" preview="The table needs a sort state" time="Yesterday" />
+            <lucent-conversation-row title="Design review" preview="Shared the button lab" time="Mon" />
+          </div>
+
+          <div class="sc-label" style="margin-top:12px">Chat trigger and jump to latest</div>
+          <div class="sc-row">
+            <lucent-chat-trigger [unread]="3" />
+            <lucent-chat-trigger icon="chat" />
+            <lucent-jump-to-latest [count]="4" />
+            <lucent-jump-to-latest />
+          </div>
+        </div>
+
+        <div class="sc-col" style="flex:1;min-width:320px;align-items:stretch">
+          <div class="sc-label">Message bubble and typing indicator</div>
+          <lucent-message-bubble role="system">Diego created the conversation.</lucent-message-bubble>
+          <lucent-message-bubble role="user" author="Diego" timestamp="09:40">Publish 0.6.1-rc.0 under next.</lucent-message-bubble>
+          <lucent-message-bubble role="assistant" author="Claude" timestamp="09:41">
+            Tagged on <lucent-reference-tag kind="resource" label="main" /> and published both packages.
+          </lucent-message-bubble>
+          <lucent-message-bubble role="assistant" group="continuation">
+            <lucent-code-block language="ts" [code]="snippet" />
+          </lucent-message-bubble>
+          <lucent-message-bubble role="other" author="Ada" timestamp="09:43">Checking it in hub now.</lucent-message-bubble>
+          <div class="sc-row" style="margin:0">
+            <lucent-typing-indicator />
+            <lucent-typing-indicator variant="generating" label="Generating" />
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-label">Reference tag</div>
+      <div class="sc-row">
+        <lucent-reference-tag kind="mention" label="Ada Lovelace" />
+        <lucent-reference-tag kind="component" label="Button" />
+        <lucent-reference-tag kind="token" label="accent-default" swatch="var(--color--semantic--accent-default)" />
+        <lucent-reference-tag kind="resource" label="release-notes.md" icon="description" />
+      </div>
+
+      <div class="sc-label">Prompt suggestion</div>
+      <div class="sc-row" style="align-items:stretch">
+        <lucent-prompt-suggestion icon="palette" label="Audit tokens" description="Find tokens no component reads" />
+        <lucent-prompt-suggestion icon="widgets" label="Draft a component" description="Start from the Field definition" />
+        <lucent-prompt-suggestion variant="chip" label="Summarize changes" />
+        <lucent-prompt-suggestion variant="chip" label="Compare releases" />
+      </div>
+
+      <div class="sc-label">Composer</div>
+      <div class="sc-col" style="align-items:stretch;max-width:640px">
+        <lucent-composer [(value)]="draft" placeholder="Ask about this release…" />
+        <lucent-composer value="Publish the release" [sending]="true" />
+        <lucent-composer [streaming]="true" placeholder="Claude is answering…" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pack: Scheduling ─────────────────────────────────────────────────── -->
+  <section class="sc-section">
+    <p class="sc-section__head">Temporal and scheduler packs</p>
+    <h2 class="sc-section__title">Scheduling</h2>
+
+    <div class="sc-card">
+      <div class="sc-label">Event chip and event block</div>
+      <div class="sc-row">
+        <lucent-event-chip category="work" label="Token audit" />
+        <lucent-event-chip category="meeting" label="Design review" time="10:00" />
+        <lucent-event-chip category="personal" label="Dentist" time="17:30" />
+        <lucent-event-chip category="deadline" label="Release 0.7" />
+      </div>
+      <div class="sc-row" style="align-items:stretch">
+        <div style="width:180px;height:72px"><lucent-event-block category="meeting" title="Design review" time="10:00 to 11:00" /></div>
+        <div style="width:180px;height:72px"><lucent-event-block category="work" title="Token audit" time="09:00 to 12:00" /></div>
+        <div style="width:180px;height:72px"><lucent-event-block category="deadline" title="Release 0.7" time="14:00" /></div>
+      </div>
+
+      <div class="sc-label">Month cell</div>
+      <div class="sc-row" style="align-items:stretch">
+        <div style="width:140px"><lucent-month-cell [day]="24" [today]="true" [events]="cellEvents" /></div>
+        <div style="width:140px"><lucent-month-cell [day]="25" [events]="cellEvents.slice(0, 1)" /></div>
+        <div style="width:140px"><lucent-month-cell [day]="1" [outside]="true" /></div>
+      </div>
+
+      <div class="sc-label">Agenda row</div>
+      <div class="sc-panel" style="width:360px;margin-bottom:16px">
+        <lucent-agenda-row category="meeting" time="10:00" title="Design review" subtitle="Lucent kit API" />
+        <lucent-agenda-row category="work" time="13:00" title="Token audit" />
+        <lucent-agenda-row category="deadline" time="All day" title="Release 0.7" />
+      </div>
+
+      <div class="sc-label">Scheduler month</div>
+      <lucent-scheduler-month [(month)]="schedulerMonth" [events]="datedEvents" />
+
+      <div class="sc-label" style="margin-top:16px">Scheduler week</div>
+      <lucent-scheduler-week [(weekStart)]="weekStart" [events]="timedEvents" [startHour]="8" [endHour]="18" />
+
+      <div class="sc-label" style="margin-top:16px">Scheduler agenda</div>
+      <div class="sc-row" style="align-items:flex-start">
+        <div style="width:360px"><lucent-scheduler-agenda [events]="datedEvents" /></div>
+        <div style="width:360px"><lucent-scheduler-agenda title="Next week" [events]="[]" /></div>
       </div>
     </div>
   </section>

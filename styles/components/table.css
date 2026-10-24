@@ -45,8 +45,8 @@
 }
 
 /* Column alignment helpers (on th/td). */
-.lucent-table__cell--right  { text-align: right; }
-.lucent-table__cell--center { text-align: center; }
+.lucent-table :is(th, td).lucent-table__cell--right  { text-align: right; }
+.lucent-table :is(th, td).lucent-table__cell--center { text-align: center; }
 
 /* Optional pagination / footer bar (compose the controls inside). */
 .lucent-table__pagination {
