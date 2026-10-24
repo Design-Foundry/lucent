@@ -319,6 +319,16 @@
         <p class="sc-note">Active tab: {{ activeTab() }}</p>
       </div>
 
+      <div class="sc-label">Tabs, floating</div>
+      <div class="sc-row">
+        <lucent-tab-list variant="floating" [activeTab]="activeTab()" (tabChange)="activeTab.set($event)">
+          <lucent-tab value="overview" label="Overview" icon="dashboard" />
+          <lucent-tab value="activity" label="Activity" icon="timeline" />
+          <lucent-tab value="settings" label="Settings" icon="settings" />
+          <lucent-tab value="locked" label="Locked" [disabled]="true" />
+        </lucent-tab-list>
+      </div>
+
       <div class="sc-label">Menu</div>
       <div class="sc-row" style="align-items:flex-start">
         <button class="sc-theme-toggle" type="button" [lucentMenuTrigger]="menuTpl">

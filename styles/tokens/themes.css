@@ -64,7 +64,7 @@
   /* Borders (faint light hairlines on dark) */
   --color--semantic--border-subtle:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--10));
   --color--semantic--border-default: oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--20));
-  --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--30));
+  --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--40));
   --color--semantic--border-focus:   var(--color--primitive--pine-60);
   --color--semantic--border-glass:   oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--15));
 
@@ -134,7 +134,7 @@
 
     --color--semantic--border-subtle:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--10));
     --color--semantic--border-default: oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--20));
-    --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--30));
+    --color--semantic--border-strong:  oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--40));
     --color--semantic--border-focus:   var(--color--primitive--pine-60);
     --color--semantic--border-glass:   oklch(from var(--color--primitive--neutral-100) l c h / var(--opacity--primitive--15));
 

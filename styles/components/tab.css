@@ -6,8 +6,8 @@
  *     .lucent-icon?
  *     .lucent-tab__label
  *
- * One tab inside a .lucent-tab-list. Active tab raises onto a glass pill. Ported from
- * packages/angular/src/tab/tab.scss; `background: none; border: none` lets plain markup
+ * One tab inside a .lucent-tab-list. The active tab raises onto a pill; on the flat track
+ * tab-list.css gives it an outline. `background: none; border: none` lets plain markup
  * render it as a real <button> while keeping the class contract.
  * ============================================================================= */
 

@@ -134,7 +134,7 @@
 
 /* ─── Glass surfaces transmit a frosted state layer to their children ─────────── */
 
-:is(.lucent-card, .lucent-nav-rail, .lucent-activity-bar, .lucent-list, .lucent-tab-list, .lucent-breadcrumbs, .surface-glass, .surface-glass-strong, .surface-glass-subtle) {
+:is(.lucent-card, .lucent-nav-rail, .lucent-activity-bar, .lucent-list, .lucent-tab-list--floating, .lucent-breadcrumbs, .surface-glass, .surface-glass-strong, .surface-glass-subtle) {
   --state-hover: var(--color--semantic--surface-glass-strong);
   --state-press: var(--color--semantic--surface-default);
   --state-selected: var(--color--semantic--surface-glass-strong);

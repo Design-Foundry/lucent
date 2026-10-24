@@ -1,15 +1,22 @@
 import { ChangeDetectionStrategy, Component, contentChildren, effect, HostListener, input, output } from '@angular/core';
 import { LucentTab, TabScale } from '../tab/tab';
 
+/** `plain` sits flat inside a panel or header; `floating` is a glass track over variable content. */
+export type TabListVariant = 'plain' | 'floating';
+
 @Component({
 	selector: 'lucent-tab-list',
 	standalone: true,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: '<ng-content />',
 	// Styled by the shared base (styles/components/tab-list.css) via the lucent- contract.
-	host: { 'class': 'lucent-tab-list', 'role': 'tablist' }
+	host: {
+		'[class]': '"lucent-tab-list" + (variant() === "floating" ? " lucent-tab-list--floating" : "")',
+		'role': 'tablist'
+	}
 })
 export class LucentTabList {
+	readonly variant   = input<TabListVariant>('plain');
 	readonly scale     = input<TabScale>('md');
 	readonly activeTab = input<string>('');
 	readonly tabChange = output<string>();
