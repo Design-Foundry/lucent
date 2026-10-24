@@ -9,12 +9,6 @@ Components read the shared tokens in `styles/tokens/` as runtime CSS custom prop
 
 ## Install
 
-The package is on GitHub Packages:
-
-```
-@design-foundry:registry=https://npm.pkg.github.com
-```
-
 ```bash
 npm install @design-foundry/lucent-angular @design-foundry/lucent-styles @angular/cdk
 ```
