@@ -154,7 +154,6 @@ together, always on the same version.
 |---|---|
 | `0.x.0` | Something breaks: a component, class, token or input is removed or renamed, or a default look changes |
 | `0.x.y` | Nothing breaks: fixes, and new components or variants |
-| `0.x.y-rc.N` | A release candidate, published under the `next` tag; `latest` never moves to it |
 
 Pin an exact version. There are no deprecation periods before 1.0. Every release is
 listed in the [changelog](./CHANGELOG.md).
