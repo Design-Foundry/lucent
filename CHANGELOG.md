@@ -4,6 +4,14 @@ All Lucent packages (`@designfoundry/lucent-styles`, `@designfoundry/lucent-angu
 released together on the same version. Before 1.0 a minor version may break; see
 [Versions](./README.md#versions).
 
+## 0.8.1 (2026-10-24)
+
+### Added
+
+- `@designfoundry/lucent-angular` ships `api.json`: every selector with its inputs, models
+  and outputs, including types and defaults. Import it as
+  `@designfoundry/lucent-angular/api.json`.
+
 ## 0.8.0 (2026-10-24)
 
 ### Changed

@@ -5,7 +5,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "lib:build": "ng build lucent",
+    "lib:build": "ng build lucent && node scripts/api.mjs",
     "lib:watch": "ng build lucent --watch --configuration development",
     "lib:pack": "npm run lib:build && cd dist/lucent && npm pack",
     "showcase": "ng serve",
