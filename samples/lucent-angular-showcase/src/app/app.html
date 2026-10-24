@@ -153,9 +153,9 @@
         </lucent-nav-rail>
 
         <lucent-activity-bar>
-          <lucent-icon-button variant="text" icon="search" ariaLabel="Search" />
-          <lucent-icon-button variant="text" icon="notifications" ariaLabel="Alerts" />
-          <lucent-icon-button variant="text" icon="help" ariaLabel="Help" />
+          <lucent-icon-button variant="text" size="lg" icon="search" ariaLabel="Search" />
+          <lucent-icon-button variant="text" size="lg" icon="notifications" ariaLabel="Alerts" />
+          <lucent-icon-button variant="text" size="lg" icon="help" ariaLabel="Help" />
         </lucent-activity-bar>
       </div>
 
@@ -302,13 +302,9 @@
     <div class="sc-card">
       <div class="sc-label">Card</div>
       <div class="sc-row">
-        <lucent-card>
-          <div style="padding:16px;width:240px">
-            <strong>Card title</strong>
-            <p style="margin:8px 0 0;opacity:.7;font-size:14px">
-              A simple surface container with the shared elevation + radius.
-            </p>
-          </div>
+        <lucent-card style="width:280px">
+          <strong>Release 0.6.0</strong>
+          <p style="margin:0;opacity:.7;font-size:14px">Published to npm with provenance.</p>
         </lucent-card>
       </div>
 
@@ -381,7 +377,7 @@
       </div>
 
       <div class="sc-label">Toast</div>
-      <div class="sc-col">
+      <div class="sc-grid-4">
         <lucent-toast variant="success" title="Saved" message="Your changes are live." />
         <lucent-toast variant="warning" title="Heads up" message="Storage is almost full." />
         <lucent-toast variant="error" title="Failed" message="Could not reach the server." />
@@ -433,7 +429,7 @@
     <h2 class="sc-section__title">Messaging</h2>
 
     <div class="sc-card">
-      <div class="sc-row" style="align-items:flex-start">
+      <div class="sc-row" style="align-items:flex-start;gap:40px">
         <div class="sc-col" style="width:300px">
           <div class="sc-label">Conversation row</div>
           <div class="sc-panel" style="width:100%">

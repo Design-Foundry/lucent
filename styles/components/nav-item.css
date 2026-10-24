@@ -42,8 +42,8 @@
   box-sizing: border-box;
 }
 
-.lucent-nav-item:hover:not(.is-disabled) {
-  background: var(--color--semantic--surface-glass-strong);
+.lucent-nav-item:hover:not(.is-disabled):not(.is-active) {
+  background: var(--state-hover);
   color: var(--color--semantic--text-default);
 }
 

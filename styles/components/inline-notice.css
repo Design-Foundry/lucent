@@ -38,7 +38,7 @@
 
 .lucent-inline-notice__icon {
   flex: none;
-  margin-top: 1px;
+  height: 1lh;
   color: var(--_c);
 }
 

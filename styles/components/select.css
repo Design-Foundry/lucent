@@ -94,8 +94,10 @@
   border-radius: var(--radius-sm);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
-  padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-0-5);
+  padding: var(--dimension--primitive--spacing-1);
   box-shadow: var(--shadow-md);
+  width: 100%;
+  box-sizing: border-box;
   overflow: hidden;
   max-height: 280px;
   overflow-y: auto;
@@ -106,7 +108,8 @@
 .lucent-select__field > .lucent-select__dropdown {
   position: absolute;
   left: 0;
-  right: 0;
+  min-width: 100%;
+  width: max-content;
   top: 100%;
   z-index: var(--layer-popover);
   margin-top: 4px;

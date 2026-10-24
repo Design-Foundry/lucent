@@ -30,8 +30,8 @@
 .lucent-modal {
   display: flex;
   flex-direction: column;
-  gap: var(--dimension--primitive--spacing-3);
-  padding: var(--dimension--primitive--spacing-6);
+  gap: var(--dimension--primitive--spacing-4);
+  padding: var(--dimension--primitive--spacing-5);
   box-sizing: border-box;
   width: 90vw;
   max-width: 520px;
@@ -61,7 +61,7 @@
 
 .lucent-modal__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--dimension--primitive--spacing-2);
   width: 100%;
@@ -90,6 +90,10 @@
   font-size: var(--typography--caption--font-size);
   line-height: var(--dimension--primitive--lh-relaxed);
   color: var(--color--semantic--text-muted);
+}
+
+.lucent-modal__close {
+  margin: calc(-1 * var(--dimension--primitive--spacing-2)) calc(-1 * var(--dimension--primitive--spacing-2)) 0 0;
 }
 
 .lucent-modal__footer {
