@@ -86,6 +86,7 @@ export { LucentTab } from './tab/tab';
 export type { TabScale } from './tab/tab';
 
 export { LucentTabList } from './tab-list/tab-list';
+export type { TabListVariant } from './tab-list/tab-list';
 
 export { LucentCard } from './card/card';
 

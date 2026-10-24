@@ -4,6 +4,27 @@ All Lucent packages (`@designfoundry/lucent-styles`, `@designfoundry/lucent-angu
 released together on the same version. Before 1.0 a minor version may break; see
 [Versions](./README.md#versions).
 
+## 0.8.0 (unreleased)
+
+### Changed
+
+- **The tab list track is flat by default**, like the segmented control: `surface-base`
+  with a `border-subtle` outline, no blur and no shadow. Tabs inside a panel or a header no
+  longer float over nothing. For the previous glass track, pass `variant="floating"` in
+  Angular or add `lucent-tab-list--floating`.
+- On the flat track the active tab is a solid `surface-default` pill with a `border-strong`
+  outline and `--shadow-xs` instead of `--shadow-md`, so the selected state clears WCAG
+  1.4.11's 3:1 (4.11:1 light, 3.75:1 dark).
+- Only the floating tab list passes the glass state layer to its children.
+- Dark theme: `border-strong` rises from 30% to 40% opacity. At 30% it measured 2.71:1 on
+  `surface-base`, below 3:1, which also left the selected segmented control segment short in
+  dark.
+
+### Added
+
+- `LucentTabList` takes `variant: 'plain' | 'floating'`, default `'plain'`; the type is
+  exported as `TabListVariant`.
+
 ## 0.7.0 (2026-10-24)
 
 A consistency pass over every component, after reviewing them side by side in the showcase.

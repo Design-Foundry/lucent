@@ -1,17 +1,35 @@
 /* =============================================================================
  * Tab list — framework-neutral component styles.
  *
- * The glass track holding .lucent-tab pills. Ported verbatim from
- * packages/angular/src/tab-list/tab-list.scss.
+ * Structure:
+ *   .lucent-tab-list  (.lucent-tab-list--floating)   [role=tablist]
+ *     .lucent-tab  (.lucent-tab--active)
+ *
+ * The default track is flat, for tabs inside a panel or a header. The floating variant
+ * is a glass track for tabs over variable content such as a canvas or an image.
  * ============================================================================= */
 
 .lucent-tab-list {
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
   padding: var(--dimension--primitive--spacing-0-5);
   border-radius: var(--radius-sm);
+  background: var(--color--semantic--surface-base);
+  border: 1px solid var(--color--semantic--border-subtle);
+}
+
+.lucent-tab-list--floating {
   background: var(--color--semantic--surface-glass);
+  border: none;
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-sm);
+}
+
+/* On the flat track the active fill sits close to the track, so the outline carries the
+ * selected state and clears WCAG 1.4.11's 3:1, as in segmented control. */
+.lucent-tab-list:not(.lucent-tab-list--floating) .lucent-tab--active {
+  background: var(--color--semantic--surface-default);
+  box-shadow: inset 0 0 0 1px var(--color--semantic--border-strong), var(--shadow-xs);
 }
