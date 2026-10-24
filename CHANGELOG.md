@@ -4,7 +4,7 @@ All Lucent packages (`@designfoundry/lucent-styles`, `@designfoundry/lucent-angu
 released together on the same version. Before 1.0 a minor version may break; see
 [Versions](./README.md#versions).
 
-## 0.8.0 (unreleased)
+## 0.8.0 (2026-10-24)
 
 ### Changed
 

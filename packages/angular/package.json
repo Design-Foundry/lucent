@@ -1,6 +1,6 @@
 {
   "name": "@designfoundry/lucent-angular",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Lucent design system: Angular component kit.",
   "license": "Apache-2.0",
   "repository": {
@@ -20,7 +20,7 @@
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@designfoundry/lucent-styles": "0.7.0"
+    "@designfoundry/lucent-styles": "0.8.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
