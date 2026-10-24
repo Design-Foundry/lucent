@@ -65,8 +65,7 @@ Packs are a partition, not a tagging scheme: a component ships in exactly one. I
 Two published tiers (**primitive → semantic**) plus a **control-density alias**
 (`--control-*`) that sits between semantic and components for cross-control row
 alignment. There is **no component-token tier**; components bind straight to semantic
-+ control tokens (with private `--_` locals inside each component). See
-[../docs/CONVENTIONS.md](../docs/CONVENTIONS.md).
++ control tokens (with private `--_` locals inside each component).
 
 ## Consuming
 
