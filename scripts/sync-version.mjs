@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const manifests = ["styles/package.json", "packages/angular/package.json"];
-const lucentPackage = /^@design-foundry\/lucent-/;
+const lucentPackage = /^@designfoundry\/lucent-/;
 const dependencySections = ["dependencies", "peerDependencies", "devDependencies"];
 
 const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));

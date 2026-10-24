@@ -1,11 +1,11 @@
 {
-  "name": "@design-foundry/lucent-angular",
+  "name": "@designfoundry/lucent-angular",
   "version": "0.6.0",
-  "description": "Lucent design system — Angular component kit.",
+  "description": "Lucent design system: Angular component kit.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Design-Foundry/lucent.git",
+    "url": "git+https://github.com/Design-Foundry/lucent.git",
     "directory": "packages/angular"
   },
   "publishConfig": {
@@ -20,7 +20,7 @@
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@design-foundry/lucent-styles": "0.6.0"
+    "@designfoundry/lucent-styles": "0.6.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

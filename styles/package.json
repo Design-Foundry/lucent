@@ -1,11 +1,11 @@
 {
-  "name": "@design-foundry/lucent-styles",
+  "name": "@designfoundry/lucent-styles",
   "version": "0.6.0",
   "description": "Lucent design system: framework-neutral CSS (tokens, component styles, domain packs).",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Design-Foundry/lucent.git",
+    "url": "git+https://github.com/Design-Foundry/lucent.git",
     "directory": "styles"
   },
   "publishConfig": {

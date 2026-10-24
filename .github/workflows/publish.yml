@@ -26,7 +26,7 @@ jobs:
       - name: Check every package is on the design system version
         run: npm run version:check
 
-      - name: Publish @design-foundry/lucent-styles
+      - name: Publish @designfoundry/lucent-styles
         working-directory: styles
         run: npm publish
         env:
@@ -35,7 +35,7 @@ jobs:
       - name: Build the Angular library
         run: npm run lib:build
 
-      - name: Publish @design-foundry/lucent-angular
+      - name: Publish @designfoundry/lucent-angular
         working-directory: dist/lucent
         run: npm publish
         env:

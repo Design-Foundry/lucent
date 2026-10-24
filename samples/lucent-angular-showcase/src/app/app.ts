@@ -37,7 +37,7 @@ import {
   LucentTooltip,
   type BreadcrumbItem,
   type SelectOption,
-} from '@design-foundry/lucent-angular';
+} from '@designfoundry/lucent-angular';
 
 type Theme = 'light' | 'dark';
 

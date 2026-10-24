@@ -1,5 +1,5 @@
 /* Showcase application build config — extends the workspace base (which carries the
-   @design-foundry/lucent-angular → source path alias, so the app consumes the library by source). */
+   @designfoundry/lucent-angular → source path alias, so the app consumes the library by source). */
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
