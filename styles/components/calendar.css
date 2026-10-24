@@ -1,7 +1,7 @@
 /* =============================================================================
  * Calendar — framework-neutral component styles (date-picker atom).
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-calendar
  *     .lucent-calendar__header   · .lucent-calendar__title + .lucent-calendar__nav
  *     .lucent-calendar__weekdays · 7 × .lucent-calendar__weekday

@@ -1,7 +1,7 @@
 /* =============================================================================
  * Accordion — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-accordion  (.is-expanded | .is-disabled)
  *     .lucent-accordion__header   (button)
  *       .lucent-accordion__title

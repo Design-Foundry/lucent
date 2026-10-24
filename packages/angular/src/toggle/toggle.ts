@@ -10,7 +10,7 @@ export type ToggleSize = ControlSize;
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	templateUrl: './toggle.html',
 	// Styled by the shared base (styles/components/toggle.css); the CSS supports this kit's
-	// `.is-checked`/`.is-disabled` host classes (the `__input:checked` rules are Razor-only).
+	// `.is-checked`/`.is-disabled` host classes (the `__input:checked` rules serve hand-written markup).
 	host: {
 		'role': 'switch',
 		'[attr.tabindex]': 'isDisabled() ? -1 : 0',

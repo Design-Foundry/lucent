@@ -1,7 +1,7 @@
 /* =============================================================================
  * Inline notice — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-inline-notice  (.lucent-inline-notice--info|success|warning|error)
  *     .lucent-icon.lucent-inline-notice__icon
  *     .lucent-inline-notice__content

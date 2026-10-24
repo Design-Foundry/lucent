@@ -1,7 +1,7 @@
 /* =============================================================================
  * Toast — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-toast  (.lucent-toast--{informative|success|warning|error})
  *     .lucent-toast__header ( __title + .lucent-toast__close? )
  *     .lucent-toast__message?

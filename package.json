@@ -1,7 +1,7 @@
 {
   "name": "lucent-workspace",
   "version": "0.5.0",
-  "description": "Lucent design system — Angular workspace (library + showcase). Not published; the library at packages/angular is.",
+  "description": "Lucent design system workspace: shared styles, Angular kit and showcase. The workspace itself is not published; styles/ and packages/angular are.",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {

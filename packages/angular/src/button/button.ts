@@ -6,10 +6,7 @@ import { ControlSize } from '../sizing';
  * field), `text` is the transparent action for rows, toolbars and inline use. `danger` alone is
  * the solid destructive confirm.
  */
-export type ButtonVariant = 'primary' | 'secondary' | 'text' | 'danger' | DeprecatedButtonVariant;
-
-/** @deprecated `ghost` renders as `text`; `on-glass` is surface context, use `text` or `secondary`. */
-export type DeprecatedButtonVariant = 'ghost' | 'on-glass';
+export type ButtonVariant = 'primary' | 'secondary' | 'text' | 'danger';
 
 /** Tone layered on the variant. `danger` with `secondary` is the entry point into a destructive flow. */
 export type ButtonTone = 'neutral' | 'danger';

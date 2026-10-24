@@ -1,17 +1,17 @@
 /* =============================================================================
  * Checkbox — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-checkbox  (.lucent-checkbox--{xs|sm|md|lg})
- *     .lucent-checkbox__input?   ← native checkbox (Razor only; visually hidden)
+ *     .lucent-checkbox__input?   ← native checkbox (plain markup only; visually hidden)
  *     .lucent-checkbox__box
  *       .lucent-icon.lucent-checkbox__icon.lucent-checkbox__icon--check   ← check glyph
  *       .lucent-icon.lucent-checkbox__icon.lucent-checkbox__icon--dash?   ← indeterminate glyph
  *     .lucent-checkbox__label?
  *
- * Dual state mechanism so one CSS layer serves both kits:
+ * Dual state mechanism so one CSS layer serves the kit and plain markup:
  *   - Angular toggles `.is-checked` / `.is-indeterminate` / `.is-focused` via JS.
- *   - Razor wraps a native checkbox: `:has(.lucent-checkbox__input:checked)` reveals the
+ *   - Plain markup wraps a native checkbox: `:has(.lucent-checkbox__input:checked)` reveals the
  *     check (no JS, posts in a form); indeterminate is a server-set `.is-indeterminate`.
  *
  * Ported from packages/angular/src/checkbox/checkbox.scss.
@@ -49,7 +49,7 @@
   border-radius: var(--radius-xs);
 }
 
-/* Visually-hidden native checkbox (Razor path). */
+/* Visually-hidden native checkbox (plain-markup path). */
 .lucent-checkbox__input {
   position: absolute;
   width: 1px;

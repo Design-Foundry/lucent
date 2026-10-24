@@ -18,12 +18,11 @@ import {
   LucentList,
   LucentListItem,
   LucentMenu,
-  LucentMenuDivider,
   LucentMenuItem,
   LucentMenuTrigger,
   LucentModal,
-  LucentNavDivider,
-  LucentNavIcon,
+  LucentNavItem,
+  LucentDivider,
   LucentNavRail,
   LucentPrefix,
   LucentSelect,
@@ -49,10 +48,10 @@ type Theme = 'light' | 'dark';
     FormsModule,
     LucentIcon, LucentTag, LucentStatusTag, LucentTooltip,
     LucentButton, LucentIconButton, LucentToggle, LucentChip, LucentCheckbox,
-    LucentNavIcon, LucentNavRail, LucentNavDivider, LucentActivityBar, LucentBreadcrumbs,
+    LucentNavItem, LucentNavRail, LucentDivider, LucentActivityBar, LucentBreadcrumbs,
     LucentAvatar, LucentTextInput, LucentInlineInput, LucentSelect,
     LucentList, LucentListItem, LucentTab, LucentTabList, LucentCard,
-    LucentMenu, LucentMenuTrigger, LucentMenuItem, LucentMenuDivider, LucentModal,
+    LucentMenu, LucentMenuTrigger, LucentMenuItem, LucentModal,
     LucentToast, LucentSnackbar,
     LucentLabel, LucentHint, LucentError, LucentPrefix, LucentSupporting,
   ],
@@ -61,7 +60,7 @@ type Theme = 'light' | 'dark';
 })
 export class App {
   /** Theme is applied to <html data-theme="…"> and seeded from ?theme= so Playwright
-   *  can drive both themes by URL — the same contract the Razor showcase uses. */
+   *  can drive both themes by URL. */
   readonly theme = signal<Theme>(this.initialTheme());
 
   readonly activeTab = signal('overview');

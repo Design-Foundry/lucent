@@ -1,9 +1,9 @@
 /* =============================================================================
  * Button — framework-neutral component styles.
  *
- * Both kits emit the same class names, so this one file styles both:
+ * The Angular kit and plain markup emit the same class names:
  *   Angular: <lucent-button class="lucent-button lucent-button--primary lucent-button--md">
- *   Razor:   <span class="lucent-button lucent-button--primary lucent-button--md"> … </span>
+ *   Markup:  <span class="lucent-button lucent-button--primary lucent-button--md"> … </span>
  * The interactive element inside carries `.lucent-button__inner`.
  *
  * Ported from packages/angular/src/button/button.scss — the Angular `:host`
@@ -112,20 +112,19 @@
 
 /* ─── Text ─────────────────────────────────────────────────────────────────── */
 /* Transparent, accent label. Rows, toolbars, panel chrome and inline actions. The only
-   label above weight 300: with no fill or border, the label carries the affordance.
-   `ghost` is a deprecated alias. */
+   label above weight 300: with no fill or border, the label carries the affordance. */
 
-:is(.lucent-button--text, .lucent-button--ghost) .lucent-button__inner {
+.lucent-button--text .lucent-button__inner {
   color: var(--color--semantic--accent-text);
   font-weight: var(--dimension--primitive--fw-regular);
 }
-:is(.lucent-button--text, .lucent-button--ghost) .lucent-button__inner:hover:not(:disabled) {
+.lucent-button--text .lucent-button__inner:hover:not(:disabled) {
   background: color-mix(in oklab, var(--color--semantic--accent-text) 12%, transparent);
 }
-:is(.lucent-button--text, .lucent-button--ghost) .lucent-button__inner:active:not(:disabled) {
+.lucent-button--text .lucent-button__inner:active:not(:disabled) {
   background: color-mix(in oklab, var(--color--semantic--accent-text) 22%, transparent);
 }
-:is(.lucent-button--text, .lucent-button--ghost) .lucent-button__inner:disabled { color: var(--color--semantic--disabled-fg); }
+.lucent-button--text .lucent-button__inner:disabled { color: var(--color--semantic--disabled-fg); }
 
 /* ─── Danger tone ──────────────────────────────────────────────────────────── */
 /* A tone, not an emphasis level. Alone (or with primary) it is the final destructive
@@ -163,18 +162,3 @@
   box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle);
 }
 
-/* ─── On glass (deprecated) ────────────────────────────────────────────────── */
-/* Glass is a surface, not a button type. Kept for existing markup: a transparent ink
-   button whose state layer frosts. Use text or secondary inside a glass surface. */
-
-.lucent-button--on-glass .lucent-button__inner {
-  color: var(--color--semantic--text-strong);
-}
-.lucent-button--on-glass .lucent-button__inner:hover:not(:disabled) {
-  background: var(--color--semantic--surface-glass-strong);
-  box-shadow: var(--shadow-xs);
-}
-.lucent-button--on-glass .lucent-button__inner:active:not(:disabled) {
-  background: var(--color--semantic--surface-default);
-}
-.lucent-button--on-glass .lucent-button__inner:disabled { color: var(--color--semantic--disabled-fg); }

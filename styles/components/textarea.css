@@ -1,7 +1,7 @@
 /* =============================================================================
  * Textarea — framework-neutral component styles.
  *
- * Structure every kit emits (mirrors text-input, multi-line):
+ * Structure (mirrors text-input, multi-line):
  *   .lucent-textarea  (.lucent-textarea--xs|sm|md|lg)
  *     .lucent-textarea__label?
  *     .lucent-textarea__wrapper  (--focus | --filled | --error | --disabled | --readonly)

@@ -1,7 +1,7 @@
 /* =============================================================================
  * Snackbar — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-snackbar
  *     .lucent-snackbar__content ( .lucent-icon.lucent-snackbar__icon? + __message )
  *     .lucent-button?   ← optional trailing action

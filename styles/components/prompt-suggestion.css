@@ -1,7 +1,7 @@
 /* =============================================================================
  * Prompt suggestion — framework-neutral component styles.
  *
- * Structure every kit emits (a button OR a role=button host):
+ * Structure (a button OR a role=button host):
  *   .lucent-prompt-suggestion  (--card|chip)
  *     .lucent-icon.lucent-prompt-suggestion__icon?
  *     .lucent-prompt-suggestion__content

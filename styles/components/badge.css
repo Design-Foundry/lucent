@@ -1,7 +1,7 @@
 /* =============================================================================
  * Badge — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-badge   (.lucent-badge--count|label|dot × .lucent-badge--accent|error|success|neutral)
  *     text          ← count / label content (none for the dot kind)
  *

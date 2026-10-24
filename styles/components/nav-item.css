@@ -1,7 +1,7 @@
 /* =============================================================================
  * Nav item — framework-neutral component styles.
  *
- * Structure kits emit:
+ * Structure:
  *   a.lucent-nav-item  (.is-active / .is-disabled)   ← the anchor IS the contract element
  *     .lucent-icon                                   ← lg glyph
  *     .lucent-nav-item__text
@@ -10,7 +10,7 @@
  *
  * A navigation row. It renders as a real <a href> (Lucent's navigation-is-a-link contract):
  * the AT "link" role, a real URL, middle-click / open-in-new-tab, and aria-current on the
- * active one. Supersedes .lucent-nav-icon, which is the icon-only case of this component.
+ * active one.
  *
  * Compact vs labelled is NOT a property of the item — it is driven by the rail's
  * .is-expanded class (see nav-rail.css), so an item adapts to its container. Outside a rail

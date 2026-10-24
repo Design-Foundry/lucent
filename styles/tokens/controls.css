@@ -9,8 +9,6 @@
 /* Scale:  xs 24 · sm 28 · md 32 (default) · lg 40 */
 /* `md` matches the kit's historical 32px control height, so existing usages are */
 /* unchanged; panels opt into `sm`/`xs`, forms/touch use `lg`. */
-/* */
-/* See docs/FOUNDATIONS-DENSITY.md. */
 /* ============================================================================= */
 
 :root {
@@ -20,7 +18,7 @@
 	--control-height-md: var(--dimension--primitive--sizing-8);  /* 32 */
 	--control-height-lg: var(--dimension--primitive--sizing-10); /* 40 */
 
-	/* ─── Text (font-size) — skewed dense; see docs/FOUNDATIONS-TYPOGRAPHY.md ────── */
+	/* ─── Text (font-size) — skewed dense ─────────────────────────────────────────── */
 	--control-text-xs: var(--dimension--primitive--fs-2xs);       /* 11 */
 	--control-text-sm: var(--dimension--primitive--fs-xs);  /* 12 */
 	--control-text-md: var(--dimension--primitive--fs-sm);  /* 14 (unchanged default) */

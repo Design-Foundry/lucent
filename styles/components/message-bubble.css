@@ -1,7 +1,7 @@
 /* =============================================================================
  * Message bubble — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-message-bubble  (--user|assistant|system|other) (--standalone|continuation)
  *     .lucent-message-bubble__meta?   (author + time)
  *       .lucent-message-bubble__author  .lucent-message-bubble__time

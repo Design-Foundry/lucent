@@ -1,7 +1,7 @@
 /* =============================================================================
  * Conversation row — framework-neutral component styles.
  *
- * Structure every kit emits (a button OR a role=button host):
+ * Structure (a button OR a role=button host):
  *   .lucent-conversation-row  (.is-active)
  *     .lucent-conversation-row__leading?   ← avatar / icon (projected)
  *     .lucent-conversation-row__main

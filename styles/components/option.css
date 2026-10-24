@@ -1,7 +1,7 @@
 /* =============================================================================
  * Option — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-option  (.is-selected / .is-active / .is-disabled)
  *     .lucent-option__label
  *

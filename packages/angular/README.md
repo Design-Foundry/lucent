@@ -2,18 +2,12 @@
 
 The Angular implementation of the Lucent class contract. Every component emits the
 `lucent-` class names defined in [`styles/`](../../styles/) and ships no CSS of its own:
-appearance lives in the shared stylesheet, which is published inside this package under
-`styles/` (`core.css`, `packs/*.css`, or `lucent.css` for everything).
+appearance lives in the shared stylesheet, published separately as
+`@design-foundry/lucent-styles` (`core.css`, `packs/*.css`, or `lucent.css` for everything).
 
 Components read the shared tokens in `styles/tokens/` as runtime CSS custom properties.
 
 ## Install
-
-The package is on GitHub Packages:
-
-```
-@design-foundry:registry=https://npm.pkg.github.com
-```
 
 ```bash
 npm install @design-foundry/lucent-angular @design-foundry/lucent-styles @angular/cdk

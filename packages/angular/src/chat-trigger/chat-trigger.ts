@@ -4,7 +4,7 @@ import { LucentBadge } from '../badge/badge';
 
 /**
  * The floating action button that opens the chat — an accent circle with a lifted shadow and an
- * optional unread badge. (A sidebar entry-point reuses `nav-icon`; only this FAB is bespoke.)
+ * optional unread badge.
  */
 @Component({
 	selector: 'lucent-chat-trigger',

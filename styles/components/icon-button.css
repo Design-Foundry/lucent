@@ -1,7 +1,7 @@
 /* =============================================================================
  * Icon button — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-icon-button  (.lucent-icon-button--{variant} .lucent-icon-button--{xs|sm|md|lg})
  *     .lucent-icon-button__inner  (<button>)
  *       .lucent-icon                ← the glyph
@@ -9,8 +9,8 @@
  * Shares the button's variants and danger tone but is square (icon-only). Ported from
  * packages/angular/src/icon-button/icon-button.scss (`:host` → `.lucent-icon-button`).
  *
- * NOTE: the Angular `loading` spinner is omitted — `.df-spinner` was never defined in the
- * kit and the Razor button drops loading too; revisit when a real Spinner lands (roadmap §4).
+ * NOTE: the Angular `loading` spinner is omitted: `.df-spinner` was never defined in the
+ * kit; revisit now that Spinner exists.
  * ============================================================================= */
 
 .lucent-icon-button {
@@ -75,12 +75,12 @@
 
 /* ─── Text ─────────────────────────────────────────────────────────────────── */
 /* Transparent, ink glyph. The icon shape carries the affordance, so icon buttons stay
-   neutral where text buttons use the accent. `ghost` is a deprecated alias. */
+   neutral where text buttons use the accent. */
 
-:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner { color: var(--color--semantic--text-strong); }
-:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--state-hover); }
-:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:active:not(:disabled) { background: var(--state-press); }
-:is(.lucent-icon-button--text, .lucent-icon-button--ghost) .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); }
+.lucent-icon-button--text .lucent-icon-button__inner { color: var(--color--semantic--text-strong); }
+.lucent-icon-button--text .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--state-hover); }
+.lucent-icon-button--text .lucent-icon-button__inner:active:not(:disabled) { background: var(--state-press); }
+.lucent-icon-button--text .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); }
 
 /* ─── Danger tone ──────────────────────────────────────────────────────────── */
 
@@ -104,10 +104,3 @@
 .lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner:active:not(:disabled) { background: color-mix(in oklab, var(--color--semantic--error) 16%, var(--color--semantic--surface-default)); }
 .lucent-icon-button--secondary.lucent-icon-button--danger .lucent-icon-button__inner:disabled { background: var(--color--semantic--surface-default); color: var(--color--semantic--disabled-fg); box-shadow: inset 0 0 0 1px var(--color--semantic--border-subtle); }
 
-/* ─── On glass (deprecated) ────────────────────────────────────────────────── */
-/* Glass is a surface, not a button type. A transparent ink glyph whose state layer frosts. */
-
-.lucent-icon-button--on-glass .lucent-icon-button__inner { color: var(--color--semantic--text-strong); }
-.lucent-icon-button--on-glass .lucent-icon-button__inner:hover:not(:disabled)  { background: var(--color--semantic--surface-glass-strong); box-shadow: var(--shadow-xs); }
-.lucent-icon-button--on-glass .lucent-icon-button__inner:active:not(:disabled) { background: var(--color--semantic--surface-default); }
-.lucent-icon-button--on-glass .lucent-icon-button__inner:disabled { color: var(--color--semantic--disabled-fg); }

@@ -1,7 +1,7 @@
 /* =============================================================================
  * Spinner — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-spinner   (.lucent-spinner--sm|md|lg)   ← a rotating 270° ring
  *
  * Two forms share one class:

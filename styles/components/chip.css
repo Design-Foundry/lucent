@@ -1,7 +1,7 @@
 /* =============================================================================
  * Chip — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-chip  (.lucent-chip--{tag|default|active|action} .lucent-chip--{xs|sm|md|lg})
  *     .lucent-icon?            ← leading hash for the `tag` type
  *     .lucent-chip__label

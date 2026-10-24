@@ -25,7 +25,7 @@ export type { TooltipPosition } from './tooltip/tooltip';
 
 // ─── Tier 2 — Interactive ─────────────────────────────────────────────────────
 export { LucentButton } from './button/button';
-export type { ButtonVariant, ButtonTone, DeprecatedButtonVariant } from './button/button';
+export type { ButtonVariant, ButtonTone } from './button/button';
 
 export { LucentIconButton } from './icon-button/icon-button';
 export type { IconButtonSize } from './icon-button/icon-button';
@@ -45,13 +45,11 @@ export { LucentSegmentedControl } from './segmented-control/segmented-control';
 export type { SegmentedOption } from './segmented-control/segmented-control';
 
 // ─── Tier 3 — Navigation ──────────────────────────────────────────────────────
-export { LucentNavIcon } from './nav-icon/nav-icon';
 
 export { LucentNavItem } from './nav-item/nav-item';
 export { LucentNavGroup } from './nav-group/nav-group';
 export { LucentNavRail } from './nav-rail/nav-rail';
 
-export { LucentNavDivider } from './nav-divider/nav-divider';
 
 export { LucentActivityBar } from './activity-bar/activity-bar';
 
@@ -95,7 +93,6 @@ export { LucentMenu } from './menu/menu';
 export { LucentMenuTrigger } from './menu/menu-trigger';
 export { LucentMenuItem } from './menu-item/menu-item';
 export type { MenuItemVariant } from './menu-item/menu-item';
-export { LucentMenuDivider } from './menu-divider/menu-divider';
 
 export { LucentAccordion } from './accordion/accordion';
 

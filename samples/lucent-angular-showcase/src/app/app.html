@@ -120,17 +120,17 @@
       <div class="sc-label">Nav rail (with activity bar)</div>
       <div class="sc-row" style="align-items:stretch">
         <lucent-nav-rail>
-          <lucent-nav-icon name="dashboard" [active]="true" ariaLabel="Dashboard" />
-          <lucent-nav-icon name="folder" ariaLabel="Files" />
-          <lucent-nav-icon name="group" ariaLabel="Team" />
-          <lucent-nav-divider />
-          <lucent-nav-icon name="settings" ariaLabel="Settings" />
+          <lucent-nav-item name="dashboard" label="Dashboard" href="#" [active]="true" />
+          <lucent-nav-item name="folder" label="Files" href="#" />
+          <lucent-nav-item name="group" label="Team" href="#" />
+          <lucent-divider />
+          <lucent-nav-item name="settings" label="Settings" href="#" />
         </lucent-nav-rail>
 
         <lucent-activity-bar>
-          <lucent-nav-icon name="search" ariaLabel="Search" />
-          <lucent-nav-icon name="notifications" [active]="true" ariaLabel="Alerts" />
-          <lucent-nav-icon name="help" ariaLabel="Help" />
+          <lucent-icon-button variant="text" icon="search" ariaLabel="Search" />
+          <lucent-icon-button variant="text" icon="notifications" ariaLabel="Alerts" />
+          <lucent-icon-button variant="text" icon="help" ariaLabel="Help" />
         </lucent-activity-bar>
       </div>
     </div>
@@ -240,7 +240,7 @@
           <lucent-menu>
             <lucent-menu-item icon="edit" label="Rename" />
             <lucent-menu-item icon="content_copy" label="Duplicate" />
-            <lucent-menu-divider />
+            <lucent-divider />
             <lucent-menu-item icon="delete" label="Delete" variant="danger" />
           </lucent-menu>
         </ng-template>
@@ -250,7 +250,7 @@
           <lucent-menu>
             <lucent-menu-item icon="edit" label="Rename" />
             <lucent-menu-item icon="content_copy" label="Duplicate" [active]="true" />
-            <lucent-menu-divider />
+            <lucent-divider />
             <lucent-menu-item icon="delete" label="Delete" variant="danger" />
           </lucent-menu>
         </div>

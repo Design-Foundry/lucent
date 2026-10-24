@@ -1,7 +1,7 @@
 /* =============================================================================
  * Status tag — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-status-tag  (.lucent-status-tag--success|neutral|warning|error)
  *     span   ← label text
  *
