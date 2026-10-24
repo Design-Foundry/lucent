@@ -1,6 +1,6 @@
 {
   "name": "@designfoundry/lucent-styles",
-  "version": "0.6.0",
+  "version": "0.6.1-rc.0",
   "description": "Lucent design system: framework-neutral CSS (tokens, component styles, domain packs).",
   "license": "Apache-2.0",
   "repository": {
