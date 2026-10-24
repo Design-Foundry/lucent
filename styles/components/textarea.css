@@ -97,6 +97,15 @@
 .lucent-textarea textarea:disabled { cursor: not-allowed; }
 .lucent-textarea textarea[readonly] { color: var(--color--semantic--text-subtle); }
 
+.lucent-textarea textarea:is(:autofill, :-webkit-autofill) {
+  -webkit-box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
+  box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
+  -webkit-text-fill-color: var(--color--semantic--text-default);
+  caret-color: var(--color--semantic--text-default);
+  filter: none;
+  transition: background-color 0s 600000s, color 0s 600000s;
+}
+
 .lucent-textarea__wrapper--error textarea { color: var(--color--semantic--error); }
 .lucent-textarea__wrapper--error textarea::placeholder { color: var(--color--semantic--error); }
 

@@ -136,3 +136,11 @@
     scrollbar-color: var(--color--semantic--scrollbar-thumb) var(--color--semantic--scrollbar-track);
   }
 }
+
+/* =============================================================================
+ * Text selection, themed. Like the scrollbars, one rule reaches every component.
+ * ============================================================================= */
+::selection {
+  background: var(--color--semantic--accent-subtle);
+  color: var(--color--semantic--text-strong);
+}

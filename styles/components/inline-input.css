@@ -34,3 +34,8 @@
 .lucent-inline-input__field:hover:not(:disabled) { border-bottom-color: var(--color--semantic--border-subtle); }
 .lucent-inline-input__field:focus { border-bottom-color: var(--color--semantic--border-strong); }
 .lucent-inline-input__field:disabled { cursor: not-allowed; opacity: 0.4; }
+
+.lucent-inline-input__field:is(:autofill, :-webkit-autofill) {
+  filter: none;
+  transition: background-color 0s 600000s, color 0s 600000s;
+}
