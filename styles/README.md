@@ -27,6 +27,7 @@ styles/
     messaging.css       ← conversation UI (9)
     temporal.css        ← date & time (3)
     scheduler.css       ← events + Month/Week/Agenda views (2)
+    daw.css             ← audio-workstation controls (6), not in lucent.css
   lucent.css            ← core + every pack, for consumers that want the lot
   tokens/
     primitives.css      ← Tier 1: raw scales (--color--primitive--*, --dimension--primitive--*, fonts)
