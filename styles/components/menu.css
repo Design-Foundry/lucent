@@ -2,7 +2,7 @@
  * Menu — framework-neutral component styles.
  *
  * Structure:
- *   .lucent-menu  (role=menu)  > .lucent-menu-item / .lucent-menu-divider
+ *   .lucent-menu  (role=menu)  > .lucent-menu-item / .lucent-divider
  *
  * The popover panel. Appearance + entrance animation are shared; positioning differs:
  * Angular portals the menu into a CDK overlay, plain markup renders it inside a
@@ -51,4 +51,9 @@
   position: fixed;
   inset: 0;
   z-index: var(--layer-popover);
+}
+
+.lucent-menu .lucent-divider {
+  margin: var(--dimension--primitive--spacing-1) 0;
+  flex-shrink: 0;
 }

@@ -51,7 +51,6 @@
 @import "components/card.css";
 @import "components/menu.css";
 @import "components/menu-item.css";
-@import "components/menu-divider.css";
 @import "components/accordion.css";
 @import "components/modal.css";
 @import "components/snackbar.css";
@@ -63,10 +62,8 @@
 @import "components/checkbox.css";
 @import "components/radio.css";
 @import "components/segmented-control.css";
-@import "components/nav-icon.css";
 @import "components/nav-item.css";
 @import "components/nav-group.css";
-@import "components/nav-divider.css";
 @import "components/nav-rail.css";
 @import "components/activity-bar.css";
 @import "components/breadcrumbs.css";

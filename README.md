@@ -13,7 +13,7 @@ Angular kit that emits its class names.
 ## What it is
 
 Lucent is the design system behind [Design Foundry](https://designfoundry.app)'s
-products. One plain-CSS layer defines **57 components** as a contract of class names.
+products. One plain-CSS layer defines **54 components** as a contract of class names.
 The Angular kit implements all of them.
 
 **A component's definition and its implementation are different things.** The class
@@ -114,7 +114,7 @@ it stayed light, giving **1.94:1** on the primary button in every consuming app.
 
 ```
 styles/                @design-foundry/lucent-styles  (plain CSS, no build step)
-  core.css               tokens + the 43 components every product needs
+  core.css               tokens + the 40 components every product needs
   packs/                 messaging, temporal, scheduler (opt-in, by domain)
   lucent.css             core + every pack
   tokens/                primitives, semantic roles, control aliases, themes, layers

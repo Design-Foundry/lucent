@@ -22,7 +22,7 @@ selector + an `@media` rule can't share one declaration block in plain CSS).
 
 ```
 styles/
-  core.css              ← tokens + the 43 components every product needs
+  core.css              ← tokens + the 40 components every product needs
   packs/
     messaging.css       ← conversation UI (9)
     temporal.css        ← date & time (3)
@@ -42,7 +42,7 @@ styles/
   components/
     button.css          ← .lucent-button …
     text-input.css      ← .lucent-text-input …
-    …                     one file per component (57 in total)
+    …                     one file per component (54 in total)
 ```
 
 ## Core and packs
