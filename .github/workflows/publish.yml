@@ -12,13 +12,15 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: npm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
 
       - name: Install dependencies
         run: npm ci
@@ -29,8 +31,6 @@ jobs:
       - name: Publish @designfoundry/lucent-styles
         working-directory: styles
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Build the Angular library
         run: npm run lib:build
@@ -38,5 +38,3 @@ jobs:
       - name: Publish @designfoundry/lucent-angular
         working-directory: dist/lucent
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
