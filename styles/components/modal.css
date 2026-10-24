@@ -1,7 +1,7 @@
 /* =============================================================================
  * Modal — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-modal__scrim                ← full-screen backdrop, centers the panel
  *     .lucent-modal  (role=dialog)
  *       .lucent-modal__header  ( .lucent-modal__heading > __title / __subtitle )  + close
@@ -9,7 +9,7 @@
  *       .lucent-modal__footer?
  *
  * Angular renders the panel into a centered CDK overlay with `df-modal__scrim` as the backdrop;
- * Razor renders `.lucent-modal__scrim` as a fixed flex wrapper that centers the panel. The panel
+ * Plain markup renders `.lucent-modal__scrim` as a fixed flex wrapper that centers the panel. The panel
  * styles are shared. Ported from packages/angular/src/modal/modal.scss (+ the scrim).
  * ============================================================================= */
 

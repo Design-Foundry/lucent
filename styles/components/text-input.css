@@ -1,7 +1,7 @@
 /* =============================================================================
  * Text input — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-text-input  (.lucent-text-input--sm|md|lg)
  *     .lucent-text-input__label
  *     .lucent-text-input__wrapper  (--focus | --filled | --error | --disabled | --readonly)
@@ -12,7 +12,7 @@
  *   1. The bare `input {}` selector is scoped to `.lucent-text-input input` so it never
  *      styles inputs elsewhere on the page (Angular relied on view encapsulation).
  *   2. Added `:focus-within` and `:has(input:not(:placeholder-shown))` so the focus
- *      and filled states need NO JavaScript — static-SSR (Blazor) forms work as-is.
+ *      and filled states need NO JavaScript — plain server-rendered forms work as-is.
  *      The `--focus` / `--filled` modifier classes are kept for the JS-driven kit.
  * ============================================================================= */
 

@@ -120,16 +120,6 @@ biggest known drift (see each page's Conventions-check table for the full list).
 | `lucent-scheduler-week` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ time-grid + now-line |
 | `lucent-scheduler-agenda` | ✅ [scheduler-views.md](./scheduler-views.md) | ✅ grouped list + empty state |
 
-## DAW (WC + React)
-| Component | Doc | Conventions |
-|---|---|---|
-| `lucent-knob` | ✅ [daw.md](./daw.md) | ⚠️ per-kit JS (SVG + pointer) |
-| `lucent-fader` | ✅ [daw.md](./daw.md) | ⚠️ per-kit JS (tapered dB) |
-| `lucent-meter` | ✅ [daw.md](./daw.md) | ⚠️ bright-LED primitives |
-| `lucent-waveform` | ✅ [daw.md](./daw.md) | ⚠️ canvas render |
-| `lucent-track` | ✅ [daw.md](./daw.md) | ⚠️ imperative drag surface |
-| `lucent-piano-roll` | ✅ [daw.md](./daw.md) | ⚠️ imperative drag surface |
-
 ## Services
 | Service | Doc | Conventions |
 |---|---|---|

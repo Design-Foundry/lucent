@@ -64,8 +64,8 @@
   color: var(--color--semantic--text-muted);
 }
 
-/* Popover — a raised card of scrolling columns. WC/React float to <body>; Angular uses a CDK
- * overlay; Blazor renders inline anchored via the __field rule below. */
+/* Popover: a raised card of scrolling columns. Angular uses a CDK overlay; plain markup
+ * renders it inline, anchored via the __field rule below. */
 .lucent-time-picker__popover {
   z-index: var(--layer-popover);
   display: flex;
@@ -109,8 +109,8 @@
   font-weight: var(--dimension--primitive--fw-medium);
 }
 
-/* Inline-anchored popover (Blazor). Scoped to a direct child so the body-floated (WC/React) and
- * CDK-overlay (Angular) cases are unaffected. */
+/* Inline-anchored popover (plain markup). Scoped to a direct child so the CDK-overlay
+ * (Angular) case is unaffected. */
 .lucent-time-picker__field { position: relative; }
 .lucent-time-picker__field > .lucent-time-picker__popover {
   position: absolute;

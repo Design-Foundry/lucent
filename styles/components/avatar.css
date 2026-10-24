@@ -1,7 +1,7 @@
 /* =============================================================================
  * Avatar — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-avatar  (.lucent-avatar--{xs|sm|md|lg} .lucent-avatar--{trailing|leading|none})
  *     .lucent-avatar__labels?   ← name + tenant (before circle for leading, after for trailing)
  *       .lucent-avatar__name / .lucent-avatar__tenant

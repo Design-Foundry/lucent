@@ -1,13 +1,13 @@
 /* =============================================================================
  * Tab — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-tab  (.lucent-tab--{lg|md|sm|xs} .lucent-tab--active / --disabled)
  *     .lucent-icon?
  *     .lucent-tab__label
  *
  * One tab inside a .lucent-tab-list. Active tab raises onto a glass pill. Ported from
- * packages/angular/src/tab/tab.scss; `background: none; border: none` lets the Razor kit
+ * packages/angular/src/tab/tab.scss; `background: none; border: none` lets plain markup
  * render it as a real <button> while keeping the class contract.
  * ============================================================================= */
 

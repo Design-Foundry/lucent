@@ -1,7 +1,7 @@
 /* =============================================================================
  * List item — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-list-item  (.is-selected / .is-disabled / .is-interactive / .is-danger)
  *     .lucent-icon.lucent-list-item__icon?   ← leading icon shorthand
  *     [leading slot]?

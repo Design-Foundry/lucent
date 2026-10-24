@@ -1,7 +1,7 @@
 /* =============================================================================
  * Composer — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-composer  (--xs|sm|md|lg) (--disabled)
  *     textarea.lucent-composer__field
  *     .lucent-composer__actions

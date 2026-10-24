@@ -1,7 +1,7 @@
 /* =============================================================================
  * Nav group — framework-neutral component styles.
  *
- * Structure kits emit:
+ * Structure:
  *   .lucent-nav-group  [role=group]
  *     .lucent-nav-group__title      ← optional section heading
  *     .lucent-nav-item …            ← projected items

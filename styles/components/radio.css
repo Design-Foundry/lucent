@@ -1,16 +1,16 @@
 /* =============================================================================
  * Radio (+ radio group) — framework-neutral component styles.
  *
- * Structure every kit emits (mirrors checkbox):
+ * Structure (mirrors checkbox):
  *   .lucent-radio-group   (role=radiogroup)   ← stacks radios
  *   .lucent-radio  (.lucent-radio--{xs|sm|md|lg})
- *     .lucent-radio__input?   ← native radio (Razor only; visually hidden)
+ *     .lucent-radio__input?   ← native radio (plain markup only; visually hidden)
  *     .lucent-radio__circle   ← ring; ::after is the filled dot
  *     .lucent-radio__label?
  *
- * Dual state mechanism (one CSS layer, both kits):
- *   - Angular/React/WC toggle `.is-checked` / `.is-disabled` / `.is-focused` via JS.
- *   - Razor wraps a native radio: `:has(.lucent-radio__input:checked)` fills the dot (no JS,
+ * Dual state mechanism (one CSS layer, kit and plain markup):
+ *   - Angular toggles `.is-checked` / `.is-disabled` / `.is-focused` via JS.
+ *   - Plain markup wraps a native radio: `:has(.lucent-radio__input:checked)` fills the dot (no JS,
  *     posts in a form, native arrow-key grouping by `name`).
  * ============================================================================= */
 
@@ -52,7 +52,7 @@
   border-radius: var(--radius-full);
 }
 
-/* Visually-hidden native radio (Razor path). */
+/* Visually-hidden native radio (plain-markup path). */
 .lucent-radio__input {
   position: absolute;
   width: 1px;
@@ -89,7 +89,7 @@
   transition: transform 0.15s ease;
 }
 
-/* Checked — JS kits via `.is-checked`, Razor via `:has(:checked)`. */
+/* Checked — the kit via `.is-checked`, plain markup via `:has(:checked)`. */
 .lucent-radio.is-checked .lucent-radio__circle,
 .lucent-radio:has(.lucent-radio__input:checked) .lucent-radio__circle { border-color: var(--color--semantic--accent-default); }
 

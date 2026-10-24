@@ -1,11 +1,11 @@
 /* =============================================================================
  * Menu — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-menu  (role=menu)  > .lucent-menu-item / .lucent-menu-divider
  *
  * The popover panel. Appearance + entrance animation are shared; positioning differs:
- * Angular portals the menu into a CDK overlay, Razor renders it inside a
+ * Angular portals the menu into a CDK overlay, plain markup renders it inside a
  * .lucent-menu__anchor and positions it as a child (with a backdrop for outside-click).
  * Ported from packages/angular/src/menu/menu.scss.
  * ============================================================================= */
@@ -33,7 +33,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ─── Razor anchor positioning (no JS) ────────────────────────────────────────
+/* ─── Plain-markup anchor positioning (no JS) ────────────────────────────────────────
    The Angular kit portals the menu into an overlay, so these child-scoped rules
    never touch it. */
 .lucent-menu__anchor { position: relative; display: inline-block; }

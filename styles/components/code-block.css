@@ -1,7 +1,7 @@
 /* =============================================================================
  * Code block — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-code-block
  *     .lucent-code-block__header
  *       .lucent-code-block__lang       ← language label

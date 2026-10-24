@@ -27,8 +27,7 @@ styles/
     messaging.css       ← conversation UI (9)
     temporal.css        ← date & time (3)
     scheduler.css       ← events + Month/Week/Agenda views (2)
-    daw.css             ← audio-workstation controls (6), NOT in lucent.css, see below
-  lucent.css            ← core + every shipping pack, for consumers that want the lot
+  lucent.css            ← core + every pack, for consumers that want the lot
   tokens/
     primitives.css      ← Tier 1: raw scales (--color--primitive--*, --dimension--primitive--*, fonts)
     semantic-colors.css ← Tier 2: --color--semantic--* roles
@@ -43,7 +42,7 @@ styles/
   components/
     button.css          ← .lucent-button …
     text-input.css      ← .lucent-text-input …
-    …                     one file per component; daw.css holds all six DAW parts (58 files)
+    …                     one file per component (57 in total)
 ```
 
 ## Core and packs
@@ -51,7 +50,7 @@ styles/
 `core.css` is the base. A component belongs in core when it needs no concept from
 outside the design system to be meaningful: a button is defined by its form. A pack
 component presupposes a domain: `scheduler` presupposes events with a start and an end,
-`composer` presupposes messages, `fader` presupposes an audio signal. Read the core list
+`composer` presupposes messages, `date-picker` presupposes a calendar. Read the core list
 and you cannot name the industry; read a pack list and you can.
 
 That test, not "which components are common", is what decides membership, and
@@ -60,10 +59,6 @@ it is not interactivity: `modal`, `select` and `menu` are interactive and are co
 
 Packs are a partition, not a tagging scheme: a component ships in exactly one. Import
 `core.css` plus the packs you use.
-
-**DAW is not in `lucent.css`.** Its CSS exists but the Angular kit does not implement it, so
-it is not something the bundle can honestly claim to ship. Import `packs/daw.css`
-explicitly if you want it.
 
 ## Token tiers
 

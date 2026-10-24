@@ -1,7 +1,7 @@
 /* =============================================================================
  * Nav item — framework-neutral component styles.
  *
- * Structure kits emit:
+ * Structure:
  *   a.lucent-nav-item  (.is-active / .is-disabled)   ← the anchor IS the contract element
  *     .lucent-icon                                   ← lg glyph
  *     .lucent-nav-item__text

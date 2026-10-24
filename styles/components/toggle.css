@@ -1,16 +1,16 @@
 /* =============================================================================
  * Toggle (switch) — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-toggle  (.lucent-toggle--xs|sm|md|lg)
- *     .lucent-toggle__input?   ← native checkbox (Razor only; visually hidden)
+ *     .lucent-toggle__input?   ← native checkbox (plain markup only; visually hidden)
  *     .lucent-toggle__track
  *       .lucent-toggle__thumb
  *     .lucent-toggle__label?
  *
- * Checked state has a dual mechanism so one CSS layer serves both kits:
+ * Checked state has a dual mechanism so one CSS layer serves the kit and plain markup:
  *   - Angular toggles `.is-checked` on the host via JS (ControlValueAccessor).
- *   - Razor wraps a native checkbox and uses `:has(.lucent-toggle__input:checked)` — no JS,
+ *   - Plain markup wraps a native checkbox and uses `:has(.lucent-toggle__input:checked)` — no JS,
  *     posts in a form. The `__input` rules below are inert for the Angular structure.
  *
  * Ported from packages/angular/src/toggle/toggle.scss.
@@ -42,7 +42,7 @@
   pointer-events: none;
 }
 
-/* Visually-hidden native checkbox (Razor path). */
+/* Visually-hidden native checkbox (plain-markup path). */
 .lucent-toggle__input {
   position: absolute;
   width: 1px;

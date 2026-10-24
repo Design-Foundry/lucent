@@ -1,9 +1,9 @@
 /* =============================================================================
  * Button — framework-neutral component styles.
  *
- * Both kits emit the same class names, so this one file styles both:
+ * The Angular kit and plain markup emit the same class names:
  *   Angular: <lucent-button class="lucent-button lucent-button--primary lucent-button--md">
- *   Razor:   <span class="lucent-button lucent-button--primary lucent-button--md"> … </span>
+ *   Markup:  <span class="lucent-button lucent-button--primary lucent-button--md"> … </span>
  * The interactive element inside carries `.lucent-button__inner`.
  *
  * Ported from packages/angular/src/button/button.scss — the Angular `:host`

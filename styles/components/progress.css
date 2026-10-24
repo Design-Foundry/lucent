@@ -1,7 +1,7 @@
 /* =============================================================================
  * Progress — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-progress   (.lucent-progress--indeterminate)
  *     .lucent-progress__bar   ← the accent fill (width = value% when determinate)
  *

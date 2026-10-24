@@ -1,7 +1,7 @@
 /* =============================================================================
  * Typing / generating indicator — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-typing-indicator  (--typing|generating)
  *     .lucent-typing-indicator__dots
  *       .lucent-typing-indicator__dot × 3

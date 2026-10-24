@@ -1,7 +1,7 @@
 /* =============================================================================
  * Segmented control — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-segmented-control  (.lucent-segmented-control--xs|sm|md|lg)   [role=group]
  *     .lucent-segmented-control__segment  (.is-selected)  ← equal-width pill button
  *

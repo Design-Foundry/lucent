@@ -1,7 +1,7 @@
 /* =============================================================================
  * Inline input — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-inline-input
  *     .lucent-inline-input__field  (<input>, + a typography class)
  *

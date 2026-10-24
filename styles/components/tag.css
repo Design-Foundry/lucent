@@ -1,7 +1,7 @@
 /* =============================================================================
  * Tag — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-tag   ← inline mono-text chip; content projects in
  *
  * Ported verbatim from packages/angular/src/tag/tag.scss (`:host` → `.lucent-tag`).

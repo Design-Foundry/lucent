@@ -1,7 +1,7 @@
 /* =============================================================================
  * Reference tag — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-reference-tag  (.lucent-reference-tag--mention|component|token|resource)
  *     .lucent-icon.lucent-reference-tag__icon   |   .lucent-reference-tag__swatch (token)
  *     .lucent-reference-tag__label

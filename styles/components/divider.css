@@ -1,7 +1,7 @@
 /* =============================================================================
  * Divider — framework-neutral component styles.
  *
- * Structure every kit emits:
+ * Structure:
  *   .lucent-divider  (.lucent-divider--plain | .lucent-divider--labeled)
  *     (label text — labeled variant only)
  *

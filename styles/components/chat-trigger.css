@@ -1,7 +1,7 @@
 /* =============================================================================
  * Chat trigger (FAB) — framework-neutral component styles.
  *
- * Structure every kit emits (a button OR a role=button host):
+ * Structure (a button OR a role=button host):
  *   .lucent-chat-trigger
  *     .lucent-icon
  *     .lucent-badge.lucent-chat-trigger__badge?   ← unread count

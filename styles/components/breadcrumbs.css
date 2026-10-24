@@ -1,9 +1,9 @@
 /* =============================================================================
  * Breadcrumbs — framework-neutral component styles.
  *
- * Structure all kits emit:
+ * Structure:
  *   nav.lucent-breadcrumbs               ← glass pill + aria-label="Breadcrumb"
- *                                          (Angular/WC put the class + role on the host element)
+ *                                          (Angular puts the class + role on the host element)
  *     ol.lucent-breadcrumbs__list        ← the flex track (native list chrome reset)
  *       li.lucent-breadcrumbs__crumb
  *         a|span.lucent-breadcrumbs__item  ← <a href> when the crumb has a path, else <span>;

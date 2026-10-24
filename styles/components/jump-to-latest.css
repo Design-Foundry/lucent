@@ -1,7 +1,7 @@
 /* =============================================================================
  * Jump to latest — framework-neutral component styles.
  *
- * Structure every kit emits (a button OR a role=button host):
+ * Structure (a button OR a role=button host):
  *   .lucent-jump-to-latest
  *     .lucent-jump-to-latest__count?   ← "N new"
  *     .lucent-icon (arrow_downward)

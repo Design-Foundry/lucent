@@ -1,10 +1,10 @@
 /* =============================================================================
  * Select — framework-neutral component styles.
  *
- * Structure both kits emit:
+ * Structure:
  *   .lucent-select  (.lucent-select--{xs|sm|md|lg})
  *     .lucent-select__label?
- *     .lucent-select__field            ← Razor positioning anchor (Angular omits it)
+ *     .lucent-select__field            ← plain-markup positioning anchor (Angular omits it)
  *       .lucent-select__trigger  (--focus|--filled|--error|--disabled)
  *         .lucent-select__value (.is-placeholder)
  *         .lucent-icon.lucent-select__caret (.is-open)
@@ -12,7 +12,7 @@
  *     .lucent-select__message (--error)?
  *
  * The dropdown appearance is shared; positioning differs: Angular portals it into a CDK
- * overlay, Razor renders it as a child of .lucent-select__field (absolute, below the trigger).
+ * overlay, plain markup renders it as a child of .lucent-select__field (absolute, below the trigger).
  * Ported from packages/angular/src/select/select.scss.
  * ============================================================================= */
 
@@ -84,8 +84,8 @@
 /* ─── Dropdown ─────────────────────────────────────────────────────────────── */
 
 .lucent-select__dropdown {
-  /* On the BASE class, not only on the Razor `field > dropdown` path below: the WC and
-   * Angular kits portal this panel to <body>, where a descendant selector no longer
+  /* On the BASE class, not only on the plain-markup `field > dropdown` path below: the
+   * Angular kit portals this panel to <body>, where a descendant selector no longer
    * matches and the panel would carry no stacking declaration at all — landing under any
    * dialog it was opened from. See tokens/layers.css. */
   z-index: var(--layer-popover);
@@ -101,7 +101,7 @@
   overflow-y: auto;
 }
 
-/* Razor: position the dropdown below the trigger (Angular portals it instead). */
+/* Plain markup: position the dropdown below the trigger (Angular portals it instead). */
 .lucent-select__field { position: relative; width: 100%; }
 .lucent-select__field > .lucent-select__dropdown {
   position: absolute;
