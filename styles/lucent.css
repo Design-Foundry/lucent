@@ -4,9 +4,9 @@
  * Prefer styles/core.css and the packs you actually use. This file exists so a
  * consumer that wants the lot can still link one stylesheet.
  *
- * DAW is deliberately NOT here. Its components exist in CSS, React and Web
- * Components but not in Angular or Razor, so it is not a shipping pack — import
- * styles/packs/daw.css explicitly if you want it.
+ * DAW is deliberately NOT here. Its components exist in CSS but not in the Angular
+ * kit, so it is not a shipping pack. Import styles/packs/daw.css explicitly if you
+ * want it.
  * ============================================================================= */
 
 @import "core.css";

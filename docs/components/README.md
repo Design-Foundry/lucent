@@ -4,10 +4,7 @@ One page per component. Each documents the API, usage, composition, a11y, and �
 **Conventions check** that logs where the component drifts from [CONVENTIONS.md](../CONVENTIONS.md).
 Reading these side by side is how we surface inconsistencies concretely.
 
-- New component? Follow [BUILDING-A-COMPONENT.md](../BUILDING-A-COMPONENT.md) and copy
-  [`_TEMPLATE.md`](./_TEMPLATE.md).
-- The condensed API tables for the whole kit live in [API.md](../API.md); these pages are the
-  long form.
+- New component? Copy [`_TEMPLATE.md`](./_TEMPLATE.md).
 
 Status legend: ✅ documented · 🟡 stub · ⬜ not started. The **Conventions** column flags the
 biggest known drift (see each page's Conventions-check table for the full list).

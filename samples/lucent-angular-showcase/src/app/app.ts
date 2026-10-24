@@ -61,7 +61,7 @@ type Theme = 'light' | 'dark';
 })
 export class App {
   /** Theme is applied to <html data-theme="…"> and seeded from ?theme= so Playwright
-   *  can drive both themes by URL — the same contract the Razor showcase uses. */
+   *  can drive both themes by URL. */
   readonly theme = signal<Theme>(this.initialTheme());
 
   readonly activeTab = signal('overview');

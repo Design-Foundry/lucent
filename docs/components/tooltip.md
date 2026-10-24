@@ -27,7 +27,7 @@
 
 - A directive you attach to existing triggers — not a wrapper element.
 - Renders `DfTooltipBubble` into a **CDK overlay** (`flexibleConnectedTo`, reposition scroll
-  strategy). Requires the CDK overlay CSS (see [README §2](../README.md)).
+  strategy). Requires the CDK overlay CSS.
 
 ## States & accessibility
 

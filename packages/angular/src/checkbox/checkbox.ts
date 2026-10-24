@@ -10,7 +10,7 @@ import { ControlSize } from '../sizing';
 	imports: [LucentIcon],
 	templateUrl: './checkbox.html',
 	// Styled by the shared base (styles/components/checkbox.css); the CSS supports this kit's
-	// `.is-checked`/`.is-indeterminate`/`.is-disabled` host classes (`__input` rules are Razor-only).
+	// `.is-checked`/`.is-indeterminate`/`.is-disabled` host classes (`__input` rules serve hand-written markup).
 	host: {
 		'role': 'checkbox',
 		'[class]': '"lucent-checkbox lucent-checkbox--" + size()',

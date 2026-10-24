@@ -9,13 +9,8 @@ npm-debug.log*
 # Playwright MCP scratch (showcase verification screenshots)
 .playwright-mcp/
 
-# ── .NET (Razor Class Library) ────────────────────────────────────────────────
-bin/
-obj/
-*.user
-
-# Mirrored at build from the canonical repo-root styles/ (single source) — not committed.
-packages/razor/wwwroot/
+# Local design labs and scenes
+labs/
 
 # ── Editor / OS ───────────────────────────────────────────────────────────────
 .vs/

@@ -25,7 +25,7 @@
 <df-icon name="error" size="lg" ariaLabel="Error" />
 ```
 
-Requires the Material Icons font to be loaded globally (see [README §3](../README.md)).
+Requires the Material Icons font to be loaded globally.
 
 ## Composition
 
@@ -52,4 +52,4 @@ Requires the Material Icons font to be loaded globally (see [README §3](../READ
 ## Notes / TODO
 
 - Material Icons is a hard runtime dependency; self-hosting/tree-shaking the icon set is a
-  distribution concern (see [DISTRIBUTION.md](../DISTRIBUTION.md)).
+  distribution concern.

@@ -90,6 +90,6 @@ Recorded as D13 in hub `docs/model-decisions-bench.md`:
 
 1. Settle the composition decisions the presets rely on: Content as a slot kind, `body: true`.
 2. Land `wrap` and automatic grid columns in the model (D13).
-3. Decide whether a real consumer exists (a screen in `hub/web` or the playground that repeats the same
+3. Decide whether a real consumer exists (a screen in a Design Foundry product or the playground that repeats the same
    layout CSS), so the vocabulary comes from use and not from a survey.
 4. Write each preset as a component page with the standard template.

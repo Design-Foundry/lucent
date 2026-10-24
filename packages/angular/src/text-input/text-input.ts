@@ -23,7 +23,6 @@ let nextId = 0;
 	imports: [LucentIconButton],
 	templateUrl: './text-input.html',
 	// Styled by the shared base (styles/components/text-input.css) via the lucent- contract.
-	// NB: the block renames lucent-text-input → lucent-text-input (matches the Razor LucentTextInput kit).
 	host: { '[class]': '"lucent-text-input lucent-text-input--" + size()' },
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,

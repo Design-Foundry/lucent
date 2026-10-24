@@ -217,6 +217,3 @@ Suggested order:
    `df-menu-item` (§4).
 4. Normalize **`disabled`**, **output names**, and **selection vocabulary** (§5).
 5. Decide the **component scope** (§6) and write down what's intentionally excluded.
-
-These supersede the lighter "API-surface findings" in [DISTRIBUTION.md](./DISTRIBUTION.md) §3
-— that table lists symptoms; this doc is the underlying disease.
