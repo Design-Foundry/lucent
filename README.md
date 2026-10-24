@@ -145,6 +145,19 @@ To use the CSS on its own, with no kit and no build step, one import is the whol
 @import 'styles/lucent.css';
 ```
 
+## Versions
+
+`@designfoundry/lucent-styles` and `@designfoundry/lucent-angular` are published to npm
+together, always on the same version.
+
+| Version | Means |
+|---|---|
+| `0.x.0` | Something breaks: a component, class, token or input is removed or renamed, or a default look changes |
+| `0.x.y` | Nothing breaks: fixes, and new components or variants |
+| `0.x.y-rc.N` | A release candidate, published under the `next` tag; `latest` never moves to it |
+
+Pin an exact version. There are no deprecation periods before 1.0.
+
 ## Licence
 
 [Apache License 2.0](./LICENSE). See [NOTICE](./NOTICE) for attribution requirements

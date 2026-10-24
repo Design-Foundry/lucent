@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Check the tag is on main
+        run: |
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$GITHUB_SHA" FETCH_HEAD
+
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
@@ -28,13 +33,19 @@ jobs:
       - name: Check every package is on the design system version
         run: npm run version:check
 
+      - name: Pick the npm dist-tag
+        id: channel
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [[ "$version" == *-* ]]; then echo "tag=next" >> "$GITHUB_OUTPUT"; else echo "tag=latest" >> "$GITHUB_OUTPUT"; fi
+
       - name: Publish @designfoundry/lucent-styles
         working-directory: styles
-        run: npm publish
+        run: npm publish --tag ${{ steps.channel.outputs.tag }}
 
       - name: Build the Angular library
         run: npm run lib:build
 
       - name: Publish @designfoundry/lucent-angular
         working-directory: dist/lucent
-        run: npm publish
+        run: npm publish --tag ${{ steps.channel.outputs.tag }}
