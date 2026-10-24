@@ -19,3 +19,10 @@
   box-shadow: var(--shadow-md);
   overflow: hidden;
 }
+
+.lucent-activity-bar .lucent-icon-button--text .lucent-icon-button__inner {
+  color: var(--color--semantic--text-muted);
+}
+.lucent-activity-bar .lucent-icon-button--text .lucent-icon-button__inner:hover:not(:disabled) {
+  color: var(--color--semantic--text-default);
+}

@@ -20,8 +20,8 @@
   height: var(--dimension--primitive--icon-md);
   border: var(--dimension--primitive--spacing-0-5) solid;
   /* 270° arc (top/right/bottom) + a faint remaining quarter as the track. */
-  border-color: currentColor currentColor currentColor
-    color-mix(in oklab, currentColor 20%, transparent);
+  border-color: color-mix(in oklab, currentColor 20%, transparent);
+  border-top-color: currentColor;
   border-radius: var(--radius-full);
   animation: lucent-spin 0.7s linear infinite;
   flex: none;

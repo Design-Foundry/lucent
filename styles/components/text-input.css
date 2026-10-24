@@ -104,12 +104,13 @@
 .lucent-text-input input[readonly] { color: var(--color--semantic--text-subtle); }
 
 /* Override browser autofill highlight across the full padding box. */
-.lucent-text-input input:-webkit-autofill,
-.lucent-text-input input:-webkit-autofill:hover,
-.lucent-text-input input:-webkit-autofill:focus {
+.lucent-text-input input:is(:autofill, :-webkit-autofill) {
   -webkit-box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
+  box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
   -webkit-text-fill-color: var(--color--semantic--text-default);
-  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--color--semantic--text-default);
+  filter: none;
+  transition: background-color 0s 600000s, color 0s 600000s;
 }
 
 /* Error variant text color inside wrapper. */

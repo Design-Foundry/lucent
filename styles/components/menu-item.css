@@ -17,6 +17,7 @@
   gap: var(--dimension--primitive--spacing-2);
   height: var(--dimension--primitive--sizing-8);
   padding: 0 var(--dimension--primitive--spacing-3);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: background 0.1s ease;
 }

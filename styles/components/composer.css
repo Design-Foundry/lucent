@@ -53,6 +53,15 @@
 
 .lucent-composer__field::placeholder { color: var(--color--semantic--text-muted); }
 
+.lucent-composer__field:is(:autofill, :-webkit-autofill) {
+  -webkit-box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
+  box-shadow: 0 0 0 1000px var(--color--semantic--surface-default) inset;
+  -webkit-text-fill-color: var(--color--semantic--text-default);
+  caret-color: var(--color--semantic--text-default);
+  filter: none;
+  transition: background-color 0s 600000s, color 0s 600000s;
+}
+
 .lucent-composer__actions {
   display: flex;
   align-items: center;

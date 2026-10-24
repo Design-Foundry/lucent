@@ -15,7 +15,7 @@
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
   box-shadow: var(--shadow-md);
-  padding: var(--dimension--primitive--spacing-1) 0;
+  padding: var(--dimension--primitive--spacing-1);
   overflow: hidden;
   box-sizing: border-box;
 }

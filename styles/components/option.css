@@ -15,6 +15,7 @@
   align-items: center;
   height: var(--dimension--primitive--sizing-6);
   padding: var(--dimension--primitive--spacing-1) var(--dimension--primitive--spacing-2);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: background 0.1s ease;
 }

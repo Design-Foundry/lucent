@@ -44,12 +44,14 @@
 }
 
 .lucent-toast__close {
+  margin: calc(-1 * var(--dimension--primitive--spacing-1)) calc(-1 * var(--dimension--primitive--spacing-2)) calc(-1 * var(--dimension--primitive--spacing-1)) 0;
   cursor: pointer;
   color: var(--lucent-toast-color, var(--color--semantic--text-muted));
   flex-shrink: 0;
 }
 
 .lucent-toast__message {
+  margin: 0;
   font-family: var(--font--primitive--sans);
   font-size: var(--typography--caption--font-size);
   font-weight: var(--dimension--primitive--fw-light);
