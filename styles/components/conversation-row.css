@@ -18,6 +18,7 @@
   align-items: center;
   gap: var(--dimension--primitive--spacing-3);
   width: 100%;
+  box-sizing: border-box;
   padding: var(--dimension--primitive--spacing-2) var(--dimension--primitive--spacing-3);
   border: none;
   border-radius: var(--radius-sm);

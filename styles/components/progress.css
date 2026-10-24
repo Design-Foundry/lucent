@@ -12,6 +12,7 @@
 .lucent-progress {
   display: block;
   width: 100%;
+  box-sizing: border-box;
   height: var(--dimension--primitive--spacing-1-5);   /* 6 */
   border-radius: var(--radius-full);
   background: var(--color--semantic--border-default);  /* track */
@@ -43,6 +44,7 @@
 @media (prefers-reduced-motion: reduce) {
   .lucent-progress--indeterminate .lucent-progress__bar {
     width: 100%;
+    box-sizing: border-box;
     transform: none;
     animation: lucent-progress-pulse 1.6s ease-in-out infinite;
   }

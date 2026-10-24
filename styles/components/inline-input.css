@@ -19,6 +19,7 @@
 
 .lucent-inline-input__field {
   width: 100%;
+  box-sizing: border-box;
   min-width: 0;
   background: transparent;
   border: none;

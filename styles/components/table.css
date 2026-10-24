@@ -14,6 +14,7 @@
 
 .lucent-table {
   width: 100%;
+  box-sizing: border-box;
   border-collapse: collapse;
   font-family: var(--font--primitive--sans);
   font-size: var(--dimension--primitive--fs-sm);

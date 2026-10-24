@@ -39,6 +39,7 @@
   background: transparent;
   border: none;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .lucent-nav-item:hover:not(.is-disabled) {

@@ -51,6 +51,7 @@
 /* Text line — full width, a line's height. Consumers can set an inline width. */
 .lucent-skeleton--line {
   width: 100%;
+  box-sizing: border-box;
   height: var(--dimension--primitive--spacing-3);   /* 12 */
   border-radius: var(--radius-xs);
 }
@@ -65,6 +66,7 @@
 /* Media / card placeholder — a block. Consumers set the height inline. */
 .lucent-skeleton--block {
   width: 100%;
+  box-sizing: border-box;
   height: var(--dimension--primitive--sizing-20);    /* 80 */
   border-radius: var(--radius-md);
 }
