@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const manifests = ["styles/package.json", "packages/angular/package.json"];
+const manifests = ["styles/package.json", "packages/angular/package.json", "packages/react/package.json"];
 const lucentPackage = /^@designfoundry\/lucent-/;
 const dependencySections = ["dependencies", "peerDependencies", "devDependencies"];
 

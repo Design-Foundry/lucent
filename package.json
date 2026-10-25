@@ -8,6 +8,8 @@
     "lib:build": "ng build lucent && node scripts/api.mjs",
     "lib:watch": "ng build lucent --watch --configuration development",
     "lib:pack": "npm run lib:build && cd dist/lucent && npm pack",
+    "react:build": "vite build --config packages/react/vite.config.ts && tsc -p packages/react/tsconfig.json",
+    "react:watch": "vite build --watch --config packages/react/vite.config.ts",
     "showcase": "ng serve",
     "showcase:build": "ng build lucent-angular-showcase",
     "build": "npm run lib:build && npm run showcase:build",
@@ -29,7 +31,13 @@
     "@angular/build": "^22.0.6",
     "@angular/cli": "^22.0.6",
     "@angular/compiler-cli": "^22.0.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
     "ng-packagr": "^22.0.1",
-    "typescript": "~6.0.3"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "~6.0.3",
+    "vite": "^7.3.5"
   }
 }
