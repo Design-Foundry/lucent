@@ -10,6 +10,8 @@
     "lib:pack": "npm run lib:build && cd dist/lucent && npm pack",
     "react:build": "vite build --config packages/react/vite.config.ts && tsc -p packages/react/tsconfig.json",
     "react:watch": "vite build --watch --config packages/react/vite.config.ts",
+    "react:showcase": "npm --prefix samples/lucent-react-showcase run dev",
+    "react:showcase:build": "npm --prefix samples/lucent-react-showcase run build",
     "showcase": "ng serve",
     "showcase:build": "ng build lucent-angular-showcase",
     "build": "npm run lib:build && npm run showcase:build",
