@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../out-tsc/conformance-angular",
+    "types": []
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts", "../common.ts", "../../scenarios/**/*.ts"]
+}

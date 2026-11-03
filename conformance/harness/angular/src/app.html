@@ -1,0 +1,22 @@
+<main id="stage">
+	@switch (scenario.component) {
+		@case ('button') {
+			<lucent-button
+				[variant]="props()['variant'] ?? 'primary'"
+				[tone]="props()['tone'] === 'danger' ? 'danger' : 'neutral'"
+				[size]="props()['size'] ?? 'md'"
+				[loading]="!!props()['loading']"
+				[disabled]="!!props()['disabled']"
+				[type]="props()['type'] ?? 'button'"
+				(clicked)="emit('clicked')">
+				@if (icon('leading'); as name) {
+					<lucent-icon lucentPrefix [name]="name" />
+				}
+				{{ text('label') }}
+				@if (icon('trailing'); as name) {
+					<lucent-icon lucentSuffix [name]="name" />
+				}
+			</lucent-button>
+		}
+	}
+</main>

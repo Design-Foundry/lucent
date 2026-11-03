@@ -17,3 +17,7 @@ labs/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Conformance run output
+conformance/test-results/
+conformance/playwright-report/
