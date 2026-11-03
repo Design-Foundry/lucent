@@ -1,0 +1,33 @@
+const sides = ['top', 'right', 'bottom', 'left'];
+const corners = ['top-left', 'top-right', 'bottom-right', 'bottom-left'];
+
+export const PROPERTIES: string[] = [
+	'display',
+	'box-sizing',
+	'inline-size',
+	'block-size',
+	...sides.map((s) => `padding-${s}`),
+	...sides.map((s) => `margin-${s}`),
+	'row-gap',
+	'column-gap',
+	...sides.flatMap((s) => [`border-${s}-width`, `border-${s}-style`, `border-${s}-color`]),
+	...corners.map((c) => `border-${c}-radius`),
+	'background-color',
+	'color',
+	'font-family',
+	'font-size',
+	'font-weight',
+	'line-height',
+	'letter-spacing',
+	'text-align',
+	'opacity',
+	'box-shadow',
+	'outline-color',
+	'outline-style',
+	'outline-width',
+	'outline-offset',
+	'cursor',
+	'align-items',
+	'justify-content',
+	'flex-direction',
+];

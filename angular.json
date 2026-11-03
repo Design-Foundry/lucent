@@ -76,6 +76,34 @@
           "defaultConfiguration": "development"
         }
       }
+    },
+    "lucent-conformance-angular": {
+      "projectType": "application",
+      "root": "conformance/harness/angular",
+      "sourceRoot": "conformance/harness/angular/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "conformance/harness/angular/src/main.ts",
+            "index": "conformance/harness/angular/src/index.html",
+            "tsConfig": "conformance/harness/angular/tsconfig.json",
+            "polyfills": [],
+            "styles": ["styles/lucent.css"],
+            "optimization": false,
+            "extractLicenses": false,
+            "sourceMap": true
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "lucent-conformance-angular:build",
+            "port": 4402
+          }
+        }
+      }
     }
   }
 }
